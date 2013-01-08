@@ -1,0 +1,452 @@
+package gov.bnl.racf.exda;
+
+import java.sql.*;
+import java.util.Calendar;
+import java.io.*;
+
+import java.awt.Color;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
+
+import org.jfree.*;
+import org.jfree.chart.*;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYDataset; 
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
+import org.jfree.data.xy.DefaultTableXYDataset;
+
+
+public class LatencyNode
+{  
+
+    private String moduleName="LatencyNode";
+
+    private String latencyMetricName="net.perfsonar.service.ma.latency";
+
+    private String source="";
+    private String destination="";
+    private String monitor="";
+
+
+    
+    private Timestamp state_time = null;
+    public ProbeStatus status=null;
+    private double latency_min=0.0;
+    private double latency_max=0.0;
+    private double latency_avg=0.0;
+    private double sigma=0.0;
+    private int count=0;
+
+    private String metricName=null;
+    private String metricType=null;
+    private ProbeStatus metricStatus = null; 
+    private Timestamp timestamp = null;
+    private String serviceType = null;
+    private String serviceUri=null;
+    private String gatheredAt=null;
+    private String summaryData=null;
+    private String detailsData = null;
+    private String performanceData=null;
+    private String voName=null;
+    private int    samUploadFlag=0;
+    private String hostName=null;
+    private String hostNameDescription=null;
+    private String hostName2=null;
+    private String hostName2Description=null;    
+    private String hostName3=null;
+    private String hostName3Description=null;
+    private double performanceData1=0.;
+    private double performanceData2=0.;
+    private double performanceData3=0.;
+    private double performanceData4=0.;
+    private double performanceData5=0.;
+    private String performanceDataName1="";
+    private String performanceDataName2="";
+    private String performanceDataName3="";
+    private String performanceDataName4="";
+    private String performanceDataName5="";
+    private String performanceDataDescription1="";
+    private String performanceDataDescription2="";
+    private String performanceDataDescription3="";
+    private String performanceDataDescription4="";
+    private String performanceDataDescription5="";
+    private String probeCommand="";
+    private String probeId="";
+    private String serviceDescription="";
+
+    private String linkToNodeDetailPage=null;
+
+    private ParameterBag parameterBag = null;
+
+    private DbConnector db=null;
+
+    private String initialisationSqlQuery="";
+    private PreparedStatement initialisationSql=null;
+    private PreparedStatement getHistoryPreparedSql=null;
+
+    String imageFileName="temporary_file_delete_it.jpg";
+    private int imageXsize=500;
+    private int imageYsize=300;
+
+    File imageFile=null;
+
+    List<LatencyNodeHistoryRecord> history=new ArrayList<LatencyNodeHistoryRecord>();
+
+    private boolean emptyNode=false;
+
+    public LatencyNode(){
+	// create empty node
+	emptyNode=true;
+	metricStatus=new ProbeStatus("UNDEFINED");
+    }
+
+
+    public LatencyNode(ParameterBag paramBag,  DbConnector inputDb,String inputSource, String inputDestination, String inputMonitor )
+	{
+	    parameterBag=paramBag;
+	    db=inputDb;
+
+	    source=inputSource;
+	    destination=inputDestination;
+	    monitor=inputMonitor;
+
+	    /// create link to node detail page
+	    ParameterBag paramBagLocal=(ParameterBag)paramBag.clone();
+	    paramBagLocal.addParam("page",ParameterBag.pageAddress("Latency Node")  );
+	    paramBagLocal.addParam("src",source);
+	    paramBagLocal.addParam("dst",destination);
+	    paramBagLocal.addParam("mon",monitor);
+	    linkToNodeDetailPage=paramBagLocal.makeLink();
+	    	   
+	    //=========== get information =======
+
+	    initialisationSqlQuery="select  * from MetricRecordSummary where HostName=? and HostName2=? and HostName3=? and MetricName=? order by Timestamp DESC limit 1";
+	    try{
+		initialisationSql= db.getConn().prepareStatement(initialisationSqlQuery);
+		initialisationSql.setString(1,monitor);
+		initialisationSql.setString(2,source);
+		initialisationSql.setString(3,destination);
+		initialisationSql.setString(4,latencyMetricName);		
+
+		ResultSet rs=initialisationSql.executeQuery();
+	    	   
+		while (rs.next ())
+		    {
+			metricName=rs.getString("MetricName");
+			metricType=rs.getString("MetricType");
+			metricStatus=new ProbeStatus(rs.getString("MetricStatus"));
+			timestamp=rs.getTimestamp("Timestamp");
+			serviceType=rs.getString("ServiceType");
+			serviceUri =rs.getString("ServiceUri");
+			gatheredAt =rs.getString("GatheredAt");
+			summaryData=rs.getString("SummaryData");
+			detailsData=rs.getString("DetailsData");
+			performanceData=rs.getString("PerformanceData");
+			voName=rs.getString("VoName");
+			samUploadFlag=rs.getInt("VoName");
+			hostName=rs.getString("HostName");
+			hostNameDescription=rs.getString("HostNameDescription");
+			hostName2=rs.getString("HostName2");
+			hostName2Description=rs.getString("HostName2Description");
+			hostName3=rs.getString("HostName3");
+			hostName3Description=rs.getString("HostName3Description");
+			performanceData1=rs.getDouble("PerformanceData1");
+			performanceData2=rs.getDouble("PerformanceData2");
+			performanceData3=rs.getDouble("PerformanceData3");
+			performanceData4=rs.getDouble("PerformanceData4");
+			performanceData5=rs.getDouble("PerformanceData5");
+			performanceDataName1=rs.getString("PerformanceDataName1");
+			performanceDataName2=rs.getString("PerformanceDataName2");
+			performanceDataName3=rs.getString("PerformanceDataName3");
+			performanceDataName4=rs.getString("PerformanceDataName4");
+			performanceDataName5=rs.getString("PerformanceDataName5");
+			performanceDataDescription1=rs.getString("PerformanceDataDescription1");
+			performanceDataDescription2=rs.getString("PerformanceDataDescription2");
+			performanceDataDescription3=rs.getString("PerformanceDataDescription3");
+			performanceDataDescription4=rs.getString("PerformanceDataDescription4");
+			performanceDataDescription5=rs.getString("PerformanceDataDescription5");
+			probeCommand=rs.getString("ProbeCommand");
+			probeId=rs.getString("ProbeId");
+			serviceDescription=rs.getString("ServiceDescription");
+
+			latency_min=performanceData1;
+			latency_max=performanceData3;
+			latency_avg=performanceData2;
+			sigma = performanceData4;
+
+		    }
+	    }catch (Exception e){
+		System.out.println(moduleName+" error occured when reading database");
+		System.out.println(initialisationSqlQuery);
+		System.out.println(metricName) ;   
+		System.out.println(e);
+	    }
+	}
+
+
+    public HtmlTableCell veryShortStatusCell(){
+	// return very short status table containing only status word and color
+	// to be used in throughput matrix	
+
+	HtmlTableCell cell=null;
+	if (emptyNode){
+	    cell=new HtmlTableCell("---",metricStatus.color());
+	}else{
+	    HtmlLink link=new HtmlLink(linkToNodeDetailPage,metricStatus.statusWordShort());
+	    cell=new HtmlTableCell(link,metricStatus.color());
+	}
+	return cell;
+	
+    }
+    public HtmlTable veryShortHtmlTable(){
+	HtmlTable ht=new HtmlTable(1);
+	ht.addCell(veryShortStatusCell());
+	return ht;
+	
+    }
+
+    public HtmlTableCell shortStatusCell(){
+	// return very short status table containing only status word and color
+	// to be used in throughput matrix
+
+	HtmlTableCell cell=null;
+	if (emptyNode){
+	    cell=new HtmlTableCell("---",metricStatus.color());
+	}else{
+
+	    HtmlLink link=new HtmlLink(linkToNodeDetailPage,metricName );
+	    cell=new HtmlTableCell(link,metricStatus.color());
+	}
+	return cell;
+	
+    }
+    public HtmlTable shortHtmlTable(){
+	HtmlTable ht=new HtmlTable(1);
+	ht.addCell(shortStatusCell());
+	return ht;
+	
+    }
+
+    public HtmlTable fullHtmlTable(){
+	String result="";
+	result="<strong>ProbeId: </strong>"+probeId +"<br>";
+	result=result+"<strong>Monitor: </strong>"+monitor+"<br>";
+	result=result+"<strong>Source: </strong>"+source+"<br>";
+	result=result+"<strong>Destination: </strong>"+destination+"<br>";
+	result=result+"<strong>Timestamp: </strong>"+timestamp+"<br>";
+	result=result+"<strong>Latency Min=</strong>"+latency_min+"<br>";
+	result=result+"<strong>Latency Max=</strong>"+latency_max+"<br>";
+	result=result+"<strong>Latency Avg=</strong>"+latency_avg+"<br>";
+	result=result+"<strong>Sigma=</strong>"+sigma+"<br>";
+	result=result+"<strong>ServiceType: </strong>"+serviceType+"<br>";
+	result=result+"<strong>ServiceUri: </strong>"+serviceUri+"<br>";
+
+	result=result+"<strong>gatheredAt: </strong>"+gatheredAt+"<br>";
+	result=result+"<strong>ProbeCommand: </strong>"+probeCommand+"<br>";
+	result=result+"<strong>SummaryData: </strong>"+summaryData+"<br>";
+	result=result+"<strong>DetailsData: </strong>"+detailsData+"<br>";
+
+	// build the address to plot page
+	
+	ParameterBag temporaryParameterBag = (ParameterBag)parameterBag.clone();
+	temporaryParameterBag.page=ParameterBag.pageAddress("Latency Node History Plot");
+	String urlOfPlotPage=temporaryParameterBag.makeLink();
+	HtmlLink linkToPlotPage=new HtmlLink(urlOfPlotPage,"Link to history plot");
+	result=result+linkToPlotPage.toHtml()+"<br>";
+	
+
+	
+	// build the address to history table page
+	ParameterBag temporaryParameterBag2 = (ParameterBag)parameterBag.clone();
+	temporaryParameterBag2.page=ParameterBag.pageAddress("Latency Node History Table");
+	String urlOfHistoryTablePage=temporaryParameterBag2.makeLink();
+	HtmlLink linkToHistoryTablePage=new HtmlLink(urlOfHistoryTablePage,"Link to history table");
+	result=result+linkToHistoryTablePage.toHtml()+"<br>";
+
+
+	result=result+"query: "+initialisationSqlQuery;
+       
+	
+	HtmlTableCell hc =new HtmlTableCell(result,metricStatus.color());
+	hc.alignLeft();
+	HtmlTable ht=new HtmlTable(1);
+	ht.addCell(hc);
+
+	return ht;	    	    		
+    }
+
+    
+   
+    public void getHistory(){
+
+	String getHistorySql="select * from MetricRecord where HostName=? and HostName2=? and HostName3=?  and MetricName=? ";
+
+	IntervalSelector iS = new IntervalSelector(parameterBag);
+	iS.setTimeVariable("Timestamp");
+	iS.setTimeZoneShift(0);
+	getHistorySql=getHistorySql+" "+iS.buildQuery(parameterBag.interval);
+
+	history.clear();
+
+	try{
+	    
+	    getHistoryPreparedSql= db.getConn().prepareStatement(getHistorySql);
+	    getHistoryPreparedSql.setString(1,hostName);
+	    getHistoryPreparedSql.setString(2,hostName2);
+	    getHistoryPreparedSql.setString(3,hostName3);
+	    getHistoryPreparedSql.setString(4,latencyMetricName);	
+
+	    ResultSet rs=getHistoryPreparedSql.executeQuery(); 
+
+	    int count = 0;
+	    while (rs.next ()){
+		LatencyNodeHistoryRecord historyRecord = new LatencyNodeHistoryRecord();
+		historyRecord.metricStatus = new ProbeStatus(rs.getString("MetricStatus"));
+		historyRecord.timestamp    = rs.getTimestamp("Timestamp");
+		historyRecord.serviceType  = rs.getString("ServiceType");
+		historyRecord.serviceUri   = rs.getString("ServiceUri");
+		historyRecord.gatheredAt   = rs.getString("GatheredAt");
+		historyRecord.summaryData  = rs.getString("SummaryData");
+		historyRecord.detailsData  = rs.getString("DetailsData");
+		
+		StringBuffer detailsStringBuffer=new StringBuffer(historyRecord.detailsData);
+		historyRecord.latency_min = (double)rs.getDouble("PerformanceData3");
+		historyRecord.latency_max = (double)rs.getDouble("PerformanceData1");
+		historyRecord.latency_avg = (double)rs.getDouble("PerformanceData2");
+		historyRecord.sigma          = (double)rs.getDouble("PerformanceData4");
+
+		history.add(historyRecord);
+
+		count=count+1;
+	    }
+	    //numberOfHistoryRecords=count;
+
+	}catch (Exception e){
+	    System.out.println(moduleName+" failed to execute history query "+getHistorySql);
+	    System.out.println(moduleName+" "+e);
+	    System.out.flush();
+	}
+	
+    }
+
+    public String makeHistoryImage(String plotDirectory){
+	String plotFileName="temp_picture.jpg";
+
+	// make history plot
+	//DefaultTableXYDataset dataset = new DefaultTableXYDataset(); 
+	XYSeriesCollection dataset = new XYSeriesCollection();
+
+	ValueAxis timeAxis = new DateAxis("Date and Time"); 
+	NumberAxis valueAxis = new NumberAxis("Latency"); 
+	valueAxis.setAutoRangeIncludesZero(false); 
+	StandardXYItemRenderer renderer = new StandardXYItemRenderer( StandardXYItemRenderer.LINES); 
+	
+	XYSeries latency_max_series=new XYSeries("latency max",false);
+	XYSeries latency_avg_series=new XYSeries("latency avg",false);
+	XYSeries latency_min_series=new XYSeries("latency min",false);
+
+	Iterator iter = history.iterator();
+	while (iter.hasNext()){
+	    LatencyNodeHistoryRecord historyRecord = (LatencyNodeHistoryRecord)iter.next();
+	    long xTime=historyRecord.timestamp.getTime();
+	    double yAvg=historyRecord.latency_avg;
+	    double yMax=historyRecord.latency_max;
+	    double yMin=historyRecord.latency_min;
+	    
+	    latency_max_series.add(xTime,yMax);
+	    latency_avg_series.add(xTime,yAvg);
+	    latency_min_series.add(xTime,yMin);
+	}
+	dataset.addSeries(latency_max_series); 
+	dataset.addSeries(latency_avg_series); 
+	dataset.addSeries(latency_min_series); 
+	
+	//renderer.setSeriesPaint(0,new Color(255, 255, 180)); 
+	//renderer.setSeriesPaint(1,new Color(206, 230, 255)); 
+	//renderer.setSeriesPaint(2,new Color(255, 230, 230)); 
+
+	renderer.setSeriesPaint(0,Color.BLUE); 
+	renderer.setSeriesPaint(1,Color.RED); 
+	renderer.setSeriesPaint(2,Color.BLACK); 	
+	
+	XYPlot plot = new XYPlot(dataset, timeAxis, valueAxis, renderer); 
+
+	JFreeChart chart = new JFreeChart("Latency: src="+source+"; dst="+destination+"; mon="+monitor,plot);
+
+	try{
+	    imageFile = new File (plotDirectory+plotFileName);
+	    ChartUtilities.saveChartAsJPEG(imageFile,chart,imageXsize,imageYsize);
+	}catch(Exception e){
+	    System.out.println(moduleName+" failed to write output file to "+plotFileName);
+	    System.out.println(e);
+	}
+	return plotFileName;
+
+    }
+    
+    public String makeHistoryPlotPage(String plotDirectory){
+	String result="";
+
+	getHistory();
+
+	String plotFileName=makeHistoryImage(plotDirectory);
+
+	IntervalSelector iS=new IntervalSelector(parameterBag);
+
+	result=result+iS.toHtml()+"<br>";
+
+	//result=result+"<img style=\"width: XSIZEpx; height: YSIZEpx;\" alt=\"alternate text\" src=\""+ plotFileName +"\">";
+	result=result+"<img style=\"width: XSIZEpx; height: YSIZEpx;\" alt=\"alternate text\" src=\""+ "ImageMaker" +"\">";
+	result=result.replace("XSIZE",Integer.toString(imageXsize));
+	result=result.replace("YSIZE",Integer.toString(imageYsize));
+	result=result+"<br>";
+	return result;	
+    }
+    
+
+    public String getHistoryTablePage(){
+	String result="";
+
+	IntervalSelector iS=new IntervalSelector(parameterBag);
+
+	result=result+iS.toHtml()+"<br>";
+
+	HtmlTable historyTable=getHistoryTable();
+	result=result+historyTable.toHtml();
+	return result;
+    }
+    
+
+    public HtmlTable getHistoryTable(){
+	
+	getHistory();
+	
+	HtmlTable ht=new HtmlTable(3);
+	ht.setBorder(0);
+	ht.setPadding(0);
+
+	Iterator iter = history.iterator();
+	while (iter.hasNext()){
+	    LatencyNodeHistoryRecord currentRecord = (LatencyNodeHistoryRecord)iter.next();
+	    ht.addCell(new HtmlTableCell(currentRecord.timestamp.toString()));
+	    ht.addCell(new HtmlTableCell(currentRecord.metricStatus.statusWord(),currentRecord.metricStatus.color()));
+	    HtmlTableCell detailsCell=new HtmlTableCell(currentRecord.summaryData);
+	    detailsCell.alignLeft();
+	    ht.addCell(detailsCell);
+	}
+
+	return ht;
+    }
+    
+
+}

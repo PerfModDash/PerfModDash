@@ -1,0 +1,19 @@
+#Mon Mar 21 11:00:27 EDT 2011
+userName6=exda
+userName5=exda
+userName4=nagios
+userName3=gratia-reader
+userName2=nagios
+userName1=nagios
+userPwd6=exda-pwd
+userPwd5=exda-pwd
+userPwd4=nagi0s
+userPwd3=reader
+userPwd2=nagi0s
+userPwd1=nagi0s
+url6=jdbc\:mysql\://griddev03.usatlas.bnl.gov\:49152/exda?autoReconnect=true
+url5=jdbc\:mysql\://grid21.racf.bnl.gov\:23306/exda?autoReconnect=true
+url4=jdbc\:mysql\://rnagios01.usatlas.bnl.gov\:3306/exda?autoReconnect=true
+url3=jdbc\:mysql\://griddev03.usatlas.bnl.gov\:49152/gratia?autoReconnect=true
+url2=jdbc\:mysql\://localhost\:3306/perfSONAR
+url1=jdbc\:mysql\://rnagios01.usatlas.bnl.gov\:3306/perfSONAR
