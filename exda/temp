@@ -1,0 +1,1000 @@
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_lhcmon.bnl.gov_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  perfsonar-ps.twgrid.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.twgrid.org_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.twgrid.org_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_ccperfsonar-lhcopn.in2p3.fr_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.cern.ch_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.cern.ch_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.cnaf.infn.it_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-de-kit.gridka.de_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-de-kit.gridka.de_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  perfsonar-ps.ndgf.org 
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  perfsonar-ps.pic.es 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.pic.es_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.pic.es_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_ps.lhcopn-ps.sara.nl_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_ps.lhcopn-ps.sara.nl_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_lhcmon.bnl.gov_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_lhcmon.bnl.gov_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  perfsonar-ps.twgrid.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.twgrid.org_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.twgrid.org_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_ccperfsonar-lhcopn.in2p3.fr_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.cern.ch_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.cern.ch_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.cnaf.infn.it_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-de-kit.gridka.de_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-de-kit.gridka.de_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  perfsonar-ps.ndgf.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.ndgf.org_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.ndgf.org_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  perfsonar-ps.pic.es 
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_ps.lhcopn-ps.sara.nl_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_ps.lhcopn-ps.sara.nl_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_lhcmon.bnl.gov_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_lhcmon.bnl.gov_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl perfsonar-ps.twgrid.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.twgrid.org_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.twgrid.org_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_ccperfsonar-lhcopn.in2p3.fr_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_ccperfsonar-lhcopn.in2p3.fr_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.cern.ch_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.cern.ch_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.cnaf.infn.it_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-de-kit.gridka.de_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-de-kit.gridka.de_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl perfsonar-ps.ndgf.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.ndgf.org_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.ndgf.org_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl perfsonar-ps.pic.es 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.pic.es_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.pic.es_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix we are in ServiceMatrix point A, serviceGroup=TIER1 cloud throughput measurement
+gov.bnl.racf.exda.ServiceMatrix we add source host ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrix we add source host lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrix we add source host perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrix we add source host perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrix we add source host perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrix we add source host perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrix we add source host perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrix we add source host perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrix we add source host ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrix we are in ServiceMatrix point B, serviceGroup=TIER1 cloud throughput measurement
+gov.bnl.racf.exda.ServiceMatrix we add destination host ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrix we add destination host lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrix we add destination host perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrix we add destination host perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrix we add destination host perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrix we add destination host perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrix we add destination host perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrix we add destination host perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrix we add destination host ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrix we will create ServiceMatrix
+gov.bnl.racf.exda.ServiceMatrix source, destination=lhcmon.bnl.gov lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=lhcmon.bnl.gov perfsonar-ps.twgrid.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_perfsonar-ps.twgrid.org_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_perfsonar-ps.twgrid.org_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=lhcmon.bnl.gov ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_ccperfsonar-lhcopn.in2p3.fr_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_ccperfsonar-lhcopn.in2p3.fr_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=lhcmon.bnl.gov perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_perfsonar-ps.cern.ch_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_perfsonar-ps.cern.ch_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=lhcmon.bnl.gov perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_perfsonar-ps.cnaf.infn.it_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=lhcmon.bnl.gov perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_perfsonar-de-kit.gridka.de_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_perfsonar-de-kit.gridka.de_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=lhcmon.bnl.gov perfsonar-ps.ndgf.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_perfsonar-ps.ndgf.org_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_perfsonar-ps.ndgf.org_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=lhcmon.bnl.gov perfsonar-ps.pic.es 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_perfsonar-ps.pic.es_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_perfsonar-ps.pic.es_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=lhcmon.bnl.gov ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_ps.lhcopn-ps.sara.nl_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_lhcmon.bnl.gov_ps.lhcopn-ps.sara.nl_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.twgrid.org  lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_lhcmon.bnl.gov_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_lhcmon.bnl.gov_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.twgrid.org  perfsonar-ps.twgrid.org 
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.twgrid.org  ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_ccperfsonar-lhcopn.in2p3.fr_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.twgrid.org  perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_perfsonar-ps.cern.ch_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_perfsonar-ps.cern.ch_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.twgrid.org  perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_perfsonar-ps.cnaf.infn.it_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.twgrid.org  perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_perfsonar-de-kit.gridka.de_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_perfsonar-de-kit.gridka.de_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.twgrid.org  perfsonar-ps.ndgf.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_perfsonar-ps.ndgf.org_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_perfsonar-ps.ndgf.org_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.twgrid.org  perfsonar-ps.pic.es 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_perfsonar-ps.pic.es_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_perfsonar-ps.pic.es_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.twgrid.org  ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_ps.lhcopn-ps.sara.nl_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.twgrid.org_ps.lhcopn-ps.sara.nl_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ccperfsonar-lhcopn.in2p3.fr lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_lhcmon.bnl.gov_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_lhcmon.bnl.gov_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ccperfsonar-lhcopn.in2p3.fr perfsonar-ps.twgrid.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.twgrid.org_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.twgrid.org_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ccperfsonar-lhcopn.in2p3.fr ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ccperfsonar-lhcopn.in2p3.fr perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.cern.ch_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.cern.ch_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ccperfsonar-lhcopn.in2p3.fr perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.cnaf.infn.it_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ccperfsonar-lhcopn.in2p3.fr perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_perfsonar-de-kit.gridka.de_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_perfsonar-de-kit.gridka.de_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ccperfsonar-lhcopn.in2p3.fr perfsonar-ps.ndgf.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.ndgf.org_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.ndgf.org_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ccperfsonar-lhcopn.in2p3.fr perfsonar-ps.pic.es 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.pic.es_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.pic.es_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ccperfsonar-lhcopn.in2p3.fr ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_ps.lhcopn-ps.sara.nl_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ccperfsonar-lhcopn.in2p3.fr_ps.lhcopn-ps.sara.nl_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cern.ch lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_lhcmon.bnl.gov_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_lhcmon.bnl.gov_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cern.ch perfsonar-ps.twgrid.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_perfsonar-ps.twgrid.org_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_perfsonar-ps.twgrid.org_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cern.ch ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_ccperfsonar-lhcopn.in2p3.fr_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cern.ch perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cern.ch perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cern.ch perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_perfsonar-de-kit.gridka.de_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_perfsonar-de-kit.gridka.de_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cern.ch perfsonar-ps.ndgf.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_perfsonar-ps.ndgf.org_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_perfsonar-ps.ndgf.org_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cern.ch perfsonar-ps.pic.es 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_perfsonar-ps.pic.es_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_perfsonar-ps.pic.es_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cern.ch ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_ps.lhcopn-ps.sara.nl_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cern.ch_ps.lhcopn-ps.sara.nl_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cnaf.infn.it lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_lhcmon.bnl.gov_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_lhcmon.bnl.gov_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cnaf.infn.it perfsonar-ps.twgrid.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_perfsonar-ps.twgrid.org_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_perfsonar-ps.twgrid.org_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cnaf.infn.it ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_ccperfsonar-lhcopn.in2p3.fr_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cnaf.infn.it perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cern.ch_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cern.ch_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cnaf.infn.it perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cnaf.infn.it perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_perfsonar-de-kit.gridka.de_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_perfsonar-de-kit.gridka.de_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cnaf.infn.it perfsonar-ps.ndgf.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_perfsonar-ps.ndgf.org_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_perfsonar-ps.ndgf.org_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cnaf.infn.it perfsonar-ps.pic.es 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_perfsonar-ps.pic.es_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_perfsonar-ps.pic.es_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.cnaf.infn.it ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_ps.lhcopn-ps.sara.nl_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.cnaf.infn.it_ps.lhcopn-ps.sara.nl_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-de-kit.gridka.de lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_lhcmon.bnl.gov_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_lhcmon.bnl.gov_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-de-kit.gridka.de perfsonar-ps.twgrid.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_perfsonar-ps.twgrid.org_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_perfsonar-ps.twgrid.org_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-de-kit.gridka.de ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_ccperfsonar-lhcopn.in2p3.fr_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_ccperfsonar-lhcopn.in2p3.fr_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-de-kit.gridka.de perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_perfsonar-ps.cern.ch_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_perfsonar-ps.cern.ch_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-de-kit.gridka.de perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_perfsonar-ps.cnaf.infn.it_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-de-kit.gridka.de perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-de-kit.gridka.de perfsonar-ps.ndgf.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_perfsonar-ps.ndgf.org_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_perfsonar-ps.ndgf.org_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-de-kit.gridka.de perfsonar-ps.pic.es 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_perfsonar-ps.pic.es_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_perfsonar-ps.pic.es_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-de-kit.gridka.de ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_ps.lhcopn-ps.sara.nl_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-de-kit.gridka.de_ps.lhcopn-ps.sara.nl_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_lhcmon.bnl.gov_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_lhcmon.bnl.gov_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  perfsonar-ps.twgrid.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.twgrid.org_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.twgrid.org_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_ccperfsonar-lhcopn.in2p3.fr_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.cern.ch_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.cern.ch_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.cnaf.infn.it_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-de-kit.gridka.de_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-de-kit.gridka.de_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  perfsonar-ps.ndgf.org 
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  perfsonar-ps.pic.es 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.pic.es_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_perfsonar-ps.pic.es_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.ndgf.org  ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_ps.lhcopn-ps.sara.nl_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.ndgf.org_ps.lhcopn-ps.sara.nl_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_lhcmon.bnl.gov_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_lhcmon.bnl.gov_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  perfsonar-ps.twgrid.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.twgrid.org_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.twgrid.org_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_ccperfsonar-lhcopn.in2p3.fr_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_ccperfsonar-lhcopn.in2p3.fr_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.cern.ch_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.cern.ch_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.cnaf.infn.it_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-de-kit.gridka.de_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-de-kit.gridka.de_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  perfsonar-ps.ndgf.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.ndgf.org_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_perfsonar-ps.ndgf.org_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  perfsonar-ps.pic.es 
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=perfsonar-ps.pic.es  ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_ps.lhcopn-ps.sara.nl_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_perfsonar-ps.pic.es_ps.lhcopn-ps.sara.nl_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_lhcmon.bnl.gov_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_lhcmon.bnl.gov_lhcmon.bnl.gov
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl perfsonar-ps.twgrid.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.twgrid.org_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.twgrid.org_perfsonar-ps.twgrid.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_ccperfsonar-lhcopn.in2p3.fr_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_ccperfsonar-lhcopn.in2p3.fr_ccperfsonar-lhcopn.in2p3.fr
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.cern.ch_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.cern.ch_perfsonar-ps.cern.ch
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.cnaf.infn.it_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.cnaf.infn.it_perfsonar-ps.cnaf.infn.it
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-de-kit.gridka.de_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-de-kit.gridka.de_perfsonar-de-kit.gridka.de
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl perfsonar-ps.ndgf.org 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.ndgf.org_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.ndgf.org_perfsonar-ps.ndgf.org
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl perfsonar-ps.pic.es 
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.pic.es_ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrixElement error occured when unpacking result set
+gov.bnl.racf.exda.ServiceMatrixElement probeId=throughput_ps.lhcopn-ps.sara.nl_perfsonar-ps.pic.es_perfsonar-ps.pic.es
+gov.bnl.racf.exda.ServiceMatrixElement SELECT NextCheckTime,LastCheckTime,CheckInterval,Active FROM Services WHERE probeId=?
+gov.bnl.racf.exda.ServiceMatrixElement java.lang.NullPointerException
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
+gov.bnl.racf.exda.ServiceMatrix source, destination=ps.lhcopn-ps.sara.nl ps.lhcopn-ps.sara.nl
+gov.bnl.racf.exda.ServiceMatrix we have created ServiceMatrixElementPair
