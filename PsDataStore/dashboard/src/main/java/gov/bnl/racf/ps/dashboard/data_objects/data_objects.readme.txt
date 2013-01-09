@@ -1,0 +1,1 @@
+This package contains classes which describe objects used by the data store.

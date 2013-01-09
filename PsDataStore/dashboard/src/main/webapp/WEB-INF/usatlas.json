@@ -1,0 +1,685 @@
+{
+   "administrators" : [
+      {
+         "email" : "smckee@umich.edu",
+         "name" : "Shawn McKee"
+      },
+      {
+         "email" : "zurawski@internet2.edu",
+         "name" : "Jason Zurawski"
+      }
+   ],
+   "organizations" : [
+      {
+         "administrators" : [
+            {
+               "email" : "smckee@umich.edu",
+               "name" : "Shawn McKee"
+            },
+            {
+               "email" : "laurens@pa.msu.edu",
+               "name" : "Philippe Laurens"
+            }
+         ],
+         "sites" : [
+            {
+               "hosts" : [
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://psum01.aglt2.org:8086/perfSONAR_PS/services/traceroute_ma",
+                           "write_url" : "http://psum01.aglt2.org:8086/perfSONAR_PS/services/tracerouteCollector",
+                           "type" : "traceroute"
+                        },
+                        {
+                           "read_url" : "http://psum01.aglt2.org:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "psum01.aglt2.org:8569",
+                           "type" : "perfsonarbuoy/owamp"
+                        }
+                     ],
+                     "addresses" : [
+                        "psum01.aglt2.org"
+                     ],
+                     "description" : "AGLT2_UM Latency Host in Ann Arbor, MI, USA"
+                  },
+                  {
+                     "administrators" : [
+                        {
+                           "email" : "ball@umich.edu",
+                           "name" : "Bob Ball"
+                        }
+                     ],
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://psum02.aglt2.org:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "psum02.aglt2.org:8570",
+                           "type" : "perfsonarbuoy/bwctl"
+                        }
+                     ],
+                     "addresses" : [
+                        "psum02.aglt2.org"
+                     ],
+                     "description" : "AGLT2_UM Bandwidth Host in Ann Arbor, MI, USA"
+                  }
+               ],
+               "administrators" : [
+                  {
+                     "email" : "bmeekhof@umich.edu",
+                     "name" : "Ben Meekhof"
+                  }
+               ],
+               "location" : {
+                  "longitude" : "-83.74121",
+                  "city" : "Ann  Arbor",
+                  "latitude" : "42.276527",
+                  "state" : "MI"
+               },
+               "description" : "AGLT2_UM"
+            },
+            {
+               "hosts" : [
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://psmsu01.aglt2.org:8086/perfSONAR_PS/services/traceroute_ma",
+                           "write_url" : "http://psmsu01.aglt2.org:8086/perfSONAR_PS/services/tracerouteCollector",
+                           "type" : "traceroute"
+                        },
+                        {
+                           "read_url" : "http://psmsu01.aglt2.org:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "psmsu01.aglt2.org:8569",
+                           "type" : "perfsonarbuoy/owamp"
+                        }
+                     ],
+                     "addresses" : [
+                        "psmsu01.aglt2.org"
+                     ],
+                     "description" : "AGLT2_MSU Latency Host in East Lansing, MI, USA"
+                  },
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://psmsu02.aglt2.org:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "psmsu02.aglt2.org:8570",
+                           "type" : "perfsonarbuoy/bwctl"
+                        }
+                     ],
+                     "addresses" : [
+                        "psmsu02.aglt2.org"
+                     ],
+                     "description" : "AGLT2_MSU Bandwidth Host in East Lansing, MI, USA"
+                  }
+               ],
+               "administrators" : [
+                  {
+                     "email" : "laurens@pa.msu.edu",
+                     "name" : "Philippe Laurens"
+                  }
+               ],
+               "location" : {
+                  "longitude" : "-84.4759",
+                  "city" : "East Lansing",
+                  "latitude" : "42.7240",
+                  "state" : "MI"
+               },
+               "description" : "AGLT2_MSU"
+            }
+         ],
+         "description" : "AGLT2"
+      },
+      {
+         "administrators" : [
+            {
+               "email" : "big@bnl.gov",
+               "name" : "John Bigrow"
+            },
+            {
+               "email" : "hito@bnl.gov",
+               "name" : "Hiro Ito"
+            }
+         ],
+         "sites" : [
+            {
+               "hosts" : [
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://lhcperfmon.bnl.gov:8086/perfSONAR_PS/services/traceroute_ma",
+                           "write_url" : "http://lhcperfmon.bnl.gov:8086/perfSONAR_PS/services/tracerouteCollector",
+                           "type" : "traceroute"
+                        },
+                        {
+                           "read_url" : "http://lhcperfmon.bnl.gov:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "lhcperfmon.bnl.gov:8569",
+                           "type" : "perfsonarbuoy/owamp"
+                        }
+                     ],
+                     "addresses" : [
+                        "lhcperfmon.bnl.gov"
+                     ],
+                     "description" : "BNL ATLAS Latency Host in Upton, NY, USA"
+                  },
+                  {
+                     "administrators" : [
+                        {
+                           "email" : "big@bnl.gov",
+                           "name" : "John Bigrow"
+                        }
+                     ],
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://lhcmon.bnl.gov:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "lhcmon.bnl.gov:8570",
+                           "type" : "perfsonarbuoy/bwctl"
+                        }
+                     ],
+                     "addresses" : [
+                        "lhcmon.bnl.gov"
+                     ],
+                     "description" : "BNL ATLAS Bandwidth Host in Upton, NY, USA"
+                  }
+               ],
+               "administrators" : [
+                  {
+                     "email" : "zurawski@internet2.edu",
+                     "name" : "Jason Zurawksi"
+                  }
+               ],
+               "location" : {
+                  "longitude" : "-72.878408",
+                  "city" : "Upton",
+                  "latitude" : "40.868386",
+                  "state" : "NY"
+               },
+               "description" : "BNL_ATLAS"
+            }
+         ],
+         "description" : "BNL"
+      },
+      {
+         "administrators" : [
+            {
+               "email" : "rwg@hep.uchicago.edu",
+               "name" : "Rob Gardner"
+            },
+            {
+               "email" : "saewill@iupui.edu",
+               "name" : "Sarah Williams"
+            }
+         ],
+         "sites" : [
+            {
+               "hosts" : [
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://iut2-net1.iu.edu:8086/perfSONAR_PS/services/traceroute_ma",
+                           "write_url" : "http://iut2-net1.iu.edu:8086/perfSONAR_PS/services/tracerouteCollector",
+                           "type" : "traceroute"
+                        },
+                        {
+                           "read_url" : "http://iut2-net1.iu.edu:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "iut2-net1.iu.edu:8569",
+                           "type" : "perfsonarbuoy/owamp"
+                        }
+                     ],
+                     "addresses" : [
+                        "iut2-net1.iu.edu"
+                     ],
+                     "description" : "MWT2_IU Latency Host in Indianapolis,  IN, USA"
+                  },
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://iut2-net2.iu.edu:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "iut2-net2.iu.edu:8570",
+                           "type" : "perfsonarbuoy/bwctl"
+                        }
+                     ],
+                     "addresses" : [
+                        "iut2-net2.iu.edu"
+                     ],
+                     "description" : "MWT2_IU Bandwidth Host in Indianapolis, IN, USA"
+                  }
+               ],
+               "administrators" : [
+                  {
+                     "email" : "saewill@iupui.edu",
+                     "name" : "Sarah Williams"
+                  }
+               ],
+               "location" : {
+                  "longitude" : "-86.15712",
+                  "city" : "Indianapolis",
+                  "latitude" : "39.882613",
+                  "state" : "IN"
+               },
+               "description" : "MWT2_IU"
+            },
+            {
+               "hosts" : [
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://mwt2-ps01.campuscluster.illinois.edu:8086/perfSONAR_PS/services/traceroute_ma",
+                           "write_url" : "http://mwt2-ps01.campuscluster.illinois.edu:8086/perfSONAR_PS/services/tracerouteCollector",
+                           "type" : "traceroute"
+                        },
+                        {
+                           "read_url" : "http://mwt2-ps01.campuscluster.illinois.edu:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "mwt2-ps01.campuscluster.illinois.edu:8569",
+                           "type" : "perfsonarbuoy/owamp"
+                        }
+                     ],
+                     "addresses" : [
+                        "mwt2-ps01.campuscluster.illinois.edu"
+                     ],
+                     "description" : "MWT2_ILL Latency Host in Urbana-Champaign,  IL, USA"
+                  },
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://mwt2-ps02.campuscluster.illinois.edu:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "mwt2-ps02.campuscluster.illinois.edu:8570",
+                           "type" : "perfsonarbuoy/bwctl"
+                        }
+                     ],
+                     "addresses" : [
+                        "mwt2-ps02.campuscluster.illinois.edu"
+                     ],
+                     "description" : "MWT2_ILL Bandwidth Host in Urbana-Champaign, IL, USA"
+                  }
+               ],
+               "administrators" : [
+                  {
+                     "email" : "ddl@illinois.edu",
+                     "name" : "Dave Lesny"
+                  }
+               ],
+               "location" : {
+                  "longitude" : "-88.23",
+                  "city" : "Urbana-Champaign",
+                  "latitude" : "40.107487",
+                  "state" : "IL"
+               },
+               "description" : "MWT2_ILL"
+            },
+            {
+               "hosts" : [
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://uct2-net1.uchicago.edu:8086/perfSONAR_PS/services/traceroute_ma",
+                           "write_url" : "http://uct2-net1.uchicago.edu:8086/perfSONAR_PS/services/tracerouteCollector",
+                           "type" : "traceroute"
+                        },
+                        {
+                           "read_url" : "http://uct2-net1.uchicago.edu:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "uct2-net1.uchicago.edu:8569",
+                           "type" : "perfsonarbuoy/owamp"
+                        }
+                     ],
+                     "addresses" : [
+                        "uct2-net1.uchicago.edu"
+                     ],
+                     "description" : "MWT2_UC Latency Host in Chicago,  IL, USA"
+                  },
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://uct2-net2.uchicago.edu:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "uct2-net2.uchicago.edu:8570",
+                           "type" : "perfsonarbuoy/bwctl"
+                        }
+                     ],
+                     "addresses" : [
+                        "uct2-net2.uchicago.edu"
+                     ],
+                     "description" : "MWT2_UC Bandwidth Host in Chicago, IL, USA"
+                  }
+               ],
+               "administrators" : [
+                  {
+                     "email" : "rwg@hep.uchicago.edu",
+                     "name" : "Rob Gardner"
+                  }
+               ],
+               "location" : {
+                  "longitude" : "-87.600453",
+                  "city" : "Chicago",
+                  "latitude" : "41.789889",
+                  "state" : "IL"
+               },
+               "description" : "MWT2_UC"
+            }
+         ],
+         "description" : "MWT2"
+      },
+      {
+         "administrators" : [
+            {
+               "email" : "youssef@bu.edu",
+               "name" : "Saul Youssef"
+            },
+            {
+               "email" : "augustine@bu.edu",
+               "name" : "Augustine Abaris"
+            }
+         ],
+         "sites" : [
+            {
+               "hosts" : [
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://atlas-npt1.bu.edu:8086/perfSONAR_PS/services/traceroute_ma",
+                           "write_url" : "http://atlas-npt1.bu.edu:8086/perfSONAR_PS/services/tracerouteCollector",
+                           "type" : "traceroute"
+                        },
+                        {
+                           "read_url" : "http://atlas-npt1.bu.edu:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "atlas-npt1.bu.edu:8569",
+                           "type" : "perfsonarbuoy/owamp"
+                        }
+                     ],
+                     "addresses" : [
+                        "atlas-npt1.bu.edu"
+                     ],
+                     "description" : "NET2_BU Latency Host in Boston,  MA, USA"
+                  },
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://atlas-npt2.bu.edu:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "atlas-npt2.bu.edu:8570",
+                           "type" : "perfsonarbuoy/bwctl"
+                        }
+                     ],
+                     "addresses" : [
+                        "atlas-npt2.bu.edu"
+                     ],
+                     "description" : "NET2_BU Bandwidth Host in Boston, MA, USA"
+                  }
+               ],
+               "location" : {
+                  "longitude" : "-71.098022",
+                  "city" : "Boston",
+                  "latitude" : "42.349981",
+                  "state" : "MA"
+               },
+               "description" : "NET2_BU"
+            },
+            {
+               "administrators" : [
+                  {
+                     "email" : "john_brunelle@harvard.edu",
+                     "name" : "John Brunelle"
+                  }
+               ],
+               "location" : {
+                  "longitude" : "-71.1139649",
+                  "city" : "Boston",
+                  "latitude" : "42.3721598",
+                  "state" : "MA"
+               },
+               "description" : "NET2_HA"
+            }
+         ],
+         "description" : "NET2"
+      },
+      {
+         "administrators" : [
+            {
+               "email" : "sosebee@uta.edu",
+               "name" : "Mark Sosebee"
+            },
+            {
+               "email" : "hs@nhn.ou.edu",
+               "name" : "Horst Severini"
+            }
+         ],
+         "sites" : [
+            {
+               "hosts" : [
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://ps1.ochep.ou.edu:8086/perfSONAR_PS/services/traceroute_ma",
+                           "write_url" : "http://ps1.ochep.ou.edu:8086/perfSONAR_PS/services/tracerouteCollector",
+                           "type" : "traceroute"
+                        },
+                        {
+                           "read_url" : "http://ps1.ochep.ou.edu:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "ps1.ochep.ou.edu:8569",
+                           "type" : "perfsonarbuoy/owamp"
+                        }
+                     ],
+                     "addresses" : [
+                        "ps1.ochep.ou.edu"
+                     ],
+                     "description" : "SWT2_OU Latency Host in Oklahoma City, OU, USA"
+                  },
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://ps2.ochep.ou.edu:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "ps2.ochep.ou.edu:8570",
+                           "type" : "perfsonarbuoy/bwctl"
+                        }
+                     ],
+                     "addresses" : [
+                        "ps2.ochep.ou.edu"
+                     ],
+                     "description" : "SWT2_OU Bandwidth Host in Oklahoma City, OU, USA"
+                  }
+               ],
+               "administrators" : [
+                  {
+                     "email" : "hs@nhn.ou.edu",
+                     "name" : "Horst Severini"
+                  }
+               ],
+               "location" : {
+                  "longitude" : "-97.4405",
+                  "city" : "Norman",
+                  "latitude" : "35.1835",
+                  "state" : "OU"
+               },
+               "description" : "SWT2_OU"
+            },
+            {
+               "hosts" : [
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://netmon1.atlas-swt2.org:8086/perfSONAR_PS/services/traceroute_ma",
+                           "write_url" : "http://netmon1.atlas-swt2.org:8086/perfSONAR_PS/services/tracerouteCollector",
+                           "type" : "traceroute"
+                        },
+                        {
+                           "read_url" : "http://netmon1.atlas-swt2.org:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "netmon1.atlas-swt2.org:8569",
+                           "type" : "perfsonarbuoy/owamp"
+                        }
+                     ],
+                     "addresses" : [
+                        "netmon1.atlas-swt2.org"
+                     ],
+                     "description" : "SWT2_UTA Latency Host in Arlington, TX, USA"
+                  },
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://netmon2.atlas-swt2.org:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "netmon2.atlas-swt2.org:8570",
+                           "type" : "perfsonarbuoy/bwctl"
+                        }
+                     ],
+                     "addresses" : [
+                        "netmon2.atlas-swt2.org"
+                     ],
+                     "description" : "SWT2_UTA Bandwidth Host in Arlington, TX, USA"
+                  }
+               ],
+               "administrators" : [
+                  {
+                     "email" : "sosebee@uta.edu",
+                     "name" : "Mark Sosebee"
+                  }
+               ],
+               "location" : {
+                  "longitude" : "-97.113056",
+                  "city" : "Arlington",
+                  "latitude" : "32.7284973",
+                  "state" : "TX"
+               },
+               "description" : "SWT2_UTA"
+            }
+         ],
+         "description" : "SWT2"
+      },
+      {
+         "administrators" : [
+            {
+               "email" : "ytl@slac.stanford.edu",
+               "name" : "Yee-Ting Li"
+            },
+            {
+               "email" : "wei.yang@slac.stanford.edu",
+               "name" : "Wei Yang"
+            }
+         ],
+         "sites" : [
+            {
+               "hosts" : [
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://psnr-lat01.slac.stanford.edu:8086/perfSONAR_PS/services/traceroute_ma",
+                           "write_url" : "http://psnr-lat01.slac.stanford.edu:8086/perfSONAR_PS/services/tracerouteCollector",
+                           "type" : "traceroute"
+                        },
+                        {
+                           "read_url" : "http://psnr-lat01.slac.stanford.edu:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "psnr-lat01.slac.stanford.edu:8569",
+                           "type" : "perfsonarbuoy/owamp"
+                        }
+                     ],
+                     "addresses" : [
+                        "psnr-lat01.slac.stanford.edu"
+                     ],
+                     "description" : "WT2_SLAC Latency Host in Palo Alto, CA, USA"
+                  },
+                  {
+                     "measurement_archives" : [
+                        {
+                           "read_url" : "http://psnr-bw01.slac.stanford.edu:8085/perfSONAR_PS/services/pSB",
+                           "write_url" : "psnr-bw01.slac.stanford.edu:8570",
+                           "type" : "perfsonarbuoy/bwctl"
+                        }
+                     ],
+                     "addresses" : [
+                        "psnr-bw01.slac.stanford.edu"
+                     ],
+                     "description" : "WT2_SLAC Bandwidth Host in Palo Alto, CA, USA"
+                  }
+               ],
+               "location" : {
+                  "longitude" : "-122.203524",
+                  "city" : "Palo Alto",
+                  "latitude" : "37.417737",
+                  "state" : "CA"
+               },
+               "description" : "WT2_SLAC"
+            }
+         ],
+         "description" : "WT2"
+      }
+   ],
+   "tests" : [
+      {
+         "parameters" : {
+            "protocol" : "udp",
+            "max_ttl" : "64",
+            "waittime" : "5",
+            "pause" : "0",
+            "first_ttl" : "0",
+            "timeout" : "30",
+            "type" : "traceroute",
+            "packet_size" : "40",
+            "test_interval" : "600"
+         },
+         "members" : {
+            "members" : [
+               "lhcperfmon.bnl.gov",
+               "psum01.aglt2.org",
+               "psmsu01.aglt2.org",
+               "iut2-net1.iu.edu",
+               "mwt2-ps01.campuscluster.illinois.edu",
+               "uct2-net1.uchicago.edu",
+               "atlas-npt1.bu.edu",
+               "ps1.ochep.ou.edu",
+               "netmon1.atlas-swt2.org",
+               "psnr-lat01.slac.stanford.edu"
+            ],
+            "type" : "mesh"
+         },
+         "description" : "Traceroute Test Between USATLAS Latency Hosts"
+      },
+      {
+         "parameters" : {
+            "protocol" : "tcp",
+            "duration" : "20",
+            "interval" : "14400",
+            "force_bidirectional" : "1",
+            "tool" : "bwctl/iperf",
+            "type" : "perfsonarbuoy/bwctl"
+         },
+         "members" : {
+            "members" : [
+               "lhcmon.bnl.gov",
+               "psum02.aglt2.org",
+               "psmsu02.aglt2.org",
+               "iut2-net2.iu.edu",
+               "mwt2-ps02.campuscluster.illinois.edu",
+               "uct2-net2.uchicago.edu",
+               "atlas-npt2.bu.edu",
+               "ps2.ochep.ou.edu",
+               "netmon2.atlas-swt2.org",
+               "psnr-bw01.slac.stanford.edu"
+            ],
+            "type" : "mesh"
+         },
+         "description" : "TCP BWCTL Test Between USATLAS Bandwidth Hosts"
+      },
+      {
+         "parameters" : {
+            "loss_threshold" : "10",
+            "bucket_width" : "0.001",
+            "packet_interval" : "0.1",
+            "sample_count" : "300",
+            "force_bidirectional" : "1",
+            "packet_padding" : "0",
+            "type" : "perfsonarbuoy/owamp",
+            "session_count" : "18000"
+         },
+         "members" : {
+            "members" : [
+               "lhcperfmon.bnl.gov",
+               "psum01.aglt2.org",
+               "psmsu01.aglt2.org",
+               "iut2-net1.iu.edu",
+               "mwt2-ps01.campuscluster.illinois.edu",
+               "uct2-net1.uchicago.edu",
+               "atlas-npt1.bu.edu",
+               "ps1.ochep.ou.edu",
+               "netmon1.atlas-swt2.org",
+               "psnr-lat01.slac.stanford.edu"
+            ],
+            "type" : "mesh"
+         },
+         "description" : "OWAMP Test Between USATLAS Latency Hosts"
+      }
+   ],
+   "description" : "USATLAS Mesh"
+}

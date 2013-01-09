@@ -1,0 +1,2 @@
+An old package containing code of "old style" servlets. Needs to be deleted 
+in near futuyre when the old servlets will be replaced by the rest-style servlets.

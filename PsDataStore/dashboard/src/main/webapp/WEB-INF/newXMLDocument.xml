@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+# At the top level are elements specific to the overall Mesh. This includes a
+# description of the 'mesh', the admins for the mesh, the organizations
+# involved in the mesh, and the tests that the meshes perform.
+
+# A human-readable description of the overall mesh
+description      USATLAS Mesh
+
+# The overall mesh administrators (i.e. who one should contact if problems are
+# seen with the mesh, etc).
+<administrator>
+  name       Shawn McKee
+  email      smckee@umich.edu
+</administrator>
+
+<administrator>
+  name       Jason Zurawski
+  email      zurawski@internet2.edu
+</administrator>
+
+# Each mesh has one or more "organization" blocks. This allows encapsulating
+# the administrators, sites, MAs, etc that are specific to the organization.
+<organization>
+  # A human-readable description of the organization
+  description  AGLT2
+
+  # The administrators for the organization (i.e. who one should contact if
+  # problems are seen with individual sites/hosts in the mesh.
+  <administrator>
+    name    Shawn McKee
+    email   smckee@umich.edu
+  </administrator>
+  <administrator>
+    name    Philippe Laurens
+    email   laurens@pa.msu.edu
+  </administrator>
+
+  # There can be one or more 'measurement_archive' blocks. These have a 'read'
+  # URL which corresponds to the perfSONAR-speaking MA where test results can
+  # be obtained from. The blocks also have a 'write' URL which tells tests
+  # where the results can be written to. These 'measurement_archive' blocks
+  # apply to all tests, and to all hosts in all sites in this organization,
+  # unless they are overridden by 'measurement_archive' blocks at the 'site' or
+  # 'host' level.
+
+  # There can be one or more 'site' blocks. Each 'site' block corresponds to a
+  # logical site in the organization which may contain one or more hosts.
+  # Elements in the 'site' block apply to all the 'host' blocks contained
+  # within them, and inherit the properties from the 'organization'.
+  <site>
+    description    AGLT2_UM
+
+    ## A human-readable description of where the site is located (e.g. a city or state)
+    <location>
+      city     Ann  Arbor
+      state    MI
+      # The latitude and longitude where the site is located
+      latitude   42.276527
+      longitude  -83.74121
+    </location>
+
+    # Individual sites can have specific administrators associated with them.
+    <administrator>
+      name       Ben Meekhof
+      email      bmeekhof@umich.edu
+    </administrator>
+
+    # There can be one or more 'host' blocks. Each 'host' block corresponds to
+    # a single host at a site.
+    <host>
+      # An optional human-readable description of the host
+      description    AGLT2_UM Latency Host in Ann Arbor, MI, USA
+      address        psum01.aglt2.org
+
+      <measurement_archive>
+        type        traceroute
+        read_url    http://psum01.aglt2.org:8086/perfSONAR_PS/services/traceroute_ma
+        write_url   http://psum01.aglt2.org:8086/perfSONAR_PS/services/tracerouteCollector
+      </measurement_archive>
+
+      <measurement_archive>
+        type        perfsonarbuoy/owamp
+        read_url    http://psum01.aglt2.org:8085/perfSONAR_PS/services/pSB
+        write_url   psum01.aglt2.org:8569
+      </measurement_archive>
+
+    </host>
+    <host>
+      # Hosts can have multiple addresses associated with them.
+      description AGLT2_UM Bandwidth Host in Ann Arbor, MI, USA
+      address  psum02.aglt2.org
+
+      <measurement_archive>
+        type        perfsonarbuoy/bwctl
+        read_url    http://psum02.aglt2.org:8085/perfSONAR_PS/services/pSB
+        write_url   psum02.aglt2.org:8570
+      </measurement_archive>
+
+
+      # Individual hosts can have specific administrators associated with them.
+      <administrator>
+        name       Bob Ball
+        email      ball@umich.edu
+      </administrator>
+    </host>
+  </site>
+
+  <site>
+    description    AGLT2_MSU
+    <location>
+      city       East Lansing
+      state      MI
+      latitude   42.7240
+      longitude  -84.4759
+    </location>
+    <administrator>
+      name       Philippe Laurens
+      email      laurens@pa.msu.edu
+    </administrator>
+    <host>
+      # An optional human-readable description of the host
+      description    AGLT2_MSU Latency Host in East Lansing, MI, USA
+      address        psmsu01.aglt2.org
+
+      <measurement_archive>
+        type        traceroute
+        read_url    http://psmsu01.aglt2.org:8086/perfSONAR_PS/services/traceroute_ma
+        write_url   http://psmsu01.aglt2.org:8086/perfSONAR_PS/services/tracerouteCollector
+      </measurement_archive>
+
+      <measurement_archive>
+        type        perfsonarbuoy/owamp
+        read_url    http://psmsu01.aglt2.org:8085/perfSONAR_PS/services/pSB
+        write_url   psmsu01.aglt2.org:8569
+      </measurement_archive>
+
+    </host>
+    <host>
+      # Hosts can have multiple addresses associated with them.
+      description AGLT2_MSU Bandwidth Host in East Lansing, MI, USA
+      address  psmsu02.aglt2.org
+
+      <measurement_archive>
+        type        perfsonarbuoy/bwctl
+        read_url    http://psmsu02.aglt2.org:8085/perfSONAR_PS/services/pSB
+        write_url   psmsu02.aglt2.org:8570
+      </measurement_archive>
+
+
+      # Individual hosts can have specific administrators associated with them.
+    </host>
+  </site>
+</organization>
+
+<organization>
+  # A human-readable description of the organization
+  description  BNL
+
+  # The administrators for the organization (i.e. who one should contact if
+  # problems are seen with individual sites/hosts in the mesh.
+  <administrator>
+    name    John Bigrow
+    email   big@bnl.gov
+  </administrator>
+  <administrator>
+    name    Hiro Ito
+    email   hito@bnl.gov
+  </administrator>
+
+  <site>
+    description    BNL_ATLAS
+
+    ## A human-readable description of where the site is located (e.g. a city or state)
+    <location>
+      city     Upton
+      state    NY
+      # The latitude and longitude where the site is located
+      latitude   40.868386
+      longitude  -72.878408
+    </location>
+
+    # Individual sites can have specific administrators associated with them.
+    <administrator>
+      name       Jason Zurawksi
+      email      zurawski@internet2.edu
+    </administrator>
+
+    # There can be one or more 'host' blocks. Each 'host' block corresponds to
+    # a single host at a site.
+    <host>
+      # An optional human-readable description of the host
+      description    BNL ATLAS Latency Host in Upton, NY, USA
+      address        lhcperfmon.bnl.gov
+
+      <measurement_archive>
+        type        traceroute
+        read_url    http://lhcperfmon.bnl.gov:8086/perfSONAR_PS/services/traceroute_ma
+        write_url   http://lhcperfmon.bnl.gov:8086/perfSONAR_PS/services/tracerouteCollector
+      </measurement_archive>
+
+      <measurement_archive>
+        type        perfsonarbuoy/owamp
+        read_url    http://lhcperfmon.bnl.gov:8085/perfSONAR_PS/services/pSB
+        write_url   lhcperfmon.bnl.gov:8569
+      </measurement_archive>
+
+    </host>
+    <host>
+      # Hosts can have multiple addresses associated with them.
+      description BNL ATLAS Bandwidth Host in Upton, NY, USA
+      address lhcmon.bnl.gov
+
+      <measurement_archive>
+        type        perfsonarbuoy/bwctl
+        read_url    http://lhcmon.bnl.gov:8085/perfSONAR_PS/services/pSB
+        write_url   lhcmon.bnl.gov:8570
+      </measurement_archive>
+
+
+      # Individual hosts can have specific administrators associated with them.
+      <administrator>
+        name       John Bigrow
+        email      big@bnl.gov
+      </administrator>
+    </host>
+  </site>
+</organization>
+
+<organization>
+  # A human-readable description of the organization
+  description  MWT2
+
+  # The administrators for the organization (i.e. who one should contact if
+  # problems are seen with individual sites/hosts in the mesh.
+  <administrator>
+    name    Rob Gardner
+    email   rwg@hep.uchicago.edu
+  </administrator>
+  <administrator>
+    name    Sarah Williams
+    email   saewill@iupui.edu
+  </administrator>
+
+  <site>
+    description    MWT2_IU
+    ## A human-readable description of where the site is located (e.g. a city or state)
+    <location>
+      city     Indianapolis
+      state    IN
+      # The latitude and longitude where the site is located
+      latitude   39.882613
+      longitude  -86.15712
+    </location>
+
+    # Individual sites can have specific administrators associated with them.
+    <administrator>
+      name       Sarah Williams
+      email      saewill@iupui.edu
+    </administrator>
+
+    # There can be one or more 'host' blocks. Each 'host' block corresponds to
+    # a single host at a site.
+    <host>
+      # An optional human-readable description of the host
+      description    MWT2_IU Latency Host in Indianapolis,  IN, USA
+      address        iut2-net1.iu.edu
+
+      <measurement_archive>
+        type        traceroute
+        read_url    http://iut2-net1.iu.edu:8086/perfSONAR_PS/services/traceroute_ma
+        write_url   http://iut2-net1.iu.edu:8086/perfSONAR_PS/services/tracerouteCollector
+      </measurement_archive>
+
+      <measurement_archive>
+        type        perfsonarbuoy/owamp
+        read_url    http://iut2-net1.iu.edu:8085/perfSONAR_PS/services/pSB
+        write_url   iut2-net1.iu.edu:8569
+      </measurement_archive>
+
+    </host>
+    <host>
+      # Hosts can have multiple addresses associated with them.
+      description MWT2_IU Bandwidth Host in Indianapolis, IN, USA
+      address iut2-net2.iu.edu
+
+      <measurement_archive>
+        type        perfsonarbuoy/bwctl
+        read_url    http://iut2-net2.iu.edu:8085/perfSONAR_PS/services/pSB
+        write_url   iut2-net2.iu.edu:8570
+      </measurement_archive>
+    </host>
+  </site>
+  <site>
+    description    MWT2_ILL
+    ## A human-readable description of where the site is located (e.g. a city or state)
+    <location>
+      city     Urbana-Champaign
+      state    IL
+      # The latitude and longitude where the site is located
+      latitude   40.107487
+      longitude  -88.23
+    </location>
+
+    # Individual sites can have specific administrators associated with them.
+    <administrator>
+      name       Dave Lesny
+      email      ddl@illinois.edu
+    </administrator>
+
+    # There can be one or more 'host' blocks. Each 'host' block corresponds to
+    # a single host at a site.
+    <host>
+      # An optional human-readable description of the host
+      description    MWT2_ILL Latency Host in Urbana-Champaign,  IL, USA
+      address        mwt2-ps01.campuscluster.illinois.edu
+
+      <measurement_archive>
+        type        traceroute
+        read_url    http://mwt2-ps01.campuscluster.illinois.edu:8086/perfSONAR_PS/services/traceroute_ma
+        write_url   http://mwt2-ps01.campuscluster.illinois.edu:8086/perfSONAR_PS/services/tracerouteCollector
+      </measurement_archive>
+
+      <measurement_archive>
+        type        perfsonarbuoy/owamp
+        read_url    http://mwt2-ps01.campuscluster.illinois.edu:8085/perfSONAR_PS/services/pSB
+        write_url   mwt2-ps01.campuscluster.illinois.edu:8569
+      </measurement_archive>
+
+    </host>
+    <host>
+      # Hosts can have multiple addresses associated with them.
+      description MWT2_ILL Bandwidth Host in Urbana-Champaign, IL, USA
+      address mwt2-ps02.campuscluster.illinois.edu
+
+      <measurement_archive>
+        type        perfsonarbuoy/bwctl
+        read_url    http://mwt2-ps02.campuscluster.illinois.edu:8085/perfSONAR_PS/services/pSB
+        write_url   mwt2-ps02.campuscluster.illinois.edu:8570
+      </measurement_archive>
+    </host>
+  </site>
+  <site>
+    description    MWT2_UC
+    ## A human-readable description of where the site is located (e.g. a city or state)
+    <location>
+      city     Chicago
+      state    IL
+      # The latitude and longitude where the site is located
+      latitude   41.789889
+      longitude  -87.600453
+    </location>
+
+    # Individual sites can have specific administrators associated with them.
+    <administrator>
+      name       Rob Gardner
+      email      rwg@hep.uchicago.edu
+    </administrator>
+
+    # There can be one or more 'host' blocks. Each 'host' block corresponds to
+    # a single host at a site.
+    <host>
+      # An optional human-readable description of the host
+      description    MWT2_UC Latency Host in Chicago,  IL, USA
+      address        uct2-net1.uchicago.edu
+
+      <measurement_archive>
+        type        traceroute
+        read_url    http://uct2-net1.uchicago.edu:8086/perfSONAR_PS/services/traceroute_ma
+        write_url   http://uct2-net1.uchicago.edu:8086/perfSONAR_PS/services/tracerouteCollector
+      </measurement_archive>
+
+      <measurement_archive>
+        type        perfsonarbuoy/owamp
+        read_url    http://uct2-net1.uchicago.edu:8085/perfSONAR_PS/services/pSB
+        write_url   uct2-net1.uchicago.edu:8569
+      </measurement_archive>
+
+    </host>
+    <host>
+      # Hosts can have multiple addresses associated with them.
+      description MWT2_UC Bandwidth Host in Chicago, IL, USA
+      address uct2-net2.uchicago.edu
+
+      <measurement_archive>
+        type        perfsonarbuoy/bwctl
+        read_url    http://uct2-net2.uchicago.edu:8085/perfSONAR_PS/services/pSB
+        write_url   uct2-net2.uchicago.edu:8570
+      </measurement_archive>
+    </host>
+  </site>
+</organization>
+
+<organization>
+  # A human-readable description of the organization
+  description  NET2
+
+  # The administrators for the organization (i.e. who one should contact if
+  # problems are seen with individual sites/hosts in the mesh.
+  <administrator>
+    name    Saul Youssef
+    email   youssef@bu.edu
+  </administrator>
+  <administrator>
+    name    Augustine Abaris
+    email   augustine@bu.edu
+  </administrator>
+
+  <site>
+    description    NET2_BU
+    ## A human-readable description of where the site is located (e.g. a city or state)
+    <location>
+      city     Boston
+      state    MA
+      # The latitude and longitude where the site is located
+      latitude   42.349981
+      longitude  -71.098022
+    </location>
+
+    # There can be one or more 'host' blocks. Each 'host' block corresponds to
+    # a single host at a site.
+    <host>
+      # An optional human-readable description of the host
+      description    NET2_BU Latency Host in Boston,  MA, USA
+      address        atlas-npt1.bu.edu
+
+      <measurement_archive>
+        type        traceroute
+        read_url    http://atlas-npt1.bu.edu:8086/perfSONAR_PS/services/traceroute_ma
+        write_url   http://atlas-npt1.bu.edu:8086/perfSONAR_PS/services/tracerouteCollector
+      </measurement_archive>
+
+      <measurement_archive>
+        type        perfsonarbuoy/owamp
+        read_url    http://atlas-npt1.bu.edu:8085/perfSONAR_PS/services/pSB
+        write_url   atlas-npt1.bu.edu:8569
+      </measurement_archive>
+
+    </host>
+    <host>
+      # Hosts can have multiple addresses associated with them.
+      description NET2_BU Bandwidth Host in Boston, MA, USA
+      address atlas-npt2.bu.edu
+
+      <measurement_archive>
+        type        perfsonarbuoy/bwctl
+        read_url    http://atlas-npt2.bu.edu:8085/perfSONAR_PS/services/pSB
+        write_url   atlas-npt2.bu.edu:8570
+      </measurement_archive>
+    </host>
+  </site>
+  <site>
+    description    NET2_HA
+    ## A human-readable description of where the site is located (e.g. a city or state)
+    <location>
+      city     Boston
+      state    MA
+      # The latitude and longitude where the site is located
+      latitude   42.3721598
+      longitude  -71.1139649
+    </location>
+
+    # Individual sites can have specific administrators associated with them.
+    <administrator>
+      name       John Brunelle
+      email      john_brunelle@harvard.edu
+    </administrator>
+
+    # There can be one or more 'host' blocks. Each 'host' block corresponds to
+    # a single host at a site.
+#    <host>
+#      # An optional human-readable description of the host
+#      description    NET2_HA Latency Host in Boston,  MA, USA
+#      address       non-yet
+#
+#      <measurement_archive>
+#        type        traceroute
+#        read_url    http://mwt2-ps01.campuscluster.illinois.edu:8086/perfSONAR_PS/services/traceroute_ma
+#        write_url   http://mwt2-ps01.campuscluster.illinois.edu:8086/perfSONAR_PS/services/tracerouteCollector
+#      </measurement_archive>
+#
+#      <measurement_archive>
+#        type        perfsonarbuoy/owamp
+#        read_url    http://mwt2-ps01.campuscluster.illinois.edu:8085/perfSONAR_PS/services/pSB
+#        write_url   mwt2-ps01.campuscluster.illinois.edu:8569
+#      </measurement_archive>
+#
+#    </host>
+#    <host>
+#      # Hosts can have multiple addresses associated with them.
+#      description MWT2_ILL Bandwidth Host in Urbana-Champaign, IL, USA
+#      address mwt2-ps02.campuscluster.illinois.edu
+#
+#      <measurement_archive>
+#        type        perfsonarbuoy/bwctl
+#        read_url    http://mwt2-ps02.campuscluster.illinois.edu:8085/perfSONAR_PS/services/pSB
+#        write_url   mwt2-ps02.campuscluster.illinois.edu:8570
+#      </measurement_archive>
+#    </host>
+  </site>
+</organization>
+
+<organization>
+  # A human-readable description of the organization
+  description  SWT2
+
+  # The administrators for the organization (i.e. who one should contact if
+  # problems are seen with individual sites/hosts in the mesh.
+  <administrator>
+    name    Mark Sosebee
+    email   sosebee@uta.edu
+  </administrator>
+  <administrator>
+    name    Horst Severini
+    email   hs@nhn.ou.edu
+  </administrator>
+
+  # There can be one or more 'measurement_archive' blocks. These have a 'read'
+  # URL which corresponds to the perfSONAR-speaking MA where test results can
+  # be obtained from. The blocks also have a 'write' URL which tells tests
+  # where the results can be written to. These 'measurement_archive' blocks
+  # apply to all tests, and to all hosts in all sites in this organization,
+  # unless they are overridden by 'measurement_archive' blocks at the 'site' or
+  # 'host' level.
+
+  # There can be one or more 'site' blocks. Each 'site' block corresponds to a
+  # logical site in the organization which may contain one or more hosts.
+  # Elements in the 'site' block apply to all the 'host' blocks contained
+  # within them, and inherit the properties from the 'organization'.
+  <site>
+    description    SWT2_OU
+
+    ## A human-readable description of where the site is located (e.g. a city or state)
+    <location>
+      city     Norman
+      state    OU
+      # The latitude and longitude where the site is located
+      latitude   35.1835
+      longitude  -97.4405
+    </location>
+
+    # Individual sites can have specific administrators associated with them.
+    <administrator>
+      name       Horst Severini
+      email      hs@nhn.ou.edu
+    </administrator>
+
+    # There can be one or more 'host' blocks. Each 'host' block corresponds to
+    # a single host at a site.
+    <host>
+      # An optional human-readable description of the host
+      description    SWT2_OU Latency Host in Oklahoma City, OU, USA
+      address        ps1.ochep.ou.edu
+
+      <measurement_archive>
+        type        traceroute
+        read_url    http://ps1.ochep.ou.edu:8086/perfSONAR_PS/services/traceroute_ma
+        write_url   http://ps1.ochep.ou.edu:8086/perfSONAR_PS/services/tracerouteCollector
+      </measurement_archive>
+
+      <measurement_archive>
+        type        perfsonarbuoy/owamp
+        read_url    http://ps1.ochep.ou.edu:8085/perfSONAR_PS/services/pSB
+        write_url   ps1.ochep.ou.edu:8569
+      </measurement_archive>
+
+    </host>
+    <host>
+      # Hosts can have multiple addresses associated with them.
+      description SWT2_OU Bandwidth Host in Oklahoma City, OU, USA
+      address  ps2.ochep.ou.edu
+
+      <measurement_archive>
+        type        perfsonarbuoy/bwctl
+        read_url    http://ps2.ochep.ou.edu:8085/perfSONAR_PS/services/pSB
+        write_url   ps2.ochep.ou.edu:8570
+      </measurement_archive>
+    </host>
+  </site>
+
+  <site>
+    description    SWT2_UTA
+    <location>
+      city       Arlington
+      state      TX
+      latitude   32.7284973
+      longitude  -97.113056
+    </location>
+    <administrator>
+      name       Mark Sosebee
+      email      sosebee@uta.edu
+    </administrator>
+    <host>
+      # An optional human-readable description of the host
+      description    SWT2_UTA Latency Host in Arlington, TX, USA
+      address        netmon1.atlas-swt2.org
+
+      <measurement_archive>
+        type        traceroute
+        read_url    http://netmon1.atlas-swt2.org:8086/perfSONAR_PS/services/traceroute_ma
+        write_url   http://netmon1.atlas-swt2.org:8086/perfSONAR_PS/services/tracerouteCollector
+      </measurement_archive>
+
+      <measurement_archive>
+        type        perfsonarbuoy/owamp
+        read_url    http://netmon1.atlas-swt2.org:8085/perfSONAR_PS/services/pSB
+        write_url   netmon1.atlas-swt2.org:8569
+      </measurement_archive>
+
+    </host>
+    <host>
+      # Hosts can have multiple addresses associated with them.
+      description SWT2_UTA Bandwidth Host in Arlington, TX, USA
+      address  netmon2.atlas-swt2.org
+
+      <measurement_archive>
+        type        perfsonarbuoy/bwctl
+        read_url    http://netmon2.atlas-swt2.org:8085/perfSONAR_PS/services/pSB
+        write_url   netmon2.atlas-swt2.org:8570
+      </measurement_archive>
+
+
+      # Individual hosts can have specific administrators associated with them.
+    </host>
+  </site>
+</organization>
+
+<organization>
+  # A human-readable description of the organization
+  description  WT2
+
+  # The administrators for the organization (i.e. who one should contact if
+  # problems are seen with individual sites/hosts in the mesh.
+  <administrator>
+    name    Yee-Ting Li
+    email   ytl@slac.stanford.edu
+  </administrator>
+  <administrator>
+    name    Wei Yang
+    email   wei.yang@slac.stanford.edu
+  </administrator>
+
+  <site>
+    description   WT2_SLAC
+
+    ## A human-readable description of where the site is located (e.g. a city or state)
+    <location>
+      city     Palo Alto
+      state    CA
+      # The latitude and longitude where the site is located
+      latitude   37.417737
+      longitude  -122.203524
+    </location>
+
+    # There can be one or more 'host' blocks. Each 'host' block corresponds to
+    # a single host at a site.
+    <host>
+      # An optional human-readable description of the host
+      description    WT2_SLAC Latency Host in Palo Alto, CA, USA
+      address        psnr-lat01.slac.stanford.edu
+
+      <measurement_archive>
+        type        traceroute
+        read_url    http://psnr-lat01.slac.stanford.edu:8086/perfSONAR_PS/services/traceroute_ma
+        write_url   http://psnr-lat01.slac.stanford.edu:8086/perfSONAR_PS/services/tracerouteCollector
+      </measurement_archive>
+
+      <measurement_archive>
+        type        perfsonarbuoy/owamp
+        read_url    http://psnr-lat01.slac.stanford.edu:8085/perfSONAR_PS/services/pSB
+        write_url   psnr-lat01.slac.stanford.edu:8569
+      </measurement_archive>
+
+    </host>
+    <host>
+      # Hosts can have multiple addresses associated with them.
+      description WT2_SLAC Bandwidth Host in Palo Alto, CA, USA
+      address psnr-bw01.slac.stanford.edu
+
+      <measurement_archive>
+        type        perfsonarbuoy/bwctl
+        read_url    http://psnr-bw01.slac.stanford.edu:8085/perfSONAR_PS/services/pSB
+        write_url   psnr-bw01.slac.stanford.edu:8570
+      </measurement_archive>
+    </host>
+  </site>
+</organization>
+
+# There can be one or more test_spec blocks. Each test_spec block represents a
+# test specification, i.e. a test type, along with the parameters for the test.
+# The test_spec's *must* have an 'id' field which gets used later to identify
+# them.
+
+# Standard USATLAS throughput test: 1/4-hours per direction per end;
+#    20 seconds long
+<test_spec bwctl_4h_tcp_test>
+  type              perfsonarbuoy/bwctl
+  tool              bwctl/iperf
+  protocol          tcp
+  interval          14400
+  duration          20
+  force_bidirectional	1
+</test_spec>
+
+<test_spec bwctl_24h_udp_test>
+  type              perfsonarbuoy/bwctl
+  tool              bwctl/iperf
+  protocol          udp
+  interval          86400
+  duration          10
+</test_spec>
+
+<test_spec owamp_test>
+  type              perfsonarbuoy/owamp
+  packet_interval   0.1
+  loss_threshold    10
+  session_count     18000
+  sample_count      300
+  packet_padding    0
+  bucket_width      0.001
+  force_bidirectional	1
+</test_spec>
+
+<test_spec ping_test>
+  type              pinger
+  packet_size       1000
+  packet_count      10
+  packet_interval   1
+  test_interval     300
+</test_spec>
+
+<test_spec traceroute_test>
+  type              traceroute
+  test_interval     600
+  packet_size       40
+  timeout           30
+  waittime          5
+  first_ttl         0
+  max_ttl           64
+  pause             0
+  protocol          udp
+</test_spec>
+
+# There can be one or more 'group' blocks. These contain a list of hosts that
+# will be used in a test. 
+<group usatlas_latency_hosts>
+  # A group type 'mesh' means that all hosts in the list will test to all other
+  # hosts in the list. The other available options are 'star' configuration,
+  # and 'other'. In a star configuration a specific host is specified as the
+  # 'center', and in 'other' the senders and receivers are specified manually.
+  type              mesh
+
+  # The members contain a list of addresses that will be used in the tests.
+  # These *must* correspond to addresses in host blocks above.
+  member lhcperfmon.bnl.gov
+  member psum01.aglt2.org
+  member psmsu01.aglt2.org
+  member iut2-net1.iu.edu
+  member mwt2-ps01.campuscluster.illinois.edu
+  member uct2-net1.uchicago.edu
+  member atlas-npt1.bu.edu
+  member ps1.ochep.ou.edu
+  member netmon1.atlas-swt2.org
+  member psnr-lat01.slac.stanford.edu
+</group>
+
+<group usatlas_bandwidth_hosts>
+  type              mesh
+  member lhcmon.bnl.gov
+  member psum02.aglt2.org
+  member psmsu02.aglt2.org
+  member iut2-net2.iu.edu
+  member mwt2-ps02.campuscluster.illinois.edu
+  member uct2-net2.uchicago.edu
+  member atlas-npt2.bu.edu
+  member ps2.ochep.ou.edu
+  member netmon2.atlas-swt2.org
+  member psnr-bw01.slac.stanford.edu
+</group>
+
+# There can be one or more 'test' blocks that represent tests that the mesh
+# should be performing. These combine the group elements defined above with
+# test parameters defined above.
+<test>
+  description       Traceroute Test Between USATLAS Latency Hosts
+  group             usatlas_latency_hosts
+  test_spec         traceroute_test
+</test>
+
+<test>
+  description       TCP BWCTL Test Between USATLAS Bandwidth Hosts
+  group             usatlas_bandwidth_hosts
+  test_spec         bwctl_4h_tcp_test
+</test>
+
+#Not doing this test (yet) in USATLAS
+#<test>
+#  description       UDP BWCTL Test Between DICE Bandwidth Hosts
+#  group             dice_bandwidth_hosts
+#  test_spec         bwctl_24h_udp_test
+#</test>
+
+<test>
+  description       OWAMP Test Between USATLAS Latency Hosts
+  group             usatlas_latency_hosts
+  test_spec         owamp_test
+</test>
+
+# Not yet
+#<test>
+#  description       Ping Test Between USATLAS Latency Hosts
+#  group             usatlas_latency_hosts
+#  test_spec         ping_test
+#</test>
+
+# Not doing this test in USATLAS (yet)
+#<test>
+#  description       Traceroute Test Between DICE Bandwidth Hosts
+#  group             dice_bandwidth_hosts
+#  test_spec         traceroute_test
+#</test>
+
+
+<root>
+    
+</root>

@@ -1,0 +1,2 @@
+This package contains classes which perform operations on datastore objects: add
+delete, modify, convert to and from JSON representation.

@@ -1,0 +1,6 @@
+Main part of the data store. The data objects sit in a java singleton objects.
+Other classes provide access to the data.
+
+In the future, hibernate based, version of the code the datastore will be 
+replaced by hibernate second level cache and this package will have to be 
+totally redone.

@@ -1,0 +1,7 @@
+This package provides tools to display the data information as web pages.
+
+It is not the purpose of the datastore to provide data display. 
+
+It is a temporary solution and the package will be deleted as soon as we have a 
+real gui module in place. 
+

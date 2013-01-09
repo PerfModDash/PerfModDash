@@ -1,0 +1,8 @@
+This package contains objects useful when building html obkjects 
+like links or html tables.
+
+It is used to build web pages.
+
+The package has been included in the dashboard code as a temporary solution to 
+display data information. In the future we will have a gui module and the html 
+utils code can then be either deleted or moved to a common utils area.

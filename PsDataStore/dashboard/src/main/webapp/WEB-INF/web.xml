@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+
+    <servlet>
+        <servlet-name>PsInitDataServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets_debug.PsInitDataServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>PsInitDataServlet</servlet-name>
+        <url-pattern>/initData</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>PsDumpDataStoreContentServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets_debug.PsDumpDataStoreContentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsDumpDataStoreContentServlet</servlet-name>
+        <url-pattern>/dump</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PsQueryServiceTypesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets_query.PsQueryServiceTypesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsQueryServiceTypesServlet</servlet-name>
+        <url-pattern>/serviceTypes</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PsQueryHostsServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets_query.PsQueryHostsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsQueryHostsServlet</servlet-name>
+        <url-pattern>/hosts_old</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PsQueryServicesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets_query.PsQueryServicesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsQueryServicesServlet</servlet-name>
+        <url-pattern>/services_old</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PsQueryJobs</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets_query.PsQueryJobs</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsQueryJobs</servlet-name>
+        <url-pattern>/jobs</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>PsUploadResultsServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsUploadResultsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsUploadResultsServlet</servlet-name>
+        <url-pattern>/results</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PsQuerySitesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets_query.PsQuerySitesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsQuerySitesServlet</servlet-name>
+        <url-pattern>/sites_old</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PsQueryCloudsServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets_query.PsQueryCloudsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsQueryCloudsServlet</servlet-name>
+        <url-pattern>/clouds_old</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PsCreateHostServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsCreateHostServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsCreateHostServlet</servlet-name>
+        <url-pattern>/createHost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PsDeleteHostServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsDeleteHostServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsDeleteHostServlet</servlet-name>
+        <url-pattern>/deleteHost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PsHostAddLatencyServicesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsHostAddLatencyServicesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsHostAddLatencyServicesServlet</servlet-name>
+        <url-pattern>/hostAddLatencyServices</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>PsHostAddThroughputServicesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsHostAddThroughputServicesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsHostAddThroughputServicesServlet</servlet-name>
+        <url-pattern>/hostAddThroughputServices</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>PsHostAddAllPrimitiveServicesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsHostAddAllPrimitiveServicesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsHostAddAllPrimitiveServicesServlet</servlet-name>
+        <url-pattern>/hostAddAllServices</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PsDeleteServiceServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsDeleteServiceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsDeleteServiceServlet</servlet-name>
+        <url-pattern>/deleteService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PsDeleteAllServicesFromHost</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsDeleteAllServicesFromHost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsDeleteAllServicesFromHost</servlet-name>
+        <url-pattern>/hostDeleteAllServices</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PsHostAddServiceServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsHostAddServiceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsHostAddServiceServlet</servlet-name>
+        <url-pattern>/hostAddService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PsHostRemoveServiceServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsHostRemoveServiceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsHostRemoveServiceServlet</servlet-name>
+        <url-pattern>/hostRemoveService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PsCreateSiteServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsCreateSiteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsCreateSiteServlet</servlet-name>
+        <url-pattern>/createSite</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PsDeleteSiteServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsDeleteSiteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsDeleteSiteServlet</servlet-name>
+        <url-pattern>/deleteSite</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PsSiteAddHostsServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsSiteAddHostsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsSiteAddHostsServlet</servlet-name>
+        <url-pattern>/siteAddHosts</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PsSiteRemoveHostsServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsSiteRemoveHostsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsSiteRemoveHostsServlet</servlet-name>
+        <url-pattern>/siteRemoveHosts</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PsCreateCloudServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsCreateCloudServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsCreateCloudServlet</servlet-name>
+        <url-pattern>/createCloud</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PsDeleteCloudServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsDeleteCloudServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsDeleteCloudServlet</servlet-name>
+        <url-pattern>/deleteCloud</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PsCloudAddSite</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsCloudAddSite</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsCloudAddSite</servlet-name>
+        <url-pattern>/cloudAddSite</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>PsCloudRemoveSiteServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsCloudRemoveSiteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsCloudRemoveSiteServlet</servlet-name>
+        <url-pattern>/cloudRemoveSite</url-pattern>
+    </servlet-mapping> 
+   
+    <servlet>
+        <servlet-name>PsCloudAddMatrixServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsCloudAddMatrixServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsCloudAddMatrixServlet</servlet-name>
+        <url-pattern>/cloudAddMatrix</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>PsCloudRemoveMatrix</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsCloudRemoveMatrix</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsCloudRemoveMatrix</servlet-name>
+        <url-pattern>/cloudRemoveMatrix</url-pattern>
+    </servlet-mapping> 
+
+   
+    <servlet>
+        <servlet-name>PsCreateMatrixThroughputServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsCreateMatrixThroughputServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsCreateMatrixThroughputServlet</servlet-name>
+        <url-pattern>/createThroughputMatrix</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>PsMatrixAddHostServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsMatrixAddHostServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsMatrixAddHostServlet</servlet-name>
+        <url-pattern>/addHostToMatrix</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>PsMartrixRemoveHostServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsMartrixRemoveHostServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsMartrixRemoveHostServlet</servlet-name>
+        <url-pattern>/removeHostFromMatrix</url-pattern>
+    </servlet-mapping>  
+    
+    
+    <servlet>
+        <servlet-name>PsDeleteMatrixServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsDeleteMatrixServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsDeleteMatrixServlet</servlet-name>
+        <url-pattern>/deleteMatrix</url-pattern>
+    </servlet-mapping>  
+    
+  
+   
+    <servlet>
+        <servlet-name>PsQueryMatrixServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets_query.PsQueryMatrixServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsQueryMatrixServlet</servlet-name>
+        <url-pattern>/matrices_old</url-pattern>
+    </servlet-mapping> 
+    
+    
+    <servlet>
+        <servlet-name>PsCreateCollectorServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.PsCreateCollectorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsCreateCollectorServlet</servlet-name>
+        <url-pattern>/createCollector</url-pattern>
+    </servlet-mapping>     
+  
+  
+    <servlet>
+        <servlet-name>PsQueryCollectorServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets_query.PsQueryCollectorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsQueryCollectorServlet</servlet-name>
+        <url-pattern>/collectors</url-pattern>
+    </servlet-mapping> 
+ 
+    <servlet>
+        <servlet-name>TestWildcardServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets_debug.TestWildcardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TestWildcardServlet</servlet-name>
+        <url-pattern>/wildcard/*</url-pattern>
+    </servlet-mapping> 
+
+<!--rest enabled servlets-->
+
+    <servlet>
+        <servlet-name>PsHostServletRest</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.rest.PsHostServletRest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsHostServletRest</servlet-name>
+        <url-pattern>/hosts/*</url-pattern>
+    </servlet-mapping> 
+ 
+    <servlet>
+        <servlet-name>PsSiteServletRest</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.rest.PsSiteServletRest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsSiteServletRest</servlet-name>
+        <url-pattern>/sites/*</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>PsMatrixServletRest</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.rest.PsMatrixServletRest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsMatrixServletRest</servlet-name>
+        <url-pattern>/matrices/*</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>PsCloudServletRest</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.rest.PsCloudServletRest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsCloudServletRest</servlet-name>
+        <url-pattern>/clouds/*</url-pattern>
+    </servlet-mapping> 
+
+    <servlet>
+        <servlet-name>PsServiceTypesServletRest</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.rest.PsServiceTypesServletRest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsServiceTypesServletRest</servlet-name>
+        <url-pattern>/serviceTypes_rest/*</url-pattern>
+    </servlet-mapping> 
+
+    
+    <servlet>
+        <servlet-name>ReadTextFileServletRest</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.rest.ReadTextFileServletRest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReadTextFileServletRest</servlet-name>
+        <url-pattern>/readFile/*</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>DisplayMatrixServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets_debug.DisplayMatrixServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DisplayMatrixServlet</servlet-name>
+        <url-pattern>/displayMatrix/*</url-pattern>
+    </servlet-mapping> 
+    
+    
+    <servlet>
+        <servlet-name>PsServiceServletRest</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.rest.PsServiceServletRest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsServiceServletRest</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping> 
+   
+    
+</web-app>

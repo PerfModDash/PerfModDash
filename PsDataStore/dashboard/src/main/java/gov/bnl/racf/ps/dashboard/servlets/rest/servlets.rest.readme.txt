@@ -1,0 +1,2 @@
+The "new style" rest-servlets. They form the interface to the client code, decode the 
+incoming requests and call the object manipulators.
