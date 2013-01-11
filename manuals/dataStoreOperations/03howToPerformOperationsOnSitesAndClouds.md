@@ -1,10 +1,7 @@
-
-
-
 You perform CRUD operations on sites and clouds in (almost) the same way as you do them on
 hosts. You have to execute http requests to a url defined by
 
-{url}/PsApi.SITE
+    {url}/PsApi.SITE
 
 where PsApi.SITE is a constant from the attached PsApi.java file. As
 with hosts you can perform GET,POST,PUT and DELETE requests.
@@ -13,13 +10,13 @@ Let me go over them one by one.
 
 1. To obtain information about sites you load
 
-{url}/PsApi.SITE
+    {url}/PsApi.SITE
 
 you are returned a JSONArray with id's of known sites.
 
 In order to obtain information about a site you do:
 
-{url}/PsApi.SITE/{siteid}
+    {url}/PsApi.SITE/{siteid}
 
 you are given JSONObject with information about the site. The object
 will contain site name, id and array of hosts which belong to this site.
@@ -33,7 +30,7 @@ hosts - we will do it later.
 Put the JSONObject into data part of your request and execute POST
 request to
 
-{url}/PsApi.SITE
+    {url}/PsApi.SITE
 
 You will be returned JSONObject of your new site - including the newly
 assigned site id.
@@ -41,7 +38,7 @@ assigned site id.
 
 3. To delete a site execute DELETE request of the form:
 
-{url}/PsApi.SITE/{siteid}
+    {url}/PsApi.SITE/{siteid}
 
 the site siteid will be deleted. The hosts which belong to this site
 will not be deleted.
@@ -52,7 +49,7 @@ If you want to change site name or other simple information then build a
 JSONObject of the site, fill it with the information you want to update
 and do a PUT request to
 
-{url}/PsApi.SITE/{siteid}
+    {url}/PsApi.SITE/{siteid}
 
 with json object included in data part of your request. The data store
 will update your site information.
@@ -70,7 +67,7 @@ your site. You know your site Id and you know your host id's.
 
 To add hosts to site you make a PUT request to
 
-{url}/PsApi.SITE/{siteid}/PsApi.SITE_ADD_HOST_IDS
+    {url}/PsApi.SITE/{siteid}/PsApi.SITE_ADD_HOST_IDS
 
 and in the data part of the request you include JSONArray of the host id's.
 
@@ -81,7 +78,7 @@ that your hosts have been added.
 
 To remove hosts from a site you do a similar put request to
 
-{url}/PsApi.SITE/{siteid}/PsApi.SITE_REMOVE_HOST_IDS
+    {url}/PsApi.SITE/{siteid}/PsApi.SITE_REMOVE_HOST_IDS
 
 including in data part JSONArray of id's of hosts to be removed. You
 will get back a JSONObject of the site. The hosts should be removed from it.

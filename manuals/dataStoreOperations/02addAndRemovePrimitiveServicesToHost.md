@@ -11,8 +11,8 @@ We will deal with matrix services later.
 The primitive services are services which run on one and only one host.
 Here are the known service types (they are listed in the PsApi java class I mentioned earlier):
 
-// primitive services
- public static String BWCTL_PORT_4823 = "bwctl_port_4823";
+    // primitive services
+    public static String BWCTL_PORT_4823 = "bwctl_port_4823";
     public static String BWCTL_PORT_8570 = "bwctl_port_8570";
     public static String CHECK_LOOKUP_SERVICE = "CheckLookupService";
     public static String NDT_PORT_3001 = "NDT_port_3001";
@@ -24,7 +24,7 @@ Here are the known service types (they are listed in the PsApi java class I ment
     public static String PERFSONAR_PSB = "perfSONAR_pSB";
 
 
-// matrix services
+    // matrix services
     public static String LATENCY = "latency";
     public static String THROUGHPUT = "throughput";
     public static String TRACEROUTE = "traceroute";
@@ -68,7 +68,8 @@ The command to add a service of a given type to a given host with hostId has the
 
 {url}+PsApi.HOST+"/"+hostId+"/"+PsApi.HOST_ADD_SERVICE_TYPE_COMMAND
 
-Where PsApi.HOST and PsApi.HOST_ADD_SERVICE_TYPE_COMMAND refer to constants from the by know familiar PsApi class.
+Where PsApi.HOST and PsApi.HOST_ADD_SERVICE_TYPE_COMMAND refer to constants
+from the by know familiar PsApi class.
 
 (it is a better practice not to make explicity use of strings in the code
 but have everything parametrized.)
@@ -121,7 +122,7 @@ type id's.
 For example to add service types: bwctl_port_4823 and CheckLookupService
 you put in the data part
 
-["bwctl_port_4823","CheckLookupService"]
+    ["bwctl_port_4823","CheckLookupService"]
 
 The data store will create services of the requested types, atatch them
 to the hosts and will return a JSON object of the host with the services
@@ -134,18 +135,18 @@ added.
 and again in the data you include the service types you want to remove,
 for example:
 
-["bwctl_port_4823","CheckLookupService"]
+    ["bwctl_port_4823","CheckLookupService"]
 
 
 3. If you want to remove from a host service, but you do not identify
 the service by type but service id then you do a PUT request to
 
-{url}/PsApi.HOST/{hostId}/PsApi.HOST_REMOVE_SERVICE_ID_COMMAND
+    {url}/PsApi.HOST/{hostId}/PsApi.HOST_REMOVE_SERVICE_ID_COMMAND
 
 and in the data part you include list of service id's:
 
 
-["123456.4444444","555532.5623"]
+    ["123456.4444444","555532.5623"]
 
 
 (Of course you need to know your service id's).
@@ -156,14 +157,14 @@ The data store will return JSONObject of your updated host.
 
 4. If you want to add all primitive services to host then you do a PUT
 
-{url}/PsApi.HOST/{hostId}/PsApi.HOST_ADD_ALL_SERVICES_COMMAND
+    {url}/PsApi.HOST/{hostId}/PsApi.HOST_ADD_ALL_SERVICES_COMMAND
 
 no need to include any additional data
 
 
 5. in order to delete all primitive services from a host do a PUT
 
-{url}/PsApi.HOST/{hostId}/PsApi.HOST_REMOVE_ALL_SERVICES_COMMAND
+    {url}/PsApi.HOST/{hostId}/PsApi.HOST_REMOVE_ALL_SERVICES_COMMAND
 
 
 no need to include any data
@@ -172,8 +173,8 @@ no need to include any data
 
 and to add all latency/throughput services do a PUT to:
 
-{url}/PsApi.HOST/{hostId}/PsApi.HOST_ADD_LATENCY_SERVICES_COMMAND
-{url}/PsApi.HOST/{hostId}/PsApi.HOST_ADD_THROUGHPUT_SERVICES_COMMAND
+    {url}/PsApi.HOST/{hostId}/PsApi.HOST_ADD_LATENCY_SERVICES_COMMAND
+    {url}/PsApi.HOST/{hostId}/PsApi.HOST_ADD_THROUGHPUT_SERVICES_COMMAND
 
 and that is all. Now all you need is to code it and build around it a
 GUI. 
