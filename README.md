@@ -3,8 +3,8 @@ PerfModDash
 PerfModDash is a modular dashboard for gathering performance data from
 [perfSonar](http://www.internet2.edu/performance/pS-PS/) hosts.
 
-Documentation on how to use the service is available form the (manuals
-direcory)[https://github.com/PerfModDash/PerfModDash/tree/master/manuals]
+Documentation on how to use the service is available form the [manuals
+direcory](https://github.com/PerfModDash/PerfModDash/tree/master/manuals).
 
 Installation
 -------------
@@ -38,7 +38,7 @@ now checkout the project and build it:
 
 now check to see if you it's running by visiting the site:
 
-   $ http://hostname.com:8080/dashboard-1.0-SNAPSHOT/
+    http://hostname.com:8080/dashboard-1.0-SNAPSHOT/
 
 
 
