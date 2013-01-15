@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <constant name="struts.devMode" value="true" />
+  
+  <constant name="struts.action.extension" value="" />
+  
+       <package name="mainPage" namespace="/" extends="struts-default">
+           <action name="index" class="WelcomeAction">
+            <result>index.jsp</result>
+           </action>
+           
+           <action name="main">
+            <result>main.jsp</result>
+           </action>
+           <action name="head">
+            <result>head.jsp</result>
+           </action>
+           <action name="introduction">
+            <result>introduction.jsp</result>
+           </action>
+           <action name="navigator">
+            <result>navigator.jsp</result>
+           </action>
+             
+       </package> 
+  
+      <package name="host" namespace="/" extends="struts-default">
+          
+        <action name="queryHostList" class="host.action.HostListQueryAction">
+            <result name="success">hostpages/displayHostListSuccess.jsp</result>
+            <result name="error">hostpages/displayHostListError.jsp</result>
+        </action>
+        
+        <action name="queryHost" class="host.action.HostQueryAction">
+            <result name="success">hostpages/displayHostSuccess.jsp</result>
+            <result name="error">hostpages/displayHostError.jsp</result>
+        </action>
+        
+        <action name="createHostPage">
+            <result>hostpages/createHost.jsp</result>
+        </action>
+        
+        <action name="createHost" class="host.action.HostCreateAction">
+            <result name="success">hostpages/createHostSuccess.jsp</result>
+            <result name="error">hostpages/createHostError.jsp</result>
+        </action>
+        
+        <action name="updateHostPage" class="host.action.HostUpdatePageAction">
+            <result>hostpages/updateHost.jsp</result>
+        </action>
+        
+        <action name="updateHost" class="host.action.HostUpdateAction">
+            <result name="success">hostpages/updateHostSuccess.jsp</result>
+            <result name="error">hostpages/updateHostError.jsp</result>
+        </action>
+        
+        <action name="deleteHostPage" class="host.action.HostDeletePageAction">
+            <result>hostpages/deleteHost.jsp</result>
+        </action>
+        
+        <action name="deleteHost" class="host.action.HostDeleteAction">
+            <result name="success">hostpages/deleteHostSuccess.jsp</result>
+            <result name="error">hostpages/deleteHostError.jsp</result>
+        </action>
+        
+        <action name="primitiveServARtoHostPage" class="primitiveServ.action.PrimitiveServARtoHostPageAction">
+            <result>hostpages/primitiveServARtoHost.jsp</result>
+        </action>
+        
+        <action name="primitiveServARtoHost" class="primitiveServ.action.PrimitiveServARtoHostAction">
+            <result name="success">hostpages/primitiveServARtoHostSuccess.jsp</result>
+            <result name="error">hostpages/primitiveServARtoHostError.jsp</result>
+        </action>
+        
+        
+      </package> 
+      
+      <package name="site" namespace="/" extends="struts-default">
+          
+         <action name="querySiteList" class="site.action.SiteListQueryAction">
+            <result name="success">sitepages/displaySiteListSuccess.jsp</result>
+            <result name="error">sitepages/displaySiteListError.jsp</result>
+         </action>
+         
+         <action name="querySite" class="site.action.SiteQueryAction">
+            <result name="success">sitepages/displaySiteSuccess.jsp</result>
+            <result name="error">sitepages/displaySiteError.jsp</result>
+        </action>
+        
+        <action name="createSitePage">
+            <result>sitepages/createSite.jsp</result>
+        </action>
+        
+        <action name="createSite" class="site.action.SiteCreateAction">
+            <result name="success">sitepages/createSiteSuccess.jsp</result>
+            <result name="error">sitepages/createSiteError.jsp</result>
+        </action>
+        
+        
+        <action name="updateSitePage" class="site.action.SiteUpdatePageAction">
+            <result>sitepages/updateSite.jsp</result>
+        </action>
+        
+        <action name="updateSite" class="site.action.SiteUpdateAction">
+            <result name="success">sitepages/updateSiteSuccess.jsp</result>
+            <result name="error">sitepages/updateSiteError.jsp</result>
+        </action>
+        
+        <action name="deleteSitePage" class="site.action.SiteDeletePageAction">
+            <result>sitepages/deleteSite.jsp</result>
+        </action>
+        
+        <action name="deleteSite" class="site.action.SiteDeleteAction">
+            <result name="success">sitepages/deleteSiteSuccess.jsp</result>
+            <result name="error">sitepages/deleteSiteError.jsp</result>
+        </action>
+        
+        <action name="siteARHostPage" class="site.action.SiteARHostPageAction">
+            <result>sitepages/siteARHost.jsp</result>
+        </action>
+        
+        <action name="siteARHost" class="site.action.SiteARHostAction">
+            <result name="success">sitepages/siteARHostSuccess.jsp</result>
+            <result name="error">sitepages/siteARHostError.jsp</result>
+        </action>
+          
+          
+      </package>
+      
+      <package name="cloud" namespace="/" extends="struts-default">
+          
+         <action name="queryCloudList" class="cloud.action.CloudListQueryAction">
+            <result name="success">cloudpages/displayCloudListSuccess.jsp</result>
+            <result name="error">cloudpages/displayCloudListError.jsp</result>
+         </action>
+         
+         <action name="queryCloud" class="cloud.action.CloudQueryAction">
+            <result name="success">cloudpages/displayCloudSuccess.jsp</result>
+            <result name="error">cloudpages/displayCloudError.jsp</result>
+        </action>
+          
+        <action name="createCloudPage">
+            <result>cloudpages/createCloud.jsp</result>
+        </action>
+        
+        <action name="createCloud" class="cloud.action.CloudCreateAction">
+            <result name="success">cloudpages/createCloudSuccess.jsp</result>
+            <result name="error">cloudpages/createCloudError.jsp</result>
+        </action>
+        
+        <action name="updateCloudPage" class="cloud.action.CloudUpdatePageAction">
+            <result>cloudpages/updateCloud.jsp</result>
+        </action>
+        
+        <action name="updateCloud" class="cloud.action.CloudUpdateAction">
+            <result name="success">cloudpages/updateCloudSuccess.jsp</result>
+            <result name="error">cloudpages/updateCloudError.jsp</result>
+        </action>
+        
+        <action name="deleteCloudPage" class="cloud.action.CloudDeletePageAction">
+            <result>cloudpages/deleteCloud.jsp</result>
+        </action>
+        
+        <action name="deleteCloud" class="cloud.action.CloudDeleteAction">
+            <result name="success">cloudpages/deleteCloudSuccess.jsp</result>
+            <result name="error">cloudpages/deleteCloudError.jsp</result>
+        </action>
+        
+        <action name="cloudARSitePage" class="cloud.action.CloudARSitePageAction">
+            <result>cloudpages/cloudARSite.jsp</result>
+        </action>
+        
+        <action name="cloudARSite" class="cloud.action.CloudARSiteAction">
+            <result name="success">cloudpages/cloudARSiteSuccess.jsp</result>
+            <result name="error">cloudpages/cloudARSiteError.jsp</result>
+        </action>
+            
+      </package>
+      
+      
+      <package name="matrix" namespace="/" extends="struts-default">
+          
+         <action name="queryMatrixList" class="matrix.action.MatrixListQueryAction">
+            <result name="success">matrixpages/displayMatrixListSuccess.jsp</result>
+            <result name="error">matrixpages/displayMatrixListError.jsp</result>
+         </action>
+         
+         <action name="queryMatrix" class="matrix.action.MatrixQueryAction">
+            <result name="success">matrixpages/displayMatrixSuccess.jsp</result>
+            <result name="error">matrixpages/displayMatrixError.jsp</result>
+         </action>
+         
+         <action name="displayMatrixTest" class="matrix.action.MatrixTestDisplayAction">
+            <result name="success">matrixpages/displayMatrixTestSuccess.jsp</result>
+            <result name="error">matrixpages/displayMatrixTestError.jsp</result>
+         </action>
+         
+         <action name="createMatrixPage" class="matrix.action.MatrixCreatePageAction">
+            <result>matrixpages/createMatrix.jsp</result>
+        </action>
+        
+        <action name="createMatrix" class="matrix.action.MatrixCreateAction">
+            <result name="success">matrixpages/createMatrixSuccess.jsp</result>
+            <result name="error">matrixpages/createMatrixError.jsp</result>
+        </action>
+        
+        <action name="updateMatrixPage" class="matrix.action.MatrixUpdatePageAction">
+            <result>matrixpages/updateMatrix.jsp</result>
+        </action>
+        
+        <action name="updateMatrix" class="matrix.action.MatrixUpdateAction">
+            <result name="success">matrixpages/updateMatrixSuccess.jsp</result>
+            <result name="error">matrixpages/updateMatrixError.jsp</result>
+        </action>
+        
+        <action name="deleteMatrixPage" class="matrix.action.MatrixDeletePageAction">
+            <result>matrixpages/deleteMatrix.jsp</result>
+        </action>
+        
+        <action name="deleteMatrix" class="matrix.action.MatrixDeleteAction">
+            <result name="success">matrixpages/deleteMatrixSuccess.jsp</result>
+            <result name="error">matrixpages/deleteMatrixError.jsp</result>
+        </action>
+        
+        <action name="matrixARHostPage" class="matrix.action.MatrixARHostPageAction">
+            <result>matrixpages/matrixARHost.jsp</result>
+        </action>
+        
+        <action name="matrixARHostToRowPage" class="matrix.action.MatrixARHostToRowPageAction">
+            <result>matrixpages/matrixARHostToRow.jsp</result>
+        </action>
+        
+        <action name="matrixARHostToColumnPage" class="matrix.action.MatrixARHostToColumnPageAction">
+            <result>matrixpages/matrixARHostToColumn.jsp</result>
+        </action>
+        
+        <action name="matrixARHostToBothPage" class="matrix.action.MatrixARHostToBothPageAction">
+            <result>matrixpages/matrixARHostToBoth.jsp</result>
+        </action>
+        
+        <action name="matrixARHostToRow" class="matrix.action.MatrixARHostToRowAction">
+            <result name="success">matrixpages/matrixARHostToRowSuccess.jsp</result>
+            <result name="error">matrixpages/matrixARHostToRowError.jsp</result>
+        </action>
+        
+        <action name="matrixARHostToColumn" class="matrix.action.MatrixARHostToColumnAction">
+            <result name="success">matrixpages/matrixARHostToColumnSuccess.jsp</result>
+            <result name="error">matrixpages/matrixARHostToColumnError.jsp</result>
+        </action>
+        
+        <action name="matrixARHostToBoth" class="matrix.action.MatrixARHostToBothAction">
+            <result name="success">matrixpages/matrixARHostToBothSuccess.jsp</result>
+            <result name="error">matrixpages/matrixARHostToBothError.jsp</result>
+        </action>     
+          
+      </package>
+      
+      <package name="mesh" namespace="/" extends="struts-default">
+          <action name="configMeshPage">
+              <result>meshpages/configMesh.jsp</result>
+          </action>
+          <action name="configMesh" class="mesh.action.MeshConfigAction">
+            <result name="success">meshpages/configMeshSuccess.jsp</result>
+            <result name="error">meshpages/configMeshError.jsp</result>
+         </action>
+          
+      </package>
+    
+</struts>
+

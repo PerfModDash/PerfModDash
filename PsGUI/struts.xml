@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <constant name="struts.devMode" value="true" />
+  
+      <package name="host" extends="struts-default">
+        <action name="displayHostList" class="host.HostListExecute">
+            <result name="success">/displayHostList.jsp</result>
+            <result name="error">/displayHostListError.jsp</result>
+        </action>
+        
+        <action name="KFCAction" class="host.KFCAction" >
+            <result name="success">/KFCpage.jsp</result>
+	</action>
+      </package> 
+    
+</struts>
+
