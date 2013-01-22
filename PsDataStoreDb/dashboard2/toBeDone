@@ -1,0 +1,125 @@
+Here is a list of things which need to be done in the PsDataStoreDb
+
+I. API functions
+
+1. Service type functions. Those are functions which allow user to create,edit
+and delete custom service types. Implement:
+
+a)GET request TODO
+b)POST request TODO
+c)PUT request TODO
+d)DELETE request TODO
+
+priority is: LOW. For the forseeable future we do not need to have custom 
+service types. To create the current "official" service types use the url
+
+{url}/initServiceTypes
+
+this will create known service types.
+
+2. Host functions
+
+a)GET request - DONE
+b)POST request - DONE
+c)PUT request. This has several high level commands:
+    i)addServiceType - DONE
+    ii)removeServiceType - DONE
+    iii)removeServiceId - TODO
+    iv)addPrimitiveServices - TODO
+    v)addLatencyServices - TODO
+    vi)addThroughputServices - TODO
+   
+d)DELETE request - DONE, but needs to be revisited every time new object is 
+added to the package to ensure consistent host deletion
+
+priority: HIGH
+
+3. Site functions
+    a)GET request TODO
+    b)POST request TODO
+    c)PUT request TODO
+    includes high level functions
+        i)addHost TODO
+        ii)removeHost TODO
+    d)DELETE request TODO
+
+priority: HIGH
+
+4. Matrix functions
+a)GET request TODO
+    b)POST request TODO
+    c)PUT request TODO
+      This includes high level commands:
+      i)addHost  TODO
+      ii)addRow  TODO
+      iii)addColumn  TODO
+      iv)removeHost  TODO
+    d)DELETE request TODO
+
+priority: HIGH
+
+5. Cloud functions
+    a)GET request TODO
+    b)POST request TODO
+    c)PUT request TODO
+        includes high level functions
+        i)add site TODO
+        ii)remove site TODO
+        iii)add matrix TODO
+        iv)remove matrix TODO
+    d)DELETE request TODO
+
+priority: HIGH
+
+6. Collector interface
+    a)job query url TODO
+    b)result upload url TODO
+
+7. Interface to obtain historical data - TODO
+
+Other , nice to have features:
+
+II. Hibernate session management.
+
+Currently the hibernate session is opened for the duration of every web request.
+The session is created at the beginning of a request, the request is processed
+and after transcation is comitted the session is closed.
+
+This is not optimal. There are better ways to handle this. One way is to use a 
+session pooling. This can be done either by using existing session management 
+packages (I need to investigate what is available) or by writing a custom 
+session manager (which does not seem to be very hard). TODO.
+
+Since the issue is not a show stopper (as of now) the priority is LOW
+
+III. Refactor the code to allow for non relational database systems.
+
+Soichi suggested using some non relational database for the datastore. 
+I do not have experience with it, so I do not want to make a to make change 
+in the project now, and replace a known system (mysql) with something new.
+
+
+But it would be nice to leave an option to change the database system in the 
+future. Here is how it can be done:
+
+Currently all operations on perfsonar objects are performed by dedicated classes
+known as "Manipulators" or "Shredders" (for deleting objects).
+
+Those classes should be declared as java interface and then the actual code
+should be rewritten as implementation of the interface.
+
+Anyone who wishes to add a new database type to the dataStore would ehtn need 
+to provide his implementation of the manipulator interface.
+
+Priority: LOW.
+
+IV. Optimize hibernate and second level cache.
+
+Hibernate needs to be optimized. This may involve changing the size of second 
+level cache, changing the default object lifetime in cache, introduction of 
+indexing.
+
+Priority : MEDIUM. Will work on that after point I is all DONE.
+
+
+

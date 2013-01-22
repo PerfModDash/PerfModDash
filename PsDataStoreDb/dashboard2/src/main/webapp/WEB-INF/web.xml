@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <servlet>
+        <servlet-name>PsDumpServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.debug.PsDumpServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsDumpServlet</servlet-name>
+        <url-pattern>/dump</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InitServiceTypes</servlet-name>
+        <url-pattern>/initServiceTypes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateServiceType</servlet-name>
+        <url-pattern>/createServiceType</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <servlet>
+        <servlet-name>PsHostsServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsHostsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InitServiceTypes</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.InitServiceTypes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateServiceType</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.debug.CreateServiceType</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PsHostsServlet</servlet-name>
+        <url-pattern>/hosts/*</url-pattern>
+    </servlet-mapping>
+</web-app>
