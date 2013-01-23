@@ -10,7 +10,8 @@ package gov.racf.bnl.ps.dashboard.PsApi;
  */
 public class PsApi {
      // host API commands
-    public static final String HOST="hosts_rest";    
+    //public static final String HOST="hosts_rest";   
+    public static final String HOST="hosts";   
     public static final String HOST_ADD_SERVICE_TYPE_COMMAND = "addservicetype";
     public static final String HOST_REMOVE_SERVICE_TYPE_COMMAND = "removeservicetype";
     public static final String HOST_REMOVE_SERVICE_ID_COMMAND = "removeserviceid";

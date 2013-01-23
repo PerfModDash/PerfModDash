@@ -15,9 +15,16 @@ import org.joda.time.format.ISODateTimeFormat;
  */
 public class IsoDateConverter {
     public static Date isoDate2Date(String isoDateString){
+        org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger("requestLogger");
+        logger.debug("we are in IsoDateConverter.isoDate2Date");
+        logger.debug("input date string = "+isoDateString);
         DateTimeFormatter formatter = ISODateTimeFormat.dateTime();
+        logger.debug("we have created formatter");
         DateTime dateTime = formatter.parseDateTime(isoDateString);
+        logger.debug("we have converted into DateTime");
         Date date = dateTime.toDate();
+        logger.debug("we have converted into Date");
+        logger.debug("date="+date);
         return date;
     }
     public static String date2IsoDate(Date date){

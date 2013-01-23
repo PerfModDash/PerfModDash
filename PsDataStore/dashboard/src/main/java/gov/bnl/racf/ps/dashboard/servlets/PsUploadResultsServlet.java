@@ -51,8 +51,10 @@ public class PsUploadResultsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
+        org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger("requestLogger");
 
-        
+        logger.debug("we start processing results request");
+
         out.println("<html>");
         out.println("<head>");
         out.println("<title>Servlet PsUploadResultsServlet</title>");
@@ -62,17 +64,17 @@ public class PsUploadResultsServlet extends HttpServlet {
 
         // results are posted in data part of the request, therefore we must
         // open the data reader
-        
-        String inputDataString="";
+
+        String inputDataString = "";
 
         BufferedReader br = null;
         try {
-            String sCurrentLine;        
+            String sCurrentLine;
             br = request.getReader();
 
             while ((sCurrentLine = br.readLine()) != null) {
                 out.println(sCurrentLine + "<BR>");
-                inputDataString=inputDataString+sCurrentLine;
+                inputDataString = inputDataString + sCurrentLine;
             }
 
         } catch (IOException e) {
@@ -87,11 +89,13 @@ public class PsUploadResultsServlet extends HttpServlet {
             }
         }
 
+        logger.debug("input data in JSON is "+inputDataString);
+        
         //convert input data string to JSON
         JSONParser parser = new JSONParser();
         JSONObject json = null;
         try {
-            json = (JSONObject)parser.parse(inputDataString);
+            json = (JSONObject) parser.parse(inputDataString);
         } catch (ParseException ex) {
             out.println("Error occured while parsing json data<BR>");
             out.println(ex);
@@ -99,71 +103,20 @@ public class PsUploadResultsServlet extends HttpServlet {
         }
 
         // convert json to service result
-        PsServiceResult serviceResult = 
+        logger.debug("we converted input data string to JSON, now convert JSON to service result object");
+        PsServiceResult serviceResult =
                 Json2ServiceResultConverter.convert(json);
+        logger.debug("JSON object converted to service result");
         // update the corresponding service
         PsServiceUpdater.update(serviceResult);
-        
+
         //System.out.println(new Date()+" result received="+json.toString());
-        
+
         out.println("</body>");
         out.println("</html>");
+        logger.debug("we finished processing results request");
 
 
-//        try {
-//            /*
-//             * TODO output your page here. You may use following sample code.
-//             */
-//
-//
-//            PsDataStore psDataStore = PsDataStore.getDataStore();
-//
-//            JSONObject json = null;
-//            JSONParser parser = new JSONParser();
-//
-//            String resultAsString = request.getParameter("result");
-//            if (resultAsString != null && resultAsString != "") {
-//                try {
-//                    //unpack result string and convert it to json
-//                    json = (JSONObject) parser.parse(resultAsString);
-//                    
-//                    //convert json object to PsServiceResult object
-//                    PsServiceResult serviceResult = 
-//                            Json2ServiceResultConverter.convert(json);
-//
-//                    // update service                                   
-//                    PsServiceUpdater.update(serviceResult);
-//                    
-//                    //TODO set proper exit code
-//                    
-//                    out.println("<html>");
-//                    out.println("<head>");
-//                    out.println("<title>Servlet PsUploadResultsServlet</title>");
-//                    out.println("</head>");
-//                    out.println("<body>");
-//                    out.println("<h1>Servlet PsUploadResultsServlet at " + request.getContextPath() + "</h1>");
-//                    out.println("</body>");
-//                    out.println("</html>");
-//
-//                } catch (Exception e) {
-//                    // json object parsing failed
-//
-//                    //TODO return proper error
-//                    Date date = new Date();
-//                    String currentClass = getClass().getName();
-//                    System.out.println(date + " " + currentClass + " Bad request");
-//                    System.out.println(date + " " + currentClass + "request=" + request);
-//                    System.out.println(date + " " + currentClass + "Exception: " + e);
-//                }
-//            }
-//
-//
-//
-//
-//
-//        } finally {
-//            out.close();
-//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
