@@ -122,7 +122,7 @@ public class PsServiceFactory {
             PsServiceType type, PsHost host) {
         PsService service = PsObjectCreator.createNewService(session);
         service.setType(type.getServiceTypeId());
-        service.setName(type.getId() + "_on_" + host.getHostname());
+        service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
 
@@ -147,7 +147,7 @@ public class PsServiceFactory {
             PsServiceType type, PsHost host) {
         PsService service = PsObjectCreator.createNewService(session);
         service.setType(type.getServiceTypeId());
-        service.setName(type.getId() + "_on_" + host.getHostname());
+        service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
 
@@ -173,7 +173,7 @@ public class PsServiceFactory {
             PsServiceType type, PsHost host) {
         PsService service = PsObjectCreator.createNewService(session);
         service.setType(type.getServiceTypeId());
-        service.setName(type.getId() + "_on_" + host.getHostname());
+        service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
 
@@ -202,7 +202,7 @@ public class PsServiceFactory {
             PsServiceType type, PsHost host) {
         PsService service = PsObjectCreator.createNewService(session);
         service.setType(type.getServiceTypeId());
-        service.setName(type.getId() + "_on_" + host.getHostname());
+        service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
 
@@ -229,7 +229,7 @@ public class PsServiceFactory {
             PsServiceType type, PsHost host) {
         PsService service = PsObjectCreator.createNewService(session);
         service.setType(type.getServiceTypeId());
-        service.setName(type.getId() + "_on_" + host.getHostname());
+        service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
 
@@ -256,7 +256,7 @@ public class PsServiceFactory {
             PsServiceType type, PsHost host) {
         PsService service = PsObjectCreator.createNewService(session);
         service.setType(type.getServiceTypeId());
-        service.setName(type.getId() + "_on_" + host.getHostname());
+        service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
 
@@ -283,7 +283,7 @@ public class PsServiceFactory {
             PsServiceType type, PsHost host) {
         PsService service = PsObjectCreator.createNewService(session);
         service.setType(type.getServiceTypeId());
-        service.setName(type.getId() + "_on_" + host.getHostname());
+        service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
 
@@ -310,7 +310,7 @@ public class PsServiceFactory {
             PsServiceType type, PsHost host) {
         PsService service = PsObjectCreator.createNewService(session);
         service.setType(type.getServiceTypeId());
-        service.setName(type.getId() + "_on_" + host.getHostname());
+        service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
 
@@ -337,7 +337,7 @@ public class PsServiceFactory {
             PsServiceType type, PsHost host) {
         PsService service = PsObjectCreator.createNewService(session);
         service.setType(type.getServiceTypeId());
-        service.setName(type.getId() + "_on_" + host.getHostname());
+        service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
 
@@ -364,7 +364,7 @@ public class PsServiceFactory {
             PsServiceType type, PsHost host) {
         PsService service = PsObjectCreator.createNewService(session);
         service.setType(type.getServiceTypeId());
-        service.setName(type.getId() + "_on_" + host.getHostname());
+        service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
 

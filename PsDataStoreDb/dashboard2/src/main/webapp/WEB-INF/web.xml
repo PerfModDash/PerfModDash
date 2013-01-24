@@ -16,6 +16,10 @@
         <servlet-name>CreateServiceType</servlet-name>
         <url-pattern>/createServiceType</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PsServicesServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -32,6 +36,10 @@
     <servlet>
         <servlet-name>CreateServiceType</servlet-name>
         <servlet-class>gov.bnl.racf.ps.dashboard.servlets.debug.CreateServiceType</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PsServicesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsServicesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PsHostsServlet</servlet-name>

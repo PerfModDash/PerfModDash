@@ -202,8 +202,9 @@ public class PsHostManipulator {
     }
 
     /**
-     * take given host and remove from it list of services stored in the input
+     * take given host and remove from it list of services identified by their ID's stored in the input
      * JSONArray object
+     * 
      *
      * @param host
      * @param listOfServices
@@ -212,8 +213,10 @@ public class PsHostManipulator {
             PsHost host, JSONArray listOfServices) {
         Iterator iter = listOfServices.iterator();
         while (iter.hasNext()) {
-            int serviceId = ((Integer) iter.next()).intValue();
+            int serviceId = ((Long) iter.next()).intValue();
             removeService(session, host, serviceId);
         }
     }
+
+    
 }

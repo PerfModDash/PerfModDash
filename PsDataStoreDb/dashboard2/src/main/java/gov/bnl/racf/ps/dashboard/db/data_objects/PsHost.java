@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Vector;
 import java.util.Iterator;
 import javax.persistence.*;
+import org.apache.log4j.Logger;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -26,15 +27,13 @@ public class PsHost {
     public static final String IPV4 = "ipv4";
     public static final String IPV6 = "ipv6";
     public static final String SERVICES = "services";
-    
     @Id
     @GeneratedValue
-    private int    id;
+    private int id;
     private String hostname;
     private String ipv4;
     private String ipv6;
-    
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     private Collection<PsService> services = new Vector<PsService>();
 
     /**
@@ -78,7 +77,6 @@ public class PsHost {
      * Constructor to generate empty host, only id is filled
      */
     public PsHost() {
-      
     }
 
     /**
@@ -89,7 +87,7 @@ public class PsHost {
      * @param ipv4
      * @param ipv6
      */
-    public PsHost(String hostname, String ipv4, String ipv6) {        
+    public PsHost(String hostname, String ipv4, String ipv6) {
         this.hostname = hostname;
         this.ipv4 = ipv4;
         this.ipv6 = ipv6;
@@ -102,7 +100,7 @@ public class PsHost {
      * @param hostname
      * @param ipv4
      */
-    public PsHost(String hostname, String ipv4) {        
+    public PsHost(String hostname, String ipv4) {
         this.hostname = hostname;
         this.ipv4 = ipv4;
     }
@@ -116,8 +114,6 @@ public class PsHost {
         return services.iterator();
     }
 
-   
-
     /**
      * check if host contains servcieId
      *
@@ -128,7 +124,7 @@ public class PsHost {
         boolean result = false;
         Iterator iter = serviceIterator();
         while (iter.hasNext()) {
-            if (((PsService) iter.next()).getId()==serviceId) {
+            if (((PsService) iter.next()).getId() == serviceId) {
                 return true;
             }
         }
@@ -163,7 +159,7 @@ public class PsHost {
     public void removeService(int serviceId) {
         Iterator iter = serviceIterator();
         while (iter.hasNext()) {
-            if (((PsService) iter.next()).getId()==serviceId) {
+            if (((PsService) iter.next()).getId() == serviceId) {
                 iter.remove();
             }
         }
@@ -191,8 +187,13 @@ public class PsHost {
             PsService currentService = (PsService) iter.next();
             String currentTypeId = currentService.getType();
             if (type != null) {
-                if (currentTypeId.equals(type.getServiceTypeId())) {
-                    return true;
+                if (currentTypeId != null) {
+                    if (currentTypeId.equals(type.getServiceTypeId())) {
+                        return true;
+                    }
+                }else{
+                    Logger logger = Logger.getLogger(PsHost.class);
+                    logger.warn("service on host "+this.getId()+" has type null");
                 }
             }
         }
@@ -218,8 +219,4 @@ public class PsHost {
     public String toString() {
         return "PsHost{" + "id=" + id + ", hostname=" + hostname + '}';
     }
-
-    
-
-    
 }

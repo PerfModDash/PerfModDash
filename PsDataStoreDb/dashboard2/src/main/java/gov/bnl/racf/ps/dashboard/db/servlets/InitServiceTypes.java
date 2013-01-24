@@ -80,6 +80,8 @@ public class InitServiceTypes extends HttpServlet {
                 }
             }
 
+            
+            
             out.println("</body>");
             out.println("</html>");
 

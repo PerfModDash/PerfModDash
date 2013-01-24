@@ -10,7 +10,7 @@ b)POST request TODO
 c)PUT request TODO
 d)DELETE request TODO
 
-priority is: LOW. For the forseeable future we do not need to have custom 
+priority is: LOW. For the forseable future we do not need to have custom 
 service types. To create the current "official" service types use the url
 
 {url}/initServiceTypes
@@ -24,15 +24,24 @@ b)POST request - DONE
 c)PUT request. This has several high level commands:
     i)addServiceType - DONE
     ii)removeServiceType - DONE
-    iii)removeServiceId - TODO
-    iv)addPrimitiveServices - TODO
-    v)addLatencyServices - TODO
-    vi)addThroughputServices - TODO
+    iii)removeServiceId - DONE
+    iv)addPrimitiveServices - DONE
+    v)addLatencyServices - DONE
+    vi)addThroughputServices - DONE
+    vii)remove all services - DONE
    
 d)DELETE request - DONE, but needs to be revisited every time new object is 
 added to the package to ensure consistent host deletion
 
 priority: HIGH
+
+2. Service functions
+The low level service functions are low priority. Initialy all CRUD operations on
+services should be done via high level calls to host PUT requests
+a)GET request - DONE
+b)POST request  - TODO
+c)PUT request - TODO
+d)DELETE request - TODO
 
 3. Site functions
     a)GET request TODO
@@ -83,7 +92,7 @@ II. Hibernate session management.
 
 Currently the hibernate session is opened for the duration of every web request.
 The session is created at the beginning of a request, the request is processed
-and after transcation is comitted the session is closed.
+and after transaction is committed the session is closed.
 
 This is not optimal. There are better ways to handle this. One way is to use a 
 session pooling. This can be done either by using existing session management 
@@ -108,7 +117,7 @@ known as "Manipulators" or "Shredders" (for deleting objects).
 Those classes should be declared as java interface and then the actual code
 should be rewritten as implementation of the interface.
 
-Anyone who wishes to add a new database type to the dataStore would ehtn need 
+Anyone who wishes to add a new database type to the dataStore would then need 
 to provide his implementation of the manipulator interface.
 
 Priority: LOW.

@@ -5,6 +5,7 @@
 package gov.bnl.racf.ps.dashboard.db.data_store;
 
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceType;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import java.util.Collections;
@@ -40,9 +41,6 @@ public class PsDataStore {
      * @return
      */
     public static List<PsHost> getAllHosts(Session session) {
-
-
-
         Query query2 = session.createQuery("from PsHost");
         query2.setCacheable(true);
         List resultList = query2.list();
@@ -75,5 +73,24 @@ public class PsDataStore {
         Query query = session.createQuery("from PsServiceType");
         List list = query.list();
         return list;
+    }
+
+    /**
+     * get service identified by a given service id
+     * @param session
+     * @param serviceId
+     * @return 
+     */
+    public static PsService getService(Session session, int serviceId) {
+        PsService service = (PsService) session.get(PsService.class, serviceId);
+        return service;
+    }
+
+    public static List<PsService> getAllServices(Session session) {
+        Query query2 = session.createQuery("from PsService");
+        query2.setCacheable(true);
+        List resultList = query2.list();
+
+        return resultList;
     }
 }

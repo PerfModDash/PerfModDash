@@ -233,30 +233,47 @@ public class PsHostsServlet extends HttpServlet {
                     JSONObject hostJson = JsonConverter.toJson(host);
                     out.println(hostJson.toString());
                 }
-            }else{
+            } else {
                 if (parameters.size() == 2) {
                     int hostId = Integer.parseInt(parameters.get(0));
                     String userCommand = parameters.get(1);
-                    out.println(hostId+" "+userCommand);
-                    PsHost host = (PsHost)session.get(PsHost.class,hostId);
-                    if(host==null){
-                        out.println("host "+hostId+" not found");
-                    }else{
-                        out.println(JsonConverter.toJson(host).toString());
-                        
+                    out.println(hostId + " " + userCommand);
+                    PsHost host = (PsHost) session.get(PsHost.class, hostId);
+                    if (host == null) {
+                        out.println("host " + hostId + " not found");
+                    } else {
                         // this is a valid host
 
                         if (PsApi.HOST_ADD_SERVICE_TYPE_COMMAND.equals(userCommand)) {
-                            // user wanst to add services
+                            // user wants to add services
 
                             // unpack data content
                             JSONArray jsonArray =
                                     PostRequestDataExtractor.extractJsonArray(request);
 
                             // add those services
-                            PsHostManipulator.addServiceTypes(session,host, jsonArray);
+                            PsHostManipulator.addServiceTypes(session, host, jsonArray);
                         }
                         
+                        if (PsApi.HOST_ADD_ALL_SERVICES_COMMAND.equals(userCommand)) {
+                            // user wants to add services
+
+                            // add those services
+                            PsHostManipulator.addPrimitiveServices(session, host);
+                        }
+                        if (PsApi.HOST_ADD_LATENCY_SERVICES_COMMAND.equals(userCommand)) {
+                            // user wants to add services
+
+                            // add those services
+                            PsHostManipulator.addLatencyServices(session, host);
+                        }
+                        if (PsApi.HOST_ADD_THROUGHPUT_SERVICES_COMMAND.equals(userCommand)) {
+                            // user wants to add services
+
+                            // add those services
+                            PsHostManipulator.addThroughputServices(session, host);
+                        }
+
                         if (PsApi.HOST_REMOVE_SERVICE_TYPE_COMMAND.equals(userCommand)) {
                             // user wanst to remove services
 
@@ -265,9 +282,28 @@ public class PsHostsServlet extends HttpServlet {
                                     PostRequestDataExtractor.extractJsonArray(request);
 
                             // remove those services
-                            PsHostManipulator.removeServiceTypes(session,host, jsonArray);
+                            PsHostManipulator.removeServiceTypes(session, host, jsonArray);
                         }
                         
+                        if (PsApi.HOST_REMOVE_SERVICE_ID_COMMAND.equals(userCommand)) {
+                            // user wanst to remove services
+
+                            // unpack data content
+                            JSONArray jsonArray =
+                                    PostRequestDataExtractor.extractJsonArray(request);
+
+                            // remove those services
+                            PsHostManipulator.removeServices(session, host, jsonArray);
+                        }
+                        if (PsApi.HOST_REMOVE_ALL_SERVICES_COMMAND.equals(userCommand)) {
+                            // user wants to remove services
+
+                            // remove all services from host
+                            PsHostManipulator.removeAllServices(session, host);
+                        }
+                        
+                        
+                        out.println(JsonConverter.toJson(host).toString());
                     }
                 }
             }
@@ -314,7 +350,7 @@ public class PsHostsServlet extends HttpServlet {
                 int hostId = hostIdInteger.intValue();
                 PsHost host = PsDataStore.getHost(session, hostId);
 
-                PsObjectShredder.delete(session,host);
+                PsObjectShredder.delete(session, host);
             }
 
             // commit transaction and close session
