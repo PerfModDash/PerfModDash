@@ -5,6 +5,8 @@
 package gov.bnl.racf.ps.dashboard.db.object_manipulators;
 
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
+import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import java.util.*;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -310,43 +312,28 @@ public class PsObjectUpdater {
 //        }
 //    }
 //
-//    /**
-//     * update site with parameters from json object
-//     *
-//     * @param site
-//     * @param json
-//     */
-//    public static void update(PsSite site, JSONObject json) {
-//
-//
-//        if (json.keySet().contains(PsSite.NAME)) {
-//            site.setName((String) json.get(PsSite.NAME));
-//        }
-//        if (json.keySet().contains(PsSite.DESCRIPTION)) {
-//            site.setDescription((String) json.get(PsSite.DESCRIPTION));
-//        }
-//        if (json.keySet().contains(PsSite.STATUS)) {
-//            site.setStatus(((Long) json.get(PsSite.STATUS)).intValue());
-//        }
-//        if (json.keySet().contains(PsSite.HOSTS)) {
-//            Vector arrayOfHostIds = (Vector) json.get(PsSite.HOSTS);
-//            Iterator<String> iter = arrayOfHostIds.iterator();
-//            while (iter.hasNext()) {
-//                String hostId = (String) iter.next();
-//                if (site.containsHostId(hostId)) {
-//                    //do nothing
-//                } else {
-//                    // add this host to site
-//                    PsDataStore psDataStore = PsDataStore.getDataStore();
-//                    PsHost host = psDataStore.getHost(hostId);
-//                    if (host != null) {
-//                        site.addHost(host);
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
+    /**
+     * update site with parameters from json object
+     *
+     * @param site
+     * @param json
+     */
+    public static void update(PsSite site, JSONObject json) {
+
+        if (json.keySet().contains(PsSite.NAME)) {
+            site.setName((String) json.get(PsSite.NAME));
+        }
+        if (json.keySet().contains(PsSite.DESCRIPTION)) {
+            site.setDescription((String) json.get(PsSite.DESCRIPTION));
+        }
+        if (json.keySet().contains(PsSite.STATUS)) {
+            site.setStatus(((Long) json.get(PsSite.STATUS)).intValue());
+        }
+        // we do not handle hosts here. Adding and removing of hosts
+        // is done by the SITE_ADD_HOST_IDS and SITE_REMOVE_HOST_IDS
+        // command in the API
+    }
+
 //    /**
 //     * modify host according to its json object. Only update simple fields:
 //     * name, ip and ipv6. Do not touch services on this host
@@ -545,5 +532,9 @@ public class PsObjectUpdater {
 //        }
 //
 //        return result;
+//    }
+
+//    public static void update(PsSite site, JSONObject jsonObject) {
+//        throw new UnsupportedOperationException("Not yet implemented");
 //    }
 }

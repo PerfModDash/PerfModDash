@@ -201,19 +201,22 @@ public class PsHostManipulator {
         }
     }
 
+    
     /**
      * take given host and remove from it list of services identified by their ID's stored in the input
      * JSONArray object
      * 
-     *
+     * service ids are in JSONArray represented by strings.
+     * @param session
      * @param host
-     * @param listOfServices
+     * @param listOfServiceIds 
      */
     public static void removeServices(Session session, 
-            PsHost host, JSONArray listOfServices) {
-        Iterator iter = listOfServices.iterator();
+            PsHost host, JSONArray listOfServiceIds) {
+        Iterator iter = listOfServiceIds.iterator();
         while (iter.hasNext()) {
-            int serviceId = ((Long) iter.next()).intValue();
+            String serviceIdString = (String)iter.next();
+            int serviceId = Integer.parseInt(serviceIdString);
             removeService(session, host, serviceId);
         }
     }

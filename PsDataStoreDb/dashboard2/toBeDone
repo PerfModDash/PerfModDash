@@ -36,7 +36,7 @@ added to the package to ensure consistent host deletion
 priority: HIGH
 
 2. Service functions
-The low level service functions are low priority. Initialy all CRUD operations on
+The low level service functions are low priority. Initially all CRUD operations on
 services should be done via high level calls to host PUT requests
 a)GET request - DONE
 b)POST request  - TODO

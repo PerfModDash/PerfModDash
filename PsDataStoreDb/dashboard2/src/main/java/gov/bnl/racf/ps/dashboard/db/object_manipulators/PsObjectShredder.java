@@ -6,6 +6,7 @@ package gov.bnl.racf.ps.dashboard.db.object_manipulators;
 
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
 import org.hibernate.Session;
 
 /**
@@ -26,5 +27,12 @@ public class PsObjectShredder {
     public static void delete(Session session, PsService service) {
         //throw new UnsupportedOperationException("Not yet implemented");
         session.delete(service);
+    }
+    public static void delete(Session session, PsSite site) {
+        //throw new UnsupportedOperationException("Not yet implemented");
+        //first order of business is to remove all hosts from the site
+        site.removeAllHosts();
+        // ok, now we can remove the site
+        session.delete(site);
     }
 }

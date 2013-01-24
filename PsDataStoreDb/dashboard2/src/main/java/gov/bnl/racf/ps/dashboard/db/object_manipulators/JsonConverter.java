@@ -36,7 +36,8 @@ public class JsonConverter {
         while (iter.hasNext()) {
             PsService service = (PsService) iter.next();
             int serviceId = service.getId();
-            services.add(serviceId);
+            Integer serviceIdAsInteger = new Integer(serviceId);
+            services.add(serviceIdAsInteger.toString());
         }
         json.put(PsHost.SERVICES, services);
 
@@ -49,6 +50,7 @@ public class JsonConverter {
      * @param host
      * @return
      */
+    
     public static JSONObject toJson(PsHost host) {
         return psHost2Json(host);
     }
@@ -204,6 +206,25 @@ public class JsonConverter {
             json.put(PsServiceResult.PARAMETERS, parameters);
 
         }
+
+        return json;
+    }
+    
+    public static JSONObject toJson(PsSite site) {
+        JSONObject json = new JSONObject();
+        json.put(PsSite.ID, site.getId());
+        json.put(PsSite.NAME, site.getName());
+        json.put(PsSite.DESCRIPTION, site.getDescription());
+        json.put(PsSite.STATUS, site.getStatus());
+
+        JSONArray listOfHosts = new JSONArray();
+        Vector<Integer> listOfHostIds = site.getHostIds();
+        Iterator<Integer> iter = listOfHostIds.iterator();
+        while (iter.hasNext()) {
+            Integer currentIdInteger = (Integer) iter.next();
+            listOfHosts.add(currentIdInteger.toString());
+        }
+        json.put(PsSite.HOSTS, listOfHosts);
 
         return json;
     }

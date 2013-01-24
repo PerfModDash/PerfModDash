@@ -20,6 +20,10 @@
         <servlet-name>PsServicesServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PsSitesServlet</servlet-name>
+        <url-pattern>/sites/*</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -40,6 +44,10 @@
     <servlet>
         <servlet-name>PsServicesServlet</servlet-name>
         <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsServicesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PsSitesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsSitesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PsHostsServlet</servlet-name>

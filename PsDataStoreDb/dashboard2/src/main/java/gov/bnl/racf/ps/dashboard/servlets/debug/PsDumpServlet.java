@@ -7,6 +7,7 @@ package gov.bnl.racf.ps.dashboard.servlets.debug;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceType;
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import java.io.IOException;
@@ -95,6 +96,17 @@ public class PsDumpServlet extends HttpServlet {
                 out.println(json.toString());
             }
 
+            out.println("<BR><strong>Sites:</strong><br>");
+            String hql3 = "FROM PsSite";
+            Query query3 = session.createQuery(hql3);
+            List results3 = query3.list();
+            Iterator iter3 = results3.iterator();
+            while (iter3.hasNext()) {
+                PsSite site = (PsSite) iter3.next();
+                JSONObject json = JsonConverter.toJson(site);
+                out.println(json.toString());
+            }
+            
             out.println("</body>");
             out.println("</html>");
 

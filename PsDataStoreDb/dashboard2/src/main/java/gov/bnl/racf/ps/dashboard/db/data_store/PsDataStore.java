@@ -7,6 +7,7 @@ package gov.bnl.racf.ps.dashboard.db.data_store;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceType;
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import java.util.Collections;
 import java.util.List;
@@ -47,29 +48,32 @@ public class PsDataStore {
 
         return resultList;
     }
+
     /**
      * get service type object of a given service type
+     *
      * @param session
      * @param serviceTypeId
-     * @return 
+     * @return
      */
     public static PsServiceType getServiceType(Session session, String serviceTypeId) {
         Query query = session.createQuery("from PsServiceType where serviceTypeId = :code ");
         query.setParameter("code", serviceTypeId);
         List list = query.list();
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             return null;
-        }else{
-            return (PsServiceType)list.get(0);
+        } else {
+            return (PsServiceType) list.get(0);
         }
     }
-    
+
     /**
      * get list of known service types
+     *
      * @param session
-     * @return 
+     * @return
      */
-    public static List<PsServiceType> listOfServiceTypes(Session session){
+    public static List<PsServiceType> listOfServiceTypes(Session session) {
         Query query = session.createQuery("from PsServiceType");
         List list = query.list();
         return list;
@@ -77,9 +81,10 @@ public class PsDataStore {
 
     /**
      * get service identified by a given service id
+     *
      * @param session
      * @param serviceId
-     * @return 
+     * @return
      */
     public static PsService getService(Session session, int serviceId) {
         PsService service = (PsService) session.get(PsService.class, serviceId);
@@ -90,6 +95,34 @@ public class PsDataStore {
         Query query2 = session.createQuery("from PsService");
         query2.setCacheable(true);
         List resultList = query2.list();
+
+        return resultList;
+    }
+
+    /**
+     * get site object with a given site id
+     *
+     * @param session
+     * @param siteId
+     * @return
+     */
+    public static PsSite getSite(Session session, int siteId) {
+        //throw new UnsupportedOperationException("Not yet implemented");
+        PsSite site = (PsSite) session.get(PsSite.class, siteId);
+        return site;
+    }
+
+    /**
+     * get list of all sites
+     *
+     * @param session
+     * @return
+     */
+    public static List<PsSite> getAllSites(Session session) {
+        //throw new UnsupportedOperationException("Not yet implemented");
+        Query query = session.createQuery("from PsSite");
+        query.setCacheable(true);
+        List resultList = query.list();
 
         return resultList;
     }

@@ -4,27 +4,25 @@
  */
 package gov.bnl.racf.ps.dashboard.db.servlets;
 
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
-import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsHostManipulator;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectShredder;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectUpdater;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsSiteManipulator;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import gov.bnl.racf.ps.dashboard.db.utils.UrlUnpacker;
 import gov.racf.bnl.ps.dashboard.PsApi.PsApi;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
@@ -34,8 +32,7 @@ import org.json.simple.JSONObject;
  *
  * @author tomw
  */
-//@WebServlet(name = "PsHostsServlet", urlPatterns = {"/hosts"})
-public class PsHostsServlet extends HttpServlet {
+public class PsSitesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -52,24 +49,17 @@ public class PsHostsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-//            ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
-//
-//            if (parameters.size() > 0) {
-//                String idAsString = parameters.get(0);
-//                Integer hostIdInteger = Integer.parseInt(idAsString);
-//                int hostId = hostIdInteger.intValue();
-//                PsHost host = PsDataStore.getHost(hostId);
-//                JSONObject hostJson = JsonConverter.toJson(host);
-//                out.println(hostJson.toString());
-//            } else {
-//                out.println("No parameters");
-//            }
-//
-//            out.println("</body>");
-//            out.println("</html>");
-        } catch (Exception e) {
-            System.out.println(new Date() + " " + getClass().getName() + " " + e);
-
+            /*
+             * TODO output your page here. You may use following sample code.
+             */
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet PsSitesServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet PsSitesServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         } finally {
             out.close();
         }
@@ -88,12 +78,10 @@ public class PsHostsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //throw new UnsupportedOperationException("Not yet implemented");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-
-//            out.println("<h1>GET GET GETServlet PsHostsServlet at " + request.getContextPath() + "</h1>");
-
             //boilerplate code to open session
             SessionFactory sessionFactory =
                     PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
@@ -104,18 +92,18 @@ public class PsHostsServlet extends HttpServlet {
 
             if (parameters.size() > 0) {
                 String idAsString = parameters.get(0);
-                Integer hostIdInteger = Integer.parseInt(idAsString);
-                int hostId = hostIdInteger.intValue();
-                PsHost host = PsDataStore.getHost(session, hostId);
-                JSONObject hostJson = JsonConverter.toJson(host);
+                Integer siteIdInteger = Integer.parseInt(idAsString);
+                int siteId = siteIdInteger.intValue();
+                PsSite site = PsDataStore.getSite(session, siteId);
+                JSONObject hostJson = JsonConverter.toJson(site);
                 out.println(hostJson.toString());
             } else {
 
-                List<PsHost> listOfHosts = PsDataStore.getAllHosts(session);
+                List<PsSite> listOfSites = PsDataStore.getAllSites(session);
                 JSONArray jsonArray = new JSONArray();
-                for (PsHost host : listOfHosts) {
-                    JSONObject hostJson = JsonConverter.toJson(host);
-                    jsonArray.add(hostJson);
+                for (PsSite site : listOfSites) {
+                    JSONObject siteJson = JsonConverter.toJson(site);
+                    jsonArray.add(siteJson);
                 }
                 out.println(jsonArray.toString());
             }
@@ -125,8 +113,8 @@ public class PsHostsServlet extends HttpServlet {
             session.close();
         } catch (Exception e) {
             System.out.println(new Date() + " " + getClass().getName() + " " + e);
+            Logger.getLogger(PsSitesServlet.class).error(e);
         } finally {
-
             out.close();
         }
     }
@@ -134,8 +122,6 @@ public class PsHostsServlet extends HttpServlet {
     /**
      * Handles the HTTP
      * <code>POST</code> method.
-     *
-     * POST requests are used to create new hosts
      *
      * @param request servlet request
      * @param response servlet response
@@ -145,6 +131,7 @@ public class PsHostsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //throw new UnsupportedOperationException("Not yet implemented");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -161,28 +148,30 @@ public class PsHostsServlet extends HttpServlet {
             if (jsonObject != null) {
                 // the input data is a valid JSON object
 
-                // create new host
-                PsHost host = new PsHost();
-                session.save(host);
+                // create new site
+                PsSite site = new PsSite();
+                session.save(site);
 
                 // fill the host with JSON parameters
-                PsObjectUpdater.update(host, jsonObject);
+                PsObjectUpdater.update(site, jsonObject);
 
                 // convert host to json
-                JSONObject finalHost = JsonConverter.toJson(host);
+                JSONObject finalSite = JsonConverter.toJson(site);
 
-                out.println(finalHost.toString());
-
+                out.println(finalSite.toString());
             }
             // commit transaction and close session
             session.getTransaction().commit();
             session.close();
 
+
         } catch (Exception e) {
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
+            Logger.getLogger(PsSitesServlet.class).error(e);
         } finally {
             out.close();
         }
+
 
     }
 
@@ -198,6 +187,7 @@ public class PsHostsServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //throw new UnsupportedOperationException("Not yet implemented");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
@@ -214,94 +204,59 @@ public class PsHostsServlet extends HttpServlet {
             //if there are parameters
             if (parameters.size() == 1) {
                 String idAsString = parameters.get(0);
-                Integer hostIdInteger = Integer.parseInt(idAsString);
-                int hostId = hostIdInteger.intValue();
-                PsHost host = PsDataStore.getHost(session, hostId);
+                Integer siteIdInteger = Integer.parseInt(idAsString);
+                int siteId = siteIdInteger.intValue();
+                PsSite site = PsDataStore.getSite(session, siteId);
 
                 //unpack json object from data part
                 // parse data part of the code
                 JSONObject jsonObject = PostRequestDataExtractor.extractJson(request);
                 if (jsonObject != null) {
                     //update the host
-                    PsObjectUpdater.update(host, jsonObject);
+                    PsObjectUpdater.update(site, jsonObject);
 
                     // save the updated host
-                    session.save(host);
+                    session.save(site);
 
-                    JSONObject hostJson = JsonConverter.toJson(host);
-                    out.println(hostJson.toString());
+                    JSONObject siteJson = JsonConverter.toJson(site);
+                    out.println(siteJson.toString());
+                } else {
+                    out.println("JSON object is not valid");
+                    Logger.getLogger(PsSitesServlet.class).error("JSON object is not valid");
                 }
             } else {
                 if (parameters.size() == 2) {
-                    int hostId = Integer.parseInt(parameters.get(0));
+                    int siteId = Integer.parseInt(parameters.get(0));
                     String userCommand = parameters.get(1);
-                    out.println(hostId + " " + userCommand);
-                    PsHost host = (PsHost) session.get(PsHost.class, hostId);
-                    if (host == null) {
-                        out.println("host " + hostId + " not found");
+                    out.println(siteId + " " + userCommand);
+                    PsSite site = (PsSite) session.get(PsSite.class, siteId);
+                    if (site == null) {
+                        out.println("site " + siteId + " not found");
+                        Logger.getLogger(PsSitesServlet.class).warn("Site with id=" + siteId + " not found");
                     } else {
-                        // this is a valid host
+                        // this is a valid site
 
-                        if (PsApi.HOST_ADD_SERVICE_TYPE_COMMAND.equals(userCommand)) {
-                            // user wants to add services
+                        // unpack data content
+                        JSONArray jsonArray =
+                                PostRequestDataExtractor.extractJsonArray(request);
 
-                            // unpack data content
-                            JSONArray jsonArray =
-                                    PostRequestDataExtractor.extractJsonArray(request);
 
-                            // add those services
-                            PsHostManipulator.addServiceTypes(session, host, jsonArray);
+                        if (PsApi.SITE_ADD_HOST_IDS.equals(userCommand)) {
+                            // user wants to add hosts to site
+
+                            // add those hosts
+                            PsSiteManipulator.addHosts(session, site, jsonArray);
                         }
 
-                        if (PsApi.HOST_ADD_ALL_SERVICES_COMMAND.equals(userCommand)) {
-                            // user wants to add services
+                        if (PsApi.SITE_REMOVE_HOST_IDS.equals(userCommand)) {
+                            // user wants to remove hosts from site
 
-                            // add those services
-                            PsHostManipulator.addPrimitiveServices(session, host);
+                            // remove those hosts
+                            PsSiteManipulator.removeHosts(session, site, jsonArray);
                         }
-                        if (PsApi.HOST_ADD_LATENCY_SERVICES_COMMAND.equals(userCommand)) {
-                            // user wants to add services
-
-                            // add those services
-                            PsHostManipulator.addLatencyServices(session, host);
-                        }
-                        if (PsApi.HOST_ADD_THROUGHPUT_SERVICES_COMMAND.equals(userCommand)) {
-                            // user wants to add services
-
-                            // add those services
-                            PsHostManipulator.addThroughputServices(session, host);
-                        }
-
-                        if (PsApi.HOST_REMOVE_SERVICE_TYPE_COMMAND.equals(userCommand)) {
-                            // user wanst to remove services
-
-                            // unpack data content
-                            JSONArray jsonArray =
-                                    PostRequestDataExtractor.extractJsonArray(request);
-
-                            // remove those services
-                            PsHostManipulator.removeServiceTypes(session, host, jsonArray);
-                        }
-
-                        if (PsApi.HOST_REMOVE_SERVICE_ID_COMMAND.equals(userCommand)) {
-                            // user wanst to remove services
-
-                            // unpack data content
-                            JSONArray jsonArray =
-                                    PostRequestDataExtractor.extractJsonArray(request);
-
-                            // remove those services
-                            PsHostManipulator.removeServices(session, host, jsonArray);
-                        }
-                        if (PsApi.HOST_REMOVE_ALL_SERVICES_COMMAND.equals(userCommand)) {
-                            // user wants to remove services
-
-                            // remove all services from host
-                            PsHostManipulator.removeAllServices(session, host);
-                        }
-
-
-                        out.println(JsonConverter.toJson(host).toString());
+                        //save the changes to the site (actually this command should be redundant)
+                        session.save(site);
+                        out.println(JsonConverter.toJson(site).toString());
                     }
                 }
             }
@@ -311,6 +266,7 @@ public class PsHostsServlet extends HttpServlet {
             session.close();
         } catch (Exception e) {
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
+            Logger.getLogger(PsSitesServlet.class).error(e);
         } finally {
             out.close();
         }
@@ -328,6 +284,7 @@ public class PsHostsServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //throw new UnsupportedOperationException("Not yet implemented");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
@@ -344,11 +301,11 @@ public class PsHostsServlet extends HttpServlet {
             //if there are parameters
             if (parameters.size() > 0) {
                 String idAsString = parameters.get(0);
-                Integer hostIdInteger = Integer.parseInt(idAsString);
-                int hostId = hostIdInteger.intValue();
-                PsHost host = PsDataStore.getHost(session, hostId);
+                Integer siteIdInteger = Integer.parseInt(idAsString);
+                int siteId = siteIdInteger.intValue();
+                PsSite site = PsDataStore.getSite(session, siteId);
 
-                PsObjectShredder.delete(session, host);
+                PsObjectShredder.delete(session, site);
             }
 
             // commit transaction and close session
@@ -359,6 +316,9 @@ public class PsHostsServlet extends HttpServlet {
         } finally {
             out.close();
         }
+        
+        
+        
     }
 
     /**

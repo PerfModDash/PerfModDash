@@ -30,6 +30,7 @@
         <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsService"/>
         <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceResult"/>
         <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsParameterInfo"/>
+        <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsSite"/>
         
         
     
