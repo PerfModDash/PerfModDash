@@ -4,10 +4,7 @@
  */
 package gov.bnl.racf.ps.dashboard.servlets.debug;
 
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceType;
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
+import gov.bnl.racf.ps.dashboard.db.data_objects.*;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import java.io.IOException;
@@ -19,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -44,14 +42,14 @@ public class PsDumpServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+
+        //boilerplate code to open session
+        SessionFactory sessionFactory =
+                PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
         try {
-            //boilerplate code to open session
-            SessionFactory sessionFactory =
-                    PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
-
-            Session session = sessionFactory.openSession();
-            session.beginTransaction();
-
             /*
              * TODO output your page here. You may use following sample code.
              */
@@ -84,7 +82,7 @@ public class PsDumpServlet extends HttpServlet {
                 JSONObject json = JsonConverter.toJson(host);
                 out.println(json.toString());
             }
-            
+
             out.println("<BR><strong>Services:</strong><br>");
             String hql2 = "FROM PsService";
             Query query2 = session.createQuery(hql2);
@@ -106,17 +104,33 @@ public class PsDumpServlet extends HttpServlet {
                 JSONObject json = JsonConverter.toJson(site);
                 out.println(json.toString());
             }
-            
+
+
+            out.println("<BR><strong>Matrices:</strong><br>");
+            String hql4 = "FROM PsMatrix";
+            Query query4 = session.createQuery(hql4);
+            List results4 = query4.list();
+            Iterator iter4 = results4.iterator();
+            while (iter4.hasNext()) {
+                PsMatrix matrix = (PsMatrix) iter4.next();
+                JSONObject json = JsonConverter.toJson(matrix);
+                out.println(json.toString());
+            }
+
             out.println("</body>");
             out.println("</html>");
 
 
             // commit transaction and close session
             session.getTransaction().commit();
-            session.close();
+
         } catch (Exception e) {
+            session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
+            Logger.getLogger(PsDumpServlet.class).error(e);
+            out.println("Error occured in " + getClass().getName() + " plase check the logs " + e);
         } finally {
+            session.close();
             out.close();
         }
     }

@@ -4,10 +4,7 @@
  */
 package gov.bnl.racf.ps.dashboard.db.data_store;
 
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceType;
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
+import gov.bnl.racf.ps.dashboard.db.data_objects.*;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import java.util.Collections;
 import java.util.List;
@@ -126,4 +123,28 @@ public class PsDataStore {
 
         return resultList;
     }
+    /**
+     * get matrix of a given id
+     * @param session
+     * @param matrixId
+     * @return 
+     */
+    public static PsMatrix getMatrix(Session session, int matrixId){
+        PsMatrix matrix = (PsMatrix)session.get(PsMatrix.class, matrixId);
+        return matrix;
+    }
+    /**
+     * return a list of all matrices
+     * @param session
+     * @return 
+     */
+    public static List<PsMatrix> getAllMatrices(Session session) {
+        //throw new UnsupportedOperationException("Not yet implemented");
+        Query query = session.createQuery("from PsMatrix");
+        query.setCacheable(true);
+        List resultList = query.list();
+
+        return resultList;
+    }
+    
 }

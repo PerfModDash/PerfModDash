@@ -5,6 +5,7 @@
 package gov.bnl.racf.ps.dashboard.db.object_manipulators;
 
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsMatrix;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import java.util.*;
@@ -81,12 +82,12 @@ public class PsObjectUpdater {
 //        }
 //    }
 //
-//    public static void update(PsMatrix matrix, JSONObject json) {
-//        if (json.keySet().contains(PsMatrix.NAME)) {
-//            matrix.setName((String) json.get(PsMatrix.NAME));
-//        }
-//        //TODO rest
-//    }
+    public static void update(PsMatrix matrix, JSONObject json) {
+        if (json.keySet().contains(PsMatrix.NAME)) {
+            matrix.setName((String) json.get(PsMatrix.NAME));
+        }
+        //TODO rest
+    }
 //
 //    /**
 //     * update the parameters object

@@ -24,6 +24,10 @@
         <servlet-name>PsSitesServlet</servlet-name>
         <url-pattern>/sites/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PsMatricesServlet</servlet-name>
+        <url-pattern>/matrices/*</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -48,6 +52,10 @@
     <servlet>
         <servlet-name>PsSitesServlet</servlet-name>
         <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsSitesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PsMatricesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsMatricesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PsHostsServlet</servlet-name>

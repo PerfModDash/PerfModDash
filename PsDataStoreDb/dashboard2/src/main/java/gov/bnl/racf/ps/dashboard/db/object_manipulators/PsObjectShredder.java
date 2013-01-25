@@ -5,6 +5,7 @@
 package gov.bnl.racf.ps.dashboard.db.object_manipulators;
 
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsMatrix;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
@@ -48,5 +49,10 @@ public class PsObjectShredder {
         site.removeAllHosts();
         // ok, now we can remove the site
         session.delete(site);
+    }
+    
+    public static void delete(Session session, PsMatrix matrix) {
+        //throw new UnsupportedOperationException("Not yet implemented");
+        session.delete(matrix);
     }
 }

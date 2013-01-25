@@ -44,26 +44,27 @@ c)PUT request - TODO
 d)DELETE request - TODO
 
 3. Site functions
-    a)GET request TODO
-    b)POST request TODO
-    c)PUT request TODO
+    a)GET request DONE
+    b)POST request DONE
+    c)PUT request DONE
     includes high level functions
-        i)addHost TODO
-        ii)removeHost TODO
-    d)DELETE request TODO
+        i)addHost DONE
+        ii)removeHost DONE
+    d)DELETE request DONE
 
 priority: HIGH
 
 4. Matrix functions
-a)GET request TODO
-    b)POST request TODO
-    c)PUT request TODO
+    a)GET request DONE
+    b)POST request DONE
+    c)PUT request DONE for simple request, high level still missing
       This includes high level commands:
       i)addHost  TODO
       ii)addRow  TODO
       iii)addColumn  TODO
       iv)removeHost  TODO
-    d)DELETE request TODO
+    d)DELETE request DONE, but does not include the host removal. Needs to be
+      revisited after all PUT commands are in place.
 
 priority: HIGH
 

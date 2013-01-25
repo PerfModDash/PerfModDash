@@ -10,7 +10,6 @@ package gov.racf.bnl.ps.dashboard.PsApi;
  */
 public class PsApi {
      // host API commands
-    //public static final String HOST="hosts_rest";   
     public static final String HOST="hosts";   
     public static final String HOST_ADD_SERVICE_TYPE_COMMAND = "addservicetype";
     public static final String HOST_REMOVE_SERVICE_TYPE_COMMAND = "removeservicetype";
@@ -20,21 +19,17 @@ public class PsApi {
     public static final String HOST_ADD_ALL_SERVICES_COMMAND = "addallservices";
     public static final String HOST_REMOVE_ALL_SERVICES_COMMAND = "removeallservices";
     
-    //public static final String SERVICE="services_rest";  
     public static final String SERVICE="services";  
     
-    //public static final String SITE="sites_rest";  
     public static final String SITE="sites";  
     public static final String SITE_ADD_HOST_IDS="addhostids";
     public static final String SITE_REMOVE_HOST_IDS="removehostids";
     
     public static final String CLOUD="clouds";
-    //public static final String CLOUD="clouds_rest";
     public static final String CLOUD_ADD_SITE_IDS="addsiteids";
     public static final String CLOUD_REMOVE_SITE_IDS="removesiteids";
     
     public static final String MATRIX="matrices";
-    //public static final String MATRIX="matrices_rest";
     public static final String MATRIX_ADD_HOST_IDS="addhostids";
     public static final String MATRIX_REMOVE_HOST_IDS="removehostids";
     

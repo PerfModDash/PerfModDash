@@ -4,15 +4,14 @@
  */
 package gov.bnl.racf.ps.dashboard.db.servlets;
 
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsMatrix;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectCreator;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectShredder;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectUpdater;
-import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsSiteManipulator;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import gov.bnl.racf.ps.dashboard.db.utils.UrlUnpacker;
-import gov.racf.bnl.ps.dashboard.PsApi.PsApi;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ import org.json.simple.JSONObject;
  *
  * @author tomw
  */
-public class PsSitesServlet extends HttpServlet {
+public class PsMatricesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -44,27 +43,26 @@ public class PsSitesServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /*
-             * TODO output your page here. You may use following sample code.
-             */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PsSitesServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PsSitesServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {
-            out.close();
-        }
-    }
-
+//    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        response.setContentType("text/html;charset=UTF-8");
+//        PrintWriter out = response.getWriter();
+//        try {
+//            /*
+//             * TODO output your page here. You may use following sample code.
+//             */
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet PsMatricesServlet</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet PsMatricesServlet at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        } finally {            
+//            out.close();
+//        }
+//    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
@@ -88,35 +86,41 @@ public class PsSitesServlet extends HttpServlet {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         try {
+            
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
 
             if (parameters.size() > 0) {
                 String idAsString = parameters.get(0);
-                Integer siteIdInteger = Integer.parseInt(idAsString);
-                int siteId = siteIdInteger.intValue();
-                PsSite site = PsDataStore.getSite(session, siteId);
-                JSONObject hostJson = JsonConverter.toJson(site);
+                Integer matrixIdInteger = Integer.parseInt(idAsString);
+                int matrixId = matrixIdInteger.intValue();
+                PsMatrix matrix = PsDataStore.getMatrix(session, matrixId);
+                if(matrix!=null){
+                JSONObject hostJson = JsonConverter.toJson(matrix);
                 out.println(hostJson.toString());
+                }else{
+                    out.println("Matrix id="+matrixId+" not found");
+                }
             } else {
 
-                List<PsSite> listOfSites = PsDataStore.getAllSites(session);
+                List<PsMatrix> listOfMatrices = PsDataStore.getAllMatrices(session);
                 JSONArray jsonArray = new JSONArray();
-                for (PsSite site : listOfSites) {
-                    JSONObject siteJson = JsonConverter.toJson(site);
-                    jsonArray.add(siteJson);
+                for (PsMatrix matrix : listOfMatrices) {
+                    JSONObject matrixJson = JsonConverter.toJson(matrix);
+                    jsonArray.add(matrixJson);
                 }
                 out.println(jsonArray.toString());
             }
 
-            // commit transaction and close session
+            // commit transaction
             session.getTransaction().commit();
 
         } catch (Exception e) {
             session.getTransaction().rollback();
             System.out.println(new Date() + " " + getClass().getName() + " " + e);
             Logger.getLogger(PsSitesServlet.class).error(e);
-            out.println("Error occured in " + getClass().getName() + " plase check the logs<BR>" + e);
+            out.println("Error occured in " + getClass().getName() + " please check the logs<BR>" + e);
         } finally {
+            //close session
             session.close();
             out.close();
         }
@@ -145,37 +149,43 @@ public class PsSitesServlet extends HttpServlet {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         try {
+            // unpack request parameters
+            ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
+
             // parse data part of the code
             JSONObject jsonObject = PostRequestDataExtractor.extractJson(request);
 
-            if (jsonObject != null) {
-                // the input data is a valid JSON object
+            // no parameters, this is host create request
+            if (parameters.isEmpty()) {
 
-                // create new site
-                PsSite site = new PsSite();
-                session.save(site);
+                if (jsonObject != null) {
 
-                // fill the host with JSON parameters
-                PsObjectUpdater.update(site, jsonObject);
+                    String matrixName = (String) jsonObject.get(PsMatrix.NAME);
+                    String serviceTypeId = (String) jsonObject.get(PsMatrix.SERVICE_TYPE_ID);
 
-                // convert host to json
-                JSONObject finalSite = JsonConverter.toJson(site);
+                    // the input data is a valid JSON object
 
-                out.println(finalSite.toString());
+                    // create new matrix
+                    PsMatrix matrix =
+                            PsObjectCreator.createNewMatrix(session, serviceTypeId, matrixName);
+
+                    // convert host to json
+                    JSONObject finalMatrix = JsonConverter.toJson(matrix);
+
+                    out.println(finalMatrix.toString());
+                }
             }
             // commit transaction and close session
             session.getTransaction().commit();
-
         } catch (Exception e) {
             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
-            Logger.getLogger(PsSitesServlet.class).error(e);
-            out.println("Error occured in " + getClass().getName() + " plase check the logs<BR>" + e);
+            Logger.getLogger(PsMatricesServlet.class).error(e);
+            out.println("Error occured in " + getClass().getName() + " please check the logs<BR>" + e);
         } finally {
             session.close();
             out.close();
         }
-
 
     }
 
@@ -208,60 +218,60 @@ public class PsSitesServlet extends HttpServlet {
             //if there are parameters
             if (parameters.size() == 1) {
                 String idAsString = parameters.get(0);
-                Integer siteIdInteger = Integer.parseInt(idAsString);
-                int siteId = siteIdInteger.intValue();
-                PsSite site = PsDataStore.getSite(session, siteId);
+                Integer matrixIdInteger = Integer.parseInt(idAsString);
+                int matrixId = matrixIdInteger.intValue();
+                PsMatrix matrix = PsDataStore.getMatrix(session, matrixId);
 
                 //unpack json object from data part
                 // parse data part of the code
                 JSONObject jsonObject = PostRequestDataExtractor.extractJson(request);
                 if (jsonObject != null) {
-                    //update the host
-                    PsObjectUpdater.update(site, jsonObject);
+                    //update the matrix
+                    PsObjectUpdater.update(matrix, jsonObject);
 
-                    // save the updated host
-                    session.save(site);
+                    // save the updated matrix
+                    session.save(matrix);
 
-                    JSONObject siteJson = JsonConverter.toJson(site);
+                    JSONObject siteJson = JsonConverter.toJson(matrix);
                     out.println(siteJson.toString());
                 } else {
                     out.println("JSON object is not valid");
                     Logger.getLogger(PsSitesServlet.class).error("JSON object is not valid");
                 }
             } else {
-                if (parameters.size() == 2) {
-                    int siteId = Integer.parseInt(parameters.get(0));
-                    String userCommand = parameters.get(1);
-                    out.println(siteId + " " + userCommand);
-                    PsSite site = (PsSite) session.get(PsSite.class, siteId);
-                    if (site == null) {
-                        out.println("site " + siteId + " not found");
-                        Logger.getLogger(PsSitesServlet.class).warn("Site with id=" + siteId + " not found");
-                    } else {
-                        // this is a valid site
-
-                        // unpack data content
-                        JSONArray jsonArray =
-                                PostRequestDataExtractor.extractJsonArray(request);
-
-                        if (PsApi.SITE_ADD_HOST_IDS.equals(userCommand)) {
-                            // user wants to add hosts to site
-
-                            // add those hosts
-                            PsSiteManipulator.addHosts(session, site, jsonArray);
-                        }
-
-                        if (PsApi.SITE_REMOVE_HOST_IDS.equals(userCommand)) {
-                            // user wants to remove hosts from site
-
-                            // remove those hosts
-                            PsSiteManipulator.removeHosts(session, site, jsonArray);
-                        }
-                        //save the changes to the site (actually this command should be redundant)
-                        session.save(site);
-                        out.println(JsonConverter.toJson(site).toString());
-                    }
-                }
+//                if (parameters.size() == 2) {
+//                    int siteId = Integer.parseInt(parameters.get(0));
+//                    String userCommand = parameters.get(1);
+//                    out.println(siteId + " " + userCommand);
+//                    PsSite site = (PsSite) session.get(PsSite.class, siteId);
+//                    if (site == null) {
+//                        out.println("site " + siteId + " not found");
+//                        Logger.getLogger(PsSitesServlet.class).warn("Site with id=" + siteId + " not found");
+//                    } else {
+//                        // this is a valid site
+//
+//                        // unpack data content
+//                        JSONArray jsonArray =
+//                                PostRequestDataExtractor.extractJsonArray(request);
+//
+//                        if (PsApi.SITE_ADD_HOST_IDS.equals(userCommand)) {
+//                            // user wants to add hosts to site
+//
+//                            // add those hosts
+//                            PsSiteManipulator.addHosts(session, site, jsonArray);
+//                        }
+//
+//                        if (PsApi.SITE_REMOVE_HOST_IDS.equals(userCommand)) {
+//                            // user wants to remove hosts from site
+//
+//                            // remove those hosts
+//                            PsSiteManipulator.removeHosts(session, site, jsonArray);
+//                        }
+//                        //save the changes to the site (actually this command should be redundant)
+//                        session.save(site);
+//                        out.println(JsonConverter.toJson(site).toString());
+//                    }
+//                }
             }
 
             // commit transaction and close session
@@ -270,12 +280,14 @@ public class PsSitesServlet extends HttpServlet {
         } catch (Exception e) {
             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
-            Logger.getLogger(PsSitesServlet.class).error(e);
+            Logger.getLogger(PsMatricesServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
         } finally {
             session.close();
             out.close();
         }
+        
+        
     }
 
     /**
@@ -307,11 +319,11 @@ public class PsSitesServlet extends HttpServlet {
             //if there are parameters
             if (parameters.size() > 0) {
                 String idAsString = parameters.get(0);
-                Integer siteIdInteger = Integer.parseInt(idAsString);
-                int siteId = siteIdInteger.intValue();
-                PsSite site = PsDataStore.getSite(session, siteId);
+                Integer matrixIdInteger = Integer.parseInt(idAsString);
+                int matrixId = matrixIdInteger.intValue();
+                PsMatrix matrix = PsDataStore.getMatrix(session, matrixId);
 
-                PsObjectShredder.delete(session, site);
+                PsObjectShredder.delete(session, matrix);
             }
 
             // commit transaction and close session
@@ -320,15 +332,12 @@ public class PsSitesServlet extends HttpServlet {
         } catch (Exception e) {
             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
-            Logger.getLogger(PsSitesServlet.class).error(e);
-            out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
+            Logger.getLogger(PsMatricesServlet.class).error(e);
+            out.println("Error occured in " + getClass().getName() + " please check the logs<BR>");
         } finally {
             session.close();
             out.close();
         }
-
-
-
     }
 
     /**

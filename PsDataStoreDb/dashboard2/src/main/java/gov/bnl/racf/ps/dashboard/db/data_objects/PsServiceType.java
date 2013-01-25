@@ -46,6 +46,7 @@ public class PsServiceType implements Serializable {
     @Id
     @GeneratedValue
     private int id;
+    
     private String serviceTypeId;
 
     

@@ -228,4 +228,63 @@ public class JsonConverter {
 
         return json;
     }
+    
+    public static JSONObject toJson(PsMatrix matrix){
+        JSONObject json = new JSONObject();
+        json.put(PsMatrix.ID, matrix.getId());
+        json.put(PsMatrix.NAME, matrix.getName());
+        json.put(PsMatrix.DETAIL_LEVEL, matrix.getDetailLevel());
+
+        String[] statusLabels = matrix.getStatusLabels();
+        JSONArray jsonArray = new JSONArray();
+        if (statusLabels != null) {
+            for (int i = 0; i < statusLabels.length; i = i + 1) {
+                jsonArray.add(statusLabels[i]);
+            }
+        }
+        json.put(PsMatrix.STATUS_LABELS, jsonArray);
+
+        Date lastUpdateTime = matrix.getLastUpdateTime();
+        json.put(PsMatrix.LAST_UPDATE_TIME,
+                IsoDateConverter.dateToString(lastUpdateTime));
+
+        JSONArray rows = new JSONArray();
+        for (int i = 0; i < matrix.getNumberOfRows(); i = i + 1) {
+            PsHost currentHost = matrix.getHostInRow(i);
+            rows.add(currentHost.getHostname());
+        }
+        json.put(PsMatrix.ROWS, rows);
+
+        JSONArray columns = new JSONArray();
+        for (int i = 0; i < matrix.getNumberOfColumns(); i = i + 1) {
+            PsHost currentHost = matrix.getHostInColumn(i);
+            columns.add(currentHost.getHostname());
+        }
+        json.put(PsMatrix.COLUMNS, columns);
+
+        JSONArray serviceNames = new JSONArray();
+        for (int i = 0; i < matrix.getNumberOfServiceNames(); i = i + 1) {
+            serviceNames.add(matrix.getServiceNames()[i]);
+        }
+        json.put(PsMatrix.SERVICE_NAMES, serviceNames);
+
+        JSONArray matrixArray = new JSONArray();
+        for (int i = 0; i < matrix.getNumberOfColumns(); i = i + 1) {
+            JSONArray rowsArray = new JSONArray();
+            for (int j = 0; j < matrix.getNumberOfRows(); j = j + 1) {
+                JSONArray serviceArray = new JSONArray();
+                for (int k = 0; k < matrix.getNumberOfServiceNames(); k = k + 1) {
+                    PsService currentService = matrix.getService(i, j, k);
+                    JSONObject currentServiceJson =
+                            JsonConverter.toJson(currentService);
+                    serviceArray.add(currentServiceJson);
+                }
+                rowsArray.add(serviceArray);
+            }
+            matrixArray.add(rowsArray);
+        }
+        json.put(PsMatrix.MATRIX, matrixArray);
+
+        return json;
+    }
 }
