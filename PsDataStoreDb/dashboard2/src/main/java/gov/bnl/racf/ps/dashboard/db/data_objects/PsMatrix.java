@@ -6,14 +6,15 @@ package gov.bnl.racf.ps.dashboard.db.data_objects;
 
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsServiceTypeFactory;
 import gov.racf.bnl.ps.dashboard.PsApi.PsApi;
-import java.util.Date;
-import java.util.Vector;
+import java.util.*;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.IndexColumn;
 
 /**
  * Object describing perfSonar service matrix.
+ *
  * @author tomw
  */
 @Cacheable
@@ -36,45 +37,60 @@ public class PsMatrix {
     public static final String MATRIX = "matrix";
     public static final String SERVICE_NAMES = "serviceNames";
     public static final String SERVICE_TYPE_ID = "serviceTypeId";
-   
-   
     @Id
     @GeneratedValue
     private int id;
     private String name;
     private String detailLevel = "low";
     private String[] statusLabels = new String[5];
-    
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime;
-    
-    private int numberOfRows = 0;
-    private PsHost[] matrixRows = new PsHost[20];
-    private int numberOfColumns = 0;
-    private PsHost[] matrixColumns = new PsHost[20];
-    private int maxNumberOfServiceNames = 2;
-    private int numberOfServiceNames = 0;
-    private String[] serviceNames = new String[2];
-    private PsService[][][] matrix;
-    
-    @ManyToOne
-    private PsServiceType matrixType;
     // max allowed matrix size
     private int maxNumberOfColumns = 20;
     private int maxNumberOfRows = 20;
-    
+    // 
+    // rows
+    private int numberOfRows = 0;
+    @OneToMany
+    @IndexColumn(name = "id")
+    private PsHost[] hostsInRows = new PsHost[maxNumberOfRows];
+    //
+    // columns
+    private int numberOfColumns = 0;
+    @OneToMany
+    @IndexColumn(name = "id")
+    private PsHost[] hostsInColumns = new PsHost[maxNumberOfColumns];
+    //
+    private int maxNumberOfServiceNames = 2;
+    private int numberOfServiceNames = 0;
+    private String[] serviceNames = new String[2];
+    //
+    //
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Collection<PsService> services = new Vector<PsService>();
+    private int[][][] matrixOfServiceIds = new int[maxNumberOfRows][maxNumberOfColumns][2];
+    //@OneToMany
+    //@IndexColumn(name = "id")
+    //private PsService[][][] matrix = new PsService[maxNumberOfRows][maxNumberOfColumns][2];
+    @ManyToOne
+    private PsServiceType matrixType;
+
     /**
      * simple constructor, build empty matrix
      */
-    public PsMatrix(){
-        
+    public PsMatrix() {
+        //initializeNumberOfServiceNames();
+        initializeEmptyMatrix();
+        //initializeStatusLabels();
     }
+
     /**
      * initialize empty matrix
-     * @param matrixType 
+     *
+     * @param matrixType
      */
     public void initMatrix(PsServiceType matrixType) {
-        
+
         this.matrixType = matrixType;
         initializeNumberOfServiceNames();
         initializeEmptyMatrix();
@@ -87,7 +103,7 @@ public class PsMatrix {
      * @param name
      */
     public PsMatrix(PsServiceType matrixType, String name) {
-        
+
         this.matrixType = matrixType;
         this.name = name;
         initializeNumberOfServiceNames();
@@ -121,7 +137,7 @@ public class PsMatrix {
     }
 
     private void initializeStatusLabels() {
-        if (PsApi.THROUGHPUT.equals(matrixType.getServiceTypeId()  )) {
+        if (PsApi.THROUGHPUT.equals(matrixType.getServiceTypeId())) {
             statusLabels[0] = "Throughput > 500Mbps";
             statusLabels[1] = "Throughput > 100Mbps and < 500 Mbps";
             statusLabels[2] = "Throughput < 100Mbps";
@@ -140,20 +156,20 @@ public class PsMatrix {
         return id;
     }
 
-    public PsHost[] getMatrixColumns() {
-        return matrixColumns;
+    public PsHost[] getHostsInColumns() {
+        return hostsInColumns;
     }
 
-    public void setMatrixColumns(PsHost[] matrixColumns) {
-        this.matrixColumns = matrixColumns;
+    public void setHostsInColumns(PsHost[] hostsInColumns) {
+        this.hostsInColumns = hostsInColumns;
     }
 
-    public PsHost[] getMatrixRows() {
-        return matrixRows;
+    public PsHost[] getHostsInRows() {
+        return hostsInRows;
     }
 
-    public void setMatrixRows(PsHost[] matrixRows) {
-        this.matrixRows = matrixRows;
+    public void setHostsInRows(PsHost[] hostsInRows) {
+        this.hostsInRows = hostsInRows;
     }
 
     public PsServiceType getMatrixType() {
@@ -164,8 +180,6 @@ public class PsMatrix {
         this.matrixType = matrixType;
     }
 
-    
-
     public String getDetailLevel() {
         return detailLevel;
     }
@@ -173,8 +187,6 @@ public class PsMatrix {
     public void setDetailLevel(String detailLevel) {
         this.detailLevel = detailLevel;
     }
-
-    
 
     public Date getLastUpdateTime() {
         return lastUpdateTime;
@@ -208,11 +220,6 @@ public class PsMatrix {
         this.numberOfRows = numberOfRows;
     }
 
-    
-    
-    
-    
-
     /**
      * set matrix element
      *
@@ -223,8 +230,9 @@ public class PsMatrix {
      */
     public void setMatrixElement(
             int rowIndex, int columnIndex, int serviceIndex, PsService service) {
-        this.matrix[rowIndex][columnIndex][serviceIndex] = service;
-        PsService temp = this.matrix[rowIndex][columnIndex][serviceIndex];
+        int serviceId = service.getId();
+        this.matrixOfServiceIds[rowIndex][columnIndex][serviceIndex] = serviceId;
+
     }
 
     /**
@@ -245,7 +253,7 @@ public class PsMatrix {
     public int getColumnNumberOfHost(PsHost host) {
         int result = -1;
         for (int i = 0; i < numberOfColumns; i = i + 1) {
-            if (matrixColumns[i].getId()==host.getId()) {
+            if (hostsInColumns[i].getId() == host.getId()) {
                 return i;
             }
         }
@@ -261,7 +269,7 @@ public class PsMatrix {
     public int getRowNumberOfHost(PsHost host) {
         int result = -1;
         for (int i = 0; i < numberOfRows; i = i + 1) {
-            if (matrixRows[i].getId() == host.getId()) {
+            if (hostsInRows[i].getId() == host.getId()) {
                 return i;
             }
         }
@@ -285,12 +293,10 @@ public class PsMatrix {
      */
     private void initializeEmptyMatrix() {
 
-        matrix = new PsService[50][50][2];
-
         for (int i = 0; i < maxNumberOfColumns; i = i + 1) {
             for (int j = 0; j < maxNumberOfRows; j = j + 1) {
                 for (int k = 0; k < maxNumberOfServiceNames; k = k + 1) {
-                    matrix[i][j][k] = null;
+                    matrixOfServiceIds[i][j][k] = -1;
                 }
             }
         }
@@ -298,50 +304,58 @@ public class PsMatrix {
 
     /**
      * check if matrix contains host in column
+     *
      * @param host
-     * @return 
+     * @return
      */
-    public boolean containsHostInColumn(PsHost host){
+    public boolean containsHostInColumn(PsHost host) {
         return containsHostInColumn(host.getId());
     }
+
     /**
      * check if matrix contains host in columns
+     *
      * @param hostId
-     * @return 
+     * @return
      */
-    public boolean containsHostInColumn(int hostId){
+    public boolean containsHostInColumn(int hostId) {
         boolean result = false;
         for (int i = 0; i < numberOfColumns; i = i + 1) {
-            if (matrixColumns[i].getId() == hostId) {
+            if (hostsInColumns[i].getId() == hostId) {
                 result = true;
                 return result;
             }
         }
         return result;
     }
+
     /**
      * check if matrix contains host in row
+     *
      * @param host
-     * @return 
+     * @return
      */
-    public boolean containsHostInRow(PsHost host){
+    public boolean containsHostInRow(PsHost host) {
         return containsHostInRow(host.getId());
     }
+
     /**
      * check if matrix contains host in row
+     *
      * @param hostId
-     * @return 
+     * @return
      */
-    public boolean containsHostInRow(int hostId){
-        boolean result=false;
+    public boolean containsHostInRow(int hostId) {
+        boolean result = false;
         for (int i = 0; i < numberOfRows; i = i + 1) {
-            if (matrixRows[i].getId() == hostId) {
+            if (hostsInRows[i].getId() == hostId) {
                 result = true;
                 return result;
             }
         }
         return result;
     }
+
     /**
      * check if matrix contains host hostId
      *
@@ -351,12 +365,12 @@ public class PsMatrix {
     public boolean containsHost(int hostId) {
         boolean result = false;
         boolean inColumn = containsHostInColumn(hostId);
-        if(inColumn){
+        if (inColumn) {
             return true;
         }
-        
+
         boolean inRow = containsHostInRow(hostId);
-        if(inRow){
+        if (inRow) {
             return true;
         }
         return result;
@@ -374,25 +388,28 @@ public class PsMatrix {
 
     /**
      * add host to columns
-     * @param host 
+     *
+     * @param host
      */
-    public void addHostToColumn(PsHost host){
-        if(!containsHostInColumn(host)){
-            matrixColumns[numberOfColumns] = host;
+    public void addHostToColumn(PsHost host) {
+        if (!containsHostInColumn(host)) {
+            hostsInColumns[numberOfColumns] = host;
             numberOfColumns = numberOfColumns + 1;
         }
     }
+
     /**
      * add host to rows
-     * @param host 
+     *
+     * @param host
      */
-    public void addHostToRow(PsHost host){
-        if(!containsHostInRow(host)){
-            matrixRows[numberOfRows] = host;
+    public void addHostToRow(PsHost host) {
+        if (!containsHostInRow(host)) {
+            hostsInRows[numberOfRows] = host;
             numberOfRows = numberOfRows + 1;
         }
     }
-    
+
     /**
      * add new host to matrix. This method does not fill the matrix with the
      * corresponding services. This has to be done separately by the matrix
@@ -410,8 +427,8 @@ public class PsMatrix {
      *
      * @param host
      */
-    public void removeHost(PsHost host) {
-        removeHost(host.getId());
+    public List<PsService> removeHost(PsHost host) {
+        return removeHost(host.getId());
     }
 
     /**
@@ -419,9 +436,19 @@ public class PsMatrix {
      *
      * @param hostId
      */
-    public void removeHost(int hostId) {
-        removeHostFromColumns(hostId);
-        removeHostFromRows(hostId);
+    public List<PsService> removeHost(int hostId) {
+        List<PsService> servicesToBeRemoved = new ArrayList<PsService>();
+        
+        List<PsService> servicesDeletedFromColumn = removeHostFromColumns(hostId);
+        if(!servicesDeletedFromColumn.isEmpty()){
+            servicesToBeRemoved.addAll(servicesDeletedFromColumn);
+        }
+        
+        List<PsService> servicesDeletedFromRow = removeHostFromRows(hostId);
+        if(!servicesDeletedFromRow.isEmpty()){
+            servicesToBeRemoved.addAll(servicesDeletedFromRow);
+        }
+        return servicesToBeRemoved;
     }
 
     /**
@@ -429,12 +456,17 @@ public class PsMatrix {
      *
      * @param hostId
      */
-    public void removeHostFromColumns(int hostId) {
+    public List<PsService> removeHostFromColumns(int hostId) {
+        List<PsService> servicesToBeRemoved = new ArrayList<PsService>();
         for (int i = 0; i < numberOfColumns; i = i + 1) {
-            if (matrixColumns[i].getId() == hostId) {
-                removeColumn(i);
+            if (hostsInColumns[i].getId() == hostId) {
+                List<PsService> servicesFromThisColumn = removeColumn(i);
+                if (!servicesFromThisColumn.isEmpty()) {
+                    servicesToBeRemoved.addAll(servicesFromThisColumn);
+                }
             }
         }
+        return servicesToBeRemoved;
     }
 
     /**
@@ -442,12 +474,17 @@ public class PsMatrix {
      *
      * @param hostId
      */
-    public void removeHostFromRows(int hostId) {
-        for (int i = 0; i < numberOfColumns; i = i + 1) {
-            if (matrixColumns[i].getId() == hostId) {
-                removeRow(i);
+    public List<PsService> removeHostFromRows(int hostId) {
+        List<PsService> servicesToBeRemoved = new ArrayList<PsService>();
+        for (int i = 0; i < numberOfRows; i = i + 1) {
+            if (hostsInRows[i].getId() == hostId) {
+                List<PsService> servicesFromThisRow = removeRow(i);
+                if (!servicesFromThisRow.isEmpty()) {
+                    servicesToBeRemoved.addAll(servicesFromThisRow);
+                }
             }
         }
+        return servicesToBeRemoved;
     }
 
     /**
@@ -455,20 +492,31 @@ public class PsMatrix {
      *
      * @param columnNo
      */
-    public void removeColumn(int columnNo) {
+    public List<PsService> removeColumn(int columnNo) {
+        List<PsService> servicesRemoved = new ArrayList<PsService>();
+
         for (int columnIndex = columnNo; columnIndex < numberOfColumns;
                 columnIndex = columnIndex + 1) {
-            matrixColumns[columnIndex] = matrixColumns[columnIndex + 1];  
-            matrixColumns[columnIndex + 1]=null;
+            hostsInColumns[columnIndex] = hostsInColumns[columnIndex + 1];
+            hostsInColumns[columnIndex + 1] = null;
 
             for (int j = 0; j < numberOfRows; j = j + 1) {
                 for (int k = 0; k < maxNumberOfServiceNames; k = k + 1) {
-                    matrix[columnIndex][j][k] = matrix[columnIndex + 1][j][k]; 
-                    matrix[columnIndex + 1][j][k]=null;
+                    int serviceId = matrixOfServiceIds[columnIndex][j][k];
+                    if (serviceId != -1) {
+                        PsService serviceToBeRemoved = removeServiceFromList(serviceId);
+                        if (serviceToBeRemoved != null) {
+                            servicesRemoved.add(serviceToBeRemoved);
+                        }
+                    }
+                    matrixOfServiceIds[columnIndex][j][k] = matrixOfServiceIds[columnIndex + 1][j][k];
+                    matrixOfServiceIds[columnIndex + 1][j][k] = -1;
                 }
             }
         }
         numberOfColumns = numberOfColumns - 1;
+
+        return servicesRemoved;
     }
 
     /**
@@ -476,42 +524,41 @@ public class PsMatrix {
      *
      * @param rowNo
      */
-    public void removeRow(int rowNo) {
-        System.out.println(new Date()+" "+getClass().getName()+" at entraNCE");
-        System.out.println(new Date()+" "+getClass().getName()+" numberOfRows="+numberOfRows);
-        for(int i=0;i<numberOfRows;i=i+1){
-            PsHost currentHost = matrixRows[i];
-            if(currentHost==null){
-                System.out.println(new Date()+" "+getClass().getName()+" host=null");
-            }else{
-                System.out.println(new Date()+" "+getClass().getName()+" host="+currentHost.getHostname());
+    public List<PsService> removeRow(int rowNo) {
+        List<PsService> servicesRemoved = new ArrayList<PsService>();
+
+        for (int i = 0; i < numberOfRows; i = i + 1) {
+            PsHost currentHost = hostsInRows[i];
+            if (currentHost == null) {
+                System.out.println(new Date() + " " + getClass().getName() + " host=null");
+            } else {
+                System.out.println(new Date() + " " + getClass().getName() + " host=" + currentHost.getHostname());
             }
         }
-        
-        
-        
+
         for (int rowIndex = rowNo; rowIndex < numberOfRows; rowIndex = rowIndex + 1) {
-            this.matrixRows[rowIndex] = this.matrixRows[rowIndex + 1];
-            this.matrixRows[rowIndex+1]=null;
+            this.hostsInRows[rowIndex] = this.hostsInRows[rowIndex + 1];
+            this.hostsInRows[rowIndex + 1] = null;
 
             for (int i = 0; i < this.numberOfColumns; i = i + 1) {
                 for (int k = 0; k < maxNumberOfServiceNames; k = k + 1) {
-                    matrix[i][rowIndex][k] = matrix[i][rowIndex + 1][k];      
-                    matrix[i][rowIndex + 1][k]=null;
+
+                    int serviceId = matrixOfServiceIds[i][rowIndex][k];
+                    if (serviceId != -1) {
+                        PsService serviceToBeRemoved = removeServiceFromList(serviceId);
+                        if (serviceToBeRemoved != null) {
+                            servicesRemoved.add(serviceToBeRemoved);
+                        }
+                    }
+                    matrixOfServiceIds[i][rowIndex][k] = matrixOfServiceIds[i][rowIndex + 1][k];
+                    matrixOfServiceIds[i][rowIndex + 1][k] = -1;
+
                 }
             }
         }
         this.numberOfRows = this.numberOfRows - 1;
-        System.out.println(new Date()+" "+getClass().getName()+" at exit");
-        System.out.println(new Date()+" "+getClass().getName()+" numberOfRows="+numberOfRows);
-        for(int i=0;i<numberOfRows;i=i+1){
-            PsHost currentHost = matrixRows[i];
-            if(currentHost==null){
-                System.out.println(new Date()+" "+getClass().getName()+" host=null");
-            }else{
-                System.out.println(new Date()+" "+getClass().getName()+" host="+currentHost.getHostname());
-            }
-        }
+
+        return servicesRemoved;
     }
 
     /**
@@ -545,7 +592,8 @@ public class PsMatrix {
         int columnIndex = getHostColumn(hostColumnId);
         int rowIndex = getHostRow(hostRowId);
         if (columnIndex != -1 && rowIndex != -1) {
-            matrix[columnIndex][rowIndex][k] = service;
+            services.add(service);
+            matrixOfServiceIds[columnIndex][rowIndex][k] = service.getId();
         }
 
     }
@@ -559,7 +607,7 @@ public class PsMatrix {
     private int getHostColumn(int hostId) {
         int result = -1;
         for (int i = 0; i < numberOfColumns; i = i + 1) {
-            if (matrixColumns[i].getId() == hostId) {
+            if (hostsInColumns[i].getId() == hostId) {
                 result = i;
                 return result;
             }
@@ -576,7 +624,7 @@ public class PsMatrix {
     private int getHostRow(int hostId) {
         int result = -1;
         for (int i = 0; i < numberOfRows; i = i + 1) {
-            if (matrixRows[i].getId() == hostId) {
+            if (hostsInRows[i].getId() == hostId) {
                 result = i;
                 return result;
             }
@@ -614,10 +662,28 @@ public class PsMatrix {
         int columnIndex = getHostColumn(columnHostId);
         int rowIndex = getHostRow(rowHostId);
         if (columnIndex != -1 && rowIndex != -1) {
-            return matrix[columnIndex][rowIndex][serviceNo];
+            int serviceId = matrixOfServiceIds[columnIndex][rowIndex][serviceNo];
+            return getServiceById(serviceId);
         } else {
             return null;
         }
+    }
+
+    /**
+     * return service from this matric by Id. Null if service not found.
+     *
+     * @param serviceId
+     * @return
+     */
+    public PsService getServiceById(int serviceId) {
+        Iterator iter = services.iterator();
+        while (iter.hasNext()) {
+            PsService currentService = (PsService) iter.next();
+            if (currentService.getId() == serviceId) {
+                return currentService;
+            }
+        }
+        return null;
     }
 
     /**
@@ -632,7 +698,8 @@ public class PsMatrix {
      */
     public PsService getServiceByRowAndColumnNumber(int columnId, int rowId, int serviceId) {
         if (columnId != -1 && rowId != -1) {
-            return matrix[columnId][rowId][serviceId];
+            int serviceIdentifier = matrixOfServiceIds[columnId][rowId][serviceId];
+            return getServiceById(serviceIdentifier);
         } else {
             return null;
         }
@@ -648,7 +715,7 @@ public class PsMatrix {
         if (rowIndex < 0 || rowIndex > numberOfRows - 1) {
             return null;
         } else {
-            return matrixRows[rowIndex];
+            return hostsInRows[rowIndex];
         }
     }
 
@@ -662,7 +729,7 @@ public class PsMatrix {
         if (columnIndex < 0 || columnIndex > numberOfColumns - 1) {
             return null;
         } else {
-            return matrixColumns[columnIndex];
+            return hostsInColumns[columnIndex];
         }
     }
 
@@ -671,20 +738,26 @@ public class PsMatrix {
      *
      * @param serviceId
      */
-    public void removeService(String serviceId) {
-        if (serviceId != null) {
+    public List<PsService> removeService(int serviceId) {
+        List<PsService> servicesRemoved = new ArrayList<PsService>();
+        if (serviceId != -1) {
             for (int i = 0; i < maxNumberOfColumns; i = i + 1) {
                 for (int j = 0; j < maxNumberOfRows; j = j + 1) {
                     for (int k = 0; k < maxNumberOfServiceNames; k = k + 1) {
-                        if (matrix[i][j][k] != null) {
-                            if (matrix[i][j][k].equals(serviceId)) {
-                                matrix[i][j][k] = null;
+                        if (matrixOfServiceIds[i][j][k] != -1) {
+                            if (matrixOfServiceIds[i][j][k] == serviceId) {
+                                matrixOfServiceIds[i][j][k] = -1;
+                                PsService serviceRemoved = removeServiceFromList(serviceId);
+                                if (serviceRemoved != null) {
+                                    servicesRemoved.add(serviceRemoved);
+                                }
                             }
                         }
                     }
                 }
             }
         }
+        return servicesRemoved;
     }
 
     /**
@@ -694,17 +767,11 @@ public class PsMatrix {
      */
     public Vector<Integer> getComponentServiceIds() {
         Vector<Integer> componentServiceIds = new Vector<Integer>();
-        for (int i = 0; i < numberOfColumns; i = i + 1) {
-            for (int j = 0; j < numberOfRows; j = j + 1) {
-                for (int k = 0; k < numberOfServiceNames; k = k + 1) {
-                    if (matrix[i][j][k] != null) {
-                        int componentServiceId=matrix[i][j][k].getId();
-                        Integer componentServiceIdAsInteger = 
-                                new Integer(componentServiceId);
-                        componentServiceIds.add(componentServiceIdAsInteger);
-                    }
-                }
-            }
+        Iterator iter = this.services.iterator();
+        while (iter.hasNext()) {
+            PsService currentService = (PsService) iter.next();
+            Integer serviceIdInteger = new Integer(currentService.getId());
+            componentServiceIds.add(serviceIdInteger);
         }
         return componentServiceIds;
     }
@@ -747,10 +814,9 @@ public class PsMatrix {
         if (columnNumber > -1 && columnNumber < numberOfColumns) {
             for (int row = 0; row < numberOfRows; row = row + 1) {
                 for (int serviceName = 0; serviceName < numberOfServiceNames; serviceName = serviceName + 1) {
-                    PsService currentService = matrix[columnNumber][row][serviceName];
-                    if (currentService != null) {
-                        int serviceId = currentService.getId();
-                        listOfServiceIds.add(new Integer(serviceId));
+                    if (matrixOfServiceIds[columnNumber][row][serviceName] != -1) {
+                        Integer serviceIdInteger = new Integer(matrixOfServiceIds[columnNumber][row][serviceName]);
+                        listOfServiceIds.add(serviceIdInteger);
                     }
                 }
             }
@@ -769,14 +835,34 @@ public class PsMatrix {
         if (rowNumber > -1 && rowNumber < numberOfRows) {
             for (int column = 0; column < numberOfColumns; column = column + 1) {
                 for (int serviceName = 0; serviceName < numberOfServiceNames; serviceName = serviceName + 1) {
-                    PsService currentService = matrix[column][rowNumber][serviceName];
-                    if (currentService != null) {
-                        int serviceId = currentService.getId();
-                        listOfServiceIds.add(new Integer(serviceId));
+                    if(matrixOfServiceIds[column][rowNumber][serviceName]!=-1){
+                        int serviceId = matrixOfServiceIds[column][rowNumber][serviceName];
+                        Integer serviceIdInteger=new Integer(serviceId);
+                        listOfServiceIds.add(serviceIdInteger);
                     }
                 }
             }
         }
         return listOfServiceIds;
+    }
+
+    /**
+     * take id of a service, remove service with this id from list of services
+     * in the matrix. Return this service object. If service is not found return
+     * null
+     *
+     * @param serviceId
+     * @return
+     */
+    public PsService removeServiceFromList(int serviceId) {
+        Iterator iter = services.iterator();
+        while (iter.hasNext()) {
+            PsService currentService = (PsService) iter.next();
+            if (currentService.getId() == serviceId) {
+                iter.remove();
+                return currentService;
+            }
+        }
+        return null;
     }
 }

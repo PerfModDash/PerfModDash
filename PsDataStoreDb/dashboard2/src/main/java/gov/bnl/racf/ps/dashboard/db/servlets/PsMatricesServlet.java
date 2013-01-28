@@ -7,11 +7,13 @@ package gov.bnl.racf.ps.dashboard.db.servlets;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsMatrix;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsMatrixManipulator;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectCreator;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectShredder;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectUpdater;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import gov.bnl.racf.ps.dashboard.db.utils.UrlUnpacker;
+import gov.racf.bnl.ps.dashboard.PsApi.PsApi;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -232,46 +234,47 @@ public class PsMatricesServlet extends HttpServlet {
                     // save the updated matrix
                     session.save(matrix);
 
-                    JSONObject siteJson = JsonConverter.toJson(matrix);
-                    out.println(siteJson.toString());
+                    JSONObject matrixJson = JsonConverter.toJson(matrix);
+                    out.println(matrixJson.toString());
                 } else {
                     out.println("JSON object is not valid");
-                    Logger.getLogger(PsSitesServlet.class).error("JSON object is not valid");
+                    Logger.getLogger(PsMatricesServlet.class).error("JSON object is not valid");
                 }
             } else {
-//                if (parameters.size() == 2) {
-//                    int siteId = Integer.parseInt(parameters.get(0));
-//                    String userCommand = parameters.get(1);
-//                    out.println(siteId + " " + userCommand);
-//                    PsSite site = (PsSite) session.get(PsSite.class, siteId);
-//                    if (site == null) {
-//                        out.println("site " + siteId + " not found");
-//                        Logger.getLogger(PsSitesServlet.class).warn("Site with id=" + siteId + " not found");
-//                    } else {
-//                        // this is a valid site
-//
-//                        // unpack data content
-//                        JSONArray jsonArray =
-//                                PostRequestDataExtractor.extractJsonArray(request);
-//
-//                        if (PsApi.SITE_ADD_HOST_IDS.equals(userCommand)) {
-//                            // user wants to add hosts to site
-//
-//                            // add those hosts
-//                            PsSiteManipulator.addHosts(session, site, jsonArray);
-//                        }
-//
-//                        if (PsApi.SITE_REMOVE_HOST_IDS.equals(userCommand)) {
-//                            // user wants to remove hosts from site
-//
-//                            // remove those hosts
-//                            PsSiteManipulator.removeHosts(session, site, jsonArray);
-//                        }
-//                        //save the changes to the site (actually this command should be redundant)
-//                        session.save(site);
-//                        out.println(JsonConverter.toJson(site).toString());
-//                    }
-//                }
+                if (parameters.size() == 2) {
+                    int matrixId = Integer.parseInt(parameters.get(0));
+                    String userCommand = parameters.get(1);
+                    out.println(matrixId + " " + userCommand);
+                    PsMatrix matrix = PsDataStore.getMatrix(session, matrixId);
+                    if (matrix == null) {
+                        out.println("matrix " + matrixId + " not found");
+                        Logger.getLogger(PsMatricesServlet.class).warn("Matrix with id=" + matrixId + " not found");
+                    } else {
+                        // this is a valid matrix
+
+                        // unpack data content
+                        JSONArray jsonArray =
+                                PostRequestDataExtractor.extractJsonArray(request);
+
+                        String addHostsCommand = PsApi.MATRIX_ADD_HOST_IDS;
+                        if (addHostsCommand.equals(userCommand)) {
+                            // user wants to add hosts to matrix
+
+                            // add those hosts
+                            PsMatrixManipulator.addHostIdsToMatrix(session, matrix, jsonArray);
+                        }
+
+                        if (PsApi.MATRIX_REMOVE_HOST_IDS.equals(userCommand)) {
+                            // user wants to remove hosts from matrix
+
+                            // remove those hosts
+                            PsMatrixManipulator.removeHostIdsFromMatrix(session, matrix, jsonArray);
+                        }
+                        //save the changes to the matrix (actually this command should be redundant)
+                        session.save(matrix);
+                        out.println(JsonConverter.toJson(matrix).toString());
+                    }
+                }
             }
 
             // commit transaction and close session

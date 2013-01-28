@@ -5,8 +5,10 @@
 package gov.bnl.racf.ps.dashboard.db.data_store;
 
 import gov.bnl.racf.ps.dashboard.db.data_objects.*;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectShredder;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import org.hibernate.Query;
@@ -146,5 +148,23 @@ public class PsDataStore {
 
         return resultList;
     }
+
+    public static void removeServices(Session session, Vector<Integer> serviceIdsToBeDeleted) {
+        Iterator iter = serviceIdsToBeDeleted.iterator();
+        while(iter.hasNext()){
+            Integer serviceIdInteger = (Integer)iter.next();
+            int serviceId = serviceIdInteger.intValue();
+            //TODO this may be replaced by a delete query in HQL
+            PsService service = PsDataStore.getService(session, serviceId);
+            PsObjectShredder.delete(session, service);
+        }
+    }
     
+    public static void removeServices(Session session,List<PsService> servicesToBeDeleted){
+        Iterator iter = servicesToBeDeleted.iterator();
+        while(iter.hasNext()){
+            PsService service = (PsService)iter.next();
+            PsObjectShredder.delete(session, service);
+        }
+    }
 }

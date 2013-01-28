@@ -243,7 +243,7 @@ public class PsServiceType implements Serializable {
      * @return
      */
     public boolean isThroughput() {
-        if (THROUGHPUT.equals(this.id)) {
+        if (THROUGHPUT.equals(this.serviceTypeId)) {
             return true;
         } else {
             return false;
@@ -256,7 +256,7 @@ public class PsServiceType implements Serializable {
      * @return
      */
     public boolean isLatency() {
-        if (LATENCY.equals(this.id)) {
+        if (LATENCY.equals(this.serviceTypeId)) {
             return true;
         } else {
             return false;
@@ -269,7 +269,7 @@ public class PsServiceType implements Serializable {
      * @return
      */
     public boolean isTraceroute() {
-        if (TRACEROUTE.equals(this.id)) {
+        if (TRACEROUTE.equals(this.serviceTypeId)) {
             return true;
         } else {
             return false;
