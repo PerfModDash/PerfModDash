@@ -50,7 +50,6 @@ public class JsonConverter {
      * @param host
      * @return
      */
-    
     public static JSONObject toJson(PsHost host) {
         return psHost2Json(host);
     }
@@ -111,7 +110,7 @@ public class JsonConverter {
         json.put(PsServiceType.RESULT_PARAMETER_INFO, resultParameterInfoJson);
         return json;
     }
-    
+
     /**
      * Convert perfsonar service to Json object
      *
@@ -158,7 +157,7 @@ public class JsonConverter {
 
         return json;
     }
-    
+
     /**
      * get service parameters of this particular service and convert them into
      * JSON object
@@ -178,11 +177,12 @@ public class JsonConverter {
         }
         return serviceParameters;
     }
-    
+
     /**
      * convert service result object to JSON
+     *
      * @param result
-     * @return 
+     * @return
      */
     public static JSONObject toJson(PsServiceResult result) {
         JSONObject json = new JSONObject();
@@ -209,7 +209,7 @@ public class JsonConverter {
 
         return json;
     }
-    
+
     public static JSONObject toJson(PsSite site) {
         JSONObject json = new JSONObject();
         json.put(PsSite.ID, site.getId());
@@ -228,18 +228,20 @@ public class JsonConverter {
 
         return json;
     }
-    
-    public static JSONObject toJson(PsMatrix matrix){
+
+    public static JSONObject toJson(PsMatrix matrix) {
         JSONObject json = new JSONObject();
         json.put(PsMatrix.ID, matrix.getId());
         json.put(PsMatrix.NAME, matrix.getName());
         json.put(PsMatrix.DETAIL_LEVEL, matrix.getDetailLevel());
 
-        String[] statusLabels = matrix.getStatusLabels();
+        List<String> statusLabels = matrix.getStatusLabels();
         JSONArray jsonArray = new JSONArray();
         if (statusLabels != null) {
-            for (int i = 0; i < statusLabels.length; i = i + 1) {
-                jsonArray.add(statusLabels[i]);
+            if (!statusLabels.isEmpty()) {
+                for (int i = 0; i < statusLabels.size(); i = i + 1) {
+                    jsonArray.add(statusLabels.get(i));
+                }
             }
         }
         json.put(PsMatrix.STATUS_LABELS, jsonArray);
@@ -264,7 +266,7 @@ public class JsonConverter {
 
         JSONArray serviceNames = new JSONArray();
         for (int i = 0; i < matrix.getNumberOfServiceNames(); i = i + 1) {
-            serviceNames.add(matrix.getServiceNames()[i]);
+            serviceNames.add(matrix.getServiceNames().get(i));
         }
         json.put(PsMatrix.SERVICE_NAMES, serviceNames);
 

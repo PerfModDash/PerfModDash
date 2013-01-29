@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 /**
  * Provides a way to describe a category of services that run the same type of
@@ -52,7 +53,10 @@ public class PsServiceType implements Serializable {
     
     private String jobType;
     private String name;
+    
+    @Lob
     private TreeMap<String, PsParameterInfo> serviceParameterInfo;
+    @Lob
     private TreeMap<String, PsParameterInfo> resultParameterInfo;
 
     public int getId() {

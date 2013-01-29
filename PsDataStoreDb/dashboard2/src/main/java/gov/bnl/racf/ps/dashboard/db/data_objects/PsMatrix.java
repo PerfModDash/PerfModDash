@@ -4,13 +4,13 @@
  */
 package gov.bnl.racf.ps.dashboard.db.data_objects;
 
-import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsServiceTypeFactory;
 import gov.racf.bnl.ps.dashboard.PsApi.PsApi;
 import java.util.*;
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.IndexColumn;
+import org.hibernate.annotations.*;
 
 /**
  * Object describing perfSonar service matrix.
@@ -42,7 +42,10 @@ public class PsMatrix {
     private int id;
     private String name;
     private String detailLevel = "low";
-    private String[] statusLabels = new String[5];
+    //@Lob
+    //private String[] statusLabels = new String[5];
+    @CollectionOfElements
+    private List<String> statusLabels = new ArrayList<String>();
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime;
     // max allowed matrix size
@@ -63,11 +66,15 @@ public class PsMatrix {
     //
     private int maxNumberOfServiceNames = 2;
     private int numberOfServiceNames = 0;
-    private String[] serviceNames = new String[2];
+    //@Lob
+    //private String[] serviceNames = new String[2];
+    @CollectionOfElements
+    private List<String>  serviceNames= new ArrayList<String>();
     //
     //
     @ManyToMany(cascade = CascadeType.ALL)
     private Collection<PsService> services = new Vector<PsService>();
+    @Lob
     private int[][][] matrixOfServiceIds = new int[maxNumberOfRows][maxNumberOfColumns][2];
     //@OneToMany
     //@IndexColumn(name = "id")
@@ -114,43 +121,75 @@ public class PsMatrix {
     private void initializeNumberOfServiceNames() {
         if (this.matrixType.isTraceroute()) {
             this.numberOfServiceNames = 1;
-            this.serviceNames[0] = "Traceroute Check";
+            this.serviceNames.add("Traceroute Check");
         }
         if (this.matrixType.isLatency()) {
             this.numberOfServiceNames = 2;
-            this.serviceNames[0] = "Packet Loss Check - Forward";
-            this.serviceNames[1] = "Packet Loss Check - Reverse";
+            this.serviceNames.add("Packet Loss Check - Forward");
+            this.serviceNames.add("Packet Loss Check - Reverse");
         }
         if (this.matrixType.isThroughput()) {
             this.numberOfServiceNames = 2;
-            this.serviceNames[0] = "Throughput Check - Forward";
-            this.serviceNames[1] = "Throughput Check - Reverse";
+            this.serviceNames.add("Throughput Check - Forward");
+            this.serviceNames.add("Throughput Check - Reverse");
         }
     }
+    
+//     private void initializeNumberOfServiceNames() {
+//        if (this.matrixType.isTraceroute()) {
+//            this.numberOfServiceNames = 1;
+//            this.serviceNames[0] = "Traceroute Check";
+//        }
+//        if (this.matrixType.isLatency()) {
+//            this.numberOfServiceNames = 2;
+//            this.serviceNames[0] = "Packet Loss Check - Forward";
+//            this.serviceNames[1] = "Packet Loss Check - Reverse";
+//        }
+//        if (this.matrixType.isThroughput()) {
+//            this.numberOfServiceNames = 2;
+//            this.serviceNames[0] = "Throughput Check - Forward";
+//            this.serviceNames[1] = "Throughput Check - Reverse";
+//        }
+//    }
 
-    public String[] getServiceNames() {
-        return serviceNames;
-    }
+//    public String[] getServiceNames() {
+//        return serviceNames;
+//    }
 
-    public void setServiceNames(String[] serviceNames) {
-        this.serviceNames = serviceNames;
-    }
+//    public void setServiceNames(String[] serviceNames) {
+//        this.serviceNames = serviceNames;
+//    }
 
     private void initializeStatusLabels() {
         if (PsApi.THROUGHPUT.equals(matrixType.getServiceTypeId())) {
-            statusLabels[0] = "Throughput > 500Mbps";
-            statusLabels[1] = "Throughput > 100Mbps and < 500 Mbps";
-            statusLabels[2] = "Throughput < 100Mbps";
-            statusLabels[3] = "Server Error Occurred";
-            statusLabels[4] = "Timeout error occurred";
+            statusLabels.add("Throughput > 500Mbps");
+            statusLabels.add("Throughput > 100Mbps and < 500 Mbps");
+            statusLabels.add("Throughput < 100Mbps");
+            statusLabels.add("Server Error Occurred");
+            statusLabels.add("Timeout error occurred");
         } else {
-            statusLabels[0] = "OK";
-            statusLabels[1] = "WARNING";
-            statusLabels[2] = "CRITICAL";
-            statusLabels[3] = "Server error occured";
-            statusLabels[4] = "Timeout error occurred";
+            statusLabels.add("OK");
+            statusLabels.add("WARNING");
+            statusLabels.add("CRITICAL");
+            statusLabels.add("Server error occured");
+            statusLabels.add("Timeout error occurred");
         }
     }
+//    private void initializeStatusLabels() {
+//        if (PsApi.THROUGHPUT.equals(matrixType.getServiceTypeId())) {
+//            statusLabels[0] = "Throughput > 500Mbps";
+//            statusLabels[1] = "Throughput > 100Mbps and < 500 Mbps";
+//            statusLabels[2] = "Throughput < 100Mbps";
+//            statusLabels[3] = "Server Error Occurred";
+//            statusLabels[4] = "Timeout error occurred";
+//        } else {
+//            statusLabels[0] = "OK";
+//            statusLabels[1] = "WARNING";
+//            statusLabels[2] = "CRITICAL";
+//            statusLabels[3] = "Server error occured";
+//            statusLabels[4] = "Timeout error occurred";
+//        }
+//    }
 
     public int getId() {
         return id;
@@ -276,13 +315,34 @@ public class PsMatrix {
         return result;
     }
 
-    public String[] getStatusLabels() {
+    public List<String> getServiceNames() {
+        return serviceNames;
+    }
+
+    public void setServiceNames(List<String> serviceNames) {
+        this.serviceNames = serviceNames;
+    }
+
+    public List<String> getStatusLabels() {
         return statusLabels;
     }
 
-    public void setStatusLabels(String[] statusLabels) {
+    public void setStatusLabels(List<String> statusLabels) {
         this.statusLabels = statusLabels;
     }
+
+    
+    
+    
+    
+    
+//    public String[] getStatusLabels() {
+//        return statusLabels;
+//    }
+//
+//    public void setStatusLabels(String[] statusLabels) {
+//        this.statusLabels = statusLabels;
+//    }
 
     public int getNumberOfServiceNames() {
         return numberOfServiceNames;
@@ -865,4 +925,6 @@ public class PsMatrix {
         }
         return null;
     }
+    
+    
 }

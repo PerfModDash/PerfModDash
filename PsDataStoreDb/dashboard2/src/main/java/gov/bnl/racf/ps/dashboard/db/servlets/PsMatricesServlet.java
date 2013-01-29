@@ -88,7 +88,7 @@ public class PsMatricesServlet extends HttpServlet {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         try {
-            
+
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
 
             if (parameters.size() > 0) {
@@ -96,11 +96,11 @@ public class PsMatricesServlet extends HttpServlet {
                 Integer matrixIdInteger = Integer.parseInt(idAsString);
                 int matrixId = matrixIdInteger.intValue();
                 PsMatrix matrix = PsDataStore.getMatrix(session, matrixId);
-                if(matrix!=null){
-                JSONObject hostJson = JsonConverter.toJson(matrix);
-                out.println(hostJson.toString());
-                }else{
-                    out.println("Matrix id="+matrixId+" not found");
+                if (matrix != null) {
+                    JSONObject hostJson = JsonConverter.toJson(matrix);
+                    out.println(hostJson.toString());
+                } else {
+                    out.println("Matrix id=" + matrixId + " not found");
                 }
             } else {
 
@@ -184,6 +184,9 @@ public class PsMatricesServlet extends HttpServlet {
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             Logger.getLogger(PsMatricesServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs<BR>" + e);
+            for (int i = 0; i < e.getStackTrace().length; i = i + 1) {
+                out.println(e.getStackTrace()[i]);
+            }
         } finally {
             session.close();
             out.close();
@@ -289,8 +292,8 @@ public class PsMatricesServlet extends HttpServlet {
             session.close();
             out.close();
         }
-        
-        
+
+
     }
 
     /**
@@ -337,6 +340,7 @@ public class PsMatricesServlet extends HttpServlet {
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             Logger.getLogger(PsMatricesServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs<BR>");
+
         } finally {
             session.close();
             out.close();
