@@ -81,8 +81,8 @@ public class PsMatrixManipulator {
                             matrix.getType(),
                             rowHost,host,host);
                     // insert those services into matrix
-                    matrix.setMatrixElement(rowIndex, columnIndex, 0, service1);
-                    matrix.setMatrixElement(rowIndex, columnIndex, 1, service2);
+                    matrix.addService( columnIndex,rowIndex, 0, service1);
+                    matrix.addService( columnIndex,rowIndex, 1, service2);
                 }
 
             }
@@ -109,8 +109,8 @@ public class PsMatrixManipulator {
                             matrix.getType(),
                             host,columnHost,columnHost);
                     // insert those services into matrix
-                    matrix.setMatrixElement(rowIndex, columnIndex, 0, service1);
-                    matrix.setMatrixElement(rowIndex, columnIndex, 1, service2);
+                    matrix.addService(columnIndex,rowIndex, 0, service1);
+                    matrix.addService(columnIndex,rowIndex, 1, service2);
                 }
             }
             

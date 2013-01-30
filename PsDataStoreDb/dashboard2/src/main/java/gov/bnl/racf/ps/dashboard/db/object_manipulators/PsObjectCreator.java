@@ -27,8 +27,9 @@ public class PsObjectCreator {
         return matrix;
     }
     public static PsMatrix createNewMatrix(Session session,String serviceTypeId, String matrixName){
-        PsMatrix matrix = createNewMatrix(session);
         PsServiceType type = PsDataStore.getServiceType(session,serviceTypeId);
+        PsMatrix matrix = new PsMatrix(type,matrixName);
+        session.save(matrix);
         matrix.setMatrixType(type);
         matrix.setName(matrixName);
         return matrix;

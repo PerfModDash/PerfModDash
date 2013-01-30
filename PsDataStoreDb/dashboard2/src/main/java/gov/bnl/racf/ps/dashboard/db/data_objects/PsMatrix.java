@@ -42,8 +42,7 @@ public class PsMatrix {
     private int id;
     private String name;
     private String detailLevel = "low";
-    //@Lob
-    //private String[] statusLabels = new String[5];
+
     @CollectionOfElements
     private List<String> statusLabels = new ArrayList<String>();
     @Temporal(TemporalType.TIMESTAMP)
@@ -63,7 +62,7 @@ public class PsMatrix {
     private List<PsHost> hostsInColumns = new ArrayList<PsHost>();
     //
     private int maxNumberOfServiceNames = 2;
-    private int numberOfServiceNames = 0;
+
     //@Lob
     //private String[] serviceNames = new String[2];
     @CollectionOfElements
@@ -73,10 +72,7 @@ public class PsMatrix {
     @ManyToMany(cascade = CascadeType.ALL)
     private Collection<PsService> services = new Vector<PsService>();
     @Lob
-    private int[][][] matrixOfServiceIds = new int[maxNumberOfRows][maxNumberOfColumns][2];
-    //@OneToMany
-    //@IndexColumn(name = "id")
-    //private PsService[][][] matrix = new PsService[maxNumberOfRows][maxNumberOfColumns][2];
+    private int[][][] matrixOfServiceIds = new int[maxNumberOfColumns][maxNumberOfRows][maxNumberOfServiceNames];
     @ManyToOne
     private PsServiceType matrixType;
 
@@ -118,16 +114,13 @@ public class PsMatrix {
 
     private void initializeNumberOfServiceNames() {
         if (this.matrixType.isTraceroute()) {
-            this.numberOfServiceNames = 1;
             this.serviceNames.add("Traceroute Check");
         }
         if (this.matrixType.isLatency()) {
-            this.numberOfServiceNames = 2;
             this.serviceNames.add("Packet Loss Check - Forward");
             this.serviceNames.add("Packet Loss Check - Reverse");
         }
         if (this.matrixType.isThroughput()) {
-            this.numberOfServiceNames = 2;
             this.serviceNames.add("Throughput Check - Forward");
             this.serviceNames.add("Throughput Check - Reverse");
         }
@@ -342,7 +335,7 @@ public class PsMatrix {
 //        this.statusLabels = statusLabels;
 //    }
     public int getNumberOfServiceNames() {
-        return numberOfServiceNames;
+        return this.serviceNames.size();
     }
 
     /**
@@ -610,23 +603,18 @@ public class PsMatrix {
     }
 
     /**
-     * add service to matrix in column and row defined by hosts with id
-     * hostColumnId and hostRowId. Use service number k.
+     * add service to matrix in column and row. Use service number k.
      *
-     * @param hostColumnId
-     * @param hostRowId
-     * @param k
-     * @param service
      */
-    public void addService(int hostColumnId,
-            int hostRowId,
+    public void addService(int column,
+            int row,
             int k,
             PsService service) {
-        int columnIndex = this.getColumnNumberOfHost(hostColumnId);
-        int rowIndex = this.getRowNumberOfHost(hostRowId);
-        if (columnIndex != -1 && rowIndex != -1) {
+        
+        if (column>-1 && column < this.getNumberOfColumns() &&
+                row> -1 && row<this.getNumberOfRows()) {
             services.add(service);
-            matrixOfServiceIds[columnIndex][rowIndex][k] = service.getId();
+            matrixOfServiceIds[column][row][k] = service.getId();
         }
 
     }
@@ -647,21 +635,15 @@ public class PsMatrix {
     }
 
     /**
-     * return service which stands in matrix in column defined by host
-     * columnHostId, row rowHostId as service number serviceNo
+     * return service which stands in matrix in a given row, column and serviceNo
      *
-     * @param columnHostId
-     * @param rowHostId
-     * @param serviceNo
-     * @return
+     * 
      */
-    public PsService getService(int columnHostId,
-            int rowHostId,
-            int serviceNo) {
-        int columnIndex = this.getColumnNumberOfHost(columnHostId);
-        int rowIndex = this.getRowNumberOfHost(rowHostId);
-        if (columnIndex != -1 && rowIndex != -1) {
-            int serviceId = matrixOfServiceIds[columnIndex][rowIndex][serviceNo];
+    public PsService getService(int column, int row,  int serviceNo) {
+
+        if (column>-1 && column<this.getNumberOfColumns() &&
+                row> -1 && row<this.getNumberOfRows()) {
+            int serviceId = matrixOfServiceIds[row][column][serviceNo];
             return getServiceById(serviceId);
         } else {
             return null;
@@ -812,9 +794,12 @@ public class PsMatrix {
         Vector<Integer> listOfServiceIds = new Vector<Integer>();
         if (columnNumber > -1 && columnNumber < getNumberOfColumns()) {
             for (int row = 0; row < getNumberOfRows(); row = row + 1) {
-                for (int serviceName = 0; serviceName < numberOfServiceNames; serviceName = serviceName + 1) {
+                for (int serviceName = 0; 
+                        serviceName < this.getNumberOfServiceNames(); 
+                        serviceName = serviceName + 1) {
                     if (matrixOfServiceIds[columnNumber][row][serviceName] != -1) {
-                        Integer serviceIdInteger = new Integer(matrixOfServiceIds[columnNumber][row][serviceName]);
+                        Integer serviceIdInteger = 
+                                new Integer(matrixOfServiceIds[columnNumber][row][serviceName]);
                         listOfServiceIds.add(serviceIdInteger);
                     }
                 }
@@ -833,7 +818,9 @@ public class PsMatrix {
         Vector<Integer> listOfServiceIds = new Vector<Integer>();
         if (rowNumber > -1 && rowNumber < getNumberOfRows()) {
             for (int column = 0; column < getNumberOfColumns(); column = column + 1) {
-                for (int serviceName = 0; serviceName < numberOfServiceNames; serviceName = serviceName + 1) {
+                for (int serviceName = 0; 
+                        serviceName < this.getNumberOfServiceNames(); 
+                        serviceName = serviceName + 1) {
                     if (matrixOfServiceIds[column][rowNumber][serviceName] != -1) {
                         int serviceId = matrixOfServiceIds[column][rowNumber][serviceName];
                         Integer serviceIdInteger = new Integer(serviceId);

@@ -275,7 +275,8 @@ public class PsMatricesServlet extends HttpServlet {
                         }
                         //save the changes to the matrix (actually this command should be redundant)
                         session.save(matrix);
-                        out.println(JsonConverter.toJson(matrix).toString());
+                        JSONObject matrixAsJson = JsonConverter.toJson(matrix);
+                        out.println(matrixAsJson.toString());
                     }
                 }
             }
