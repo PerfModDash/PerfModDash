@@ -38,6 +38,7 @@ public class PsService {
     private String type;
     private String name;
     private String description;
+    @Lob
     private TreeMap<String,Object> parameters = new TreeMap<String,Object> ();
     private int checkInterval;
     private boolean running;
