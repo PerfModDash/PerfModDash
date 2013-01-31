@@ -167,4 +167,19 @@ public class PsDataStore {
             PsObjectShredder.delete(session, service);
         }
     }
+
+    public static PsCloud getCloud(Session session, int cloudId) {
+        //throw new UnsupportedOperationException("Not yet implemented");
+        PsCloud cloud = (PsCloud)session.get(PsMatrix.class, cloudId);
+        return cloud;
+    }
+
+    public static List<PsCloud> getAllClouds(Session session) {
+        //throw new UnsupportedOperationException("Not yet implemented");
+        Query query = session.createQuery("from PsCloud");
+        query.setCacheable(true);
+        List resultList = query.list();
+
+        return resultList;
+    }
 }

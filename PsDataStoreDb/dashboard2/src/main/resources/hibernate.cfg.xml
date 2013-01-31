@@ -32,7 +32,7 @@
         <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsParameterInfo"/>
         <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsSite"/>
         <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsMatrix"/>
-        
+        <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsCloud"/>
         
     
     </session-factory>

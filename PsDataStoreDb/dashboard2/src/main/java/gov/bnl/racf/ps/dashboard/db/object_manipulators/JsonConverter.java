@@ -289,4 +289,31 @@ public class JsonConverter {
 
         return json;
     }
+    
+    public static JSONObject toJson(PsCloud cloud) {
+        JSONObject json = new JSONObject();
+        json.put(PsCloud.ID, cloud.getId());
+        json.put(PsCloud.NAME, cloud.getName());
+        json.put(PsCloud.STATUS, cloud.getStatus());
+
+        JSONArray sites = new JSONArray();
+        Iterator<PsSite> iter = cloud.sitesIterator();
+        while (iter.hasNext()) {
+            PsSite currentSite = (PsSite) iter.next();
+            int id = currentSite.getId();
+            sites.add(id);
+        }
+        json.put(PsCloud.SITES, sites);
+
+        JSONArray matrices = new JSONArray();
+        Iterator<PsMatrix> iter2 = cloud.matrixIterator();
+        while (iter2.hasNext()) {
+            PsMatrix currentMatrix = (PsMatrix) iter2.next();
+            int id = currentMatrix.getId();
+            matrices.add(id);
+        }
+        json.put(PsCloud.MATRICES, matrices);
+
+        return json;
+    }
 }
