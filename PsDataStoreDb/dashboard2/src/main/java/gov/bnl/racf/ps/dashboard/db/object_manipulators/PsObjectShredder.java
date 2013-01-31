@@ -53,6 +53,15 @@ public class PsObjectShredder {
     
     public static void delete(Session session, PsMatrix matrix) {
         //throw new UnsupportedOperationException("Not yet implemented");
+        
+        // first order of business is to remove all hosts from this matrix
+        List<PsHost> allHostsInThisMatrix = matrix.getAllHosts();
+        Iterator iter = allHostsInThisMatrix.iterator();
+        while(iter.hasNext()){
+            PsHost hostToBeRemoved = (PsHost)iter.next();
+            PsMatrixManipulator.removeHostFromMatrix(session,matrix, hostToBeRemoved);
+        }
+        // second order of business is to remove the matrix itself
         session.delete(matrix);
     }
 }

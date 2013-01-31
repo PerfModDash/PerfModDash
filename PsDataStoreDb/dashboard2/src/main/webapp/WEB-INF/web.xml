@@ -4,6 +4,10 @@
         <servlet-name>PsDumpServlet</servlet-name>
         <servlet-class>gov.bnl.racf.ps.dashboard.servlets.debug.PsDumpServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PsCloudsServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsCloudsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PsDumpServlet</servlet-name>
         <url-pattern>/dump</url-pattern>
@@ -27,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>PsMatricesServlet</servlet-name>
         <url-pattern>/matrices/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PsCloudsServlet</servlet-name>
+        <url-pattern>/clouds/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

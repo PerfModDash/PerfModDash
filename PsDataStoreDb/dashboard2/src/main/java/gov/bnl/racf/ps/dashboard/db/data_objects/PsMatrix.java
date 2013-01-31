@@ -163,26 +163,34 @@ public class PsMatrix {
             statusLabels.add("Timeout error occurred");
         }
     }
-//    private void initializeStatusLabels() {
-//        if (PsApi.THROUGHPUT.equals(matrixType.getServiceTypeId())) {
-//            statusLabels[0] = "Throughput > 500Mbps";
-//            statusLabels[1] = "Throughput > 100Mbps and < 500 Mbps";
-//            statusLabels[2] = "Throughput < 100Mbps";
-//            statusLabels[3] = "Server Error Occurred";
-//            statusLabels[4] = "Timeout error occurred";
-//        } else {
-//            statusLabels[0] = "OK";
-//            statusLabels[1] = "WARNING";
-//            statusLabels[2] = "CRITICAL";
-//            statusLabels[3] = "Server error occured";
-//            statusLabels[4] = "Timeout error occurred";
-//        }
-//    }
+
 
     public int getId() {
         return id;
     }
 
+    public List<PsHost> getAllHosts(){
+        List<PsHost> allHostsInThisMatrix = new ArrayList<PsHost>();
+        
+        Iterator iter = getHostsInRows().iterator();
+        while(iter.hasNext()){
+            PsHost currentHost = (PsHost)iter.next();
+            if(!allHostsInThisMatrix.contains(currentHost) ){
+                allHostsInThisMatrix.add(currentHost);
+            }
+        }
+        
+        iter = getHostsInColumns().iterator();
+        while(iter.hasNext()){
+            PsHost currentHost = (PsHost)iter.next();
+            if(!allHostsInThisMatrix.contains(currentHost) ){
+                allHostsInThisMatrix.add(currentHost);
+            }
+        }
+        
+        return allHostsInThisMatrix;
+    }
+    
     public List<PsHost> getHostsInColumns() {
         return hostsInColumns;
     }
