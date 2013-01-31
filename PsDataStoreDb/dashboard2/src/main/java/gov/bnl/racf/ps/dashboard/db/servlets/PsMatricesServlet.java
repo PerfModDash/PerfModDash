@@ -259,8 +259,10 @@ public class PsMatricesServlet extends HttpServlet {
                         JSONArray jsonArray =
                                 PostRequestDataExtractor.extractJsonArray(request);
 
-                        String addHostsCommand = PsApi.MATRIX_ADD_HOST_IDS;
-                        if (addHostsCommand.equals(userCommand)) {
+                        boolean knownCommand = false;
+                        
+                        if (PsApi.MATRIX_ADD_HOST_IDS.equals(userCommand)) {
+                            knownCommand=true;
                             // user wants to add hosts to matrix
 
                             // add those hosts
@@ -268,11 +270,33 @@ public class PsMatricesServlet extends HttpServlet {
                         }
 
                         if (PsApi.MATRIX_REMOVE_HOST_IDS.equals(userCommand)) {
+                            knownCommand=true;
                             // user wants to remove hosts from matrix
 
                             // remove those hosts
                             PsMatrixManipulator.removeHostIdsFromMatrix(session, matrix, jsonArray);
                         }
+                        if (PsApi.MATRIX_ADD_COLUMN_HOST_IDS.equals(userCommand)) {
+                            knownCommand=true;
+                            throw new UnsupportedOperationException("Operation " + userCommand + " not yet implemented");
+                        }
+                        if (PsApi.MATRIX_REMOVE_COLUMN_HOST_IDS.equals(userCommand)) {
+                            knownCommand=true;
+                            throw new UnsupportedOperationException("Operation " + userCommand + " not yet implemented");
+                        }
+                        if (PsApi.MATRIX_ADD_ROW_HOST_IDS.equals(userCommand)) {
+                            knownCommand=true;
+                            throw new UnsupportedOperationException("Operation " + userCommand + " not yet implemented");
+                        }
+                        if (PsApi.MATRIX_REMOVE_ROW_HOST_IDS.equals(userCommand)) {
+                            knownCommand=true;
+                            throw new UnsupportedOperationException("Operation " + userCommand + " not yet implemented");
+                        }
+                        
+                        if(!knownCommand){
+                            throw new UnsupportedOperationException("Unknown Operation " + userCommand + " ");
+                        }
+                        
                         //save the changes to the matrix (actually this command should be redundant)
                         session.save(matrix);
                         JSONObject matrixAsJson = JsonConverter.toJson(matrix);
