@@ -170,7 +170,7 @@ public class PsDataStore {
 
     public static PsCloud getCloud(Session session, int cloudId) {
         //throw new UnsupportedOperationException("Not yet implemented");
-        PsCloud cloud = (PsCloud)session.get(PsMatrix.class, cloudId);
+        PsCloud cloud = (PsCloud)session.get(PsCloud.class, cloudId);
         return cloud;
     }
 

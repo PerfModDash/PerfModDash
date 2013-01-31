@@ -4,6 +4,7 @@
  */
 package gov.bnl.racf.ps.dashboard.db.object_manipulators;
 
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsCloud;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsMatrix;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
@@ -412,27 +413,53 @@ public class PsObjectUpdater {
 //        }
 //    }
 //
-//    /**
-//     * modify cloud. Only do simple changes, like name change does not add nor
-//     * remove sites nor matrices
-//     *
-//     * @param cloud
-//     * @param json
-//     */
-//    public static void edit(PsCloud cloud, JSONObject json) {
-//        // first order of business is to compare id
-//        if (!cloud.getId().equals(json.get(PsCloud.ID))) {
-//            System.out.println("ERROR: cloud id and json id do not match");
-//        } else {
-//            if (json.keySet().contains(PsCloud.NAME)) {
-//                cloud.setName((String) json.get(PsCloud.NAME));
-//            }
-//
-//            // we do not handle matrices and sites here
-//
-//        }
-//    }
-//
+    /**
+     * modify cloud. Only do simple changes, like name change does not add nor
+     * remove sites nor matrices
+     *
+     * @param cloud
+     * @param json
+     */
+    public static void update(PsCloud cloud, JSONObject json) {
+        // first order of business is to compare id
+        // first order of business is to compare id
+
+        boolean jsonHasValidId = false;
+        if (json.keySet().contains(PsCloud.ID)) {
+            if (json.get(PsCloud.ID) != null && !"".equals(json.get(PsCloud.ID))) {
+                jsonHasValidId = true;
+            }
+        }
+        
+        boolean idTestPassed=false;
+        
+        if (jsonHasValidId) {
+            int cloudId = cloud.getId();
+            Long cloudIdAsLong = (Long) json.get(PsCloud.ID);
+            int cloudIdInJson  = cloudIdAsLong.intValue();
+            if (cloudId != cloudIdInJson) {
+                throw new UnsupportedOperationException(PsObjectUpdater.class+
+                        " ERROR: cloud id="+cloudId+
+                        " and json id="+cloudIdInJson+" do not match");
+                //idTestPassed=false;
+            }else{
+                idTestPassed=true;
+            }
+        }else{
+            idTestPassed=true;
+        }
+        
+        if (!idTestPassed) {
+            throw new UnsupportedOperationException(PsObjectUpdater.class+
+                        " ERROR: cloud id and json id do not match");
+        } else {
+            if (json.keySet().contains(PsCloud.NAME)) {
+                cloud.setName((String) json.get(PsCloud.NAME));
+            }
+            // we do not handle matrices and sites here
+        }
+    }
+
 //    /**
 //     * modify the fields of collector
 //     *

@@ -68,8 +68,8 @@ public class PsDumpServlet extends HttpServlet {
             while (iter1.hasNext()) {
                 PsServiceType serviceType = (PsServiceType) iter1.next();
                 JSONObject json = JsonConverter.toJson(serviceType);
-                out.println("<BR>");
                 out.println(json.toString());
+                out.println("<BR><BR>");
             }
 
             out.println("<BR><strong>Hosts:</strong><br>");
@@ -81,6 +81,7 @@ public class PsDumpServlet extends HttpServlet {
                 PsHost host = (PsHost) iter.next();
                 JSONObject json = JsonConverter.toJson(host);
                 out.println(json.toString());
+                out.println("<BR><BR>");
             }
 
             out.println("<BR><strong>Services:</strong><br>");
@@ -92,6 +93,7 @@ public class PsDumpServlet extends HttpServlet {
                 PsService service = (PsService) iter2.next();
                 JSONObject json = JsonConverter.toJson(service);
                 out.println(json.toString());
+                out.println("<BR><BR>");
             }
 
             out.println("<BR><strong>Sites:</strong><br>");
@@ -103,6 +105,7 @@ public class PsDumpServlet extends HttpServlet {
                 PsSite site = (PsSite) iter3.next();
                 JSONObject json = JsonConverter.toJson(site);
                 out.println(json.toString());
+                out.println("<BR><BR>");
             }
 
 
@@ -115,6 +118,19 @@ public class PsDumpServlet extends HttpServlet {
                 PsMatrix matrix = (PsMatrix) iter4.next();
                 JSONObject json = JsonConverter.toJson(matrix);
                 out.println(json.toString());
+                out.println("<BR><BR>");
+            }
+            
+            out.println("<BR><strong>Clouds:</strong><br>");
+            String hql5 = "FROM PsCloud";
+            Query query5 = session.createQuery(hql5);
+            List results5 = query5.list();
+            Iterator iter5 = results5.iterator();
+            while (iter5.hasNext()) {
+                PsCloud cloud = (PsCloud) iter5.next();
+                JSONObject json = JsonConverter.toJson(cloud);
+                out.println(json.toString());
+                out.println("<BR><BR>");
             }
 
             out.println("</body>");

@@ -8,6 +8,8 @@ package gov.bnl.racf.ps.dashboard.db.servlets;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsCloud;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectCreator;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectUpdater;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import gov.bnl.racf.ps.dashboard.db.utils.UrlUnpacker;
 import java.io.IOException;
@@ -130,7 +132,43 @@ public class PsCloudsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        throw new UnsupportedOperationException("Method POST not yet implemented");
+        //throw new UnsupportedOperationException("Method POST not yet implemented");
+        
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        //boilerplate code to open session
+        SessionFactory sessionFactory =
+                PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        try {
+            // parse data part of the code
+            JSONObject jsonObject = PostRequestDataExtractor.extractJson(request);
+
+            if (jsonObject != null) {
+                // the input data is a valid JSON object
+
+                // create new cloud
+                PsCloud cloud = PsObjectCreator.createNewCloud(session, jsonObject);
+
+                // convert host to json
+                JSONObject finalCloud = JsonConverter.toJson(cloud);
+
+                out.println(finalCloud.toString());
+            }
+            // commit transaction and close session
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
+            Logger.getLogger(PsCloudsServlet.class).error(e);
+            out.println("Error occured in " + getClass().getName() + " plase check the logs<BR>" + e);
+        } finally {
+            session.close();
+            out.close();
+        }
     }
     
     /**

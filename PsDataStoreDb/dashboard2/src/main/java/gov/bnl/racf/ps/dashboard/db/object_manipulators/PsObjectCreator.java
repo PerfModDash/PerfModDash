@@ -4,11 +4,13 @@
  */
 package gov.bnl.racf.ps.dashboard.db.object_manipulators;
 
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsCloud;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsMatrix;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceType;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import org.hibernate.Session;
+import org.json.simple.JSONObject;
 
 /**
  * static class for creating various objects and saving them to storage at the same time
@@ -34,4 +36,16 @@ public class PsObjectCreator {
         matrix.setName(matrixName);
         return matrix;
     }
+    public static PsCloud createNewCloud(Session session){
+        PsCloud cloud = new PsCloud();
+        session.save(cloud);
+        return cloud;
+    }
+    
+    public static PsCloud createNewCloud(Session session, JSONObject json){
+        PsCloud cloud = createNewCloud(session);
+        PsObjectUpdater.update(cloud, json);
+        return cloud;
+    }
+   
 }
