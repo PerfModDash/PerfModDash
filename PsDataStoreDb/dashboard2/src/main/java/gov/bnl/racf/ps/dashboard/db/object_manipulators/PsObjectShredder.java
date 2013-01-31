@@ -4,10 +4,7 @@
  */
 package gov.bnl.racf.ps.dashboard.db.object_manipulators;
 
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsMatrix;
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
+import gov.bnl.racf.ps.dashboard.db.data_objects.*;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import java.util.Iterator;
 import java.util.List;
@@ -63,5 +60,11 @@ public class PsObjectShredder {
         }
         // second order of business is to remove the matrix itself
         session.delete(matrix);
+    }
+    
+    public static void delete(Session session, PsCloud cloud) {
+        cloud.removeAllSites();
+        cloud.removeAllMatrices();
+        session.delete(cloud);
     }
 }

@@ -28,6 +28,8 @@ public class PsApi {
     public static final String CLOUD="clouds";
     public static final String CLOUD_ADD_SITE_IDS="addsiteids";
     public static final String CLOUD_REMOVE_SITE_IDS="removesiteids";
+    public static final String CLOUD_ADD_MATRIX_IDS="addmatrixids";
+    public static final String CLOUD_REMOVE_MATRIX_IDS="removematrixids";
     
     public static final String MATRIX="matrices";
     public static final String MATRIX_ADD_HOST_IDS="addhostids";

@@ -8,10 +8,12 @@ package gov.bnl.racf.ps.dashboard.db.servlets;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsCloud;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsCloudManipulator;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectCreator;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectUpdater;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import gov.bnl.racf.ps.dashboard.db.utils.UrlUnpacker;
+import gov.racf.bnl.ps.dashboard.PsApi.PsApi;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -183,7 +185,103 @@ public class PsCloudsServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        throw new UnsupportedOperationException("Method PUT not yet implemented");
+        //throw new UnsupportedOperationException("Method PUT not yet implemented");
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        // first order of business is to open session
+        //boilerplate code to open session
+        SessionFactory sessionFactory =
+                PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        try {
+            // second order of business is to unpack parameters from url
+            ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
+
+            //if there are parameters
+            if (parameters.size() == 1) {
+                String idAsString = parameters.get(0);
+                Integer cloudIdInteger = Integer.parseInt(idAsString);
+                int cloudId = cloudIdInteger.intValue();
+                PsCloud cloud = PsDataStore.getCloud(session, cloudId);
+
+                //unpack json object from data part
+                // parse data part of the code
+                JSONObject jsonObject = PostRequestDataExtractor.extractJson(request);
+                if (jsonObject != null) {
+                    //update the host
+                    PsObjectUpdater.update(cloud, jsonObject);
+
+                    // save the updated host, this is probably redundant
+                    session.save(cloud);
+
+                    JSONObject cloudJson = JsonConverter.toJson(cloud);
+                    out.println(cloudJson.toString());
+                } else {
+                    out.println("JSON object is not valid");
+                    Logger.getLogger(PsCloudsServlet.class).error("JSON object is not valid");
+                }
+            } else {
+                if (parameters.size() == 2) {
+                    int cloudId = Integer.parseInt(parameters.get(0));
+                    String userCommand = parameters.get(1);
+                    PsCloud cloud = (PsCloud) session.get(PsCloud.class, cloudId);
+                    if (cloud == null) {
+                        out.println("cloud " + cloudId + " not found");
+                        Logger.getLogger(PsSitesServlet.class).warn("Cloud with id=" + cloudId + " not found");
+                    } else {
+                        // this is a valid cloud
+
+                        // unpack data content
+                        JSONArray jsonArray =
+                                PostRequestDataExtractor.extractJsonArray(request);
+
+                        if (PsApi.CLOUD_ADD_SITE_IDS.equals(userCommand)) {
+                            // user wants to add sites to cloud
+
+                            // add those sites
+                            PsCloudManipulator.addSites(session, cloud, jsonArray);
+                        }
+
+                        if (PsApi.CLOUD_REMOVE_SITE_IDS .equals(userCommand)) {
+                            // user wants to remove hosts from site
+
+                            // remove those hosts
+                            PsCloudManipulator.removeSites(session, cloud, jsonArray);
+                        }
+                        if (PsApi.CLOUD_ADD_MATRIX_IDS.equals(userCommand)) {
+                            // user wants to add sites to cloud
+
+                            // add those sites
+                            PsCloudManipulator.addMatrices(session, cloud, jsonArray);
+                        }
+
+                        if (PsApi.CLOUD_REMOVE_MATRIX_IDS.equals(userCommand)) {
+                            // user wants to remove hosts from site
+
+                            // remove those hosts
+                            PsCloudManipulator.removeMatrices(session, cloud, jsonArray);
+                        }
+                        //save the changes to the site (actually this command should be redundant)
+                        session.save(cloud);
+                        out.println(JsonConverter.toJson(cloud).toString());
+                    }
+                }
+            }
+
+            // commit transaction and close session
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
+            Logger.getLogger(PsSitesServlet.class).error(e);
+            out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
+        } finally {
+            session.close();
+            out.close();
+        }
     }
     
     

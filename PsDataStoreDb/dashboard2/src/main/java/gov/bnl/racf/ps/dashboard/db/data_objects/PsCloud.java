@@ -223,6 +223,14 @@ public class PsCloud {
         return true;
     }
 
+    public void removeAllSites() {
+        sites.clear();
+    }
+
+    public void removeAllMatrices() {
+        matrices.clear();
+    }
+
     
     
    
