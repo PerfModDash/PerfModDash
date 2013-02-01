@@ -212,108 +212,111 @@ public class JsonConverter {
 
     public static JSONObject toJson(PsSite site) {
         JSONObject json = new JSONObject();
-        json.put(PsSite.ID, site.getId());
-        json.put(PsSite.NAME, site.getName());
-        json.put(PsSite.DESCRIPTION, site.getDescription());
-        json.put(PsSite.STATUS, site.getStatus());
+        if (site != null) {
+            json.put(PsSite.ID, site.getId());
+            json.put(PsSite.NAME, site.getName());
+            json.put(PsSite.DESCRIPTION, site.getDescription());
+            json.put(PsSite.STATUS, site.getStatus());
 
-        JSONArray listOfHosts = new JSONArray();
-        Vector<Integer> listOfHostIds = site.getHostIds();
-        Iterator<Integer> iter = listOfHostIds.iterator();
-        while (iter.hasNext()) {
-            Integer currentIdInteger = (Integer) iter.next();
-            listOfHosts.add(currentIdInteger.toString());
+            JSONArray listOfHosts = new JSONArray();
+            Vector<Integer> listOfHostIds = site.getHostIds();
+            Iterator<Integer> iter = listOfHostIds.iterator();
+            while (iter.hasNext()) {
+                Integer currentIdInteger = (Integer) iter.next();
+                listOfHosts.add(currentIdInteger.toString());
+            }
+            json.put(PsSite.HOSTS, listOfHosts);
         }
-        json.put(PsSite.HOSTS, listOfHosts);
-
         return json;
     }
 
     public static JSONObject toJson(PsMatrix matrix) {
         JSONObject json = new JSONObject();
-        json.put(PsMatrix.ID, matrix.getId());
-        json.put(PsMatrix.NAME, matrix.getName());
-        json.put(PsMatrix.DETAIL_LEVEL, matrix.getDetailLevel());
+        if (matrix != null) {
+            json.put(PsMatrix.ID, matrix.getId());
+            json.put(PsMatrix.NAME, matrix.getName());
+            json.put(PsMatrix.DETAIL_LEVEL, matrix.getDetailLevel());
 
-        List<String> statusLabels = matrix.getStatusLabels();
-        JSONArray jsonArray = new JSONArray();
-        if (statusLabels != null) {
-            if (!statusLabels.isEmpty()) {
-                for (int i = 0; i < statusLabels.size(); i = i + 1) {
-                    jsonArray.add(statusLabels.get(i));
+            List<String> statusLabels = matrix.getStatusLabels();
+            JSONArray jsonArray = new JSONArray();
+            if (statusLabels != null) {
+                if (!statusLabels.isEmpty()) {
+                    for (int i = 0; i < statusLabels.size(); i = i + 1) {
+                        jsonArray.add(statusLabels.get(i));
+                    }
                 }
             }
-        }
-        json.put(PsMatrix.STATUS_LABELS, jsonArray);
+            json.put(PsMatrix.STATUS_LABELS, jsonArray);
 
-        Date lastUpdateTime = matrix.getLastUpdateTime();
-        json.put(PsMatrix.LAST_UPDATE_TIME,
-                IsoDateConverter.dateToString(lastUpdateTime));
+            Date lastUpdateTime = matrix.getLastUpdateTime();
+            json.put(PsMatrix.LAST_UPDATE_TIME,
+                    IsoDateConverter.dateToString(lastUpdateTime));
 
-        JSONArray rows = new JSONArray();
-        for (int i = 0; i < matrix.getNumberOfRows(); i = i + 1) {
-            PsHost currentHost = matrix.getHostInRow(i);
-            rows.add(currentHost.getHostname());
-        }
-        json.put(PsMatrix.ROWS, rows);
-
-        JSONArray columns = new JSONArray();
-        for (int i = 0; i < matrix.getNumberOfColumns(); i = i + 1) {
-            PsHost currentHost = matrix.getHostInColumn(i);
-            columns.add(currentHost.getHostname());
-        }
-        json.put(PsMatrix.COLUMNS, columns);
-
-        JSONArray serviceNames = new JSONArray();
-        for (int i = 0; i < matrix.getNumberOfServiceNames(); i = i + 1) {
-            serviceNames.add(matrix.getServiceNames().get(i));
-        }
-        json.put(PsMatrix.SERVICE_NAMES, serviceNames);
-
-        JSONArray matrixArray = new JSONArray();
-        for (int i = 0; i < matrix.getNumberOfColumns(); i = i + 1) {
-            JSONArray rowsArray = new JSONArray();
-            for (int j = 0; j < matrix.getNumberOfRows(); j = j + 1) {
-                JSONArray serviceArray = new JSONArray();
-                for (int k = 0; k < matrix.getNumberOfServiceNames(); k = k + 1) {
-                    PsService currentService = matrix.getService(i, j, k);
-                    JSONObject currentServiceJson =
-                            JsonConverter.toJson(currentService);
-                    serviceArray.add(currentServiceJson);
-                }
-                rowsArray.add(serviceArray);
+            JSONArray rows = new JSONArray();
+            for (int i = 0; i < matrix.getNumberOfRows(); i = i + 1) {
+                PsHost currentHost = matrix.getHostInRow(i);
+                rows.add(currentHost.getHostname());
             }
-            matrixArray.add(rowsArray);
-        }
-        json.put(PsMatrix.MATRIX, matrixArray);
+            json.put(PsMatrix.ROWS, rows);
 
+            JSONArray columns = new JSONArray();
+            for (int i = 0; i < matrix.getNumberOfColumns(); i = i + 1) {
+                PsHost currentHost = matrix.getHostInColumn(i);
+                columns.add(currentHost.getHostname());
+            }
+            json.put(PsMatrix.COLUMNS, columns);
+
+            JSONArray serviceNames = new JSONArray();
+            for (int i = 0; i < matrix.getNumberOfServiceNames(); i = i + 1) {
+                serviceNames.add(matrix.getServiceNames().get(i));
+            }
+            json.put(PsMatrix.SERVICE_NAMES, serviceNames);
+
+            JSONArray matrixArray = new JSONArray();
+            for (int i = 0; i < matrix.getNumberOfColumns(); i = i + 1) {
+                JSONArray rowsArray = new JSONArray();
+                for (int j = 0; j < matrix.getNumberOfRows(); j = j + 1) {
+                    JSONArray serviceArray = new JSONArray();
+                    for (int k = 0; k < matrix.getNumberOfServiceNames(); k = k + 1) {
+                        PsService currentService = matrix.getService(i, j, k);
+                        JSONObject currentServiceJson =
+                                JsonConverter.toJson(currentService);
+                        serviceArray.add(currentServiceJson);
+                    }
+                    rowsArray.add(serviceArray);
+                }
+                matrixArray.add(rowsArray);
+            }
+            json.put(PsMatrix.MATRIX, matrixArray);
+        }
         return json;
     }
-    
+
     public static JSONObject toJson(PsCloud cloud) {
         JSONObject json = new JSONObject();
-        json.put(PsCloud.ID, cloud.getId());
-        json.put(PsCloud.NAME, cloud.getName());
-        json.put(PsCloud.STATUS, cloud.getStatus());
+        if (cloud != null) {
+            json.put(PsCloud.ID, cloud.getId());
+            json.put(PsCloud.NAME, cloud.getName());
+            json.put(PsCloud.STATUS, cloud.getStatus());
 
-        JSONArray sites = new JSONArray();
-        Iterator<PsSite> iter = cloud.sitesIterator();
-        while (iter.hasNext()) {
-            PsSite currentSite = (PsSite) iter.next();
-            int id = currentSite.getId();
-            sites.add(id);
+            JSONArray sites = new JSONArray();
+            Iterator<PsSite> iter = cloud.sitesIterator();
+            while (iter.hasNext()) {
+                PsSite currentSite = (PsSite) iter.next();
+                int id = currentSite.getId();
+                sites.add(id);
+            }
+            json.put(PsCloud.SITES, sites);
+
+            JSONArray matrices = new JSONArray();
+            Iterator<PsMatrix> iter2 = cloud.matrixIterator();
+            while (iter2.hasNext()) {
+                PsMatrix currentMatrix = (PsMatrix) iter2.next();
+                int id = currentMatrix.getId();
+                matrices.add(id);
+            }
+            json.put(PsCloud.MATRICES, matrices);
         }
-        json.put(PsCloud.SITES, sites);
-
-        JSONArray matrices = new JSONArray();
-        Iterator<PsMatrix> iter2 = cloud.matrixIterator();
-        while (iter2.hasNext()) {
-            PsMatrix currentMatrix = (PsMatrix) iter2.next();
-            int id = currentMatrix.getId();
-            matrices.add(id);
-        }
-        json.put(PsCloud.MATRICES, matrices);
-
         return json;
     }
 }

@@ -87,7 +87,8 @@ public class PsCloudManipulator {
     public static void addSites(Session session, PsCloud cloud, JSONArray listOfSiteIds){
         Iterator iter = listOfSiteIds.iterator();
         while(iter.hasNext()){
-            int siteId = ((Long)iter.next()).intValue();
+            String siteIdAsString = (String)iter.next();
+            int siteId =Integer.parseInt(siteIdAsString);
             addSite(session,cloud,siteId);
         }
     }
@@ -99,7 +100,8 @@ public class PsCloudManipulator {
     public static void removeSites(Session session, PsCloud cloud, JSONArray listOfSiteIds){
         Iterator iter = listOfSiteIds.iterator();
         while(iter.hasNext()){
-            int siteId = ((Long)iter.next()).intValue();
+            String siteIdAsString = (String)iter.next();
+            int siteId =Integer.parseInt(siteIdAsString);
             removeSite(session,cloud,siteId);
         }
     }
@@ -107,7 +109,8 @@ public class PsCloudManipulator {
     public static void addMatrices(Session session, PsCloud cloud, JSONArray listOfMatrixIds){
         Iterator iter = listOfMatrixIds.iterator();
         while(iter.hasNext()){
-            int matrixId = ((Long)iter.next()).intValue();
+            String matrixIdAsString = (String)iter.next();
+            int matrixId =Integer.parseInt(matrixIdAsString);
             addMatrix(session,cloud,matrixId);
         }
     }
@@ -115,7 +118,8 @@ public class PsCloudManipulator {
     public static void removeMatrices(Session session, PsCloud cloud, JSONArray listOfMatrixIds){
         Iterator iter = listOfMatrixIds.iterator();
         while(iter.hasNext()){
-            int matrixId = ((Long)iter.next()).intValue();
+            String matrixIdAsString = (String)iter.next();
+            int matrixId =Integer.parseInt(matrixIdAsString);
             removeMatrix(session,cloud,matrixId);
         }
     }
