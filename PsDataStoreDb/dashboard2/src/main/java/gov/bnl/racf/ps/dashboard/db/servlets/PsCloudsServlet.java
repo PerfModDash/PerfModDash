@@ -77,6 +77,7 @@ public class PsCloudsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //throw new UnsupportedOperationException("Method GET not yet implemented");
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 

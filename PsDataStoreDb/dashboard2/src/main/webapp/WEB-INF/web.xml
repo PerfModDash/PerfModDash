@@ -5,6 +5,10 @@
         <servlet-class>gov.bnl.racf.ps.dashboard.servlets.debug.PsDumpServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>PsQueryJobsServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsQueryJobsServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>PsCloudsServlet</servlet-name>
         <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsCloudsServlet</servlet-class>
     </servlet>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>PsCloudsServlet</servlet-name>
         <url-pattern>/clouds/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PsQueryJobsServlet</servlet-name>
+        <url-pattern>/jobs/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

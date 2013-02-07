@@ -4,10 +4,7 @@
  */
 package gov.bnl.racf.ps.dashboard.db.object_manipulators;
 
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsCloud;
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsMatrix;
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
-import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceType;
+import gov.bnl.racf.ps.dashboard.db.data_objects.*;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
@@ -46,6 +43,22 @@ public class PsObjectCreator {
         PsCloud cloud = createNewCloud(session);
         PsObjectUpdater.update(cloud, json);
         return cloud;
+    }
+    
+    public static PsJob createNewJob(Session session){
+        PsJob job = new PsJob();
+        // Unlike other objects, we do not save the job in session.
+        //
+        // The reason for this policy is: client may request jobs with
+        // setRunning=0 option. In this case we return only job information, but
+        // do not set corresponding services to running. So no jobs start, therefore
+        // we do not save the job object.
+        //
+        // The decision whether save or not the job object is done in the PsQueryJobs servlet
+        // when the setRunning flag is decoded
+        
+        //session.save(job);
+        return job;
     }
    
 }

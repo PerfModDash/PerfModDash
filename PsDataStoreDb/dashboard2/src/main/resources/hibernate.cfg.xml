@@ -33,6 +33,8 @@
         <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsSite"/>
         <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsMatrix"/>
         <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsCloud"/>
+        <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsJob"/>
+        <mapping class="gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceResult"/>
         
     
     </session-factory>

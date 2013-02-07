@@ -319,4 +319,30 @@ public class JsonConverter {
         }
         return json;
     }
+    
+    public static JSONObject toJson(PsJob job){
+         JSONObject json = new JSONObject();
+
+        json.put(PsJob.ID, job.getId());
+        json.put(PsJob.SERVICE_ID, job.getService_id());
+        json.put(PsJob.TYPE, job.getType());
+
+        JSONObject parameters = serviceParametersAsJson(job);
+        json.put(PsJob.PARAMETERS, parameters);
+
+        return json;
+    }
+    
+    private static JSONObject serviceParametersAsJson(PsJob job) {
+        JSONObject serviceParameters = new JSONObject();
+
+        Iterator iter = job.getParameters().keySet().iterator();
+        while (iter.hasNext()) {
+            String key = (String) iter.next();
+
+            Object value = job.getParameters().get(key);
+            serviceParameters.put(key, value);
+        }
+        return serviceParameters;
+    }
 }
