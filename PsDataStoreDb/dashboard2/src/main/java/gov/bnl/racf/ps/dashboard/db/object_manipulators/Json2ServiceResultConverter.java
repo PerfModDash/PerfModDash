@@ -32,21 +32,20 @@ public class Json2ServiceResultConverter {
 
 
         if (json.keySet().contains(PsServiceResult.ID)) {
-            result.setId(toInt( (Long)json.get(PsServiceResult.ID) ));
+            result.setId(toInt( (String)json.get(PsServiceResult.ID) ));
         }
 
         if (json.keySet().contains(PsServiceResult.JOB_ID)) {
-            result.setJob_id((String) json.get(PsServiceResult.JOB_ID));
+            result.setJob_id(toInt( (String)json.get(PsServiceResult.JOB_ID)));
         }
 
 
         if (json.keySet().contains(PsServiceResult.SERVICE_ID)) {
-            result.setService_id(toInt((Long) json.get(PsServiceResult.SERVICE_ID)));
+            result.setService_id(toInt((String) json.get(PsServiceResult.SERVICE_ID)));
         }
 
         if (json.keySet().contains(PsServiceResult.STATUS)) {
-            Long statusLong = (Long) json.get(PsServiceResult.STATUS);
-            int status = statusLong.intValue();
+            int status = toInt( (Long) json.get(PsServiceResult.STATUS));
             result.setStatus(status);
         }
 
@@ -77,5 +76,9 @@ public class Json2ServiceResultConverter {
     private static int toInt(Long inputLong){
         int result = inputLong.intValue();
         return result;
+    }
+    private static int toInt(String inputString){
+        int inputAsInt = Integer.parseInt(inputString);
+        return inputAsInt;
     }
 }

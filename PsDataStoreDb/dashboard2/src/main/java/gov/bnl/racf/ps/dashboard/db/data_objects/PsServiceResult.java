@@ -32,7 +32,7 @@ public class PsServiceResult implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-    private String job_id;
+    private int job_id;
     private int service_id;
 
    
@@ -59,11 +59,11 @@ public class PsServiceResult implements Serializable {
         this.id = id;
     }
 
-    public String getJob_id() {
+    public int getJob_id() {
         return job_id;
     }
 
-    public void setJob_id(String job_id) {
+    public void setJob_id(int job_id) {
         this.job_id = job_id;
     }
 

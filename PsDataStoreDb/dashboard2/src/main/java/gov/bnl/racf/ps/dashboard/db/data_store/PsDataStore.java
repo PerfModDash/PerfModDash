@@ -183,5 +183,11 @@ public class PsDataStore {
         return resultList;
     }
 
+    public static PsJob getJob(Session session, int jobId) {
+        //throw new UnsupportedOperationException("Not yet implemented");
+        PsJob job = (PsJob) session.get(PsJob.class, jobId);
+        return job;
+    }
+
    
 }

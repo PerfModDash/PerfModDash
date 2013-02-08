@@ -26,7 +26,7 @@ public class JsonConverter {
     public static JSONObject psHost2Json(PsHost host) {
         JSONObject json = new JSONObject();
 
-        json.put(PsHost.ID, host.getId());
+        json.put(PsHost.ID, int2String(host.getId()));
         json.put(PsHost.HOSTNAME, host.getHostname());
         json.put(PsHost.IPV4, host.getIpv4());
         json.put(PsHost.IPV6, host.getIpv6());
@@ -72,7 +72,7 @@ public class JsonConverter {
         // warning: externally id means 'service type id'
         json.put(PsServiceType.ID, serviceType.getServiceTypeId());
         // internal id is the id in the database
-        json.put(PsServiceType.INTERNAL_ID, serviceType.getId());
+        json.put(PsServiceType.INTERNAL_ID, int2String(serviceType.getId()));
         json.put(PsServiceType.JOB_TYPE, serviceType.getJobType());
         json.put(PsServiceType.NAME, serviceType.getName());
 
@@ -123,7 +123,7 @@ public class JsonConverter {
 
         if (service != null) {
 
-            json.put(PsService.ID, service.getId());
+            json.put(PsService.ID, int2String(service.getId()));
             json.put(PsService.TYPE, service.getType());
             json.put(PsService.NAME, service.getName());
             json.put(PsService.DESCRIPTION, service.getDescription());
@@ -188,9 +188,9 @@ public class JsonConverter {
         JSONObject json = new JSONObject();
 
         if (result != null) {
-            json.put(PsServiceResult.ID, result.getId());
-            json.put(PsServiceResult.JOB_ID, result.getJob_id());
-            json.put(PsServiceResult.SERVICE_ID, result.getService_id());
+            json.put(PsServiceResult.ID, int2String(result.getId()));
+            json.put(PsServiceResult.JOB_ID, int2String(result.getJob_id()));
+            json.put(PsServiceResult.SERVICE_ID, int2String(result.getService_id()));
             json.put(PsServiceResult.STATUS, result.getStatus());
             json.put(PsServiceResult.MESSAGE, result.getMessage());
 
@@ -213,7 +213,7 @@ public class JsonConverter {
     public static JSONObject toJson(PsSite site) {
         JSONObject json = new JSONObject();
         if (site != null) {
-            json.put(PsSite.ID, site.getId());
+            json.put(PsSite.ID, int2String(site.getId()));
             json.put(PsSite.NAME, site.getName());
             json.put(PsSite.DESCRIPTION, site.getDescription());
             json.put(PsSite.STATUS, site.getStatus());
@@ -233,7 +233,7 @@ public class JsonConverter {
     public static JSONObject toJson(PsMatrix matrix) {
         JSONObject json = new JSONObject();
         if (matrix != null) {
-            json.put(PsMatrix.ID, matrix.getId());
+            json.put(PsMatrix.ID, int2String(matrix.getId()));
             json.put(PsMatrix.NAME, matrix.getName());
             json.put(PsMatrix.DETAIL_LEVEL, matrix.getDetailLevel());
 
@@ -295,7 +295,7 @@ public class JsonConverter {
     public static JSONObject toJson(PsCloud cloud) {
         JSONObject json = new JSONObject();
         if (cloud != null) {
-            json.put(PsCloud.ID, cloud.getId());
+            json.put(PsCloud.ID, int2String(cloud.getId()));
             json.put(PsCloud.NAME, cloud.getName());
             json.put(PsCloud.STATUS, cloud.getStatus());
 
@@ -323,8 +323,8 @@ public class JsonConverter {
     public static JSONObject toJson(PsJob job){
          JSONObject json = new JSONObject();
 
-        json.put(PsJob.ID, job.getId());
-        json.put(PsJob.SERVICE_ID, job.getService_id());
+        json.put(PsJob.ID, int2String(job.getId()));
+        json.put(PsJob.SERVICE_ID, int2String(job.getService_id()));
         json.put(PsJob.TYPE, job.getType());
 
         JSONObject parameters = serviceParametersAsJson(job);
@@ -344,5 +344,10 @@ public class JsonConverter {
             serviceParameters.put(key, value);
         }
         return serviceParameters;
+    }
+    
+    public static String int2String(int intValue){
+        Integer integerVariable = new Integer(intValue);
+        return integerVariable.toString();
     }
 }

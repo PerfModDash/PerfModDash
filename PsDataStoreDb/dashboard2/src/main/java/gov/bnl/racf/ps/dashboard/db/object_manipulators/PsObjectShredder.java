@@ -67,4 +67,14 @@ public class PsObjectShredder {
         cloud.removeAllMatrices();
         session.delete(cloud);
     }
+    
+    public static void delete(Session session, PsJob job){
+        session.delete(job);
+    }
+    
+    public static void deletePsJob(Session session, int jobId){
+        //TODO replace this with HQL DELETE command
+        PsJob job = (PsJob)PsDataStore.getJob(session, jobId);
+        delete(session, job);
+    }
 }

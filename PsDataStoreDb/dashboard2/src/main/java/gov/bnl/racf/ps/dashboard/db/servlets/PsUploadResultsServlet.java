@@ -4,10 +4,13 @@
  */
 package gov.bnl.racf.ps.dashboard.db.servlets;
 
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsJob;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceResult;
+import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.Json2ServiceResultConverter;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectShredder;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsServiceUpdater;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import java.io.BufferedReader;
@@ -156,7 +159,11 @@ public class PsUploadResultsServlet extends HttpServlet {
             // update the corresponding service
             PsService service = PsServiceUpdater.update(session, serviceResult);
             
+            // remove corresponding job
+            PsObjectShredder.deletePsJob(session, serviceResult.getJob_id());
+            
             if(service!=null){
+                
                 out.println(JsonConverter.toJson(service));
             }else{
                 out.println(new Date() + " Error in " + getClass().getName() + 
