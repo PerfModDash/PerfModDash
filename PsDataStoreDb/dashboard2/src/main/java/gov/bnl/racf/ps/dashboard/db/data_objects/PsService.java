@@ -158,7 +158,7 @@ public class PsService {
 
     public void setRunning(boolean running) {
         this.running = running;
-    }
+    }    
 
     public Date getRunningSince() {
         return runningSince;
@@ -166,6 +166,10 @@ public class PsService {
 
     public void setRunningSince(Date runningSince) {
         this.runningSince = runningSince;
+    }
+    public void setRunningSinceNow(){
+        Date now = new Date();
+        setRunningSince(now);
     }
 
     public int getTimeout() {
@@ -182,6 +186,12 @@ public class PsService {
 
     public void setType(String type) {
         this.type = type;
+    }
+    
+    public void startRunning(){        
+        setRunning(true);
+        setRunningSinceNow();
+        System.out.println(new Date()+" "+getClass().getName()+" running="+isRunning()+" runningSince="+getRunningSince());
     }
 
     @Override

@@ -192,7 +192,7 @@ public class PsQueryJobsServlet extends HttpServlet {
                 PsService service = (PsService) iter.next();
                 PsJob job = PsService2JobConverter.buildJob(session, service);
                 if (setRunning) {
-                    service.setRunning(true);
+                    service.startRunning();
                     // if service is set to running, then we need to persist the job
                     session.save(job);
                 }
