@@ -6,9 +6,10 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dashboard2</property>
-        <property name="hibernate.connection.username">root</property>
-                         
-        <property name="connection.password"></property>
+<!--        <property name="hibernate.connection.username">root</property>
+        <property name="connection.password"></property>-->
+        <property name="hibernate.connection.username">dashboard2</property>
+        <property name="connection.password">datastore</property>
 
  <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">1</property>

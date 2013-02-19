@@ -20,26 +20,56 @@
         <servlet-name>PsDumpServlet</servlet-name>
         <url-pattern>/dump</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>InitServiceTypes</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.InitServiceTypes</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InitServiceTypes</servlet-name>
         <url-pattern>/initServiceTypes</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CreateServiceType</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.debug.CreateServiceType</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CreateServiceType</servlet-name>
         <url-pattern>/createServiceType</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PsServicesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsServicesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PsServicesServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PsSitesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsSitesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PsSitesServlet</servlet-name>
         <url-pattern>/sites/*</url-pattern>
     </servlet-mapping>
+    
+    
+    
+    <servlet>
+        <servlet-name>PsMatricesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsMatricesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PsMatricesServlet</servlet-name>
         <url-pattern>/matrices/*</url-pattern>
     </servlet-mapping>
+    
+    
+    
     <servlet-mapping>
         <servlet-name>PsCloudsServlet</servlet-name>
         <url-pattern>/clouds/*</url-pattern>
@@ -57,32 +87,20 @@
             30
         </session-timeout>
     </session-config>
+    
+    
+    
     <servlet>
         <servlet-name>PsHostsServlet</servlet-name>
         <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsHostsServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>InitServiceTypes</servlet-name>
-        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.InitServiceTypes</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CreateServiceType</servlet-name>
-        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.debug.CreateServiceType</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>PsServicesServlet</servlet-name>
-        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsServicesServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>PsSitesServlet</servlet-name>
-        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsSitesServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>PsMatricesServlet</servlet-name>
-        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsMatricesServlet</servlet-class>
-    </servlet>
+    
     <servlet-mapping>
         <servlet-name>PsHostsServlet</servlet-name>
         <url-pattern>/hosts/*</url-pattern>
     </servlet-mapping>
+    
+    
+    
+    
 </web-app>
