@@ -51,8 +51,9 @@ public class PsService {
     private Date runningSince;
     
     private int timeout;  
-    @OneToOne(cascade=CascadeType.ALL)
-    private PsServiceResult serviceResult;
+    //@OneToOne(cascade=CascadeType.ALL)
+    @Lob
+    private PsRecentServiceResult serviceResult;
     
     
 
@@ -144,11 +145,11 @@ public class PsService {
         this.prevCheckTime = prevCheckTime;
     }
 
-    public PsServiceResult getResult() {
+    public PsRecentServiceResult getResult() {
         return serviceResult;
     }
 
-    public void setResult(PsServiceResult result) {
+    public void setResult(PsRecentServiceResult result) {
         this.serviceResult = result;
     }
 

@@ -4,6 +4,7 @@
  */
 package gov.bnl.racf.ps.dashboard.db.object_manipulators;
 
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsRecentServiceResult;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceResult;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
@@ -40,8 +41,11 @@ public class PsServiceUpdater {
             Date nextCheckTime = new Date(prevCheckTime.getTime()
                     + (long) checkInterval * Timer.ONE_SECOND);
             service.setNextCheckTime(nextCheckTime);
+            
+            PsRecentServiceResult recentResult = 
+                    PsServiceResult2RecentServiceResult.copy(result);
 
-            service.setResult(result);
+            service.setResult(recentResult);
 
         }
 

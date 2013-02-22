@@ -185,7 +185,7 @@ public class JsonConverter {
 
 
                 // add result
-                PsServiceResult result = service.getResult();
+                PsRecentServiceResult result = service.getResult();
                 JSONObject jsonResult = toJson(result);
                 json.put(PsService.RESULT, jsonResult);
             }
@@ -246,6 +246,40 @@ public class JsonConverter {
 
         return json;
     }
+    
+    /**
+     * convert service result object to JSON
+     *
+     * @param result
+     * @return
+     */
+    public static JSONObject toJson(PsRecentServiceResult result) {
+        JSONObject json = new JSONObject();
+
+        if (result != null) {
+            json.put(PsRecentServiceResult.ID, int2String(result.getId()));
+            json.put(PsRecentServiceResult.SERVICE_RESULT_ID, int2String(result.getServiceResultId()   ));
+            json.put(PsRecentServiceResult.JOB_ID, int2String(result.getJob_id()));
+            json.put(PsRecentServiceResult.SERVICE_ID, int2String(result.getService_id()));
+            json.put(PsRecentServiceResult.STATUS, result.getStatus());
+            json.put(PsRecentServiceResult.MESSAGE, result.getMessage());
+
+            json.put(PsRecentServiceResult.TIME, IsoDateConverter.dateToString(result.getTime()));
+
+            JSONObject parameters = new JSONObject();
+            TreeMap<String, Object> treeMap = result.getParameters();
+            for (Map.Entry<String, Object> entry : treeMap.entrySet()) {
+                String key = entry.getKey();
+                Object value = entry.getValue();
+                parameters.put(key, value);
+            }
+            json.put(PsRecentServiceResult.PARAMETERS, parameters);
+
+        }
+
+        return json;
+    }
+    
 
     public static JSONObject toJson(PsSite site) {
         return toJson(site, PsApi.DETAIL_LEVEL_HIGH);
