@@ -41,6 +41,14 @@ public class PsApi {
     public static final String MATRIX_ADD_ROW_HOST_IDS="addrowhostids";
     public static final String MATRIX_REMOVE_ROW_HOST_IDS="removerowhostids";
     
+    
+    // detail level
+    public static final String DETAIL_LEVEL_PARAMETER = "detailLevel";
+    public static final String DETAIL_LEVEL_LOW = "low";
+    public static final String DETAIL_LEVEL_MEDIUM = "medium";
+    public static final String DETAIL_LEVEL_HIGH = "high";
+    //public static final String DETAIL_LEVEL_DEFAULT = DETAIL_LEVEL_LOW;
+    
     // known service types, in the future I may provide a URL from which you
     // could obtain a valid list, but for the time being this list should be enough
     

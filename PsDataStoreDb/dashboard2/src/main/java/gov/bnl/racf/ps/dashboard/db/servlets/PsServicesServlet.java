@@ -11,6 +11,7 @@ import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectShredder;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import gov.bnl.racf.ps.dashboard.db.utils.UrlUnpacker;
+import gov.racf.bnl.ps.dashboard.PsApi.PsApi;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -79,40 +80,63 @@ public class PsServicesServlet extends HttpServlet {
         //processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        //boilerplate code to open session
+        SessionFactory sessionFactory =
+                PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
+        Session session = sessionFactory.openSession();
+
         try {
-            //boilerplate code to open session
-            SessionFactory sessionFactory =
-                    PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
-            Session session = sessionFactory.openSession();
+
             session.beginTransaction();
+
+
 
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
 
             if (parameters.size() > 0) {
+                // get info about a concrete service
+
+                //get url parameters
+                String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
+                if (detailLevel == null || "".equals(detailLevel)) {
+                    // default detail level
+                    detailLevel = PsApi.DETAIL_LEVEL_LOW;
+                }
+
                 String idAsString = parameters.get(0);
                 Integer serviceIdInteger = Integer.parseInt(idAsString);
                 int serviceId = serviceIdInteger.intValue();
                 PsService service = PsDataStore.getService(session, serviceId);
-                JSONObject serviceJson = JsonConverter.toJson(service);
+                JSONObject serviceJson = JsonConverter.toJson(service, detailLevel);
                 out.println(serviceJson.toString());
             } else {
+                // get list of services
+                
+                //get url parameters
+                String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
+                if (detailLevel == null || "".equals(detailLevel)) {
+                    // default detail level
+                    detailLevel = PsApi.DETAIL_LEVEL_HIGH;
+                }
+                
                 List<PsService> listOfServices = PsDataStore.getAllServices(session);
                 JSONArray jsonArray = new JSONArray();
                 for (PsService service : listOfServices) {
-                    JSONObject serviceJson = JsonConverter.toJson(service);
+                    JSONObject serviceJson = JsonConverter.toJson(service, detailLevel);
                     jsonArray.add(serviceJson);
                 }
                 out.println(jsonArray.toString());
             }
 
-            // commit transaction and close session
+            // commit transaction 
             session.getTransaction().commit();
-            session.close();
+
 
 
         } catch (Exception e) {
             Logger.getLogger(PsServicesServlet.class).error("error occured: " + e);
         } finally {
+            session.close();
             out.close();
         }
     }

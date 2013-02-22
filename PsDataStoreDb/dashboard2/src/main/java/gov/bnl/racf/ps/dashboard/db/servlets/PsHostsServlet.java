@@ -25,6 +25,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
@@ -90,31 +91,46 @@ public class PsHostsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        //boilerplate code to open session
+        SessionFactory sessionFactory =
+                PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
+        Session session = sessionFactory.openSession();
         try {
 
-//            out.println("<h1>GET GET GETServlet PsHostsServlet at " + request.getContextPath() + "</h1>");
-
-            //boilerplate code to open session
-            SessionFactory sessionFactory =
-                    PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
-            Session session = sessionFactory.openSession();
             session.beginTransaction();
+
+
 
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
 
             if (parameters.size() > 0) {
+                // get info about a concreta host
+
+                //get url parameters
+                String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
+                if (detailLevel == null || "".equals(detailLevel)) {
+                    detailLevel = PsApi.DETAIL_LEVEL_HIGH;
+                }
+
                 String idAsString = parameters.get(0);
                 Integer hostIdInteger = Integer.parseInt(idAsString);
                 int hostId = hostIdInteger.intValue();
                 PsHost host = PsDataStore.getHost(session, hostId);
-                JSONObject hostJson = JsonConverter.toJson(host);
+                JSONObject hostJson = JsonConverter.toJson(host,detailLevel);
                 out.println(hostJson.toString());
             } else {
-
+                // get list of hosts
+                
+                 //get url parameters
+                String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
+                if (detailLevel == null || "".equals(detailLevel)) {
+                    detailLevel = PsApi.DETAIL_LEVEL_LOW;
+                }
+                
                 List<PsHost> listOfHosts = PsDataStore.getAllHosts(session);
                 JSONArray jsonArray = new JSONArray();
                 for (PsHost host : listOfHosts) {
-                    JSONObject hostJson = JsonConverter.toJson(host);
+                    JSONObject hostJson = JsonConverter.toJson(host, detailLevel);
                     jsonArray.add(hostJson);
                 }
                 out.println(jsonArray.toString());
@@ -122,11 +138,13 @@ public class PsHostsServlet extends HttpServlet {
 
             // commit transaction and close session
             session.getTransaction().commit();
-            session.close();
         } catch (Exception e) {
             System.out.println(new Date() + " " + getClass().getName() + " " + e);
+            Logger.getLogger(PsHostsServlet.class).error(e);
+            e.printStackTrace(out);
+            out.println("Error occured in " + getClass().getName() + " plase check the logs<BR>" + e);
         } finally {
-
+            session.close();
             out.close();
         }
     }

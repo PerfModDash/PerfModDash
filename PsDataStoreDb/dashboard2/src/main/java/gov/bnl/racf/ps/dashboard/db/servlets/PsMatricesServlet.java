@@ -92,22 +92,38 @@ public class PsMatricesServlet extends HttpServlet {
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
 
             if (parameters.size() > 0) {
+                // get info about a concrete matrix
+
+                //get url parameters
+                String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
+                if (detailLevel == null || "".equals(detailLevel)) {
+                    detailLevel = PsApi.DETAIL_LEVEL_HIGH;
+                }
+
+
                 String idAsString = parameters.get(0);
                 Integer matrixIdInteger = Integer.parseInt(idAsString);
                 int matrixId = matrixIdInteger.intValue();
                 PsMatrix matrix = PsDataStore.getMatrix(session, matrixId);
                 if (matrix != null) {
-                    JSONObject hostJson = JsonConverter.toJson(matrix);
+                    JSONObject hostJson = JsonConverter.toJson(matrix, detailLevel);
                     out.println(hostJson.toString());
                 } else {
                     out.println("Matrix id=" + matrixId + " not found");
                 }
             } else {
-
+                // get list of matrices
+                
+                //get url parameters
+                String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
+                if (detailLevel == null || "".equals(detailLevel)) {
+                    detailLevel = PsApi.DETAIL_LEVEL_LOW;
+                }
+                
                 List<PsMatrix> listOfMatrices = PsDataStore.getAllMatrices(session);
                 JSONArray jsonArray = new JSONArray();
                 for (PsMatrix matrix : listOfMatrices) {
-                    JSONObject matrixJson = JsonConverter.toJson(matrix);
+                    JSONObject matrixJson = JsonConverter.toJson(matrix, detailLevel);
                     jsonArray.add(matrixJson);
                 }
                 out.println(jsonArray.toString());
@@ -260,9 +276,9 @@ public class PsMatricesServlet extends HttpServlet {
                                 PostRequestDataExtractor.extractJsonArray(request);
 
                         boolean knownCommand = false;
-                        
+
                         if (PsApi.MATRIX_ADD_HOST_IDS.equals(userCommand)) {
-                            knownCommand=true;
+                            knownCommand = true;
                             // user wants to add hosts to matrix
 
                             // add those hosts
@@ -270,33 +286,33 @@ public class PsMatricesServlet extends HttpServlet {
                         }
 
                         if (PsApi.MATRIX_REMOVE_HOST_IDS.equals(userCommand)) {
-                            knownCommand=true;
+                            knownCommand = true;
                             // user wants to remove hosts from matrix
 
                             // remove those hosts
                             PsMatrixManipulator.removeHostIdsFromMatrix(session, matrix, jsonArray);
                         }
                         if (PsApi.MATRIX_ADD_COLUMN_HOST_IDS.equals(userCommand)) {
-                            knownCommand=true;
+                            knownCommand = true;
                             throw new UnsupportedOperationException("Operation " + userCommand + " not yet implemented");
                         }
                         if (PsApi.MATRIX_REMOVE_COLUMN_HOST_IDS.equals(userCommand)) {
-                            knownCommand=true;
+                            knownCommand = true;
                             throw new UnsupportedOperationException("Operation " + userCommand + " not yet implemented");
                         }
                         if (PsApi.MATRIX_ADD_ROW_HOST_IDS.equals(userCommand)) {
-                            knownCommand=true;
+                            knownCommand = true;
                             throw new UnsupportedOperationException("Operation " + userCommand + " not yet implemented");
                         }
                         if (PsApi.MATRIX_REMOVE_ROW_HOST_IDS.equals(userCommand)) {
-                            knownCommand=true;
+                            knownCommand = true;
                             throw new UnsupportedOperationException("Operation " + userCommand + " not yet implemented");
                         }
-                        
-                        if(!knownCommand){
+
+                        if (!knownCommand) {
                             throw new UnsupportedOperationException("Unknown Operation " + userCommand + " ");
                         }
-                        
+
                         //save the changes to the matrix (actually this command should be redundant)
                         session.save(matrix);
                         JSONObject matrixAsJson = JsonConverter.toJson(matrix);

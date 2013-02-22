@@ -88,21 +88,38 @@ public class PsSitesServlet extends HttpServlet {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         try {
+
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
 
             if (parameters.size() > 0) {
+                // get info about a concreate site
+
+                //get url parameters
+                String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
+                if (detailLevel == null || "".equals(detailLevel)) {
+                    detailLevel = PsApi.DETAIL_LEVEL_HIGH;
+                }
+
+
                 String idAsString = parameters.get(0);
                 Integer siteIdInteger = Integer.parseInt(idAsString);
                 int siteId = siteIdInteger.intValue();
                 PsSite site = PsDataStore.getSite(session, siteId);
-                JSONObject hostJson = JsonConverter.toJson(site);
+                JSONObject hostJson = JsonConverter.toJson(site, detailLevel);
                 out.println(hostJson.toString());
             } else {
+                // get list of sites
+                
+                //get url parameters
+                String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
+                if (detailLevel == null || "".equals(detailLevel)) {
+                    detailLevel = PsApi.DETAIL_LEVEL_LOW;
+                }
 
                 List<PsSite> listOfSites = PsDataStore.getAllSites(session);
                 JSONArray jsonArray = new JSONArray();
                 for (PsSite site : listOfSites) {
-                    JSONObject siteJson = JsonConverter.toJson(site);
+                    JSONObject siteJson = JsonConverter.toJson(site, detailLevel);
                     jsonArray.add(siteJson);
                 }
                 out.println(jsonArray.toString());

@@ -4,7 +4,6 @@
  */
 package gov.bnl.racf.ps.dashboard.db.servlets;
 
-
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsCloud;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.*;
@@ -52,13 +51,13 @@ public class PsCloudsServlet extends HttpServlet {
              */
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PsCloudsServlet</title>");            
+            out.println("<title>Servlet PsCloudsServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet PsCloudsServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        } finally {            
+        } finally {
             out.close();
         }
     }
@@ -87,21 +86,37 @@ public class PsCloudsServlet extends HttpServlet {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         try {
+
+
+
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
 
             if (parameters.size() > 0) {
+                // get info about a particular cloud
+                //get url parameters
+                String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
+                if (detailLevel == null || "".equals(detailLevel)) {
+                    detailLevel = PsApi.DETAIL_LEVEL_HIGH;
+                }
+
                 String idAsString = parameters.get(0);
                 Integer cloudIdInteger = Integer.parseInt(idAsString);
                 int cloudId = cloudIdInteger.intValue();
                 PsCloud cloud = PsDataStore.getCloud(session, cloudId);
-                JSONObject cloudJson = JsonConverter.toJson(cloud);
+                JSONObject cloudJson = JsonConverter.toJson(cloud, detailLevel);
                 out.println(cloudJson.toString());
             } else {
-
+                // get list of clouds
+                //get url parameters
+                String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
+                if (detailLevel == null || "".equals(detailLevel)) {
+                    detailLevel = PsApi.DETAIL_LEVEL_LOW;
+                }
+                
                 List<PsCloud> listOfClouds = PsDataStore.getAllClouds(session);
                 JSONArray jsonArray = new JSONArray();
                 for (PsCloud cloud : listOfClouds) {
-                    JSONObject cloudJson = JsonConverter.toJson(cloud);
+                    JSONObject cloudJson = JsonConverter.toJson(cloud, detailLevel);
                     jsonArray.add(cloudJson);
                 }
                 out.println(jsonArray.toString());
@@ -133,7 +148,7 @@ public class PsCloudsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //throw new UnsupportedOperationException("Method POST not yet implemented");
-        
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -170,7 +185,7 @@ public class PsCloudsServlet extends HttpServlet {
             out.close();
         }
     }
-    
+
     /**
      * Handles the HTTP
      * <code>POST</code> method.
@@ -234,26 +249,26 @@ public class PsCloudsServlet extends HttpServlet {
                         // unpack data content
                         JSONArray jsonArray =
                                 PostRequestDataExtractor.extractJsonArray(request);
-                        
-                        boolean thisIsValidCommand=false;
+
+                        boolean thisIsValidCommand = false;
 
                         if (PsApi.CLOUD_ADD_SITE_IDS.equals(userCommand)) {
-                            thisIsValidCommand=true;
+                            thisIsValidCommand = true;
                             // user wants to add sites to cloud
 
                             // add those sites
                             PsCloudManipulator.addSites(session, cloud, jsonArray);
                         }
 
-                        if (PsApi.CLOUD_REMOVE_SITE_IDS .equals(userCommand)) {
-                            thisIsValidCommand=true;
+                        if (PsApi.CLOUD_REMOVE_SITE_IDS.equals(userCommand)) {
+                            thisIsValidCommand = true;
                             // user wants to remove hosts from site
 
                             // remove those hosts
                             PsCloudManipulator.removeSites(session, cloud, jsonArray);
                         }
                         if (PsApi.CLOUD_ADD_MATRIX_IDS.equals(userCommand)) {
-                            thisIsValidCommand=true;
+                            thisIsValidCommand = true;
                             // user wants to add sites to cloud
 
                             // add those sites
@@ -261,15 +276,15 @@ public class PsCloudsServlet extends HttpServlet {
                         }
 
                         if (PsApi.CLOUD_REMOVE_MATRIX_IDS.equals(userCommand)) {
-                            thisIsValidCommand=true;
+                            thisIsValidCommand = true;
                             // user wants to remove hosts from site
 
                             // remove those hosts
                             PsCloudManipulator.removeMatrices(session, cloud, jsonArray);
                         }
-                        
-                        if(!thisIsValidCommand){
-                            String errorMessage=getClass().getName()+" Unknown user command: "+userCommand;
+
+                        if (!thisIsValidCommand) {
+                            String errorMessage = getClass().getName() + " Unknown user command: " + userCommand;
                             throw new UnsupportedOperationException(errorMessage);
                         }
                         //save the changes to the site (actually this command should be redundant)
@@ -292,8 +307,7 @@ public class PsCloudsServlet extends HttpServlet {
             out.close();
         }
     }
-    
-    
+
     /**
      * Handles the HTTP
      * <code>POST</code> method.
@@ -343,9 +357,9 @@ public class PsCloudsServlet extends HttpServlet {
             out.close();
         }
 
-        
-        
-        
+
+
+
     }
 
     /**
