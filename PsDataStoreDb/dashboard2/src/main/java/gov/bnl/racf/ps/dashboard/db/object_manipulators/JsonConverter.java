@@ -330,6 +330,7 @@ public class JsonConverter {
             if (!PsApi.DETAIL_LEVEL_LOW.equals(detailLevel)) {
                 
                 json.put(PsMatrix.DETAIL_LEVEL, matrix.getDetailLevel());
+                json.put(PsMatrix.SERVICE_TYPE_ID, matrix.getMatrixType().getServiceTypeId());
 
                 List<String> statusLabels = matrix.getStatusLabels();
                 JSONArray jsonArray = new JSONArray();
