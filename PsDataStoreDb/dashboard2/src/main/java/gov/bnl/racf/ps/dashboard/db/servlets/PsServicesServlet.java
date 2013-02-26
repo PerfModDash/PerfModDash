@@ -100,7 +100,7 @@ public class PsServicesServlet extends HttpServlet {
                 String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
                 if (detailLevel == null || "".equals(detailLevel)) {
                     // default detail level
-                    detailLevel = PsApi.DETAIL_LEVEL_LOW;
+                    detailLevel = PsApi.DETAIL_LEVEL_HIGH;
                 }
 
                 String idAsString = parameters.get(0);
@@ -116,7 +116,7 @@ public class PsServicesServlet extends HttpServlet {
                 String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
                 if (detailLevel == null || "".equals(detailLevel)) {
                     // default detail level
-                    detailLevel = PsApi.DETAIL_LEVEL_HIGH;
+                    detailLevel = PsApi.DETAIL_LEVEL_LOW;
                 }
                 
                 List<PsService> listOfServices = PsDataStore.getAllServices(session);
