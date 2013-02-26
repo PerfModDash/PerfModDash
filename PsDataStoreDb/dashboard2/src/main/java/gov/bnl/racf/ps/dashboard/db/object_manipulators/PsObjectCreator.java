@@ -60,5 +60,11 @@ public class PsObjectCreator {
         //session.save(job);
         return job;
     }
+    
+    public static PsRecentServiceResult createNewRecentServiceResult(Session session){
+        PsRecentServiceResult recentResult = new PsRecentServiceResult();
+        session.save(recentResult);
+        return recentResult;
+    }
    
 }

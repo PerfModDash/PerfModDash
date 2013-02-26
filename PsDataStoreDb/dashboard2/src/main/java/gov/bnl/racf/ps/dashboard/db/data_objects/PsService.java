@@ -51,7 +51,7 @@ public class PsService {
     private Date runningSince;
     
     private int timeout;  
-    //@OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade=CascadeType.ALL)
     @Lob
     private PsRecentServiceResult serviceResult;
     

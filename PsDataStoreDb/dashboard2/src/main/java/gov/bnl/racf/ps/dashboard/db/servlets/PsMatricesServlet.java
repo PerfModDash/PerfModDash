@@ -188,7 +188,7 @@ public class PsMatricesServlet extends HttpServlet {
                             PsObjectCreator.createNewMatrix(session, serviceTypeId, matrixName);
 
                     // convert host to json
-                    JSONObject finalMatrix = JsonConverter.toJson(matrix);
+                    JSONObject finalMatrix = JsonConverter.toJson(matrix, PsApi.DETAIL_LEVEL_HIGH);
 
                     out.println(finalMatrix.toString());
                 }
@@ -253,7 +253,7 @@ public class PsMatricesServlet extends HttpServlet {
                     // save the updated matrix
                     session.save(matrix);
 
-                    JSONObject matrixJson = JsonConverter.toJson(matrix);
+                    JSONObject matrixJson = JsonConverter.toJson(matrix, PsApi.DETAIL_LEVEL_HIGH);
                     out.println(matrixJson.toString());
                 } else {
                     out.println("JSON object is not valid");
@@ -315,7 +315,7 @@ public class PsMatricesServlet extends HttpServlet {
 
                         //save the changes to the matrix (actually this command should be redundant)
                         session.save(matrix);
-                        JSONObject matrixAsJson = JsonConverter.toJson(matrix);
+                        JSONObject matrixAsJson = JsonConverter.toJson(matrix, PsApi.DETAIL_LEVEL_HIGH);
                         out.println(matrixAsJson.toString());
                     }
                 }

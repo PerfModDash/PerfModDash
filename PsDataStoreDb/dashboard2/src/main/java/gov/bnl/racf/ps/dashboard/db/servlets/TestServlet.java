@@ -5,8 +5,10 @@
 package gov.bnl.racf.ps.dashboard.db.servlets;
 
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsRecentServiceResult;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceResult;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsServiceResult2RecentServiceResult;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -75,7 +77,8 @@ public class TestServlet extends HttpServlet {
             PsServiceResult serviceResult = new PsServiceResult();
             session.save(serviceResult);
             serviceResult.setMessage("result of service "+service.getId());
-            service.setResult(serviceResult);
+            PsRecentServiceResult recentResult = PsServiceResult2RecentServiceResult.copy(session,serviceResult);
+            service.setResult(recentResult);
             
             session.save(host);
             

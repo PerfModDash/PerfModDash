@@ -33,10 +33,10 @@ public class JsonConverter {
 
 
         json.put(PsHost.ID, int2String(host.getId()));
+        json.put(PsHost.HOSTNAME, host.getHostname());
 
         if (!PsApi.DETAIL_LEVEL_LOW.equals(detailLevel)) {
-
-            json.put(PsHost.HOSTNAME, host.getHostname());
+            
             json.put(PsHost.IPV4, host.getIpv4());
             json.put(PsHost.IPV6, host.getIpv6());
 
@@ -157,11 +157,11 @@ public class JsonConverter {
         if (service != null) {
 
             json.put(PsService.ID, int2String(service.getId()));
+            json.put(PsService.NAME, service.getName());
 
             if (!PsApi.DETAIL_LEVEL_LOW.equals(detailLevel)) {
 
                 json.put(PsService.TYPE, service.getType());
-                json.put(PsService.NAME, service.getName());
                 json.put(PsService.DESCRIPTION, service.getDescription());
 
 
@@ -289,10 +289,11 @@ public class JsonConverter {
         JSONObject json = new JSONObject();
         if (site != null) {
             json.put(PsSite.ID, int2String(site.getId()));
+            json.put(PsSite.NAME, site.getName());
 
             if (!PsApi.DETAIL_LEVEL_LOW.equals(detailLevel)) {
 
-                json.put(PsSite.NAME, site.getName());
+                
                 json.put(PsSite.DESCRIPTION, site.getDescription());
                 json.put(PsSite.STATUS, site.getStatus());
 
@@ -324,9 +325,10 @@ public class JsonConverter {
         JSONObject json = new JSONObject();
         if (matrix != null) {
             json.put(PsMatrix.ID, int2String(matrix.getId()));
+            json.put(PsMatrix.NAME, matrix.getName());
+            
             if (!PsApi.DETAIL_LEVEL_LOW.equals(detailLevel)) {
-
-                json.put(PsMatrix.NAME, matrix.getName());
+                
                 json.put(PsMatrix.DETAIL_LEVEL, matrix.getDetailLevel());
 
                 List<String> statusLabels = matrix.getStatusLabels();
@@ -402,10 +404,10 @@ public class JsonConverter {
         JSONObject json = new JSONObject();
         if (cloud != null) {
             json.put(PsCloud.ID, int2String(cloud.getId()));
+            json.put(PsCloud.NAME, cloud.getName());
 
             if (!PsApi.DETAIL_LEVEL_LOW.equals(detailLevel)) {
-
-                json.put(PsCloud.NAME, cloud.getName());
+                
                 json.put(PsCloud.STATUS, cloud.getStatus());
 
                 JSONArray sites = new JSONArray();

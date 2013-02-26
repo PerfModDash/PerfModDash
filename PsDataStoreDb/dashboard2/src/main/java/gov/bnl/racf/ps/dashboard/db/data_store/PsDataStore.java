@@ -189,5 +189,18 @@ public class PsDataStore {
         return job;
     }
 
+    public static PsRecentServiceResult getRecentResultForService(Session session, int serviceId) {
+        Query query = session.createQuery("from PsRecentServiceResult where service_id=:parameter");
+        query.setParameter("parameter", serviceId);
+        query.setCacheable(true);
+        List resultList = query.list();
+        PsRecentServiceResult recentResult = null;
+        Iterator iter = resultList.iterator();
+        while(iter.hasNext()){
+            recentResult=(PsRecentServiceResult)iter.next();
+        }
+        return recentResult;
+    }
+
    
 }

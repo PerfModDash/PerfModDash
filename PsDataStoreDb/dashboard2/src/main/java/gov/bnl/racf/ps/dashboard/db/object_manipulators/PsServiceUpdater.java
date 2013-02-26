@@ -43,9 +43,11 @@ public class PsServiceUpdater {
             service.setNextCheckTime(nextCheckTime);
             
             PsRecentServiceResult recentResult = 
-                    PsServiceResult2RecentServiceResult.copy(result);
+                    PsServiceResult2RecentServiceResult.copy(session,result);
 
             service.setResult(recentResult);
+            
+            session.save(result);
 
         }
 

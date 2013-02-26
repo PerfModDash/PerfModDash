@@ -168,7 +168,7 @@ public class PsCloudsServlet extends HttpServlet {
                 PsCloud cloud = PsObjectCreator.createNewCloud(session, jsonObject);
 
                 // convert host to json
-                JSONObject finalCloud = JsonConverter.toJson(cloud);
+                JSONObject finalCloud = JsonConverter.toJson(cloud, PsApi.DETAIL_LEVEL_HIGH);
 
                 out.println(finalCloud.toString());
             }
@@ -229,7 +229,7 @@ public class PsCloudsServlet extends HttpServlet {
                     // save the updated host, this is probably redundant
                     session.save(cloud);
 
-                    JSONObject cloudJson = JsonConverter.toJson(cloud);
+                    JSONObject cloudJson = JsonConverter.toJson(cloud, PsApi.DETAIL_LEVEL_HIGH);
                     out.println(cloudJson.toString());
                 } else {
                     out.println("JSON object is not valid");
@@ -289,7 +289,7 @@ public class PsCloudsServlet extends HttpServlet {
                         }
                         //save the changes to the site (actually this command should be redundant)
                         session.save(cloud);
-                        out.println(JsonConverter.toJson(cloud).toString());
+                        out.println(JsonConverter.toJson(cloud, PsApi.DETAIL_LEVEL_HIGH).toString());
                     }
                 }
             }

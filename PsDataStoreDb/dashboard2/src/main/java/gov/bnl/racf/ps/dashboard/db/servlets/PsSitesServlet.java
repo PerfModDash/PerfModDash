@@ -176,7 +176,7 @@ public class PsSitesServlet extends HttpServlet {
                 PsObjectUpdater.update(site, jsonObject);
 
                 // convert host to json
-                JSONObject finalSite = JsonConverter.toJson(site);
+                JSONObject finalSite = JsonConverter.toJson(site, PsApi.DETAIL_LEVEL_HIGH);
 
                 out.println(finalSite.toString());
             }
@@ -239,7 +239,7 @@ public class PsSitesServlet extends HttpServlet {
                     // save the updated host
                     session.save(site);
 
-                    JSONObject siteJson = JsonConverter.toJson(site);
+                    JSONObject siteJson = JsonConverter.toJson(site, PsApi.DETAIL_LEVEL_HIGH);
                     out.println(siteJson.toString());
                 } else {
                     out.println("JSON object is not valid");
@@ -276,7 +276,7 @@ public class PsSitesServlet extends HttpServlet {
                         }
                         //save the changes to the site (actually this command should be redundant)
                         session.save(site);
-                        out.println(JsonConverter.toJson(site).toString());
+                        out.println(JsonConverter.toJson(site, PsApi.DETAIL_LEVEL_HIGH).toString());
                     }
                 }
             }

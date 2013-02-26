@@ -187,7 +187,8 @@ public class PsHostsServlet extends HttpServlet {
                 PsObjectUpdater.update(host, jsonObject);
 
                 // convert host to json
-                JSONObject finalHost = JsonConverter.toJson(host);
+                
+                JSONObject finalHost = JsonConverter.toJson(host, PsApi.DETAIL_LEVEL_HIGH);
 
                 out.println(finalHost.toString());
 
@@ -246,7 +247,7 @@ public class PsHostsServlet extends HttpServlet {
                     // save the updated host
                     session.save(host);
 
-                    JSONObject hostJson = JsonConverter.toJson(host);
+                    JSONObject hostJson = JsonConverter.toJson(host, PsApi.DETAIL_LEVEL_HIGH);
                     out.println(hostJson.toString());
                 }
             } else {
@@ -319,7 +320,7 @@ public class PsHostsServlet extends HttpServlet {
                         }
 
 
-                        out.println(JsonConverter.toJson(host).toString());
+                        out.println(JsonConverter.toJson(host, PsApi.DETAIL_LEVEL_HIGH).toString());
                     }
                 }
             }
