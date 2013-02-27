@@ -37,6 +37,12 @@ public class PsMatrix {
     public static final String MATRIX = "matrix";
     public static final String SERVICE_NAMES = "serviceNames";
     public static final String SERVICE_TYPE_ID = "serviceTypeId";
+    
+    // parameter names
+    public static final String PARAMETER_SOURCE_HOST_ID="source-host-id";
+    public static final String PARAMETER_DESTINATION_HOST_ID="destination-host-id";
+    public static final String PARAMETER_MA_HOST_ID="ma-host-id";
+    
     @Id
     @GeneratedValue
     private int id;

@@ -32,6 +32,9 @@ public class PsService {
     public static final String TIMEOUT="timeout";
     public static final String RESULT="result";
     
+    
+    public static final String PARAMETER_HOST_ID="host-id";
+    
     @Id
     @GeneratedValue
     private int    id;

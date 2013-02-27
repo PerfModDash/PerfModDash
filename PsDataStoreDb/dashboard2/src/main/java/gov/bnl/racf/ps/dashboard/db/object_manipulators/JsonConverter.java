@@ -36,7 +36,7 @@ public class JsonConverter {
         json.put(PsHost.HOSTNAME, host.getHostname());
 
         if (!PsApi.DETAIL_LEVEL_LOW.equals(detailLevel)) {
-            
+
             json.put(PsHost.IPV4, host.getIpv4());
             json.put(PsHost.IPV6, host.getIpv6());
 
@@ -210,9 +210,36 @@ public class JsonConverter {
             String key = (String) iter.next();
 
             Object value = service.getParameters().get(key);
-            serviceParameters.put(key, value);
+
+            //check if parameter name indicates that it is an object id
+            if (thisIsObjectId(key)) {
+                serviceParameters.put(key, value + "");
+            } else {
+                serviceParameters.put(key, value);
+            }
         }
         return serviceParameters;
+    }
+
+    private static boolean thisIsObjectId(String key) {
+
+        if (PsService.PARAMETER_HOST_ID.equals(key)) {
+            return true;
+        } else {
+            if (PsMatrix.PARAMETER_DESTINATION_HOST_ID.equals(key)) {
+                return true;
+            } else {
+                if (PsMatrix.PARAMETER_SOURCE_HOST_ID.equals(key)) {
+                    return true;
+                } else {
+                    if (PsMatrix.PARAMETER_MA_HOST_ID.equals(key)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -246,7 +273,7 @@ public class JsonConverter {
 
         return json;
     }
-    
+
     /**
      * convert service result object to JSON
      *
@@ -258,7 +285,7 @@ public class JsonConverter {
 
         if (result != null) {
             json.put(PsRecentServiceResult.ID, int2String(result.getId()));
-            json.put(PsRecentServiceResult.SERVICE_RESULT_ID, int2String(result.getServiceResultId()   ));
+            json.put(PsRecentServiceResult.SERVICE_RESULT_ID, int2String(result.getServiceResultId()));
             json.put(PsRecentServiceResult.JOB_ID, int2String(result.getJob_id()));
             json.put(PsRecentServiceResult.SERVICE_ID, int2String(result.getService_id()));
             json.put(PsRecentServiceResult.STATUS, result.getStatus());
@@ -279,7 +306,6 @@ public class JsonConverter {
 
         return json;
     }
-    
 
     public static JSONObject toJson(PsSite site) {
         return toJson(site, PsApi.DETAIL_LEVEL_HIGH);
@@ -293,7 +319,7 @@ public class JsonConverter {
 
             if (!PsApi.DETAIL_LEVEL_LOW.equals(detailLevel)) {
 
-                
+
                 json.put(PsSite.DESCRIPTION, site.getDescription());
                 json.put(PsSite.STATUS, site.getStatus());
 
@@ -326,9 +352,9 @@ public class JsonConverter {
         if (matrix != null) {
             json.put(PsMatrix.ID, int2String(matrix.getId()));
             json.put(PsMatrix.NAME, matrix.getName());
-            
+
             if (!PsApi.DETAIL_LEVEL_LOW.equals(detailLevel)) {
-                
+
                 json.put(PsMatrix.DETAIL_LEVEL, matrix.getDetailLevel());
                 json.put(PsMatrix.SERVICE_TYPE_ID, matrix.getMatrixType().getServiceTypeId());
 
@@ -408,7 +434,7 @@ public class JsonConverter {
             json.put(PsCloud.NAME, cloud.getName());
 
             if (!PsApi.DETAIL_LEVEL_LOW.equals(detailLevel)) {
-                
+
                 json.put(PsCloud.STATUS, cloud.getStatus());
 
                 JSONArray sites = new JSONArray();
@@ -429,10 +455,10 @@ public class JsonConverter {
                 while (iter2.hasNext()) {
                     PsMatrix currentMatrix = (PsMatrix) iter2.next();
                     if (PsApi.DETAIL_LEVEL_MEDIUM.equals(detailLevel)) {
-                        matrices.add(toJson(currentMatrix,PsApi.DETAIL_LEVEL_LOW));
+                        matrices.add(toJson(currentMatrix, PsApi.DETAIL_LEVEL_LOW));
                     }
                     if (PsApi.DETAIL_LEVEL_HIGH.equals(detailLevel)) {
-                        matrices.add(toJson(currentMatrix,PsApi.DETAIL_LEVEL_HIGH));
+                        matrices.add(toJson(currentMatrix, PsApi.DETAIL_LEVEL_HIGH));
                     }
                 }
                 json.put(PsCloud.MATRICES, matrices);
