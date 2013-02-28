@@ -58,7 +58,7 @@ public class PsUploadResultsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         throw new UnsupportedOperationException("Not yet implemented");
-        
+
 
     }
 
@@ -91,7 +91,7 @@ public class PsUploadResultsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        
+
         // first order of business is to open session
         //boilerplate code to open session
         SessionFactory sessionFactory =
@@ -158,21 +158,24 @@ public class PsUploadResultsServlet extends HttpServlet {
             logger.debug("JSON object converted to service result");
             // update the corresponding service
             PsService service = PsServiceUpdater.update(session, serviceResult);
-            
+
             // remove corresponding job
-            PsObjectShredder.deletePsJob(session, serviceResult.getJob_id());
-            
-            if(service!=null){
-                
-                out.println(JsonConverter.toJson(service));
-            }else{
-                out.println(new Date() + " Error in " + getClass().getName() + 
-                        " cannot associate result with service " + json);
+            //PsObjectShredder.deletePsJob(session, serviceResult.getJob_id());
+            if (service != null) {
+                PsObjectShredder.deletePsJob(session, service);
             }
-            
-            // commit transaction and close session
+
+            if (service != null) {
+
+                out.println(JsonConverter.toJson(service));
+            } else {
+                out.println(new Date() + " Error in " + getClass().getName()
+                        + " cannot associate result with service " + json);
+            }
+
+
+            // commit transaction 
             session.getTransaction().commit();
-            
 
             out.println("</body>");
             out.println("</html>");

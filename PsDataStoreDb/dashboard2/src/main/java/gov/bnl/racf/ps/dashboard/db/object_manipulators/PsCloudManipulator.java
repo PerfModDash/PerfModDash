@@ -50,6 +50,10 @@ public class PsCloudManipulator {
         PsMatrix matrix = PsDataStore.getMatrix(session, matrixId);
         cloud.addMatrix(matrix);
     }
+    
+    public static void addMatrx(Session session, PsCloud cloud, PsMatrix matrix){
+        cloud.addMatrix(matrix);
+    }
 
     /**
      * remove site with siteId from the cloud

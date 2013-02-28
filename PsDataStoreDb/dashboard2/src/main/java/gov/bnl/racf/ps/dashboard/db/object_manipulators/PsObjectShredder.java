@@ -140,6 +140,13 @@ public class PsObjectShredder {
         query.setParameter("job_id", jobId);
         int result = query.executeUpdate();
     }
+    
+    public static void deletePsJob(Session session, PsService service) {
+        Query query = session.createQuery("delete PsJob where service_id = :service_id");
+        query.setParameter("service_id", service.getId());
+        int result = query.executeUpdate();
+    }
+    
 
     public static void delete(Session session, PsServiceResult result) {
         if (result != null) {

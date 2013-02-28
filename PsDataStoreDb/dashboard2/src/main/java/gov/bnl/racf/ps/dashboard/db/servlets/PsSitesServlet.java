@@ -7,6 +7,7 @@ package gov.bnl.racf.ps.dashboard.db.servlets;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsSite;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectCreator;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectShredder;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectUpdater;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsSiteManipulator;
@@ -169,8 +170,7 @@ public class PsSitesServlet extends HttpServlet {
                 // the input data is a valid JSON object
 
                 // create new site
-                PsSite site = new PsSite();
-                session.save(site);
+                PsSite site = PsObjectCreator.createNewSite(session);
 
                 // fill the host with JSON parameters
                 PsObjectUpdater.update(site, jsonObject);

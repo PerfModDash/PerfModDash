@@ -66,5 +66,17 @@ public class PsObjectCreator {
         session.save(recentResult);
         return recentResult;
     }
+    
+    public static PsHost createNewHost(Session session){
+        PsHost host = new PsHost();
+        session.save(host);
+        return host;
+    }
+    
+    public static PsSite createNewSite(Session session){
+        PsSite site = new PsSite();
+        session.save(site);
+        return site;
+    }
    
 }

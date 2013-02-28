@@ -42,6 +42,7 @@ public class PsRecentServiceResult implements Serializable {
     private String message;
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
+    @Lob
     private TreeMap<String,Object> parameters = new TreeMap<String,Object>();
     
     

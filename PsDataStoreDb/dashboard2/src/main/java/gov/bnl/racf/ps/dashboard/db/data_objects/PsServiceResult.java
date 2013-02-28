@@ -40,6 +40,7 @@ public class PsServiceResult implements Serializable {
     private String message;
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
+    @Lob
     private TreeMap<String,Object> parameters = new TreeMap<String,Object>();
     
     
@@ -68,7 +69,7 @@ public class PsServiceResult implements Serializable {
     }
 
     public String getMessage() {
-        return message;
+        return this.message;
     }
 
     public void setMessage(String message) {

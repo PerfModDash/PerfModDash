@@ -8,6 +8,7 @@ import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsHostManipulator;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectCreator;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectShredder;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectUpdater;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
@@ -180,8 +181,7 @@ public class PsHostsServlet extends HttpServlet {
                 // the input data is a valid JSON object
 
                 // create new host
-                PsHost host = new PsHost();
-                session.save(host);
+                PsHost host = PsObjectCreator.createNewHost(session);
 
                 // fill the host with JSON parameters
                 PsObjectUpdater.update(host, jsonObject);
