@@ -9,6 +9,10 @@ are stored as static string constants in PsApi class.
 To get a list of known matrices you do GET
 
     {url}/PsApi.MATRIX
+    
+    or
+    
+    {url}/matrices
 
 
 To get info about matrix with a certain matrixId you do GET
@@ -32,11 +36,15 @@ As of now we have three basic matrix types, they are
     PsApi.LATENCY = latency matrix
     PsApi.TRACEROUTE = traceroute matrix
 
-You have to build a JSONObject for the matrix, it should contain two fierlds:
+You have to build a JSONObject for the matrix, it should contain two fields:
 matrix name and matrix type (type must be one of the three known types
 mentioned above). Then you perform a POST request
 
     {url}/PsApi.MATRIX
+    
+    or
+    
+    {url}/matrices
 
 with the JSONObject in the data part of the request. Your requested matrix will
 be created. You will get back full JSONObject of this matrix.
@@ -58,6 +66,10 @@ matrix, change the name parameter to something else and put the string
 representation of JSONObject into data part of PUT request
 
     {url}/PsApi.MATRIX/{matrixId}
+    
+    or
+    
+    {url}/matrices/{matrix id}
 
 and the name will be changed.
 
@@ -72,6 +84,10 @@ column. Therefore it is done using a high level command which has a form:
 PUT request
 
     {url}/PsApi.MATRIX/{matrixId}/PsApi.MATRIX_ADD_HOST_IDS
+    
+    or
+    
+    {url}/matrices/{matrix id}/addhostids
 
 where the data part of the request contains a JSONArray object with id's of the
 hosts you want to put into the matrix.
@@ -80,6 +96,10 @@ To remove hosts from mattrix you do a PUT
 
 
     {url}/PsApi.MATRIX/{matrixId}/PsApi.MATRIX_REMOVE_HOST_IDS
+    
+    or
+    
+    {url}/matrices/{matrix id}/removehostids
 
 again, host ids come as JSONArray in data part of the request.
 
