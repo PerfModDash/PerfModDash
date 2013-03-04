@@ -1,4 +1,3 @@
-
 In the previous assignment I explained how to perform
 CRUD operations on hosts. So we can now create update and delete hosts.
 Now it is time to make one step forward and attach (or remove) to hosts
@@ -68,6 +67,10 @@ The command to add a service of a given type to a given host with hostId has the
 
 {url}+PsApi.HOST+"/"+hostId+"/"+PsApi.HOST_ADD_SERVICE_TYPE_COMMAND
 
+which will look like:
+
+{url}/hosts/{host id}/addservicetype
+
 Where PsApi.HOST and PsApi.HOST_ADD_SERVICE_TYPE_COMMAND refer to constants
 from the by know familiar PsApi class.
 
@@ -115,6 +118,12 @@ a PUT request in the form:
 
 {url}/PsApi.HOST/{hostId}/PsApi.HOST_ADD_SERVICE_TYPE_COMMAND
 
+or
+
+url}/hosts/{host id}/addservicetype
+
+
+
 where in the data part of the request you put a JSONArray of service
 type id's.
 
@@ -130,7 +139,14 @@ added.
 
 
 2. To remove from host service of the requested type you do a PUT request
+
 {url}/PsApi.HOST/{hostId}/PsApi.HOST_REMOVE_SERVICE_TYPE_COMMAND
+
+or
+
+{url}/hosts/{host id}/removeservicetype
+
+
 
 and again in the data you include the service types you want to remove,
 for example:
@@ -142,6 +158,11 @@ for example:
 the service by type but service id then you do a PUT request to
 
     {url}/PsApi.HOST/{hostId}/PsApi.HOST_REMOVE_SERVICE_ID_COMMAND
+    
+or
+ 
+   {url}/hosts/{hostId}/removeserviceid
+    
 
 and in the data part you include list of service id's:
 
@@ -158,6 +179,10 @@ The data store will return JSONObject of your updated host.
 4. If you want to add all primitive services to host then you do a PUT
 
     {url}/PsApi.HOST/{hostId}/PsApi.HOST_ADD_ALL_SERVICES_COMMAND
+    
+    or
+    
+    {url}/hosts/{hostId}/addallservices
 
 no need to include any additional data
 
@@ -165,6 +190,11 @@ no need to include any additional data
 5. in order to delete all primitive services from a host do a PUT
 
     {url}/PsApi.HOST/{hostId}/PsApi.HOST_REMOVE_ALL_SERVICES_COMMAND
+    
+    or
+    
+    {url}/hosts/{hostId}/removeallservices
+    
 
 
 no need to include any data
@@ -175,6 +205,11 @@ and to add all latency/throughput services do a PUT to:
 
     {url}/PsApi.HOST/{hostId}/PsApi.HOST_ADD_LATENCY_SERVICES_COMMAND
     {url}/PsApi.HOST/{hostId}/PsApi.HOST_ADD_THROUGHPUT_SERVICES_COMMAND
+    
+    or
+    
+    {url}/hosts/{hostId}/addlatencyservices
+    {url}/hosts/{hostId}/addthroughputservices
 
 and that is all. Now all you need is to code it and build around it a
 GUI. 
