@@ -19,12 +19,13 @@ general idea how API works).
 We use it to query host information. You simply load web page
 
     {url}/PsApi.HOSTS
+    
 
 which can, for example, look like:
 
     http://perfsonar.racf.bnl.gov:8080/dashboard-1.0-SNAPSHOT/hosts
 
-and it will return a JSONArray of host id's. 
+and it will return a JSONArray of JSONObjects representing low detail level information of hosts.
 
 
 Example: you can perform this request by hand as a shell command:
@@ -43,16 +44,16 @@ It will return something which looks like this:
     Connection: Keep-Alive
     Age: 0
 
-    ["1349461278462.661314","1349461278465.579684","1349461278465.526829","1349461278465.440649","1349461278466.950077","1349461278466.269199","1349461278466.18808","1349461278466.788238","1349461278466.252016","1349461278466.223642","1349461278467.289606","1349461278467.413121"]
+    [{"id":"1","hostname":"lhcmon.bnl.gov"},{"id":"2","hostname":"lhcperfmon.bnl.gov"}, ...]
 
-The latter is a JSONArray of host id's.
+The latter is a JSONArray of host abbreviated objects.
 
 If you would like to obtain information about a particular host you need to do
 
     {url}/PsApi.HOSTS/{hostId}
 
 where instead of {hostId} you put infor about a particular host, for example:
-    http://perfsonar.racf.bnl.gov:8080/dashboard-1.0-SNAPSHOT/hosts/33025
+    http://perfsonar.racf.bnl.gov:8080/dashboard-1.0-SNAPSHOT/hosts/1
 
 or, using the curl command:
 
@@ -66,8 +67,9 @@ or, using the curl command:
     Connection: Keep-Alive
     Age: 0
 
-    {"ipv6":null,"id":"33025","services":["33026","33027","33028","33029"],"ipv4":"192.41.236.31","hostname":"psmsu01.aglt2.org"}
-
+     {"ipv6":null,"id":"1","services":[{"id":"1","result":{"message":"0.005 second response time on port 4823","id":"6","job-id":"0","time":"2013-03-04T15:15:32.000Z","status":0,"service-id":"1","parameters":{"time":"0.005343s","command":"\/usr\/lib\/nagios\/plugins\/check_tcp -H lhcmon.bnl.gov -p 4823"},"service_result_id":"0"},"description":"BWCTL Port 4823 Check","name":"bwctl_port_4823_on_lhcmon.bnl.gov","runningSince":"2013-03-04T15:18:06.911Z","nextCheckTime":"2013-03-04T15:35:32.000Z","checkInterval":1200,"parameters":{"port":4823,"host":"lhcmon.bnl.gov","host-id":"1"},"prevCheckTime":"2013-03-04T15:15:32.000Z","type":"bwctl_port_4823","running":false,"timeout":60},{"id":"2","result":{"message":"0.001 second response time on port 4823","id":"10","job-id":"0","time":"2013-03-04T15:14:32.000Z","status":0,"service-id":"2","parameters":{"time":"0.001319s","command":"\/usr\/lib\/nagios\/plugins\/check_tcp -H lhcmon.bnl.gov -p 4823"},"service_result_id":"0"},"description":"BWCTL Port 8570 Check","name":"bwctl_port_8570_on_lhcmon.bnl.gov","runningSince":"2013-03-04T15:18:06.911Z","nextCheckTime":"2013-03-04T15:34:32.000Z","checkInterval":1200,"parameters":{"port":4823,"host":"lhcmon.bnl.gov","host-id":"1"},"prevCheckTime":"2013-03-04T15:14:32.000Z","type":"bwctl_port_8570","running":false,"timeout":60},{"id":"3","result":{"message":"perfSONAR response is unreadable.","id":"15","job-id":"0","time":"2013-03-04T15:09:33.000Z","status":3,"service-id":"3","parameters":{},"service_result_id":"0"},"description":"perfSONAR Lookup Service Test","name":"CheckLookupService_on_lhcmon.bnl.gov","runningSince":"2013-03-04T15:18:06.911Z","nextCheckTime":"2013-03-04T15:29:33.000Z","checkInterval":1200,"parameters":{"port":9995,"host":"lhcmon.bnl.gov","host-id":"1","url":"http:\/\/lhcmon.bnl.gov:9995\/perfSONAR_PS\/services\/hLS"},"prevCheckTime":"2013-03-04T15:09:33.000Z","type":"CheckLookupService","running":false,"timeout":60},{"id":"4","result":{"message":"0.002 second response time on port 3001","id":"3","job-id":"0","time":"2013-03-04T15:11:31.000Z","status":0,"service-id":"4","parameters":{"time":"0.001706s","command":"\/usr\/lib\/nagios\/plugins\/check_tcp -H lhcmon.bnl.gov -p 3001"},"service_result_id":"0"},"description":"NDT Port 3001 Check","name":"NDT_port_3001_on_lhcmon.bnl.gov","runningSince":"2013-03-04T15:18:06.911Z","nextCheckTime":"2013-03-04T15:31:31.000Z","checkInterval":1200,"parameters":{"port":3001,"host":"lhcmon.bnl.gov","host-id":"1"},"prevCheckTime":"2013-03-04T15:11:31.000Z","type":"NDT_port_3001","running":false,"timeout":60},{"id":"5","result":{"message":"0.001 second response time on port 7123","id":"14","job-id":"0","time":"2013-03-04T15:12:31.000Z","status":0,"service-id":"5","parameters":{"time":"0.001427s","command":"\/usr\/lib\/nagios\/plugins\/check_tcp -H lhcmon.bnl.gov -p 7123"},"service_result_id":"0"},"description":"NDT Port 7123 Check","name":"NDT_port_7123_on_lhcmon.bnl.gov","runningSince":"2013-03-04T15:18:06.911Z","nextCheckTime":"2013-03-04T15:32:31.000Z","checkInterval":1200,"parameters":{"port":7123,"host":"lhcmon.bnl.gov","host-id":"1"},"prevCheckTime":"2013-03-04T15:12:31.000Z","type":"NDT_port_7123","running":false,"timeout":60},{"id":"6","result":{"message":"0.002 second response time on port 8000","id":"9","job-id":"0","time":"2013-03-04T15:12:32.000Z","status":0,"service-id":"6","parameters":{"time":"0.001551s","command":"\/usr\/lib\/nagios\/plugins\/check_tcp -H lhcmon.bnl.gov -p 8000"},"service_result_id":"0"},"description":"NPAD Port 8001 Check","name":"NPAD_port_8000_on_lhcmon.bnl.gov","runningSince":"2013-03-04T15:18:06.911Z","nextCheckTime":"2013-03-04T15:32:32.000Z","checkInterval":1200,"parameters":{"port":8000,"host":"lhcmon.bnl.gov","host-id":"1"},"prevCheckTime":"2013-03-04T15:12:32.000Z","type":"NPAD_port_8000","running":false,"timeout":60},{"id":"7","result":{"message":"0.001 second response time on port 8001","id":"13","job-id":"0","time":"2013-03-04T15:09:31.000Z","status":0,"service-id":"7","parameters":{"time":"0.001459s","command":"\/usr\/lib\/nagios\/plugins\/check_tcp -H lhcmon.bnl.gov -p 8001"},"service_result_id":"0"},"description":"NPAD Port 8001 Check","name":"NPAD_port_8001_on_lhcmon.bnl.gov","runningSince":"2013-03-04T15:18:06.911Z","nextCheckTime":"2013-03-04T15:29:31.000Z","checkInterval":1200,"parameters":{"port":8001,"host":"lhcmon.bnl.gov","host-id":"1"},"prevCheckTime":"2013-03-04T15:09:31.000Z","type":"NPAD_port_8001","running":false,"timeout":60},{"id":"8","result":{"message":"perfSONAR service replied \"The echo request has passed.\"","id":"31","job-id":"0","time":"2013-03-04T15:10:33.000Z","status":0,"service-id":"8","parameters":{},"service_result_id":"0"},"description":"perfSONAR PSB Echo Request Test","name":"perfSONAR_pSB_on_lhcmon.bnl.gov","runningSince":"2013-03-04T15:18:06.911Z","nextCheckTime":"2013-03-04T15:30:33.000Z","checkInterval":1200,"parameters":{"template":"2","host":"lhcmon.bnl.gov","host-id":"1","url":"http:\/\/192.12.15.23:8085\/perfSONAR_PS\/services\/pSB"},"prevCheckTime":"2013-03-04T15:10:33.000Z","type":"perfSONAR_pSB","running":false,"timeout":60}],"ipv4":"192.12.15.23","hostname":"lhcmon.bnl.gov"} 
+     
+     
 So now you know how to query the hosts. Let us now create new hosts
 
 
@@ -93,6 +95,10 @@ internally, once it is created by the datastore.
 Now you have to perform a POST request to address
 
     {url}/PsApi.HOST
+    
+    or
+    
+    http://perfsonar.racf.bnl.gov:8080/dashboard-1.0-SNAPSHOT/hosts
 
 with the string representation of the JSONObject located in data part of your request. How exactly this is done depends on your programming language. In shell this would look like:
 
@@ -128,6 +134,10 @@ to your host (you may obtain is using GET request). Then you modify the
 "hostname" field in this object. Finally you make a POST request
 
     {url}/PsApi.HOSTS
+    
+    or
+    
+     http://perfsonar.racf.bnl.gov:8080/dashboard-1.0-SNAPSHOT/hosts/34384
 
 with the string representation of JSOBobject of your host in the data part. 
 
@@ -164,7 +174,9 @@ To delete host with a given id {hostId} you make a DELETE request:
 
 a concrete example would be:
 
-    curl -i -X DELETE -H "Content-Type: application/json"  http://perfsonar.racf.bnl.gov:8080/dashboard-1.0-SNAPSHOT/hosts/34384HTTP/1.1 200 OK
+    curl -i -X DELETE -H "Content-Type: application/json"  http://perfsonar.racf.bnl.gov:8080/dashboard-1.0-SNAPSHOT/hosts/34384
+    
+    HTTP/1.1 200 OK
     Server: Apache-Coyote/1.1
     Content-Type: text/html;charset=UTF-8
     Date: Thu, 10 Jan 2013 19:12:46 GMT
