@@ -1,0 +1,114 @@
+
+Here come the examples how to use the API. Let us assume we have a blank datastore.
+
+
+First order of business is to initialize service types. This command is not part of the API, but it is convenient for
+the development process:
+
+curl -i -X GET -H "Content-Type: application/json" http://localhost:8084/dashboard2/initServiceTypes
+
+Let us now create three hosts. We specify POST requests to {url}/hosts giving in the data part of the request information about the hosts we want to create.
+Here we give the requested host names and Ip's:
+
+curl -i -X POST -d'{"ipv6":null,"ipv4":"192.41.236.31","hostname":"psmsu01.aglt2.org"}' http://localhost:8084/dashboard2/hosts
+curl -i -X POST -d'{"ipv6":null,"hostname":"lhcperfmon.bnl.gov"}' http://localhost:8084/dashboard2/hosts
+curl -i -X POST -d'{"ipv4":"999.999.99.99","hostname":"abcd.com"}' http://localhost:8084/dashboard2/hosts
+
+
+We can verify that the hosts were created by 
+
+
+curl -i -X GET  http://localhost:8084/dashboard2/hosts
+
+
+and we can get details about , for example, host 2 by
+
+
+curl -i -X GET  http://localhost:8084/dashboard2/hosts/2
+
+
+Now we want to add all primitive services to hosts 1
+
+curl -i -X PUT -d'["1"]' http://localhost:8084/dashboard2/hosts/1/addallservices
+
+Verify that the servies were added:
+
+curl -i -X GET  http://localhost:8084/dashboard2/hosts/1
+
+We can add throughput primitive services to host3:
+
+curl -i -X PUT -d'["1"]' http://localhost:8084/dashboard2/hosts/3/addthroughputservices
+
+
+and verify that they were added
+
+curl -i -X GET  http://localhost:8084/dashboard2/hosts/3
+
+
+Let us now create a matrix. It should be of type "throughput" and it should have a name BBB.
+
+curl -i -X POST -d'{"serviceTypeId":"throughput","name":"BBB"}' http://localhost:8084/dashboard2/matrices
+
+
+verify that this matrix has been created:
+
+curl -i -X GET  http://localhost:8084/dashboard2/matrices
+
+Let us get more information about this matrix:
+
+curl -i -X GET  http://localhost:8084/dashboard2/matrices/1
+
+and we see that it is empty and contains no hosts. So let us add them.
+
+
+
+Now we want to add hosts 1,2,3 to this matrix
+
+
+curl -i -X PUT -d'["1","2","3"]' http://localhost:8084/dashboard2/matrices/1/addhostids
+
+
+Let us verify that the hosts were added:
+
+curl -i -X GET  http://localhost:8084/dashboard2/matrices/1
+
+
+Now let us create two perfSonar sites:
+
+
+curl -i -X POST -d'{"name":"First Site"}' http://localhost:8084/dashboard2/sites
+curl -i -X POST -d'{"name":"Second Site"}' http://localhost:8084/dashboard2/sites
+
+Let us verify that they were created:
+
+curl -i -X GET  http://localhost:8084/dashboard2/sites
+
+
+Now let us create two clouds:
+
+
+curl -i -X POST -d'{"name":"CLOUD"}' http://localhost:8084/dashboard2/clouds
+curl -i -X POST -d'{"name":"Another Cloud"}' http://localhost:8084/dashboard2/clouds
+
+and let us verify that they were created
+
+
+curl -i -X GET  http://localhost:8084/dashboard2/clouds
+
+Let us add site 2 to cloud 1
+
+curl -i -X PUT -d'["2"]' http://localhost:8084/dashboard2/clouds/1/addsiteids
+
+and now let us add matrix 1 to cloud 1
+
+curl -i -X PUT -d'["1"]' http://localhost:8084/dashboard2/clouds/1/addmatrixids
+
+verify that they were added:
+
+curl -i -X GET  http://localhost:8084/dashboard2/matrices/1
+
+
+That is all for now. 
+
+
+
