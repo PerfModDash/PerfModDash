@@ -184,7 +184,7 @@ public class CloudARSiteAction {
                 sites_in_cloud = new ArrayList();
                 sites_not_in_cloud = new ArrayList();
             
-                if(! sites.isEmpty()){
+                if( sites != null){
                 
                     for(int i=0 ; i<sites.size(); i++){
                     

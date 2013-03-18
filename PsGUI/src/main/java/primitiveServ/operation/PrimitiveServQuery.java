@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-//import org.json.JSONObject;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -121,19 +120,19 @@ public class PrimitiveServQuery {
                     //parse primitive services parameters JSONObject
             
                     long port = 0; //set to 0 tempeialy.
-                    String paraHost = (String) parametersObj.get("paraHost");
+                    String paraHost = (String) parametersObj.get("host");
                     String hostid = (String) parametersObj.get("host-id");
                     
                     /*
-                    
-                    if(parametersObj.get("port")!= null){
+                    if(!parametersObj.isNull("port")){
                         port = (Long) parametersObj.get("port");
                     }else{
-                        port = (Long) parametersObj.get("template");
+                        //port = (Long) parametersObj.get("template");
+                        port = 0;
                     
                     }
-                    
                     */
+                   
                     
                     //3.para object
                      para.setPort(port);

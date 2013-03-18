@@ -178,6 +178,15 @@
             <result name="success">cloudpages/cloudARSiteSuccess.jsp</result>
             <result name="error">cloudpages/cloudARSiteError.jsp</result>
         </action>
+        
+        <action name="cloudARMatrixPage" class="cloud.action.CloudARMatrixPageAction">
+            <result>cloudpages/cloudARMatrix.jsp</result>
+        </action>
+        
+        <action name="cloudARMatrix" class="cloud.action.CloudARMatrixAction">
+            <result name="success">cloudpages/cloudARMatrixSuccess.jsp</result>
+            <result name="error">cloudpages/cloudARMatrixError.jsp</result>
+        </action>
             
       </package>
       

@@ -37,7 +37,9 @@ public class HostQuery {
         
 	DataStoreConfig cfg = new DataStoreConfig();	
 	String HOST = PsApi.HOST;
-	String hostURL = cfg.getProperty("storeURL") + HOST + '/' + hostid;
+        String detailLevel = PsApi.DETAIL_LEVEL_PARAMETER;
+        String medium = PsApi.DETAIL_LEVEL_MEDIUM;
+	String hostURL = cfg.getProperty("storeURL") + HOST + '/' + hostid + "?" + detailLevel + "=" + medium;
         
 		
 	try{
@@ -51,7 +53,18 @@ public class HostQuery {
             String hostname = (String) hostObject.get("hostname");
             String ipv4 = (String) hostObject.get("ipv4");
             String ipv6 = (String) hostObject.get("ipv6");
-            JSONArray services = (JSONArray)hostObject.get("services");
+            
+            //get the id of the primitive services
+            JSONArray serviceObjList = (JSONArray)hostObject.get("services");
+            JSONArray services = new JSONArray();
+            JSONObject serviceObj = new JSONObject();
+            String service_id;
+            
+            for(int i=0 ; i<serviceObjList.size() ; i++){
+                serviceObj = (JSONObject) serviceObjList.get(i);
+                service_id = (String) serviceObj.get("id");
+                services.add(service_id);
+            }
             
             one_host.setHostname(hostname);
             one_host.setIpv4(ipv4);

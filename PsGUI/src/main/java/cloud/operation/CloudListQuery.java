@@ -4,7 +4,6 @@
  */
 package cloud.operation;
 
-import cloud.bean.Cloud;
 import cloud.bean.CloudList;
 import config.DataStoreConfig;
 import config.PsApi;
@@ -13,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -38,7 +38,7 @@ public class CloudListQuery {
             URL url = new URL(cloudURL.toString());
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             Object obj = parser.parse(reader);
-            
+            /*
             JSONArray cloudIds= (JSONArray)obj;
             int cloudNumber = cloudIds.size();
             
@@ -55,7 +55,28 @@ public class CloudListQuery {
                 cloudNames.add(cloud_name);
 				
             }
+            */
             
+            JSONArray cloudObjects = (JSONArray)obj;
+            
+            int cloudNumber = cloudObjects.size();
+            JSONArray cloudIds = new JSONArray();
+            JSONArray cloudNames = new JSONArray();
+            
+            JSONObject cloudObj = new JSONObject();
+            String cloud_id;
+            String cloud_name;
+            
+            for(int i=0; i<cloudNumber; i++){
+            
+                cloudObj = (JSONObject) cloudObjects.get(i);
+                cloud_id = (String) cloudObj.get("id");
+                cloud_name = (String) cloudObj.get("name");
+                
+                cloudIds.add(cloud_id);
+                cloudNames.add(cloud_name);
+            
+            }
             cloud_list.setCloudIds(cloudIds);
             cloud_list.setCloudNames(cloudNames);
             cloud_list.setCloudNumber(cloudNumber);

@@ -34,7 +34,10 @@ public class CloudQuery {
 	DataStoreConfig cfg = new DataStoreConfig();
 
 	String CLOUD = PsApi.CLOUD;
-	String cloudURL = cfg.getProperty("storeURL") + CLOUD + '/' + cloudid;
+         String detailLevel = PsApi.DETAIL_LEVEL_PARAMETER;
+        String medium = PsApi.DETAIL_LEVEL_MEDIUM;
+        
+	String cloudURL = cfg.getProperty("storeURL") + CLOUD + '/' + cloudid + "?" + detailLevel + "=" + medium;
         
         
         try{
@@ -47,8 +50,42 @@ public class CloudQuery {
             
             String cloudname = (String) cloudObj.get("name");
             long status = (Long)cloudObj.get("status");
-            JSONArray sites = (JSONArray)cloudObj.get("sites");
-            JSONArray matrices = (JSONArray)cloudObj.get("matrices");
+            JSONArray siteObjList = (JSONArray)cloudObj.get("sites");
+            JSONArray matrixObjList = (JSONArray)cloudObj.get("matrices");
+            
+            JSONArray sites = new JSONArray();
+            JSONArray matrices = new JSONArray();
+            
+            JSONObject siteObj = new JSONObject();
+            JSONObject matrixObj = new JSONObject();
+            
+            String site_id;
+            String matrix_id;
+            
+            if(siteObjList.size() > 0)
+            {
+                for(int i=0 ; i<siteObjList.size() ; i++){
+                    siteObj = (JSONObject) siteObjList.get(i);
+                    site_id = (String) siteObj.get("id");
+                    sites.add(site_id);
+                }
+            
+            }else{
+            
+                sites = null;
+            }
+            
+            if(matrixObjList.size() > 0)
+            {
+                for(int i=0 ; i<matrixObjList.size() ; i++){
+                    matrixObj = (JSONObject) matrixObjList.get(i);
+                    matrix_id = (String) matrixObj.get("id");
+                    matrices.add(matrix_id);
+                }
+            }else{
+                matrices = null;
+                
+            }
             
             one_cloud.setCloudid(cloudid);
             one_cloud.setCloudname(cloudname);

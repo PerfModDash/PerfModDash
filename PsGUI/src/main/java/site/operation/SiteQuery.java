@@ -38,7 +38,10 @@ public class SiteQuery {
         
 	DataStoreConfig cfg = new DataStoreConfig();	
 	String SITE = PsApi.SITE;
-	String siteURL = cfg.getProperty("storeURL") + SITE + '/' + siteid;
+        String detailLevel = PsApi.DETAIL_LEVEL_PARAMETER;
+        String medium = PsApi.DETAIL_LEVEL_MEDIUM;
+        
+	String siteURL = cfg.getProperty("storeURL") + SITE + '/' + siteid + "?" + detailLevel + "=" + medium;
         
 		
 	try{
@@ -52,7 +55,17 @@ public class SiteQuery {
             String sitename = (String) siteObj.get("name");
             long status = (Long)siteObj.get("status");
             String description = (String) siteObj.get("description");
-            JSONArray hosts = (JSONArray)siteObj.get("hosts");
+            
+            JSONArray hostObjList = (JSONArray)siteObj.get("hosts");
+            JSONArray hosts = new JSONArray();
+            JSONObject hostObj = new JSONObject();
+            String host_id;
+            
+            for(int i=0 ; i<hostObjList.size() ; i++){
+                hostObj = (JSONObject) hostObjList.get(i);
+                host_id = (String) hostObj.get("id");
+                hosts.add(host_id);
+            }
             
             one_site.setSitename(sitename);
             one_site.setStatus(status);

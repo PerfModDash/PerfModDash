@@ -13,7 +13,7 @@ public class Parameters {
     
     private long port;
     private String host;
-    private String hostid;
+    private  String hostid;
     
     public long getPort(){	
 	return port;

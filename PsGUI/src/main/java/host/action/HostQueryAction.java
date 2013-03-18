@@ -79,6 +79,7 @@ public class HostQueryAction {
                     
                         serviceID = (String)services.get(i);
                         serv = PrimitiveServQuery.executePrimitiveServQuery(serviceID);
+                        System.out.print("serv:" + serv);
                         serviceType = serv.getType();
                         services_on_host.add(serviceType);
                  

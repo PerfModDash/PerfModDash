@@ -11,9 +11,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import site.bean.Site;
 import site.bean.SiteList;
 
 /**
@@ -39,7 +39,7 @@ public class SiteListQuery {
             URL url = new URL(siteURL.toString());
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             Object obj = parser.parse(reader);
-            
+            /*
             JSONArray siteIds= (JSONArray)obj;
             int siteNumber = siteIds.size();
             
@@ -57,6 +57,29 @@ public class SiteListQuery {
                 siteNames.add(site_name);
 				
             }
+            */
+            
+            JSONArray siteObjects = (JSONArray)obj;
+            
+            int siteNumber = siteObjects.size();
+            JSONArray siteIds = new JSONArray();
+            JSONArray siteNames = new JSONArray();
+            
+            JSONObject siteObj = new JSONObject();
+            String site_id;
+            String site_name;
+            
+            for(int i=0; i<siteNumber; i++){
+            
+                siteObj = (JSONObject) siteObjects.get(i);
+                site_id = (String) siteObj.get("id");
+                site_name = (String) siteObj.get("name");
+                
+                siteIds.add(site_id);
+                siteNames.add(site_name);
+            
+            }
+            
             
             site_list.setSiteIds(siteIds);
             site_list.setSiteNames(siteNames);

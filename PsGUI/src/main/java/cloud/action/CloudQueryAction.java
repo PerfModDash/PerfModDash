@@ -8,6 +8,8 @@ import cloud.bean.Cloud;
 import cloud.operation.CloudQuery;
 import com.opensymphony.xwork2.Action;
 import java.util.ArrayList;
+import matrix.bean.Matrix;
+import matrix.operation.MatrixQuery;
 import org.json.simple.JSONArray;
 import site.bean.Site;
 import site.operation.SiteQuery;
@@ -78,31 +80,34 @@ public class CloudQueryAction {
             
             JSONArray sites = one_cloud.getSites();
             JSONArray matrices = one_cloud.getMatrices();
-            
-            String site_id;
-            String site_name;
-            Site s;
-            
+           
             sites_in_cloud = new ArrayList();
             
-            if(! sites.isEmpty()){
+            if(sites != null){
                 
                 for(int i=0 ; i<sites.size(); i++){
                     
-                        site_id = (String)sites.get(i);
-                        s = SiteQuery.executeSiteQuery(site_id);
+                        String site_id = (String)sites.get(i);
+                        Site s = SiteQuery.executeSiteQuery(site_id);
                         
-                        site_name = s.getSitename();
+                        String site_name = s.getSitename();
                         sites_in_cloud.add(site_name); 
                 }
             }
             
             matrices_in_cloud = new ArrayList();
             
-            if(! matrices.isEmpty()){
+            if(matrices != null){
                 
-               matrices_in_cloud = matrices; //rewrite after matrix is defined
-            
+               for(int i=0 ; i<matrices.size(); i++){
+                    
+                        String matrix_id = (String)matrices.get(i);
+                        Matrix m = MatrixQuery.executeMatrixQuery(matrix_id);
+                        
+                        String matrix_name = m.getMatrixName();
+                        matrices_in_cloud.add(matrix_name); 
+                }
+                
             }
             return Action.SUCCESS;
         }else{

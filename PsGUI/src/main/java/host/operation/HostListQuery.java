@@ -6,13 +6,13 @@ package host.operation;
 
 import config.DataStoreConfig;
 import config.PsApi;
-import host.bean.Host;
 import host.bean.HostList;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -39,6 +39,8 @@ public class HostListQuery {
             URL url = new URL(hostURL.toString());
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             Object obj = parser.parse(reader);
+            
+            /*
             JSONArray hostIds= (JSONArray)obj;
             
             int hostNumber = hostIds.size();
@@ -56,6 +58,27 @@ public class HostListQuery {
                 host_name = one_host.getHostname();
                 hostNames.add(host_name);
 				
+            }
+            */
+            JSONArray hostObjects = (JSONArray)obj;
+            
+            int hostNumber = hostObjects.size();
+            JSONArray hostIds = new JSONArray();
+            JSONArray hostNames = new JSONArray();
+            
+            JSONObject hostObj = new JSONObject();
+            String host_id;
+            String host_name;
+            
+            for(int i=0; i<hostNumber; i++){
+            
+                hostObj = (JSONObject) hostObjects.get(i);
+                host_id = (String) hostObj.get("id");
+                host_name = (String) hostObj.get("hostname");
+                
+                hostIds.add(host_id);
+                hostNames.add(host_name);
+            
             }
             
             host_list.setHostIds(hostIds);

@@ -44,7 +44,8 @@ public class DataStoreConfig {
 		public String getProperty(String key){
 			//String value = this.confFile.getProperty(key);
 			//return value;
-                        String storeURL = "http://perfsonar.racf.bnl.gov:8080/dashboard-1.0-SNAPSHOT/";
+                        // String storeURL = "http://perfsonar.racf.bnl.gov:8080/dashboard-1.0-SNAPSHOT/";
+                       String storeURL = "http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/";
                         return storeURL;
 		}
                 
