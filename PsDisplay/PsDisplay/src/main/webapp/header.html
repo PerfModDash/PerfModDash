@@ -1,0 +1,38 @@
+
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/listOfObjectsTable.css">
+    
+    <script src="jsutils/getUrlParameterByName.js"> </script>
+    <script src="jsutils/htmlutils.js"> </script>
+    <script src="jsutils/htmlTableUtils.js"> </script>
+    
+    <script src="servicesUtils/servicesUtils.js"> </script>
+    <script src="hostsUtils/hostsUtils.js"> </script>
+    <script src="sitesUtils/sitesUtils.js"> </script>
+    <script src="matrixUtils/matrixUtils.js"> </script>
+    <script src="cloudsUtils/cloudsUtils.js"> </script>
+    
+    <script>
+        //var baseUrl="http://localhost:8084/PsDisplay/"; 
+        var baseUrl="http://perfsonar.racf.bnl.gov:8080/PsDisplay-1.0-SNAPSHOT/"; 
+        
+        var urlToDisplayHosts = "hosts.jsp";
+        var urlToDisplayServices = "services.jsp";
+        var urlToDisplaySites="sites.jsp";
+        var urlToDisplayMatrices="matrices.jsp";
+        var urlToDisplayClouds="clouds.jsp";
+            
+        //var datastoreUrl="http://localhost:8084/dashboard2/";
+        var datastoreUrl="http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/";
+        var servicesUrl    = datastoreUrl+"services/";
+        var hostsUrl    = datastoreUrl+"hosts/";
+        var sitesUrl    = datastoreUrl+"sites/";
+        var matricesUrl = datastoreUrl+"matrices/";
+        var cloudsUrl   = datastoreUrl+"clouds/";
+        
+    </script>
+</head>

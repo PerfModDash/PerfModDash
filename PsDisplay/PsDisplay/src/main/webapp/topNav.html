@@ -1,0 +1,35 @@
+<div id="topNav">
+    <script>
+        var topNavOriginalTextColor=null;
+        
+        function textBright(x)
+        {
+            link=x.getElementsByTagName("a")[0];
+            topNavOriginalTextColor=link.style.color;
+            link.style.color="Red";
+        }
+
+        function textNormal(x)
+        {
+            link=x.getElementsByTagName("a")[0];
+            if(topNavOriginalTextColor!=null){
+                link.style.color= topNavOriginalTextColor;
+            }
+        }
+    </script>
+    <table id="menuTable">
+        <tr>
+            <th onmouseover="textBright(this)" onmouseout="textNormal(this)" ><a href="index.jsp">Home</a></th>
+            <th onmouseover="textBright(this)" onmouseout="textNormal(this)" ><a href="clouds.jsp">Clouds</a></th>
+            <th onmouseover="textBright(this)" onmouseout="textNormal(this)" ><a href="matrices.jsp">Matrices</a></th>
+            <th onmouseover="textBright(this)" onmouseout="textNormal(this)" ><a href="sites.jsp">Sites</a></th>
+            <th onmouseover="textBright(this)" onmouseout="textNormal(this)" ><a href="hosts.jsp">Hosts</a></th>
+            <th onmouseover="textBright(this)" onmouseout="textNormal(this)" ><a href="services.jsp">Services</a></th>
+            <th onmouseover="textBright(this)" onmouseout="textNormal(this)" ><a href="users.jsp">Users</a></th>
+            <th onmouseover="textBright(this)" onmouseout="textNormal(this)" ><a href="alarms.jsp">Alarms</a></th>
+            <th onmouseover="textBright(this)" onmouseout="textNormal(this)" ><a href="collectors.jsp">Collectors</a></th>
+        </tr>
+    </table>
+
+
+</div>

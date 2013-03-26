@@ -1,0 +1,24 @@
+<div id="sideNav">
+    <script>
+        var linkOriginalTextColor=null;
+        
+        function linkBright(link)
+        {
+            linkOriginalTextColor=link.style.color;
+            link.style.color="Red";
+        }
+
+        function linkNormal(link)
+        {
+            if(linkOriginalTextColor!=null){
+                link.style.color= linkOriginalTextColor;
+            }
+        }
+    </script>
+
+    <ul>
+        <li>Popular Clouds
+        <li><a onmouseover="linkBright(this)" onmouseout="linkNormal(this)" href="http://perfsonar.racf.bnl.gov:8080/PsDisplay-1.0-SNAPSHOT/clouds.jsp?id=6">USATLAS</a>
+
+    </ul>
+</div>
