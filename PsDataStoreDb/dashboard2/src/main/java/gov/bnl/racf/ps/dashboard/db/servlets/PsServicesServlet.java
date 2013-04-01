@@ -93,7 +93,7 @@ public class PsServicesServlet extends HttpServlet {
 
             session.beginTransaction();
 
-            out.println(IsoDateConverter.date2IsoDate(new Date()));
+            //out.println(IsoDateConverter.date2IsoDate(new Date()));
 
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
 
@@ -150,7 +150,7 @@ public class PsServicesServlet extends HttpServlet {
                         List<PsServiceResult> listOfResults =
                                 PsDataStore.getResults(session, service, tmin, tmax);
 
-                        out.println("nresults="+listOfResults.size());
+                        //out.println("nresults="+listOfResults.size());
 
                         JSONArray listOfResultsJson = new JSONArray();
                         JSONObject currentResultJson = null;
