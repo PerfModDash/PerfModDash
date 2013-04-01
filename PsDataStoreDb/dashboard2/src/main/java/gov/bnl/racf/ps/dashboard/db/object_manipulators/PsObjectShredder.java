@@ -153,4 +153,92 @@ public class PsObjectShredder {
             delete(session, result);
         }
     }
+    
+    /**
+     * delete all clouds
+     * @param session 
+     */
+    public static  void deleteAllClouds(Session session){
+        List<PsCloud> listOfAllClouds = PsDataStore.getAllClouds(session);
+        deleteListOfClouds(session, listOfAllClouds);
+    }
+    /**
+     * delete list of clouds
+     * @param session
+     * @param listOfClouds 
+     */
+    public static  void deleteListOfClouds(Session session,List<PsCloud> listOfClouds){
+        Iterator iter = listOfClouds.iterator();
+        while(iter.hasNext()){
+            PsCloud currentCloud = (PsCloud)iter.next();
+            delete(session,currentCloud);
+        }
+    }
+    /**
+     * delete all matrices
+     * @param session 
+     */
+    public static  void deleteAllMatrices(Session session){
+        List<PsMatrix> listOfAllMatrices = PsDataStore.getAllMatrices(session);
+        deleteListOfMatrices(session, listOfAllMatrices);
+    }
+    
+    /**
+     * delete matrices from a list
+     * @param session
+     * @param listOfMatrices 
+     */
+    public static  void deleteListOfMatrices(Session session,List<PsMatrix> listOfMatrices){
+        Iterator iter = listOfMatrices.iterator();
+        while(iter.hasNext()){
+            PsMatrix currentMatrix = (PsMatrix)iter.next();
+            delete(session,currentMatrix);
+        }
+    }
+    public static  void deleteAllSites(Session session){
+        List<PsSite> listOfAllSites = PsDataStore.getAllSites(session);
+        deleteListOfSites(session, listOfAllSites);
+    }
+    /**
+     * delete sites from specified list
+     * @param session
+     * @param listOfSites 
+     */
+    public static  void deleteListOfSites(Session session,List<PsSite> listOfSites){
+        Iterator iter = listOfSites.iterator();
+        while(iter.hasNext()){
+            PsSite currentSite = (PsSite)iter.next();
+            delete(session,currentSite);
+        }
+    }
+    /**
+     * delete all hosts
+     * @param session 
+     */
+    public static  void deleteAllHosts(Session session){
+        List<PsHost> listOfAllHosts = PsDataStore.getAllHosts(session);
+        deleteListOfHosts(session, listOfAllHosts);
+    }
+    /**
+     * delete hosts form the specified list
+     * @param session
+     * @param listOfHosts 
+     */
+    public static  void deleteListOfHosts(Session session,List<PsHost> listOfHosts){
+        Iterator iter = listOfHosts.iterator();
+        while(iter.hasNext()){
+            PsHost currentHost = (PsHost)iter.next();
+            delete(session,currentHost);
+        }
+    }
+    /**
+     * delete all objects except service types
+     * @param session 
+     */
+    public static  void deleteAllObjects(Session session){
+        deleteAllClouds(session);
+        deleteAllMatrices(session);
+        deleteAllSites(session);
+        deleteAllHosts(session);
+    }
 }

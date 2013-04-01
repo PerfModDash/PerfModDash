@@ -376,14 +376,18 @@ public class JsonConverter {
                 JSONArray rows = new JSONArray();
                 for (int i = 0; i < matrix.getNumberOfRows(); i = i + 1) {
                     PsHost currentHost = matrix.getHostInRow(i);
-                    rows.add(currentHost.getHostname());
+                    JSONObject hostAsJson = toJson(currentHost,PsApi.DETAIL_LEVEL_LOW);
+                    //rows.add(currentHost.getHostname());
+                    rows.add(hostAsJson);
                 }
                 json.put(PsMatrix.ROWS, rows);
 
                 JSONArray columns = new JSONArray();
                 for (int i = 0; i < matrix.getNumberOfColumns(); i = i + 1) {
                     PsHost currentHost = matrix.getHostInColumn(i);
-                    columns.add(currentHost.getHostname());
+                    JSONObject hostAsJson = toJson(currentHost,PsApi.DETAIL_LEVEL_LOW);
+                    //columns.add(currentHost.getHostname());
+                    columns.add(hostAsJson);
                 }
                 json.put(PsMatrix.COLUMNS, columns);
 

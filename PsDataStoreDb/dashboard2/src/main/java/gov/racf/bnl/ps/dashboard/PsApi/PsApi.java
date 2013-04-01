@@ -20,6 +20,10 @@ public class PsApi {
     public static final String HOST_REMOVE_ALL_SERVICES_COMMAND = "removeallservices";
     
     public static final String SERVICE="services";  
+    public static final String SERVICE_HISTORY_COMMAND="history";  
+    public static final String SERVICE_HISTORY_TMIN="tmin";  
+    public static final String SERVICE_HISTORY_TMAX="tmax"; 
+    public static final String SERVICE_HISTORY_HOURS_AGO="hoursAgo";
     
     public static final String SITE="sites";  
     public static final String SITE_ADD_HOST_IDS="addhostids";

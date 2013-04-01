@@ -6,7 +6,9 @@ package gov.bnl.racf.ps.dashboard.db.servlets;
 
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
+import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceResult;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.IsoDateConverter;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectShredder;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -78,7 +81,8 @@ public class PsServicesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         //boilerplate code to open session
         SessionFactory sessionFactory =
@@ -89,7 +93,7 @@ public class PsServicesServlet extends HttpServlet {
 
             session.beginTransaction();
 
-
+            out.println(IsoDateConverter.date2IsoDate(new Date()));
 
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
 
@@ -107,18 +111,71 @@ public class PsServicesServlet extends HttpServlet {
                 Integer serviceIdInteger = Integer.parseInt(idAsString);
                 int serviceId = serviceIdInteger.intValue();
                 PsService service = PsDataStore.getService(session, serviceId);
-                JSONObject serviceJson = JsonConverter.toJson(service, detailLevel);
-                out.println(serviceJson.toString());
+
+                if (parameters.size() == 1) {
+                    JSONObject serviceJson = JsonConverter.toJson(service, detailLevel);
+                    out.println(serviceJson.toString());
+                }
+                if (parameters.size() == 2) {
+                    String command = parameters.get(1);
+                    if (PsApi.SERVICE_HISTORY_COMMAND.equals(command)) {
+
+
+                        Date tmin = null;
+                        Date tmax = null;
+
+                        if (request.getParameterMap().keySet().contains(PsApi.SERVICE_HISTORY_HOURS_AGO)) {
+                            tmax = new Date();
+                            String hoursAgoString = request.getParameter(PsApi.SERVICE_HISTORY_HOURS_AGO);
+                            long nHoursAgo = Long.parseLong(hoursAgoString);
+                            long miliSecondsInHour = 3600*1000;
+                            tmin = new Date(tmax.getTime() - nHoursAgo * miliSecondsInHour);
+                        } else {
+
+                            if (request.getParameterMap().keySet().contains(PsApi.SERVICE_HISTORY_TMIN)) {
+                                String tminString = request.getParameter(PsApi.SERVICE_HISTORY_TMIN);
+                                tmin = IsoDateConverter.isoDate2Date(tminString);
+                            } else {
+                                long secondAfterBeginningOfWorld = 1;
+                                tmin = new Date(secondAfterBeginningOfWorld);
+                            }
+                            if (request.getParameterMap().keySet().contains(PsApi.SERVICE_HISTORY_TMAX)) {
+                                String tmaxString = request.getParameter(PsApi.SERVICE_HISTORY_TMAX);
+                                tmax = IsoDateConverter.isoDate2Date(tmaxString);
+                            } else {
+                                tmax = new Date();
+                            }
+                        }
+
+                        List<PsServiceResult> listOfResults =
+                                PsDataStore.getResults(session, service, tmin, tmax);
+
+                        out.println("nresults="+listOfResults.size());
+
+                        JSONArray listOfResultsJson = new JSONArray();
+                        JSONObject currentResultJson = null;
+                        Iterator iter = listOfResults.iterator();
+                        while (iter.hasNext()) {
+                            PsServiceResult currentResult =
+                                    (PsServiceResult) iter.next();
+                            currentResultJson = JsonConverter.toJson(currentResult);
+                            listOfResultsJson.add(currentResultJson);
+                        }
+                        out.println(listOfResultsJson.toString());
+
+                    }
+                }
+
             } else {
                 // get list of services
-                
+
                 //get url parameters
                 String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
                 if (detailLevel == null || "".equals(detailLevel)) {
                     // default detail level
                     detailLevel = PsApi.DETAIL_LEVEL_LOW;
                 }
-                
+
                 List<PsService> listOfServices = PsDataStore.getAllServices(session);
                 JSONArray jsonArray = new JSONArray();
                 for (PsService service : listOfServices) {
@@ -135,10 +192,14 @@ public class PsServicesServlet extends HttpServlet {
 
         } catch (Exception e) {
             Logger.getLogger(PsServicesServlet.class).error("error occured: " + e);
+            System.out.println(new Date() + " " + getClass().getName() + " error occured " + e);
+            e.printStackTrace(out);
+            session.getTransaction().rollback();
         } finally {
             session.close();
             out.close();
         }
+
     }
 
     /**

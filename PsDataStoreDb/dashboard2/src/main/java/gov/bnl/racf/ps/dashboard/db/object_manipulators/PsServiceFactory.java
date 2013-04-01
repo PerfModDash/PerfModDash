@@ -395,7 +395,7 @@ public class PsServiceFactory {
         PsService service = PsObjectCreator.createNewService(session);
         
         service.setType(type.getServiceTypeId());
-        String name = "throughput_between_" + source.getHostname()+
+        String name = "packet loss_between_" + source.getHostname()+
                 "_and_"+destination.getHostname()+
                 "mon_"+monitor.getHostname();
         service.setName(name);
@@ -441,7 +441,7 @@ public class PsServiceFactory {
         PsService service = PsObjectCreator.createNewService(session);
         
         service.setType(type.getServiceTypeId());
-        String name = "packet_loss_between_" + source.getHostname()+
+        String name = "throughput_between_" + source.getHostname()+
                 "_and_"+destination.getHostname()+
                 "mon_"+monitor.getHostname();
         service.setName(name);

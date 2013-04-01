@@ -7,10 +7,7 @@ package gov.bnl.racf.ps.dashboard.db.data_store;
 import gov.bnl.racf.ps.dashboard.db.data_objects.*;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectShredder;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -200,6 +197,30 @@ public class PsDataStore {
             recentResult=(PsRecentServiceResult)iter.next();
         }
         return recentResult;
+    }
+    
+    public static List<PsServiceResult> getResults(Session session,PsService service){
+        Query query = session.createQuery("from PsServiceResult where service_id=:parameter");
+        int serviceId = service.getId();
+        query.setParameter("parameter", serviceId);
+        List resultList = query.list();
+        
+        Collections.sort(resultList);
+        
+        return resultList;
+    }
+    
+    public static List<PsServiceResult> getResults(Session session,PsService service, Date timeStart, Date timeEnd){
+        Query query = session.createQuery("from PsServiceResult where service_id=:parameter and time between :time_start and :time_end");
+        int serviceId = service.getId();
+        query.setParameter("parameter", serviceId);
+        query.setParameter("time_start", timeStart);
+        query.setParameter("time_end", timeEnd);
+        List resultList = query.list();
+        
+        Collections.sort(resultList);
+        
+        return resultList;
     }
 
    

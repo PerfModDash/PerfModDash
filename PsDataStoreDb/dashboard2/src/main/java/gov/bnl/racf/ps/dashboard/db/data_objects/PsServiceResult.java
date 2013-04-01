@@ -18,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cacheable
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class PsServiceResult implements Serializable {
+public class PsServiceResult implements Serializable , Comparable{
     // field names in JSON
     public static final String ID="id";
     public static final String JOB_ID="job-id";
@@ -118,6 +118,13 @@ public class PsServiceResult implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        PsServiceResult otherResult = (PsServiceResult)o;
+        Date otherTime = otherResult.getTime();
+        return this.getTime().compareTo(otherTime);
     }
 
     

@@ -54,10 +54,10 @@ public class Json2ServiceResultConverter {
         }
 
         if (json.keySet().contains(PsServiceResult.TIME)) {
-            logger.debug("we are in Json2ServiceResultConverter and we are about to convert time variable from ISO formato to java");
-            logger.debug("time="+(String) json.get(PsServiceResult.TIME));
+            //logger.debug("we are in Json2ServiceResultConverter and we are about to convert time variable from ISO formato to java");
+            //logger.debug("time="+(String) json.get(PsServiceResult.TIME));
             result.setTime(IsoDateConverter.isoDate2Date((String) json.get(PsServiceResult.TIME)));
-            logger.debug("time converted");
+            //logger.debug("time converted");
         }
 
         if (json.keySet().contains(PsServiceResult.PARAMETERS)) {

@@ -20,6 +20,10 @@
         <servlet-name>PsCreateUsAtlasServlet</servlet-name>
         <servlet-class>gov.bnl.racf.ps.dashboard.servlets.debug.PsCreateUsAtlasServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PsPurgeDatastore</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.debug.PsPurgeDatastore</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PsDumpServlet</servlet-name>
         <url-pattern>/dump</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>PsCreateUsAtlasServlet</servlet-name>
         <url-pattern>/createUsAtlas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PsPurgeDatastore</servlet-name>
+        <url-pattern>/deleteAll</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
