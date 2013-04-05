@@ -145,17 +145,17 @@ public class PsDumpServlet extends HttpServlet {
                 out.println("<BR><BR>");
             }
             
-            out.println("<BR><strong>Results:</strong><br>");
-            String hql7 = "FROM PsServiceResult";
-            Query query7 = session.createQuery(hql7);
-            List results7 = query7.list();
-            Iterator iter7 = results7.iterator();
-            while (iter7.hasNext()) {
-                PsServiceResult result = (PsServiceResult) iter7.next();
-                JSONObject json = JsonConverter.toJson(result);
-                out.println(json.toString());
-                out.println("<BR><BR>");
-            }
+//            out.println("<BR><strong>Results:</strong><br>");
+//            String hql7 = "FROM PsServiceResult";
+//            Query query7 = session.createQuery(hql7);
+//            List results7 = query7.list();
+//            Iterator iter7 = results7.iterator();
+//            while (iter7.hasNext()) {
+//                PsServiceResult result = (PsServiceResult) iter7.next();
+//                JSONObject json = JsonConverter.toJson(result);
+//                out.println(json.toString());
+//                out.println("<BR><BR>");
+//            }
 
             out.println("</body>");
             out.println("</html>");
