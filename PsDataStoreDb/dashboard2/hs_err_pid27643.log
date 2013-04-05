@@ -1,0 +1,297 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Cannot create GC thread. Out of system resources.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (gcTaskThread.cpp:46), pid=27643, tid=3064724288
+#
+# JRE version: 7.0_05-b05
+# Java VM: Java HotSpot(TM) Server VM (23.1-b03 mixed mode linux-x86 )
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0xb6905c00):  JavaThread "Unknown thread" [_thread_in_vm, id=27649, stack(0xb6a6f000,0xb6ac0000)]
+
+Stack: [0xb6a6f000,0xb6ac0000],  sp=0xb6abed20,  free space=319k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x71b689]  VMError::report_and_die()+0x199
+V  [libjvm.so+0x2e6062]  report_vm_out_of_memory(char const*, int, unsigned int, char const*)+0x72
+V  [libjvm.so+0x3922fb]  GCTaskThread::GCTaskThread(GCTaskManager*, unsigned int, unsigned int)+0xcb
+V  [libjvm.so+0x390eda]  GCTaskManager::initialize()+0x1ea
+V  [libjvm.so+0x5f2460]  ParallelScavengeHeap::initialize()+0x510
+V  [libjvm.so+0x6f5db3]  Universe::initialize_heap()+0xa3
+V  [libjvm.so+0x6f7d29]  universe_init()+0x59
+V  [libjvm.so+0x3d8e05]  init_globals()+0x55
+V  [libjvm.so+0x6e0029]  Threads::create_vm(JavaVMInitArgs*, bool*)+0x1f9
+V  [libjvm.so+0x42073c]  JNI_CreateJavaVM+0x5c
+C  [libjli.so+0x2a61]  JavaMain+0xa1
+C  [libpthread.so.0+0x6adf]  __statfs@@GLIBC_2.2+0x6adf
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0xb6905c00 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=27649, stack(0xb6a6f000,0xb6ac0000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+08048000-08049000 r-xp 00000000 fd:02 1049509    /home/tomw/java/jdk1.7.0_05/bin/java
+08049000-0804a000 rw-p 00000000 fd:02 1049509    /home/tomw/java/jdk1.7.0_05/bin/java
+0941b000-0943c000 rw-p 00000000 00:00 0          [heap]
+42736000-42755000 r-xp 00000000 fd:01 415955     /usr/lib/ld-2.15.so
+42755000-42756000 r--p 0001e000 fd:01 415955     /usr/lib/ld-2.15.so
+42756000-42757000 rw-p 0001f000 fd:01 415955     /usr/lib/ld-2.15.so
+42759000-42904000 r-xp 00000000 fd:01 415956     /usr/lib/libc-2.15.so
+42904000-42905000 ---p 001ab000 fd:01 415956     /usr/lib/libc-2.15.so
+42905000-42907000 r--p 001ab000 fd:01 415956     /usr/lib/libc-2.15.so
+42907000-42908000 rw-p 001ad000 fd:01 415956     /usr/lib/libc-2.15.so
+42908000-4290b000 rw-p 00000000 00:00 0 
+4290d000-42923000 r-xp 00000000 fd:01 415958     /usr/lib/libpthread-2.15.so
+42923000-42924000 r--p 00015000 fd:01 415958     /usr/lib/libpthread-2.15.so
+42924000-42925000 rw-p 00016000 fd:01 415958     /usr/lib/libpthread-2.15.so
+42925000-42927000 rw-p 00000000 00:00 0 
+42929000-4292c000 r-xp 00000000 fd:01 415957     /usr/lib/libdl-2.15.so
+4292c000-4292d000 r--p 00002000 fd:01 415957     /usr/lib/libdl-2.15.so
+4292d000-4292e000 rw-p 00003000 fd:01 415957     /usr/lib/libdl-2.15.so
+42930000-42937000 r-xp 00000000 fd:01 403172     /usr/lib/librt-2.15.so
+42937000-42938000 r--p 00006000 fd:01 403172     /usr/lib/librt-2.15.so
+42938000-42939000 rw-p 00007000 fd:01 403172     /usr/lib/librt-2.15.so
+4293b000-42964000 r-xp 00000000 fd:01 415959     /usr/lib/libm-2.15.so
+42964000-42965000 r--p 00028000 fd:01 415959     /usr/lib/libm-2.15.so
+42965000-42966000 rw-p 00029000 fd:01 415959     /usr/lib/libm-2.15.so
+42b1f000-42b2a000 r-xp 00000000 fd:01 407321     /usr/lib/libnss_files-2.15.so
+42b2a000-42b2b000 r--p 0000a000 fd:01 407321     /usr/lib/libnss_files-2.15.so
+42b2b000-42b2c000 rw-p 0000b000 fd:01 407321     /usr/lib/libnss_files-2.15.so
+7209c000-7226f000 rw-p 00000000 00:00 0 
+7226f000-72270000 ---p 00000000 00:00 0 
+72270000-72305000 rw-p 00000000 00:00 0 
+72305000-72436000 rw-p 00000000 00:00 0 
+72436000-7243e000 rw-p 00000000 00:00 0 
+7243e000-72456000 rw-p 00000000 00:00 0 
+72456000-7246b000 rw-p 00000000 00:00 0 
+7246b000-7259c000 rw-p 00000000 00:00 0 
+7259c000-725a7000 rw-p 00000000 00:00 0 
+725a7000-7263f000 rw-p 00000000 00:00 0 
+7263f000-73640000 rw-p 00000000 00:00 0 
+73640000-76640000 rw-p 00000000 00:00 0 
+76640000-78f00000 rw-p 00000000 00:00 0 
+78f00000-9f240000 rw-p 00000000 00:00 0 
+9f240000-a06a0000 rw-p 00000000 00:00 0 
+a06a0000-b3840000 rw-p 00000000 00:00 0 
+b3840000-b3849000 rw-p 00000000 00:00 0 
+b3849000-b3900000 rw-p 00000000 00:00 0 
+b3900000-b3b40000 rwxp 00000000 00:00 0 
+b3b40000-b6923000 rw-p 00000000 00:00 0 
+b6923000-b6a00000 ---p 00000000 00:00 0 
+b6a0b000-b6a13000 rw-p 00000000 00:00 0 
+b6a13000-b6a2b000 rw-p 00000000 00:00 0 
+b6a2b000-b6a42000 r-xp 00000000 fd:02 1049813    /home/tomw/java/jdk1.7.0_05/jre/lib/i386/libzip.so
+b6a42000-b6a43000 rw-p 00017000 fd:02 1049813    /home/tomw/java/jdk1.7.0_05/jre/lib/i386/libzip.so
+b6a43000-b6a4b000 rw-s 00000000 fd:01 2099907    /tmp/hsperfdata_tomw/27643
+b6a4b000-b6a6e000 r-xp 00000000 fd:02 1049804    /home/tomw/java/jdk1.7.0_05/jre/lib/i386/libjava.so
+b6a6e000-b6a6f000 rw-p 00023000 fd:02 1049804    /home/tomw/java/jdk1.7.0_05/jre/lib/i386/libjava.so
+b6a6f000-b6a72000 ---p 00000000 00:00 0 
+b6a72000-b6ac0000 rw-p 00000000 00:00 0 
+b6ac0000-b7274000 r-xp 00000000 fd:02 1049779    /home/tomw/java/jdk1.7.0_05/jre/lib/i386/server/libjvm.so
+b7274000-b72c6000 rw-p 007b3000 fd:02 1049779    /home/tomw/java/jdk1.7.0_05/jre/lib/i386/server/libjvm.so
+b72c6000-b76ea000 rw-p 00000000 00:00 0 
+b76ea000-b76fd000 r-xp 00000000 fd:02 1049793    /home/tomw/java/jdk1.7.0_05/jre/lib/i386/jli/libjli.so
+b76fd000-b76fe000 rw-p 00012000 fd:02 1049793    /home/tomw/java/jdk1.7.0_05/jre/lib/i386/jli/libjli.so
+b76fe000-b7702000 rw-p 00000000 00:00 0 
+b7702000-b7703000 r--p 00000000 00:00 0 
+b7703000-b770f000 r-xp 00000000 fd:02 1049794    /home/tomw/java/jdk1.7.0_05/jre/lib/i386/libverify.so
+b770f000-b7710000 rw-p 0000c000 fd:02 1049794    /home/tomw/java/jdk1.7.0_05/jre/lib/i386/libverify.so
+b7710000-b7711000 rw-p 00000000 00:00 0 
+b7711000-b7712000 r-xp 00000000 00:00 0          [vdso]
+bfda9000-bfdca000 rw-p 00000000 00:00 0          [stack]
+
+VM Arguments:
+jvm_args: -Dclassworlds.conf=/home/tomw/netbeans-7.1.2/java/maven/bin/m2.conf -Dmaven.home=/home/tomw/netbeans-7.1.2/java/maven 
+java_command: org.codehaus.plexus.classworlds.launcher.Launcher -Dnetbeans.deploy=true package
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/home/tomw/java/jdk1.7.0_05
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/home/tomw/.local/bin:/home/tomw/bin
+USERNAME=tomw
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x71c1d0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x71c1d0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x5d5ac0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x5d5ac0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x5d5ac0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x5d5ac0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x5d53a0], sa_mask[0]=0x00000004, sa_flags=0x10000004
+SIGHUP: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGINT: SIG_IGN, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGTERM: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGQUIT: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Fedora release 17 (Beefy Miracle)
+
+uname:Linux 3.3.4-5.fc17.i686.PAE #1 SMP Mon May 7 17:37:39 UTC 2012 i686
+libc:glibc 2.15 NPTL 2.15 
+rlimit: STACK 8192k, CORE 0k, NPROC 1024, NOFILE 4096, AS infinity
+load average:4.54 2.59 2.00
+
+/proc/meminfo:
+MemTotal:        4002932 kB
+MemFree:          738712 kB
+Buffers:           60244 kB
+Cached:           525220 kB
+SwapCached:        73912 kB
+Active:          2010096 kB
+Inactive:         859164 kB
+Active(anon):    1701652 kB
+Inactive(anon):   592680 kB
+Active(file):     308444 kB
+Inactive(file):   266484 kB
+Unevictable:          32 kB
+Mlocked:              32 kB
+HighTotal:       3153924 kB
+HighFree:         422240 kB
+LowTotal:         849008 kB
+LowFree:          316472 kB
+SwapTotal:       5472252 kB
+SwapFree:        4819212 kB
+Dirty:               544 kB
+Writeback:             0 kB
+AnonPages:       2243564 kB
+Mapped:            85244 kB
+Shmem:             10560 kB
+Slab:              79640 kB
+SReclaimable:      41160 kB
+SUnreclaim:        38480 kB
+KernelStack:       10312 kB
+PageTables:        14572 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     7473716 kB
+Committed_AS:    5337576 kB
+VmallocTotal:     122880 kB
+VmallocUsed:       36320 kB
+VmallocChunk:      81376 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:   1204224 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:       10232 kB
+DirectMap2M:      897024 kB
+
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, tsc
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 23
+model name	: Intel(R) Core(TM)2 Duo CPU     E8600  @ 3.33GHz
+stepping	: 10
+microcode	: 0xa0b
+cpu MHz		: 3324.712
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 2
+core id		: 0
+cpu cores	: 2
+apicid		: 0
+initial apicid	: 0
+fdiv_bug	: no
+hlt_bug		: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe nx lm constant_tsc arch_perfmon pebs bts aperfmperf pni dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm sse4_1 xsave lahf_lm dts tpr_shadow vnmi flexpriority
+bogomips	: 6649.42
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 23
+model name	: Intel(R) Core(TM)2 Duo CPU     E8600  @ 3.33GHz
+stepping	: 10
+microcode	: 0xa0b
+cpu MHz		: 3324.712
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 2
+core id		: 1
+cpu cores	: 2
+apicid		: 1
+initial apicid	: 1
+fdiv_bug	: no
+hlt_bug		: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe nx lm constant_tsc arch_perfmon pebs bts aperfmperf pni dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm sse4_1 xsave lahf_lm dts tpr_shadow vnmi flexpriority
+bogomips	: 6649.42
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 4002932k(738712k free), swap 5472252k(4819212k free)
+
+vm_info: Java HotSpot(TM) Server VM (23.1-b03) for linux-x86 JRE (1.7.0_05-b05), built on May 15 2012 17:24:38 by "java_re" with gcc 4.3.0 20080428 (Red Hat 4.3.0-8)
+
+time: Fri Apr  5 13:11:56 2013
+elapsed time: 0 seconds
+

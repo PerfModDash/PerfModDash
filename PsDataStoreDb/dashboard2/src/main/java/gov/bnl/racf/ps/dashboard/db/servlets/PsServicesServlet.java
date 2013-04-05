@@ -128,7 +128,7 @@ public class PsServicesServlet extends HttpServlet {
                             tmax = new Date();
                             String hoursAgoString = request.getParameter(PsApi.SERVICE_HISTORY_HOURS_AGO);
                             long nHoursAgo = Long.parseLong(hoursAgoString);
-                            long miliSecondsInHour = 3600*1000;
+                            long miliSecondsInHour = 3600 * 1000;
                             tmin = new Date(tmax.getTime() - nHoursAgo * miliSecondsInHour);
                         } else {
 
@@ -233,13 +233,16 @@ public class PsServicesServlet extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+
+        // first order of business is to open session
+        //boilerplate code to open session
+        SessionFactory sessionFactory =
+                PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
         try {
-            // first order of business is to open session
-            //boilerplate code to open session
-            SessionFactory sessionFactory =
-                    PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
-            Session session = sessionFactory.openSession();
-            session.beginTransaction();
+           
 
             // second order of business is to unpack parameters from url
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
@@ -256,11 +259,13 @@ public class PsServicesServlet extends HttpServlet {
 
             // commit transaction and close session
             session.getTransaction().commit();
-            session.close();
+
         } catch (Exception e) {
+            session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             Logger.getLogger(PsServicesServlet.class).error(e);
         } finally {
+            session.close();
             out.close();
         }
     }

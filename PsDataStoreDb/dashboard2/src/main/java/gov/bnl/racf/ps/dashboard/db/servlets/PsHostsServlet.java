@@ -117,17 +117,17 @@ public class PsHostsServlet extends HttpServlet {
                 Integer hostIdInteger = Integer.parseInt(idAsString);
                 int hostId = hostIdInteger.intValue();
                 PsHost host = PsDataStore.getHost(session, hostId);
-                JSONObject hostJson = JsonConverter.toJson(host,detailLevel);
+                JSONObject hostJson = JsonConverter.toJson(host, detailLevel);
                 out.println(hostJson.toString());
             } else {
                 // get list of hosts
-                
-                 //get url parameters
+
+                //get url parameters
                 String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
                 if (detailLevel == null || "".equals(detailLevel)) {
                     detailLevel = PsApi.DETAIL_LEVEL_LOW;
                 }
-                
+
                 List<PsHost> listOfHosts = PsDataStore.getAllHosts(session);
                 JSONArray jsonArray = new JSONArray();
                 for (PsHost host : listOfHosts) {
@@ -140,6 +140,7 @@ public class PsHostsServlet extends HttpServlet {
             // commit transaction and close session
             session.getTransaction().commit();
         } catch (Exception e) {
+            session.getTransaction().rollback();
             System.out.println(new Date() + " " + getClass().getName() + " " + e);
             Logger.getLogger(PsHostsServlet.class).error(e);
             e.printStackTrace(out);
@@ -167,12 +168,14 @@ public class PsHostsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
+        SessionFactory sessionFactory =
+                PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
         try {
             //boilerplate code to open session
-            SessionFactory sessionFactory =
-                    PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
-            Session session = sessionFactory.openSession();
-            session.beginTransaction();
+
 
             // parse data part of the code
             JSONObject jsonObject = PostRequestDataExtractor.extractJson(request);
@@ -187,7 +190,7 @@ public class PsHostsServlet extends HttpServlet {
                 PsObjectUpdater.update(host, jsonObject);
 
                 // convert host to json
-                
+
                 JSONObject finalHost = JsonConverter.toJson(host, PsApi.DETAIL_LEVEL_HIGH);
 
                 out.println(finalHost.toString());
@@ -195,11 +198,14 @@ public class PsHostsServlet extends HttpServlet {
             }
             // commit transaction and close session
             session.getTransaction().commit();
-            session.close();
+
 
         } catch (Exception e) {
+            session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
+            e.printStackTrace();
         } finally {
+            session.close();
             out.close();
         }
 
@@ -219,13 +225,16 @@ public class PsHostsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try {
-            // first order of business is to open session
+        
+        // first order of business is to open session
             //boilerplate code to open session
             SessionFactory sessionFactory =
                     PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
             Session session = sessionFactory.openSession();
             session.beginTransaction();
+        
+        try {
+            
 
             // second order of business is to unpack parameters from url
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
@@ -327,11 +336,13 @@ public class PsHostsServlet extends HttpServlet {
 
             // commit transaction and close session
             session.getTransaction().commit();
-            session.close();
+            
         } catch (Exception e) {
+            session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
         } finally {
             out.close();
+            session.close();
         }
     }
 
@@ -349,13 +360,17 @@ public class PsHostsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try {
-            // first order of business is to open session
+        
+        // first order of business is to open session
             //boilerplate code to open session
             SessionFactory sessionFactory =
                     PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
             Session session = sessionFactory.openSession();
             session.beginTransaction();
+        
+        
+        try {
+            
 
             // second order of business is to unpack parameters from url
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
@@ -372,11 +387,13 @@ public class PsHostsServlet extends HttpServlet {
 
             // commit transaction and close session
             session.getTransaction().commit();
-            session.close();
+            
         } catch (Exception e) {
+             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
         } finally {
             out.close();
+            session.close();
         }
     }
 
