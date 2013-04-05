@@ -15,9 +15,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * object representing result of a ps service
  * @author tomw
  */
-@Cacheable
+//@Cacheable
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+//@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class PsServiceResult implements Serializable , Comparable{
     // field names in JSON
     public static final String ID="id";
