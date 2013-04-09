@@ -462,8 +462,8 @@ public class PsServiceFactory {
         parameters.put("url",url);
         
         parameters.put("timeRange","86400");
-        parameters.put("warningThreshold",".1");
-        parameters.put("criticalThreshold",".01");
+        parameters.put("warningThreshold",".1:");
+        parameters.put("criticalThreshold",".01:");
         
         service.setParameters(parameters);
         

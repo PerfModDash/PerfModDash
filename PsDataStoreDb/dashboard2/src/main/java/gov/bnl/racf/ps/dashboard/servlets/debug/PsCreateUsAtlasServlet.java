@@ -62,15 +62,18 @@ public class PsCreateUsAtlasServlet extends HttpServlet {
             out.println("<h1>Servlet createUsAtlas at " + request.getContextPath() + "</h1>");
             
             PsCloud usatlasCloud = PsObjectCreator.createNewCloud(session);
+            usatlasCloud.setName("USATLAS");
             PsMatrix latencyMatrix = PsObjectCreator.createNewMatrix(session, PsServiceType.LATENCY, "USATLAS Packet Loss");
             PsMatrix throughputMatrix = PsObjectCreator.createNewMatrix(session, PsServiceType.THROUGHPUT, "USATLAS Throughput Loss");
             usatlasCloud.addMatrix(latencyMatrix);
             usatlasCloud.addMatrix(throughputMatrix);
+            out.println("created USATLAS cloud...<BR>");
 
             // BNL site
             PsSite bnlSite = PsObjectCreator.createNewSite(session);
             bnlSite.setName("BNL");
             usatlasCloud.addSite(bnlSite);
+            out.println("created BNL site...<BR>");
             
             PsHost lhcmon = PsObjectCreator.createNewHost(session);
             lhcmon.setHostname("lhcmon.bnl.gov");
@@ -94,6 +97,8 @@ public class PsCreateUsAtlasServlet extends HttpServlet {
             PsSite aglt2 = PsObjectCreator.createNewSite(session);
             aglt2.setName("AGLT2");
             usatlasCloud.addSite(aglt2);
+            out.println("created AGLT2 site...<BR>");
+            
 
             //psmsu01.aglt2.org 192.41.236.31 latency
             PsHost psmsu01 = PsObjectCreator.createNewHost(session);
@@ -134,6 +139,7 @@ public class PsCreateUsAtlasServlet extends HttpServlet {
             PsSite mwt2 = PsObjectCreator.createNewSite(session);
             mwt2.setName("MWT2");
             usatlasCloud.addSite(mwt2);
+            out.println("created MWT2 site...<BR>");
 
             //iut2-net1.iu.edu 149.165.225.223 lat
             PsHost iut2net1 = PsObjectCreator.createNewHost(session);
@@ -190,6 +196,7 @@ public class PsCreateUsAtlasServlet extends HttpServlet {
             PsSite net2 =  PsObjectCreator.createNewSite(session);
             net2.setName("NET2");
             usatlasCloud.addSite(net2);
+            out.println("created NET2 site...<BR>");
             
             //atlas-npt1.bu.edu 192.5.207.251  lat 
             PsHost atlasnpt1 = PsObjectCreator.createNewHost(session);
@@ -213,6 +220,7 @@ public class PsCreateUsAtlasServlet extends HttpServlet {
             PsSite swt2 = PsObjectCreator.createNewSite(session);
             swt2.setName("SWT2");
             usatlasCloud.addSite(swt2);
+            out.println("created SWT2 site...<BR>");
             
             //ps1.ochep.ou.edu 129.15.40.231 lat
             PsHost ps1 = PsObjectCreator.createNewHost(session);
@@ -250,6 +258,7 @@ public class PsCreateUsAtlasServlet extends HttpServlet {
             PsSite wt2 = PsObjectCreator.createNewSite(session);
             wt2.setName("WT2");
             usatlasCloud.addSite(wt2);
+            out.println("created WT2 site...<BR>");
             
             //psnr-lat01.slac.stanford.edu 134.79.104.208   lat 
             PsHost psnrlat01 = PsObjectCreator.createNewHost(session);
@@ -269,10 +278,12 @@ public class PsCreateUsAtlasServlet extends HttpServlet {
 
             // commit transaction and close session
             session.getTransaction().commit();
+            out.println("changes committed...<BR>");
             
             out.println("</body>");
             out.println("</html>");
         } catch (Exception e) {
+            out.println("error occured, rollback...<BR>");
             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             Logger.getLogger(PsCreateUsAtlasServlet.class).error(e);
