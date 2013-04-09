@@ -3,6 +3,17 @@
  * and open the template in the editor.
  */
 
+function singleCellText(cell0Text){
+    var cell0 = document.createElement("td");    
+    var cell0textNode = document.createTextNode(cell0Text);
+    cell0.appendChild(cell0textNode);
+    return cell0;
+}
+
+function singleCelltext(cell0Text){
+    return singleCellText(cell0Text);
+}
+
 function singleCellRow(cell0Text){
     var row = document.createElement("tr");
     
@@ -146,6 +157,21 @@ function singleCellLinkStatus(cellText,cellUrl,cellStatus){
     cellLinkElement.setAttribute("href", cellUrl);
     //cell.style.borderColor=status2color(cellStatus);
     cell.appendChild(cellLinkElement);
+    return cell;
+}
+
+function singleStatusCell(cellStatus){
+    
+    var cell=document.createElement("td");
+    
+    var cellTextElement=document.createTextNode(status2PlainText(cellStatus));
+    
+    var bfNode = document.createElement("strong");
+    bfNode.appendChild(cellTextElement);
+    bfNode.style.color=status2color(cellStatus);
+    
+    cell.appendChild(bfNode);
+    
     return cell;
 }
 

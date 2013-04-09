@@ -102,9 +102,13 @@ function fullTableForService(objectJson){
         }       
     }
     
-    
-    
+    var historyRow = document.createElement("tr");
+    objectTblBody.appendChild(historyRow);
+    historyRow.appendChild(singleCelltext("History")); 
+    historyRow.appendChild(cellWithHistoryLinks(objectJson.id));
 }
+
+
 
 function getServices() {
    

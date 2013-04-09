@@ -51,6 +51,23 @@ function status2color(status){
     return color;
 }
 
+function status2PlainText(status){
+    var statusText="---";
+    if(status=="0"){
+        statusText="OK";
+    }
+    if(status=="1"){
+        statusText="WARN";
+    }
+    if(status=="2"){
+        statusText="ERR";
+    }
+    if(status=="3"){
+        statusText="UNKN";
+    }
+    return statusText;
+}
+
 function status2ShortText(status){
     var textObject=document.createElement("p");
     
