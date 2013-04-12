@@ -4,6 +4,7 @@
  */
 package gov.bnl.racf.ps.dashboard.db.data_objects;
 
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsServiceTypeFactory;
 import java.util.Collection;
 import java.util.Vector;
 import java.util.Iterator;
@@ -140,6 +141,7 @@ public class PsHost {
     public boolean containsService(PsService service) {
         return containsService(service.getId());
     }
+  
 
     /**
      * add service to a host
@@ -147,7 +149,9 @@ public class PsHost {
      * @param service
      */
     public void addService(PsService service) {
-        services.add(service);
+        if (!hasServiceType(service.getType())) {
+            services.add(service);
+        }
     }
 
     /**
@@ -191,9 +195,32 @@ public class PsHost {
                     if (currentTypeId.equals(type.getServiceTypeId())) {
                         return true;
                     }
-                }else{
+                } else {
                     Logger logger = Logger.getLogger(PsHost.class);
-                    logger.warn("service on host "+this.getId()+" has type null");
+                    logger.warn("service on host " + this.getId() + " has type null");
+                }
+            }
+        }
+        return false;
+    }
+    /**
+     * che3ck if host contains primitive service of serviceTypeId
+     * @param serviceTypeId
+     * @return 
+     */
+    public boolean hasServiceType(String serviceTypeId) {
+        Iterator<PsService> iter = serviceIterator();
+        while (iter.hasNext()) {
+            PsService currentService = (PsService) iter.next();
+            String currentTypeId = currentService.getType();
+            if (PsServiceTypeFactory.isKnownType(serviceTypeId)) {
+                if (currentTypeId != null) {
+                    if (currentTypeId.equals(serviceTypeId)) {
+                        return true;
+                    }
+                } else {
+                    Logger logger = Logger.getLogger(PsHost.class);
+                    logger.warn("service on host " + this.getId() + " has type null");
                 }
             }
         }
