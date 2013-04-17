@@ -56,14 +56,22 @@ public class PsPurgeDatastore extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet PsPurgeDatastore at " + request.getContextPath() + "</h1>");
             PsObjectShredder.deleteAllObjects(session);
+            
+             // commit transaction and close session
+            session.getTransaction().commit();
+            
             out.println("deleted!<BR>");
             out.println("</body>");
             out.println("</html>");
             
+            
+            
+            
         } catch (Exception e) {
             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
-            Logger.getLogger(PsDumpServlet.class).error(e);
+            Logger.getLogger(PsPurgeDatastore.class).error(e);
+            e.printStackTrace(out);
             out.println("Error occured in " + getClass().getName() + " plase check the logs " + e);
         } finally {
             out.close();

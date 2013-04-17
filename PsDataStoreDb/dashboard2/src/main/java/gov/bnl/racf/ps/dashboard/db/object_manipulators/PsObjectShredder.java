@@ -60,7 +60,7 @@ public class PsObjectShredder {
         query.setParameter("service_id", service_id);
         int result = query.executeUpdate();
     }
-    
+
     public static void deleteServiceResultsAssociatedWithService(Session session, PsService service) {
         Query query = session.createQuery("delete PsServiceResult where service_id = :service_id");
         int service_id = service.getId();
@@ -68,21 +68,29 @@ public class PsObjectShredder {
         int result = query.executeUpdate();
     }
 
+    public static void deleteRecentServiceResultsAssociatedWithService(Session session, PsService service) {
+        Query query = session.createQuery("delete PsRecentServiceResult where service_id = :service_id");
+        int service_id = service.getId();
+        query.setParameter("service_id", service_id);
+        int result = query.executeUpdate();
+    }
+
     public static void delete(Session session, PsService service) {
         //throw new UnsupportedOperationException("Not yet implemented");
-        
+
         //first order of business is to remove jobs associated with this service
         deleteJobsAssociatedWithService(session, service);
 
         //second order of business is to delete service results asociated with this service
         deleteServiceResultsAssociatedWithService(session, service);
-        
+
+        //third order of business is to delete service results asociated with this service
+        //deleteRecentServiceResultsAssociatedWithService(session, service);
+
         // last order of business is to delete the service itself
         session.delete(service);
     }
 
-    
-    
     public static void delete(Session session, PsSite site) {
         //throw new UnsupportedOperationException("Not yet implemented");
         //first order of business is to remove all hosts from the site
@@ -91,8 +99,8 @@ public class PsObjectShredder {
         // second remove this site from all clouds
         List listOfAllClouds = PsDataStore.getAllClouds(session);
         Iterator cloudIterator = listOfAllClouds.iterator();
-        while(cloudIterator.hasNext()){
-            PsCloud currentCloud = (PsCloud)cloudIterator.next();
+        while (cloudIterator.hasNext()) {
+            PsCloud currentCloud = (PsCloud) cloudIterator.next();
             PsCloudManipulator.removeSite(session, currentCloud, site);
         }
 
@@ -106,8 +114,8 @@ public class PsObjectShredder {
         //first  zero order of business is to remove this matrix from all clouds
         List listOfAllClouds = PsDataStore.getAllClouds(session);
         Iterator cloudIterator = listOfAllClouds.iterator();
-        while(cloudIterator.hasNext()){
-            PsCloud currentCloud = (PsCloud)cloudIterator.next();
+        while (cloudIterator.hasNext()) {
+            PsCloud currentCloud = (PsCloud) cloudIterator.next();
             PsCloudManipulator.removeMatrix(session, currentCloud, matrix);
         }
 
@@ -118,7 +126,7 @@ public class PsObjectShredder {
             PsHost hostToBeRemoved = (PsHost) iter.next();
             PsMatrixManipulator.removeHostFromMatrix(session, matrix, hostToBeRemoved);
         }
-        
+
         // last order of business is to remove the matrix itself
         session.delete(matrix);
     }
@@ -140,105 +148,151 @@ public class PsObjectShredder {
         query.setParameter("job_id", jobId);
         int result = query.executeUpdate();
     }
-    
+
     public static void deletePsJob(Session session, PsService service) {
         Query query = session.createQuery("delete PsJob where service_id = :service_id");
         query.setParameter("service_id", service.getId());
         int result = query.executeUpdate();
     }
-    
 
     public static void delete(Session session, PsServiceResult result) {
         if (result != null) {
             delete(session, result);
         }
     }
-    
+
     /**
      * delete all clouds
-     * @param session 
+     *
+     * @param session
      */
-    public static  void deleteAllClouds(Session session){
-        List<PsCloud> listOfAllClouds = PsDataStore.getAllClouds(session);
-        deleteListOfClouds(session, listOfAllClouds);
+    public static void deleteAllClouds(Session session) {
+        //List<PsCloud> listOfAllClouds = PsDataStore.getAllClouds(session);
+        //deleteListOfClouds(session, listOfAllClouds);
+
+        Query query = session.createQuery("delete PsCloud");
+        int result = query.executeUpdate();
+
     }
+
     /**
      * delete list of clouds
+     *
      * @param session
-     * @param listOfClouds 
+     * @param listOfClouds
      */
-    public static  void deleteListOfClouds(Session session,List<PsCloud> listOfClouds){
+    public static void deleteListOfClouds(Session session, List<PsCloud> listOfClouds) {
         Iterator iter = listOfClouds.iterator();
-        while(iter.hasNext()){
-            PsCloud currentCloud = (PsCloud)iter.next();
-            delete(session,currentCloud);
+        while (iter.hasNext()) {
+            PsCloud currentCloud = (PsCloud) iter.next();
+            delete(session, currentCloud);
         }
     }
+
     /**
      * delete all matrices
-     * @param session 
+     *
+     * @param session
      */
-    public static  void deleteAllMatrices(Session session){
-        List<PsMatrix> listOfAllMatrices = PsDataStore.getAllMatrices(session);
-        deleteListOfMatrices(session, listOfAllMatrices);
+    public static void deleteAllMatrices(Session session) {
+        //List<PsMatrix> listOfAllMatrices = PsDataStore.getAllMatrices(session);
+        //deleteListOfMatrices(session, listOfAllMatrices);
+
+        Query query = session.createQuery("delete PsMatrix");
+        int result = query.executeUpdate();
+
     }
-    
+
     /**
      * delete matrices from a list
+     *
      * @param session
-     * @param listOfMatrices 
+     * @param listOfMatrices
      */
-    public static  void deleteListOfMatrices(Session session,List<PsMatrix> listOfMatrices){
+    public static void deleteListOfMatrices(Session session, List<PsMatrix> listOfMatrices) {
         Iterator iter = listOfMatrices.iterator();
-        while(iter.hasNext()){
-            PsMatrix currentMatrix = (PsMatrix)iter.next();
-            delete(session,currentMatrix);
+        while (iter.hasNext()) {
+            PsMatrix currentMatrix = (PsMatrix) iter.next();
+            delete(session, currentMatrix);
         }
     }
-    public static  void deleteAllSites(Session session){
-        List<PsSite> listOfAllSites = PsDataStore.getAllSites(session);
-        deleteListOfSites(session, listOfAllSites);
+
+    public static void deleteAllSites(Session session) {
+        //List<PsSite> listOfAllSites = PsDataStore.getAllSites(session);
+        //deleteListOfSites(session, listOfAllSites);
+        Query query = session.createQuery("delete PsSite");
+        int result = query.executeUpdate();
     }
+
     /**
      * delete sites from specified list
+     *
      * @param session
-     * @param listOfSites 
+     * @param listOfSites
      */
-    public static  void deleteListOfSites(Session session,List<PsSite> listOfSites){
+    public static void deleteListOfSites(Session session, List<PsSite> listOfSites) {
         Iterator iter = listOfSites.iterator();
-        while(iter.hasNext()){
-            PsSite currentSite = (PsSite)iter.next();
-            delete(session,currentSite);
+        while (iter.hasNext()) {
+            PsSite currentSite = (PsSite) iter.next();
+            delete(session, currentSite);
         }
     }
+
     /**
      * delete all hosts
-     * @param session 
+     *
+     * @param session
      */
-    public static  void deleteAllHosts(Session session){
-        List<PsHost> listOfAllHosts = PsDataStore.getAllHosts(session);
-        deleteListOfHosts(session, listOfAllHosts);
+    public static void deleteAllHosts(Session session) {
+        //List<PsHost> listOfAllHosts = PsDataStore.getAllHosts(session);
+        //deleteListOfHosts(session, listOfAllHosts);
+
+        Query query = session.createQuery("delete PsHost");
+        int result = query.executeUpdate();
+
     }
+
+    public static void deleteAllServiceResults(Session session) {
+        Query query = session.createQuery("delete PsServiceResult");
+        int result = query.executeUpdate();
+    }
+    
+    public static void deleteAllRecentServiceResults(Session session) {
+        Query query = session.createQuery("delete PsRecentServiceResult");
+        int result = query.executeUpdate();
+    }
+    
+    public static void deleteAllServices(Session session) {
+        Query query = session.createQuery("delete PsService");
+        int result = query.executeUpdate();
+    }
+
     /**
      * delete hosts form the specified list
+     *
      * @param session
-     * @param listOfHosts 
+     * @param listOfHosts
      */
-    public static  void deleteListOfHosts(Session session,List<PsHost> listOfHosts){
+    public static void deleteListOfHosts(Session session, List<PsHost> listOfHosts) {
         Iterator iter = listOfHosts.iterator();
-        while(iter.hasNext()){
-            PsHost currentHost = (PsHost)iter.next();
-            delete(session,currentHost);
+        while (iter.hasNext()) {
+            PsHost currentHost = (PsHost) iter.next();
+            delete(session, currentHost);
         }
     }
+
     /**
      * delete all objects except service types
-     * @param session 
+     *
+     * @param session
      */
-    public static  void deleteAllObjects(Session session){
+    public static void deleteAllObjects(Session session) {
         deleteAllClouds(session);
         deleteAllMatrices(session);
         deleteAllSites(session);
         deleteAllHosts(session);
+        deleteAllServiceResults(session);
+        deleteAllRecentServiceResults(session);
+        deleteAllServices(session);
     }
 }
