@@ -7,17 +7,10 @@
 window.onload = init;
 
 function init() {
-    operation=getUrlParameterByName("operation");
+    
+    fillBodyHeader("Create or delete PerfSonar Hosts");
+    
    
-    if(operation=="delete"){
-        id = getUrlParameterByName("id");
-        if(id!=null){
-            deleteSelectedHostAndRefreshDisplay(id);
-        }
-    }
-    if(operation=="create"){
-        createNewHostAndRefreshDisplay();
-    }
     getListOfHosts();
 }
 
@@ -44,19 +37,19 @@ function deleteSelectedHostAndRefreshDisplay(id){
 }
 
 
-function createNewHostAndRefreshDisplay(){
-    var url = hostsUrl;
-    alert("url="+url);   
-    var request = new XMLHttpRequest();
-    request.open("POST", url);
-    request.onload = function() {
-        alert(request.responseText);
-        if (request.status == 200) {
-            getListOfHosts();
-        }
-    };
-    request.send(null);
-}
+//function createNewHostAndRefreshDisplay(){
+//    var url = hostsUrl;
+//    alert("url="+url);   
+//    var request = new XMLHttpRequest();
+//    request.open("POST", url);
+//    request.onload = function() {
+//        alert(request.responseText);
+//        if (request.status == 200) {
+//            getListOfHosts();
+//        }
+//    };
+//    request.send(null);
+//}
 
 
 function getListOfHosts() {
@@ -76,35 +69,22 @@ function processListOfHosts(responseText){
     sessionStorage.setItem('hosts',responseText);
   
     listOfHosts = JSON.parse(sessionStorage.getItem('hosts'));
-  
+    
+   
     displayHostsCrud(listOfHosts);
 } 
  
 function displayHostsCrudSortedUp(){
-  
-    listOfHosts=JSON.parse( sessionStorage.getItem('hosts'));
-    listOfHosts.sort(function(a, b)
-    {
-        nA=a.hostname;
-        nB=b.hostname;
-        return compareHostNames(nA,nB);
-
-    });
+    
+    sessionStorage.setItem('hostSortingOrder',"up");
+    
     displayHostsCrudTable(listOfHosts);
 } 
 
 function displayHostsCrudSortedDown(){
+      
+    sessionStorage.setItem('hostSortingOrder',"down");
     
-    listOfHosts=JSON.parse( sessionStorage.getItem('hosts'));
-    listOfHosts.sort(function(a, b)
-    {
-        nA=a.hostname;
-        nB=b.hostname;
-        
-        return compareHostNames(nA,nB);
-
-    });    
-    listOfHosts=invertJsonArray(listOfHosts);
     displayHostsCrudTable(listOfHosts);
 } 
  
@@ -119,22 +99,80 @@ function displayHostsCrudTable(objectList){
             objectsTableDiv.removeChild( objectsTableDiv.firstChild );       
         } 
     }
+
+    hostSortingOrder = sessionStorage.getItem('hostSortingOrder');
     
+    if(hostSortingOrder=="up"){
+        listOfHosts.sort(function(a, b)
+        {
+            nA=a.hostname;
+            nB=b.hostname;
+            return compareHostNames(nA,nB);
+
+        });
+    }
+    if(hostSortingOrder=="down"){
+        listOfHosts.sort(function(a, b)
+        {
+            nA=a.hostname;
+            nB=b.hostname;
+        
+            return compareHostNames(nA,nB);
+
+        }); 
+        listOfHosts=invertJsonArray(listOfHosts);
+    }
     
-    createNewHostButton = createNewHostForm();
-    objectsTableDiv.appendChild(createNewHostButton);
+
+
+    var objectsTable = listOfHostsCrudTable(listOfHosts);
     
-    
-    form = hostsCrudForm(objectList);
-    objectsTableDiv.appendChild(form);
+    objectsTableDiv.appendChild(objectsTable);
 }
 
 function displayHostsCrud(objectList){
-    
-    fillBodyHeader("Create or delete PerfSonar Hosts");
-    
-    
     displayHostsCrudTable(objectList);
+    
+    
             
 }
 
+function createNewHost(){
+    var url = hostsUrl;
+    alert("url="+url);   
+    var request = new XMLHttpRequest();
+    request.open("POST", url);
+    request.onload = function() {
+        alert(request.responseText);
+        if (request.status == 200) {
+            getListOfHosts();
+        }
+    };
+    request.send(null);
+}
+
+
+function deleteSelectedHost(){
+    
+    host={};
+    var hostIdField=document.getElementById("hostIdField");  
+    host.id=hostIdField.value;
+            
+    var request = new XMLHttpRequest();
+    url=hostsUrl+host.id;
+    
+    request.open("DELETE", url);
+    request.onload = function() {
+        if (request.status == 200) {
+            processDeleteHostResponse(request.responseText);
+        }else{
+            alert("Host delete failed");
+            alert(request.responseText);
+        }
+    };
+    request.send(null);
+}
+
+function processDeleteHostResponse(responseText){
+    getListOfHosts();
+}

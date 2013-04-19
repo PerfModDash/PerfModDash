@@ -47,3 +47,13 @@ function invertJsonArray(jsonArray){
     }
     return result;
 }
+
+function removeAllChildNodes(html5Element){
+    if ( html5Element.hasChildNodes() )
+    {
+        while ( html5Element.childNodes.length >= 1 )
+        {
+            html5Element.removeChild( html5Element.firstChild );       
+        } 
+    }
+}

@@ -38,7 +38,37 @@
                         <tr>
                             <td><button onclick="saveHostData()" type="button">Save</button></td><td><button onclick="cancelHostEdit()" type="button">Cancel</button></td>
                         </tr>
-                            
+
+                    </tbody>
+                </table>
+            </form>
+
+            <form>
+                <table id="objects">
+                    <tbody>
+                        <tr>
+                            <th><button onclick="addAllServices()" type="button">Add All Primitive Services</button></th>
+                            <th><button onclick="removeAllServices()" type="button">Remove All Primitive Services</button></th>
+                        </tr>
+                        <tr>
+                            <th><button onclick="addLatencyServices()" type="button">Add Latency Services</button></th>
+                            <th><button onclick="addThroughputServices()" type="button">Add Throughput Services</button></th>
+                        </tr>
+                        <tr>
+                            <th><button onclick="addSelectedServices()" type="button">Add Selected Services</button></th>
+                            <th><button onclick="removeSelectedServices()" type="button">Remove Selected Services</button></th>
+                        </tr>
+                        <tr>
+                            <th>Primitive Services on Host</th><th>Primitive Services Not On Host</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table id="servicesOnHostTable"></table>
+                            </td>
+                            <td>
+                                <table id="servicesNotOnHostTable"></table>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </form>

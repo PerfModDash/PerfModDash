@@ -19,10 +19,21 @@
         <script src="createDeleteHosts.js">  </script>  
 
         <div id="body">
-            <p id="bodyHeader"></p>            
+            <p id="bodyHeader"> </p>   
+            <form>
+            <table id="objects">
+                    <tbody>
+                        <tr><th></th><th></th></tr>
+                        
+                        <tr>
+                            <td><button onclick="createNewHost()" type="button">Create New Host</button></td><td><button onclick="deleteSelectedHost()" type="button">Delete Selected Host</button></td>
+                        </tr>
+                            
+                    </tbody>
+                </table>
 
             <p id="hostsTableDiv"></p>
-
+            </form>
         </div>
 
         <%@ include file="tail.html" %>

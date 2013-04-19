@@ -106,11 +106,6 @@ function listOfHostsCrudTable(objectList){
 
     var header0 = document.createElement("th");
     objectsTableHeaderRow.appendChild(header0);
-    submitButton= document.createElement("input");
-    submitButton.setAttribute("type", "submit");
-    //submitButton.setAttribute("name", "name");
-    submitButton.setAttribute("value", "Delete Selected Hosts");
-    header0.appendChild(submitButton);
             
     var header1 = document.createElement("th");        
     var header1text = document.createTextNode("Host Name");
@@ -144,22 +139,12 @@ function listOfHostsCrudTable(objectList){
         
         var radio = document.createElement("input"); 
         radio.setAttribute("type", "radio");
+        radio.setAttribute("id", "hostIdField");
         radio.setAttribute("name", "id");
         radio.setAttribute("value", object.id);
         cell0.appendChild(radio);
         
-        
-        objectName="---";
-        if (object.hostname!=null){
-            objectName=object.hostname;
-        }
-        
-        id=object.id;
-        var cell0Link = document.createElement("a");
-        cell0Link.setAttribute("href", urlToDisplayHosts+"?id="+id);
-        var cell0Text=document.createTextNode(objectName);  
-        cell0Link.appendChild(cell0Text);
-        cell0.appendChild(cell0Link);
+ 
         
         row.appendChild(cell0);
         
@@ -208,7 +193,7 @@ function hostsCrudForm(objectList){
 
 function createNewHostForm(){
     var form = document.createElement("form");
-    form.setAttribute("method","GET");   
+    form.setAttribute("method","POST");   
     form.setAttribute("action", urlToCrudHosts);
     
     var operation  = document.createElement("input"); 
@@ -255,4 +240,26 @@ function getEditHostTable(host){
     hostNameCell1 = document.createElement("td");
     
     return table;
+}
+function hostContainsServiceType(host,serviceType){
+    
+    result=0;
+    for (i=0;i<host.services.length;i=i+1){
+        
+        if(host.services[i].type==serviceType.id){
+            return 1;
+        }
+    }
+    return result;
+}
+
+function listOfPrimitiveServicesNotOnHost(host){
+    resultList = [];
+    for(j=0;j<listOfServiceTypes.length;j=j+1){
+        serviceType = listOfServiceTypes[j];
+        if(hostContainsServiceType(host,serviceType)==0){
+            resultList.push(serviceType)
+        }
+    }
+    return resultList;
 }

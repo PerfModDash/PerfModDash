@@ -30,6 +30,45 @@ function loadSelectedHost(id){
 function processHostData(hostData){
     host = JSON.parse(hostData);
     fillEditHostForm(host);
+    fillHostServicesForm(host);
+    
+}
+
+function fillHostServicesForm(host){
+    fillServicesOnHostForm(host);
+    fillServicesNotOnHostForm(host);
+}
+
+function fillServicesOnHostForm(host){
+    servicesOnHostTable = document.getElementById("servicesOnHostTable");
+    
+    removeAllChildNodes(servicesOnHostTable);
+    
+    for(i=0;i<host.services.length;i=i+1){
+        serviceType = host.services[i].type;
+        row = document.createElement("tr");
+        servicesOnHostTable.appendChild(row);
+        cell = document.createElement("td");
+        row.appendChild(cell);
+        cell.appendChild(document.createTextNode(serviceType));
+    }
+}
+
+function fillServicesNotOnHostForm(host){
+    listOfServices = listOfPrimitiveServicesNotOnHost(host);
+    
+    servicesNotOnHostTable = document.getElementById("servicesNotOnHostTable");
+    
+    removeAllChildNodes(servicesNotOnHostTable);
+    
+    for(i=0;i<listOfServices.length;i=i+1){
+        serviceType = listOfServices[i].id;
+        row = document.createElement("tr");
+        servicesNotOnHostTable.appendChild(row);
+        cell = document.createElement("td");
+        row.appendChild(cell);
+        cell.appendChild(document.createTextNode(serviceType));
+    }
 }
 
 function fillEditHostForm(host){
@@ -79,7 +118,7 @@ function saveHostData(){
     request.send(JSON.stringify(host));
 }
 function processSaveHostResponse(responseText){
-    //alert(responseText);
+//alert(responseText);
     
 }
 
@@ -88,6 +127,28 @@ function processSaveHostResponse(responseText){
 function cancelHostEdit(){    
     window.location=urlToCrudHosts;
 }
+
+function addAllServices(){
+    host={};
+    var hostIdField=document.getElementById("hostIdField");  
+    host.id=hostIdField.value;
+    
+    var url = hostsUrl+ host.id+ "/" + addAllServicesToHostCommand;
+    var request = new XMLHttpRequest();
+    request.open("PUT", url);
+    request.onload = function() {
+        //alert(request.responseText);
+        if (request.status == 200) {
+            processAddServicesToHostData(host.id, request.responseText);
+        }
+    };
+    request.send(null);
+        
+}
+function processAddServicesToHostData(hostId,responseText){
+    loadSelectedHost(hostId);
+}
+
 function myFunction(){
     var authorField=document.getElementById("authorField");                
     var author=authorField.value;
