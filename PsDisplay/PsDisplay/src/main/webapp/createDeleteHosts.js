@@ -3,15 +3,22 @@
  * and open the template in the editor.
  */
 
+
 window.onload = init;
 
 function init() {
-    id = getUrlParameterByName("id");
-    if(id==null){
-        getHosts();
-    }else{
-        getSelectedHost(id);
+    operation=getUrlParameterByName("operation");
+   
+    if(operation=="delete"){
+        id = getUrlParameterByName("id");
+        if(id!=null){
+            deleteSelectedHostAndRefreshDisplay(id);
+        }
     }
+    if(operation=="create"){
+        createNewHostAndRefreshDisplay();
+    }
+    getListOfHosts();
 }
 
 
@@ -21,71 +28,59 @@ function init() {
 // onload event handler instead of checking the onreadystatechange
 //
 
-function getSelectedHost(id){
+
+function deleteSelectedHostAndRefreshDisplay(id){
     var url = hostsUrl+id;
+    alert("url="+url);   
     var request = new XMLHttpRequest();
-    request.open("GET", url);
+    request.open("DELETE", url);
     request.onload = function() {
+        alert(request.responseText);
         if (request.status == 200) {
-            parseSelectedHostResult(request.responseText);
+            getListOfHosts();
         }
     };
     request.send(null);
-    
 }
 
 
-function parseSelectedHostResult(hostResult){
-    hostJson=JSON.parse(hostResult);
-    displaySelectedHost(hostJson);
-}
-
-function displaySelectedHost(hostJson){
-    
-    fillBodyHeader("Details for host "+hostJson.hostname);
-    
-    var id=hostJson.id
-    var objectsDiv =document.getElementById("hostsTableDiv");
-    
-    var hostTable =fullTableForHost(hostJson);
-    
-    objectsDiv.appendChild(hostTable);
-    
-    //  --- services running on this host --- //
-    objectsDiv.appendChild(h2header("Services running on this host"));
-    
-    listOfServices=hostJson.services;
-    
-    objectsDiv.appendChild(summaryTableForServicesOnHostList(listOfServices));
-    
-        
+function createNewHostAndRefreshDisplay(){
+    var url = hostsUrl;
+    alert("url="+url);   
+    var request = new XMLHttpRequest();
+    request.open("POST", url);
+    request.onload = function() {
+        alert(request.responseText);
+        if (request.status == 200) {
+            getListOfHosts();
+        }
+    };
+    request.send(null);
 }
 
 
-
-function getHosts() {
+function getListOfHosts() {
          
     var url = hostsUrl;
     var request = new XMLHttpRequest();
     request.open("GET", url);
     request.onload = function() {
         if (request.status == 200) {
-            processHosts(request.responseText);
+            processListOfHosts(request.responseText);
         }
     };
     request.send(null);
 }
  
-function processHosts(responseText){
-    //storeHostsInSessionStorage(responseText);
+function processListOfHosts(responseText){
     sessionStorage.setItem('hosts',responseText);
   
     listOfHosts = JSON.parse(sessionStorage.getItem('hosts'));
   
-    displayHosts(listOfHosts);
+    displayHostsCrud(listOfHosts);
 } 
  
-function displayHostsSortedUp(){
+function displayHostsCrudSortedUp(){
   
     listOfHosts=JSON.parse( sessionStorage.getItem('hosts'));
     listOfHosts.sort(function(a, b)
@@ -95,10 +90,10 @@ function displayHostsSortedUp(){
         return compareHostNames(nA,nB);
 
     });
-    displayHostsTable(listOfHosts);
+    displayHostsCrudTable(listOfHosts);
 } 
 
-function displayHostsSortedDown(){
+function displayHostsCrudSortedDown(){
     
     listOfHosts=JSON.parse( sessionStorage.getItem('hosts'));
     listOfHosts.sort(function(a, b)
@@ -110,16 +105,13 @@ function displayHostsSortedDown(){
 
     });    
     listOfHosts=invertJsonArray(listOfHosts);
-    displayHostsTable(listOfHosts);
+    displayHostsCrudTable(listOfHosts);
 } 
  
 
-function displayHostsTable(objectList){
-    var objectsTable = listOfHostsTable(objectList);
-               
+function displayHostsCrudTable(objectList){
     var objectsTableDiv = document.getElementById("hostsTableDiv");
-   
-
+    // clear content of the division
     if ( objectsTableDiv.hasChildNodes() )
     {
         while ( objectsTableDiv.childNodes.length >= 1 )
@@ -128,14 +120,21 @@ function displayHostsTable(objectList){
         } 
     }
     
-    objectsTableDiv.appendChild(objectsTable);
+    
+    createNewHostButton = createNewHostForm();
+    objectsTableDiv.appendChild(createNewHostButton);
+    
+    
+    form = hostsCrudForm(objectList);
+    objectsTableDiv.appendChild(form);
 }
 
-function displayHosts(objectList){
+function displayHostsCrud(objectList){
     
-    fillBodyHeader("Known PerfSonar Hosts");
+    fillBodyHeader("Create or delete PerfSonar Hosts");
     
-    displayHostsTable(objectList);
+    
+    displayHostsCrudTable(objectList);
             
 }
 

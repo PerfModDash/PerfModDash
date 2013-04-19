@@ -9,6 +9,7 @@
     <script src="jsutils/getUrlParameterByName.js"> </script>
     <script src="jsutils/htmlutils.js"> </script>
     <script src="jsutils/htmlTableUtils.js"> </script>
+    <script src="jsutils/jsUtils.js"> </script>
     
     <script src="servicesUtils/servicesUtils.js"> </script>
     <script src="servicesUtils/historyUtils.js"> </script>
@@ -18,8 +19,10 @@
     <script src="cloudsUtils/cloudsUtils.js"> </script>
     
     <script>
-        //var baseUrl="http://localhost:8084/PsDisplay/"; 
-        var baseUrl="http://perfsonar.racf.bnl.gov:8080/PsDisplay-1.0-SNAPSHOT/"; 
+        var baseUrl="http://localhost:8084/PsDisplay/"; 
+        //var baseUrl="http://perfsonar.racf.bnl.gov:8080/PsDisplay-1.0-SNAPSHOT/"; 
+        
+        var deleteHostServletUrl="deleteHost/";
         
         var urlToDisplayHosts = "hosts.jsp";
         var urlToDisplayServices = "services.jsp";
@@ -27,9 +30,12 @@
         var urlToDisplayMatrices="matrices.jsp";
         var urlToDisplayClouds="clouds.jsp";
         var urlToDisplayHistory="history.jsp";
+        
+        var urlToCrudHosts = "createdeletehosts.jsp";
+        var urlToEditHost = "edithost.jsp";
             
-        //var datastoreUrl="http://localhost:8084/dashboard2/";
-        var datastoreUrl="http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/";
+        var datastoreUrl="http://localhost:8084/dashboard2/";
+        //var datastoreUrl="http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/";
         var servicesUrl    = datastoreUrl+"services/";
         var hostsUrl    = datastoreUrl+"hosts/";
         var sitesUrl    = datastoreUrl+"sites/";

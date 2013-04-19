@@ -3,6 +3,10 @@
  * and open the template in the editor.
  */
 
+function testHost(){
+    alert("hello hosts");
+   
+}
 
 function fullTableOfSite(siteJson){
     
@@ -10,6 +14,7 @@ function fullTableOfSite(siteJson){
 
 
 function summaryTableForSitesList(listOfSitesJson){
+   
     var tableObject = document.createElement("table");
     tableObject.setAttribute("id", "objects");
     var tableBody = document.createElement("tbody");

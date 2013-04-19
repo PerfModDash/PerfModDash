@@ -82,7 +82,8 @@ function displaySelectedSite(responseText){
  
 
 function displaySites(responseText){
-    
+                  
+           
     fillBodyHeader("Known PerfSonar Sites");
     
     var listOfSites = JSON.parse(responseText);
