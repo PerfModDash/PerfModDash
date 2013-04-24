@@ -122,8 +122,6 @@ function displayHostsCrudTable(objectList){
         }); 
         listOfHosts=invertJsonArray(listOfHosts);
     }
-    
-
 
     var objectsTable = listOfHostsCrudTable(listOfHosts);
     
@@ -132,9 +130,6 @@ function displayHostsCrudTable(objectList){
 
 function displayHostsCrud(objectList){
     displayHostsCrudTable(objectList);
-    
-    
-            
 }
 
 function createNewHost(){
@@ -155,8 +150,15 @@ function createNewHost(){
 function deleteSelectedHost(){
     
     host={};
-    var hostIdField=document.getElementById("hostIdField");  
-    host.id=hostIdField.value;
+    
+    listOfRadioButtons = document.getElementsByName("id");
+    for(i=0;i<listOfRadioButtons.length;i=i+1){
+        currentButton = listOfRadioButtons[i];
+        if(currentButton.checked){
+            host.id=currentButton.value;
+            break;
+        }
+    }
             
     var request = new XMLHttpRequest();
     url=hostsUrl+host.id;

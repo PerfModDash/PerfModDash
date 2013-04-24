@@ -8,7 +8,7 @@ window.onload = init;
 
 function init() {
     id = getUrlParameterByName("id");
-    //alert("id="+id);
+    
     if(id!=null){
         loadSelectedHost(id);
     }
@@ -19,7 +19,6 @@ function loadSelectedHost(id){
     var request = new XMLHttpRequest();
     request.open("GET", url);
     request.onload = function() {
-        //alert(request.responseText);
         if (request.status == 200) {
             processHostData(request.responseText);
         }
@@ -48,14 +47,24 @@ function fillServicesOnHostForm(host){
         serviceType = host.services[i].type;
         row = document.createElement("tr");
         servicesOnHostTable.appendChild(row);
-        cell = document.createElement("td");
-        row.appendChild(cell);
-        cell.appendChild(document.createTextNode(serviceType));
+        
+        cell0 = document.createElement("td");
+        radio = document.createElement("input"); 
+        radio.setAttribute("type", "radio");
+        radio.setAttribute("id", "serviceTypeToRemoveField");
+        radio.setAttribute("name", "serviceTypeToRemoveField");
+        radio.setAttribute("value", serviceType);
+        cell0.appendChild(radio);
+        row.appendChild(cell0);
+        
+        cell0.appendChild(document.createTextNode(serviceType));
     }
 }
 
 function fillServicesNotOnHostForm(host){
+    
     listOfServices = listOfPrimitiveServicesNotOnHost(host);
+   
     
     servicesNotOnHostTable = document.getElementById("servicesNotOnHostTable");
     
@@ -65,14 +74,24 @@ function fillServicesNotOnHostForm(host){
         serviceType = listOfServices[i].id;
         row = document.createElement("tr");
         servicesNotOnHostTable.appendChild(row);
-        cell = document.createElement("td");
-        row.appendChild(cell);
-        cell.appendChild(document.createTextNode(serviceType));
+        
+        cell0 = document.createElement("td");
+        radio = document.createElement("input"); 
+        radio.setAttribute("type", "radio");
+        radio.setAttribute("id", "serviceTypeToAddField");
+        radio.setAttribute("name", "serviceTypeToAddField");
+        radio.setAttribute("value", serviceType);
+                       
+        
+        cell0.appendChild(radio);
+        row.appendChild(cell0);
+        
+        cell0.appendChild(document.createTextNode(serviceType));
     }
 }
 
 function fillEditHostForm(host){
-    fillBodyHeader("Edit Host");
+    
     
     hostnameField=document.getElementById("hostnameField");
     hostnameField.setAttribute("value", host.hostname);
@@ -145,6 +164,129 @@ function addAllServices(){
     request.send(null);
         
 }
+
+
+function addSelectedServices(){
+    host={};
+    var hostIdField=document.getElementById("hostIdField");  
+    host.id=hostIdField.value;
+    
+    var url = hostsUrl+ host.id+ "/" + addSelectedServiceTypeCommand;
+    var request = new XMLHttpRequest();
+    request.open("PUT", url);
+    request.onload = function() {
+        if (request.status == 200) {
+            processAddSelectedServicesToHostData(host.id, request.responseText);
+        }
+    };
+    
+    listOfServiceTypesToBeAdded = [];
+    listOfRadioButtons = document.getElementsByName("serviceTypeToAddField");
+    for(i=0;i<listOfRadioButtons.length;i=i+1){
+        currentButton = listOfRadioButtons[i];
+        if(currentButton.checked){
+            listOfServiceTypesToBeAdded.push(currentButton.value);
+        }
+    }
+    
+    request.send(JSON.stringify(listOfServiceTypesToBeAdded));
+}
+
+
+function removeSelectedServices(){
+    host={};
+    var hostIdField=document.getElementById("hostIdField");  
+    host.id=hostIdField.value;
+    
+    var url = hostsUrl+ host.id+ "/" + removeSelectedServiceTypeCommand;
+    var request = new XMLHttpRequest();
+    request.open("PUT", url);
+    request.onload = function() {
+        if (request.status == 200) {
+            processRemoveSelectedServicesToHostData(host.id, request.responseText);
+        }
+    };
+    
+    listOfServiceTypesToBeRemoved = [];
+    listOfRadioButtons = document.getElementsByName("serviceTypeToRemoveField");
+    for(i=0;i<listOfRadioButtons.length;i=i+1){
+        currentButton = listOfRadioButtons[i];
+        if(currentButton.checked){
+            listOfServiceTypesToBeRemoved.push(currentButton.value);
+        }
+    }
+    
+    request.send(JSON.stringify(listOfServiceTypesToBeRemoved));
+}
+
+function addThroughputServices(){
+    host={};
+    var hostIdField=document.getElementById("hostIdField");  
+    host.id=hostIdField.value;
+    
+    var url = hostsUrl+ host.id+ "/" + addThroughputServicesToHostCommand;
+    var request = new XMLHttpRequest();
+    request.open("PUT", url);
+    request.onload = function() {
+        if (request.status == 200) {
+            processAddThroughputServicesToHostData(host.id, request.responseText);
+        }
+    };
+    request.send(null);
+}
+function addLatencyServices(){
+    host={};
+    var hostIdField=document.getElementById("hostIdField");  
+    host.id=hostIdField.value;
+    
+    var url = hostsUrl+ host.id+ "/" + addLatencyServicesToHostCommand;
+    var request = new XMLHttpRequest();
+    request.open("PUT", url);
+    request.onload = function() {
+        //alert(request.responseText);
+        if (request.status == 200) {
+            processAddLatencyServicesToHostData(host.id, request.responseText);
+        }
+    };
+    request.send(null);
+}
+
+function removeAllServices(){
+     host={};
+    var hostIdField=document.getElementById("hostIdField");  
+    host.id=hostIdField.value;
+    
+    var url = hostsUrl+ host.id+ "/" + removeAllServicesFromHostCommand;
+    var request = new XMLHttpRequest();
+    request.open("PUT", url);
+    request.onload = function() {
+        //alert(request.responseText);
+        if (request.status == 200) {
+            processRemoveServicesFromHostData(host.id, request.responseText);
+        }
+    };
+    request.send(null);
+        
+}
+
+function processRemoveSelectedServicesToHostData(hostId,responseText){
+  
+    loadSelectedHost(hostId);
+}
+function processAddSelectedServicesToHostData(hostId,responseText){
+    loadSelectedHost(hostId);
+}
+function processAddThroughputServicesToHostData(hostId,responseText){
+    loadSelectedHost(hostId);
+}
+function processAddLatencyServicesToHostData(hostId,responseText){
+    loadSelectedHost(hostId);
+}
+
+function processRemoveServicesFromHostData(hostId,responseText){
+    loadSelectedHost(hostId);
+}
+
 function processAddServicesToHostData(hostId,responseText){
     loadSelectedHost(hostId);
 }

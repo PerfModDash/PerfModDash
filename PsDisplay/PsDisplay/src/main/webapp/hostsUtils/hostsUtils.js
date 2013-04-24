@@ -254,12 +254,31 @@ function hostContainsServiceType(host,serviceType){
 }
 
 function listOfPrimitiveServicesNotOnHost(host){
+    
     resultList = [];
+    listOfIds=[];
     for(j=0;j<listOfServiceTypes.length;j=j+1){
         serviceType = listOfServiceTypes[j];
-        if(hostContainsServiceType(host,serviceType)==0){
-            resultList.push(serviceType)
+        if(serviceIsPrimitive(serviceType)){
+            if(hostContainsServiceType(host,serviceType)==0){
+                resultList.push(serviceType)
+                listOfIds.push(serviceType.id);
+            }
         }
     }
+    
     return resultList;
+}
+
+function linkToEditHostPage(host){
+    link=document.createElement("a");
+    link.setAttribute("href",urlToEditHost+"?id="+host.id);
+    link.appendChild(document.createTextNode(host.hostname));
+    return link;
+}
+function linkToDisplayHostPage(host){
+    link=document.createElement("a");
+    link.setAttribute("href",urlToDisplayHosts+"?id="+host.id);
+    link.appendChild(document.createTextNode(host.hostname));
+    return link;
 }

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.net.InetAddress;" %>
 <!DOCTYPE html>
 <html>
     <%@ include file="header.html" %>
@@ -19,6 +20,7 @@
         <script src="edithost.js">  </script>  
 
         <div id="body">
+            <H1>Edit Host </H1>
             <p id="bodyHeader"></p>            
 
             <form id="editHostForm">

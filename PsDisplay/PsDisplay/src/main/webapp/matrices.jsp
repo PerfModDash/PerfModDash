@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.net.InetAddress;" %>
 <!DOCTYPE html>
 <html>
     <%@ include file="header.html" %>

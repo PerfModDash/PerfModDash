@@ -1,6 +1,6 @@
 <%-- 
-    Document   : createdeletehosts
-    Created on : Apr 12, 2013, 1:04:05 PM
+    Document   : createdeletesites
+    Created on : Apr 23, 2013, 2:08:44 PM
     Author     : tomw
 --%>
 
@@ -17,7 +17,7 @@
 
         <%@ include file="topNav.html" %>
 
-        <script src="createDeleteHosts.js">  </script>  
+        <script src="createDeleteSites.js">  </script>  
 
         <div id="body">
             <p id="bodyHeader"> </p>   
@@ -27,13 +27,13 @@
                         <tr><th></th><th></th></tr>
                         
                         <tr>
-                            <td><button onclick="createNewHost()" type="button">Create New Host</button></td><td><button onclick="deleteSelectedHost()" type="button">Delete Selected Host</button></td>
+                            <td><button onclick="createNewSite()" type="button">Create New Site</button></td><td><button onclick="deleteSelectedSite()" type="button">Delete Selected Site</button></td>
                         </tr>
                             
                     </tbody>
                 </table>
 
-            <p id="hostsTableDiv"></p>
+            <p id="sitesTableDiv"></p>
             </form>
         </div>
 

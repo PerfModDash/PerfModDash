@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.net.InetAddress;" %>
 <!DOCTYPE html>
 <html>
    <%@ include file="header.html" %>
@@ -27,6 +28,7 @@
             
             The time is now <%= new java.util.Date()%>
            
+            The local ip is <%= InetAddress.getLocalHost().getHostAddress() %>
 
         </div>
 

@@ -5,12 +5,12 @@
     <link rel="stylesheet" type="text/css" href="css/dashboard.css" />
 
     <link rel="stylesheet" type="text/css" href="css/listOfObjectsTable.css">
-    
+
     <script src="jsutils/getUrlParameterByName.js"> </script>
     <script src="jsutils/htmlutils.js"> </script>
     <script src="jsutils/htmlTableUtils.js"> </script>
     <script src="jsutils/jsUtils.js"> </script>
-    
+
     <script src="servicesUtils/serviceTypes.js"> </script>
     <script src="servicesUtils/servicesUtils.js"> </script>
     <script src="servicesUtils/historyUtils.js"> </script>
@@ -18,10 +18,16 @@
     <script src="sitesUtils/sitesUtils.js"> </script>
     <script src="matrixUtils/matrixUtils.js"> </script>
     <script src="cloudsUtils/cloudsUtils.js"> </script>
-    
+
     <script>
-        var baseUrl="http://localhost:8084/PsDisplay/"; 
-        //var baseUrl="http://perfsonar.racf.bnl.gov:8080/PsDisplay-1.0-SNAPSHOT/"; 
+        //var baseUrl="http://localhost:8084/PsDisplay/"; 
+        //var datastoreUrl="http://localhost:8084/dashboard2/";
+        
+        var baseUrl="http://perfsonar.racf.bnl.gov:8080/PsDisplay-1.0-SNAPSHOT/"; 
+        var datastoreUrl="http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/";
+    </script>
+    <script>
+        
         
         var deleteHostServletUrl="deleteHost/";
         
@@ -33,10 +39,13 @@
         var urlToDisplayHistory="history.jsp";
         
         var urlToCrudHosts = "createdeletehosts.jsp";
+        var urlToCrudSites = "createdeletesites.jsp";
         var urlToEditHost = "edithost.jsp";
+        var urlToEditSite = "editsite.jsp";
             
-        var datastoreUrl="http://localhost:8084/dashboard2/";
+        //var datastoreUrl="http://localhost:8084/dashboard2/";
         //var datastoreUrl="http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/";
+        
         var servicesUrl    = datastoreUrl+"services/";
         var hostsUrl    = datastoreUrl+"hosts/";
         var sitesUrl    = datastoreUrl+"sites/";
@@ -44,6 +53,12 @@
         var cloudsUrl   = datastoreUrl+"clouds/";
         
         var addAllServicesToHostCommand = "addallservices";
-        
+        var removeAllServicesFromHostCommand = "removeallservices";
+        var addLatencyServicesToHostCommand = "addlatencyservices";
+        var addThroughputServicesToHostCommand="addthroughputservices";
+        var addSelectedServiceTypeCommand = "addservicetype";
+        var removeSelectedServiceTypeCommand = "removeservicetype";
+        var addSelectedHostsToSiteCommand="addhostids";
+        var removeSelectedHostsFromSiteCommand="removehostids";
     </script>
 </head>
