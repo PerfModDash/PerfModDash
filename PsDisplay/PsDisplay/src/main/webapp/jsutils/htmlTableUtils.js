@@ -127,6 +127,9 @@ function twoCellLinkStatusRow(cell0Text,cell0url,status){
     return row;
 }
 
+
+
+
 function singleCellLink(cellText,cellUrl){
     var cell=document.createElement("td");
     var cellTextElement=document.createTextNode(cellText);
