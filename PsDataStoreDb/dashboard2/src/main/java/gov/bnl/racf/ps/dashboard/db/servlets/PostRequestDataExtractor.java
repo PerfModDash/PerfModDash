@@ -14,6 +14,7 @@ import org.json.simple.parser.JSONParser;
 
 /**
  * Extract data of a POST request, convert them to JSON or JSONArray
+ *
  * @author tomw
  */
 public class PostRequestDataExtractor {
@@ -35,7 +36,12 @@ public class PostRequestDataExtractor {
         try {
             JSONParser parser = new JSONParser();
 
-            jsonObject = (JSONObject) parser.parse(jb);
+            if (jb != "") {
+                jsonObject = (JSONObject) parser.parse(jb);
+            } else {
+                jsonObject = new JSONObject();
+                jsonObject.put("hostname", "AAAAA New Host");
+            }
 
         } catch (Exception e) {
             // crash and burn

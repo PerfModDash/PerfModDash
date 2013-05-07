@@ -225,16 +225,16 @@ public class PsHostsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
         // first order of business is to open session
-            //boilerplate code to open session
-            SessionFactory sessionFactory =
-                    PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
-            Session session = sessionFactory.openSession();
-            session.beginTransaction();
-        
+        //boilerplate code to open session
+        SessionFactory sessionFactory =
+                PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
         try {
-            
+
 
             // second order of business is to unpack parameters from url
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
@@ -336,7 +336,7 @@ public class PsHostsServlet extends HttpServlet {
 
             // commit transaction and close session
             session.getTransaction().commit();
-            
+
         } catch (Exception e) {
             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
@@ -360,17 +360,17 @@ public class PsHostsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
         // first order of business is to open session
-            //boilerplate code to open session
-            SessionFactory sessionFactory =
-                    PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
-            Session session = sessionFactory.openSession();
-            session.beginTransaction();
-        
-        
+        //boilerplate code to open session
+        SessionFactory sessionFactory =
+                PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+
         try {
-            
+
 
             // second order of business is to unpack parameters from url
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
@@ -387,9 +387,9 @@ public class PsHostsServlet extends HttpServlet {
 
             // commit transaction and close session
             session.getTransaction().commit();
-            
+
         } catch (Exception e) {
-             session.getTransaction().rollback();
+            session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
         } finally {
             out.close();

@@ -168,8 +168,9 @@ public class PsObjectUpdater {
         
         if (jsonHasValidId) {
             int hostId = host.getId();
-            Long hostIdAsLong = (Long) json.get(PsHost.ID);
-            int hostIdInJson  = hostIdAsLong.intValue();
+            String hostIdAsString = (String) json.get(PsHost.ID);
+           
+            int hostIdInJson  = Integer.parseInt(hostIdAsString);
             if (hostId != hostIdInJson) {
                 System.out.println("ERROR: host id and json id do not match");
                 idTestPassed=false;

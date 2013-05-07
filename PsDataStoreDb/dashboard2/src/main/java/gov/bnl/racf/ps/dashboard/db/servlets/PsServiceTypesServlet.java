@@ -6,8 +6,8 @@ package gov.bnl.racf.ps.dashboard.db.servlets;
 
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceType;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
-import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsServiceTypeFactory;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
+import gov.bnl.racf.ps.dashboard.servlets.debug.PsDumpServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -17,16 +17,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
  *
  * @author tomw
  */
-public class InitServiceTypes extends HttpServlet {
+public class PsServiceTypesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -42,62 +44,20 @@ public class InitServiceTypes extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
-        // first order of business is to open session
-        //boilerplate code to open session
-        SessionFactory sessionFactory =
-                PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
         try {
-
-
             /*
              * TODO output your page here. You may use following sample code.
              */
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet InitServiceTypes</title>");
+            out.println("<title>Servlet PsServiceTypesServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet InitServiceTypes at " + request.getContextPath() + "</h1>");
-
-            List<String> listOfServiceTypeIds = PsServiceTypeFactory.listOfServiceTypes();
-            Iterator<String> iter = listOfServiceTypeIds.iterator();
-            while (iter.hasNext()) {
-                String serviceTypeId = (String) iter.next();
-                out.println(serviceTypeId + " ");
-                Query query = session.createQuery("from PsServiceType where serviceTypeId = :code ");
-                query.setParameter("code", serviceTypeId);
-                List list = query.list();
-                if (list.isEmpty()) {
-                    out.println("missing<BR>");
-                    PsServiceType type = PsServiceTypeFactory.createType(serviceTypeId);
-                    session.save(type);
-                    out.println("saved<BR>");
-                    //JSONObject json = JsonConverter.toJson(type);
-                    //out.println(json.toString()+"<BR>");
-                } else {
-                    out.println("exists<BR>");
-                }
-            }
-
-
-
+            out.println("<h1>Servlet PsServiceTypesServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-
-
-            // commit transaction and close session
-            session.getTransaction().commit();
-
-
-        } catch (Exception e) {
-            System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
-        } finally {
+        } finally {            
             out.close();
-            session.close();
         }
     }
 
@@ -114,7 +74,41 @@ public class InitServiceTypes extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
+        //boilerplate code to open session
+        SessionFactory sessionFactory =
+                PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        
+        try {
+            
+            JSONArray listOfServiceTypes = new JSONArray();
+            
+            String hql1 = "FROM PsServiceType";
+            Query query1 = session.createQuery(hql1);
+            List results1 = query1.list();
+            Iterator iter1 = results1.iterator();
+            while (iter1.hasNext()) {
+                PsServiceType serviceType = (PsServiceType) iter1.next();
+                JSONObject json = JsonConverter.toJson(serviceType);
+                listOfServiceTypes.add(json);
+            }
+            out.println(listOfServiceTypes.toString());
+            
+        }catch (Exception e) {
+            session.getTransaction().rollback();
+            System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
+            Logger.getLogger(PsServiceTypesServlet.class).error(e);
+            out.println("Error occured in " + getClass().getName() + " plase check the logs " + e);
+           
+        } finally {            
+            out.close();
+            session.close();
+        }
     }
 
     /**

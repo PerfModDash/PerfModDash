@@ -191,10 +191,11 @@ public class PsServicesServlet extends HttpServlet {
 
 
         } catch (Exception e) {
+            session.getTransaction().rollback();
             Logger.getLogger(PsServicesServlet.class).error("error occured: " + e);
             System.out.println(new Date() + " " + getClass().getName() + " error occured " + e);
             e.printStackTrace(out);
-            session.getTransaction().rollback();
+            
         } finally {
             session.close();
             out.close();

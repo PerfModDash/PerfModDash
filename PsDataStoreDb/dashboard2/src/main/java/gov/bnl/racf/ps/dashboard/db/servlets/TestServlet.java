@@ -46,6 +46,11 @@ public class TestServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        SessionFactory sessionFactory =
+                PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
         try {
             /*
              * TODO output your page here. You may use following sample code.
@@ -56,57 +61,59 @@ public class TestServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
-            
-            SessionFactory sessionFactory =
-                    PsSessionFactoryStore.getSessionFactoryStore().getSessionFactory();            
-            
-            Session session = sessionFactory.openSession();
-            session.beginTransaction();
-            
+
+
+
             out.println("Session opened");
-            
-            PsHost host = new PsHost();            
-            
+
+            PsHost host = new PsHost();
+
             out.println("new host created");
-            
+
             PsService service = new PsService();
             session.save(service);
             service.setName("service " + service.getId());
             service.setPrevCheckTime(new Date());
-            
+
             PsServiceResult serviceResult = new PsServiceResult();
             session.save(serviceResult);
-            serviceResult.setMessage("result of service "+service.getId());
-            PsRecentServiceResult recentResult = PsServiceResult2RecentServiceResult.copy(session,serviceResult);
+            serviceResult.setMessage("result of service " + service.getId());
+            PsRecentServiceResult recentResult = PsServiceResult2RecentServiceResult.copy(session, serviceResult);
             service.setResult(recentResult);
-            
+
             session.save(host);
-            
+
             out.println("new host saved");
-            
+
             host.setHostname("host " + host.getId());
-            
+
             out.println(host.toString());
-            
+
             PsHost host1 = (PsHost) session.get(PsHost.class, 1);
             host1.addService(service);
-            
-            
+
+
             session.getTransaction().commit();
-            session.close();
-            
+
+
             out.println("after session closed");
-            
+
             out.println(host.toString());
-            
+
             out.println("</body>");
             out.println("</html>");
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
+            org.apache.log4j.Logger.getLogger(TestServlet.class).error(e);
+            out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
         } finally {
+            session.close();
             out.close();
         }
     }
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.

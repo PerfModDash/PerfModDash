@@ -24,6 +24,10 @@
         <servlet-name>PsPurgeDatastore</servlet-name>
         <servlet-class>gov.bnl.racf.ps.dashboard.servlets.debug.PsPurgeDatastore</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PsServiceTypesServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsServiceTypesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PsDumpServlet</servlet-name>
         <url-pattern>/dump</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>PsPurgeDatastore</servlet-name>
         <url-pattern>/deleteAll</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PsServiceTypesServlet</servlet-name>
+        <url-pattern>/servicetypes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
