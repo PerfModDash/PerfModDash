@@ -28,6 +28,10 @@
         <servlet-name>PsServiceTypesServlet</servlet-name>
         <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsServiceTypesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PsMeshConfigServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.meshconfig.PsMeshConfigServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PsDumpServlet</servlet-name>
         <url-pattern>/dump</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>PsServiceTypesServlet</servlet-name>
         <url-pattern>/servicetypes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PsMeshConfigServlet</servlet-name>
+        <url-pattern>/meshconfig</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

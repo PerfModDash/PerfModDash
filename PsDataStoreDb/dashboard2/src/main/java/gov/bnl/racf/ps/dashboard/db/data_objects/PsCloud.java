@@ -118,6 +118,9 @@ public class PsCloud {
         }
         return result;
     }
+    public boolean containsSite(PsSite site){
+        return containsSiteId(site.getId());
+    }
     /**
      * check if current cloud contains matrix given by matrixId
      * @param matrixId

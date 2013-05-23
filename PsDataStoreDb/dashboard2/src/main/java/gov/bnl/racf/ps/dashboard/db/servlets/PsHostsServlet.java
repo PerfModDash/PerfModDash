@@ -177,7 +177,7 @@ public class PsHostsServlet extends HttpServlet {
             //boilerplate code to open session
 
 
-            // parse data part of the code
+            // parse data part of the codeJSONObject 
             JSONObject jsonObject = PostRequestDataExtractor.extractJson(request);
 
             if (jsonObject != null) {

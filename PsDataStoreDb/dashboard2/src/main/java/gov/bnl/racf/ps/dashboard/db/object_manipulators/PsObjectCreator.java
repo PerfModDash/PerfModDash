@@ -45,6 +45,13 @@ public class PsObjectCreator {
         return cloud;
     }
     
+    public static PsCloud createNewCloudWithGivenName(Session session, String name){
+        PsCloud cloud = createNewCloud(session);
+        cloud.setName(name);
+        session.save(cloud);
+        return cloud;
+    }
+    
     public static PsJob createNewJob(Session session){
         PsJob job = new PsJob();
         // Unlike other objects, we do not save the job in session.
@@ -77,6 +84,19 @@ public class PsObjectCreator {
         PsSite site = new PsSite();
         session.save(site);
         return site;
+    }
+
+    public static PsSite createNewSiteWithGivenName(Session session, String siteName) {
+        //throw new UnsupportedOperationException("Not yet implemented");
+        PsSite site = createNewSite(session);
+        site.setName(siteName);
+        return site;
+    }
+
+    public static PsHost createNewHostWithGivenName(Session session, String hostName) {
+        PsHost host = createNewHost(session);
+        host.setHostname(hostName);
+        return host;
     }
    
 }

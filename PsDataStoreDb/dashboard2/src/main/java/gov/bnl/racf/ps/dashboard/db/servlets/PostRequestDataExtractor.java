@@ -18,6 +18,22 @@ import org.json.simple.parser.JSONParser;
  * @author tomw
  */
 public class PostRequestDataExtractor {
+    
+    public static String extractString(HttpServletRequest request) throws IOException {
+        String jb = "";
+        String line = null;
+        try {
+            BufferedReader reader = request.getReader();
+            while ((line = reader.readLine()) != null) {
+                jb = jb + line;
+            }
+        } catch (Exception e) {
+            System.out.println(new Date() + " " + e);
+        }
+
+        
+        return jb;
+    }
 
     public static JSONObject extractJson(HttpServletRequest request) throws IOException {
         String jb = "";

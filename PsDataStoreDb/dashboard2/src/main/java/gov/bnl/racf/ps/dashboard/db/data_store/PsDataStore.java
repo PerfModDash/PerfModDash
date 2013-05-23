@@ -31,6 +31,18 @@ public class PsDataStore {
 
         return host;
     }
+    
+     public static PsHost getHostByName(Session session, String hostName){
+        Query query = session.createQuery("from PsHost where hostname=:parameter ");
+        query.setParameter("parameter", hostName);
+        List resultList = query.list();
+        
+        if(resultList.isEmpty()){
+            return null;
+        }else{
+           return (PsHost)resultList.get(0) ;
+        }
+    }
 
     /**
      * get a vector of all known hosts
@@ -106,6 +118,18 @@ public class PsDataStore {
         //throw new UnsupportedOperationException("Not yet implemented");
         PsSite site = (PsSite) session.get(PsSite.class, siteId);
         return site;
+    }
+    
+    public static PsSite getSiteByName(Session session, String name){
+        Query query = session.createQuery("from PsSite where name=:parameter ");
+        query.setParameter("parameter", name);
+        List resultList = query.list();
+        
+        if(resultList.isEmpty()){
+            return null;
+        }else{
+           return (PsSite)resultList.get(0) ;
+        }
     }
 
     /**
@@ -223,5 +247,22 @@ public class PsDataStore {
         return resultList;
     }
 
+    /**
+     * get cloud by a given name
+     * @param session
+     * @param cloudName
+     * @return 
+     */
+    public static PsCloud getCloudByName(Session session, String cloudName){
+        Query query = session.createQuery("from PsCloud where name=:parameter ");
+        query.setParameter("parameter", cloudName);
+        List resultList = query.list();
+        
+        if(resultList.isEmpty()){
+            return null;
+        }else{
+           return (PsCloud)resultList.get(0) ;
+        }
+    }
    
 }
