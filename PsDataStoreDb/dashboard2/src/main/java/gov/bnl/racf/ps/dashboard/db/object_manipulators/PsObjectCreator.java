@@ -33,6 +33,13 @@ public class PsObjectCreator {
         matrix.setName(matrixName);
         return matrix;
     }
+    public static PsMatrix createNewMatrix(Session session,PsServiceType type, String matrixName){
+        PsMatrix matrix = new PsMatrix(type,matrixName);
+        session.save(matrix);
+        matrix.setMatrixType(type);
+        matrix.setName(matrixName);
+        return matrix;
+    }
     public static PsCloud createNewCloud(Session session){
         PsCloud cloud = new PsCloud();
         session.save(cloud);

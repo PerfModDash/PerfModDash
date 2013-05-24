@@ -279,4 +279,26 @@ public class PsServiceType implements Serializable {
             return false;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PsServiceType other = (PsServiceType) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if ((this.serviceTypeId == null) ? (other.serviceTypeId != null) : !this.serviceTypeId.equals(other.serviceTypeId)) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    
+    
 }

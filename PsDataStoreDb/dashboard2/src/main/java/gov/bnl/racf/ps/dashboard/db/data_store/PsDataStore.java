@@ -31,16 +31,23 @@ public class PsDataStore {
 
         return host;
     }
-    
-     public static PsHost getHostByName(Session session, String hostName){
+
+    /**
+     * get host with given host name. return null if not found
+     *
+     * @param session
+     * @param hostName
+     * @return
+     */
+    public static PsHost getHostByName(Session session, String hostName) {
         Query query = session.createQuery("from PsHost where hostname=:parameter ");
         query.setParameter("parameter", hostName);
         List resultList = query.list();
-        
-        if(resultList.isEmpty()){
+
+        if (resultList.isEmpty()) {
             return null;
-        }else{
-           return (PsHost)resultList.get(0) ;
+        } else {
+            return (PsHost) resultList.get(0);
         }
     }
 
@@ -119,16 +126,16 @@ public class PsDataStore {
         PsSite site = (PsSite) session.get(PsSite.class, siteId);
         return site;
     }
-    
-    public static PsSite getSiteByName(Session session, String name){
+
+    public static PsSite getSiteByName(Session session, String name) {
         Query query = session.createQuery("from PsSite where name=:parameter ");
         query.setParameter("parameter", name);
         List resultList = query.list();
-        
-        if(resultList.isEmpty()){
+
+        if (resultList.isEmpty()) {
             return null;
-        }else{
-           return (PsSite)resultList.get(0) ;
+        } else {
+            return (PsSite) resultList.get(0);
         }
     }
 
@@ -146,20 +153,55 @@ public class PsDataStore {
 
         return resultList;
     }
+
     /**
      * get matrix of a given id
+     *
      * @param session
      * @param matrixId
-     * @return 
+     * @return
      */
-    public static PsMatrix getMatrix(Session session, int matrixId){
-        PsMatrix matrix = (PsMatrix)session.get(PsMatrix.class, matrixId);
+    public static PsMatrix getMatrix(Session session, int matrixId) {
+        PsMatrix matrix = (PsMatrix) session.get(PsMatrix.class, matrixId);
         return matrix;
     }
+
+    /**
+     * return matrix of given name and type return null if not found
+     *
+     * @param session
+     * @param name
+     * @param type
+     * @return
+     */
+    public static PsMatrix getMatrixByNameAndType(Session session, String name, PsServiceType type) {
+        Query query = session.createQuery("from PsMatrix where name=:namepar and matrixType=:typepar");
+        query.setParameter("namepar", name);
+        query.setParameter("typepar", type);
+        query.setCacheable(true);
+        List resultList = query.list();
+
+        if (resultList.size() > 0) {
+            return (PsMatrix) resultList.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public static boolean containsMatrixOfNameAndType(Session session, String name, PsServiceType type) {
+        PsMatrix matrix = getMatrixByNameAndType(session, name, type);
+        if (matrix == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * return a list of all matrices
+     *
      * @param session
-     * @return 
+     * @return
      */
     public static List<PsMatrix> getAllMatrices(Session session) {
         //throw new UnsupportedOperationException("Not yet implemented");
@@ -172,26 +214,26 @@ public class PsDataStore {
 
     public static void removeServices(Session session, Vector<Integer> serviceIdsToBeDeleted) {
         Iterator iter = serviceIdsToBeDeleted.iterator();
-        while(iter.hasNext()){
-            Integer serviceIdInteger = (Integer)iter.next();
+        while (iter.hasNext()) {
+            Integer serviceIdInteger = (Integer) iter.next();
             int serviceId = serviceIdInteger.intValue();
             //TODO this may be replaced by a delete query in HQL
             PsService service = PsDataStore.getService(session, serviceId);
             PsObjectShredder.delete(session, service);
         }
     }
-    
-    public static void removeServices(Session session,List<PsService> servicesToBeDeleted){
+
+    public static void removeServices(Session session, List<PsService> servicesToBeDeleted) {
         Iterator iter = servicesToBeDeleted.iterator();
-        while(iter.hasNext()){
-            PsService service = (PsService)iter.next();
+        while (iter.hasNext()) {
+            PsService service = (PsService) iter.next();
             PsObjectShredder.delete(session, service);
         }
     }
 
     public static PsCloud getCloud(Session session, int cloudId) {
         //throw new UnsupportedOperationException("Not yet implemented");
-        PsCloud cloud = (PsCloud)session.get(PsCloud.class, cloudId);
+        PsCloud cloud = (PsCloud) session.get(PsCloud.class, cloudId);
         return cloud;
     }
 
@@ -217,52 +259,52 @@ public class PsDataStore {
         List resultList = query.list();
         PsRecentServiceResult recentResult = null;
         Iterator iter = resultList.iterator();
-        while(iter.hasNext()){
-            recentResult=(PsRecentServiceResult)iter.next();
+        while (iter.hasNext()) {
+            recentResult = (PsRecentServiceResult) iter.next();
         }
         return recentResult;
     }
-    
-    public static List<PsServiceResult> getResults(Session session,PsService service){
+
+    public static List<PsServiceResult> getResults(Session session, PsService service) {
         Query query = session.createQuery("from PsServiceResult where service_id=:parameter");
         int serviceId = service.getId();
         query.setParameter("parameter", serviceId);
         List resultList = query.list();
-        
+
         Collections.sort(resultList);
-        
+
         return resultList;
     }
-    
-    public static List<PsServiceResult> getResults(Session session,PsService service, Date timeStart, Date timeEnd){
+
+    public static List<PsServiceResult> getResults(Session session, PsService service, Date timeStart, Date timeEnd) {
         Query query = session.createQuery("from PsServiceResult where service_id=:parameter and time between :time_start and :time_end");
         int serviceId = service.getId();
         query.setParameter("parameter", serviceId);
         query.setParameter("time_start", timeStart);
         query.setParameter("time_end", timeEnd);
         List resultList = query.list();
-        
+
         Collections.sort(resultList);
-        
+
         return resultList;
     }
 
     /**
      * get cloud by a given name
+     *
      * @param session
      * @param cloudName
-     * @return 
+     * @return
      */
-    public static PsCloud getCloudByName(Session session, String cloudName){
+    public static PsCloud getCloudByName(Session session, String cloudName) {
         Query query = session.createQuery("from PsCloud where name=:parameter ");
         query.setParameter("parameter", cloudName);
         List resultList = query.list();
-        
-        if(resultList.isEmpty()){
+
+        if (resultList.isEmpty()) {
             return null;
-        }else{
-           return (PsCloud)resultList.get(0) ;
+        } else {
+            return (PsCloud) resultList.get(0);
         }
     }
-   
 }
