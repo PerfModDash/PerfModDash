@@ -139,6 +139,14 @@ public class PsCloud {
         return result;
     }
     /**
+     * check if cloud contains matrix
+     * @param matrix
+     * @return 
+     */
+    public boolean containsMatrix(PsMatrix matrix){
+        return this.containsMatrixId(matrix.getId());
+    }
+    /**
      * add new site to cloud
      * @param site 
      */

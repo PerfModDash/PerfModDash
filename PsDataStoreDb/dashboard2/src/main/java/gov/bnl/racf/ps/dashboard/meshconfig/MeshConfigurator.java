@@ -9,7 +9,9 @@ import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsHostManipulator;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectCreator;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import org.hibernate.Session;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,10 +22,17 @@ import org.json.simple.JSONObject;
  */
 public class MeshConfigurator {
 
-    private JSONObject json;
+    
     private String mode;
     private PrintWriter out;
     private Session session;
+    
+    private JSONObject json;
+    
+    // cloud to be configured by current json
+    private PsCloud cloud;
+    private List<PsMatrix> listOfMatrices = new ArrayList<PsMatrix>();
+    
 
     public void setSession(Session session) {
         this.session = session;
@@ -54,6 +63,10 @@ public class MeshConfigurator {
         configureCloud();
         this.out.println("keys json=" + json2keys(json));
         configureMatrices();
+        
+        this.out.println("assign matrices to cloud<BR>");
+        this.assignMatricesToCloud();
+        
     }
 
     private PsCloud createCloudIfNotExists(String cloudName) {
@@ -149,7 +162,7 @@ public class MeshConfigurator {
 
     private void configureCloud() {
         String jsonCloudName = (String) json.get("description");
-        PsCloud cloud = this.createCloudIfNotExists(jsonCloudName);
+        this.cloud = this.createCloudIfNotExists(jsonCloudName);
 
         JSONArray jsonOrganisations = (JSONArray) this.json.get("organizations");
         Iterator iter = jsonOrganisations.iterator();
@@ -166,14 +179,14 @@ public class MeshConfigurator {
                 //out.println("site description = " + siteDescription);
 
                 PsSite currentSite = createSiteIfNotExists(siteDescription);
-                if (cloud.containsSite(currentSite)) {
+                if (this.cloud.containsSite(currentSite)) {
                     //out.println("cloud " + cloud.getName()
                     //        + " contains site " + currentSite.getName());
                 } else {
                     //out.println("cloud " + cloud.getName()
                     //        + " does not contain site " + currentSite.getName());
-                    cloud.addSite(currentSite);
-                    this.out.println("Site " + currentSite.getName() + " added to cloud " + cloud.getName() + "<BR>");
+                    this.cloud.addSite(currentSite);
+                    this.out.println("Site " + currentSite.getName() + " added to cloud " + this.cloud.getName() + "<BR>");
                 }
                 //out.println("site keys=" + json2keys(site));
                 if (site.containsKey("hosts")) {
@@ -326,6 +339,7 @@ public class MeshConfigurator {
                 this.out.println("This is unknown matrix");
             }
             PsMatrix matrix = createMatrixIfNotExists(matrixName, serviceType);
+            this.listOfMatrices.add(matrix);
             
             JSONObject members = (JSONObject)test.get("members");
             if(membersTypeIsMesh(members)){
@@ -356,5 +370,21 @@ public class MeshConfigurator {
             
         }
 
+    }
+
+    private void assignMatricesToCloud() {
+        this.out.println("Assign matrices to clouds<BR>");
+        Iterator iter = this.listOfMatrices.iterator();
+        while(iter.hasNext()){
+            PsMatrix currentMatrix = (PsMatrix)iter.next();
+            if(!this.cloud.containsMatrix(currentMatrix)){
+                this.out.println("Assign marix "+currentMatrix.getName()+
+                        " to cloud "+this.cloud.getName()+"<BR>");
+                this.cloud.addMatrix(currentMatrix);
+            }else{
+                this.out.println("Cloud "+this.cloud.getName()
+                        +" contains matrix "+currentMatrix.getName()+"<BR>");
+            }
+        }
     }
 }
