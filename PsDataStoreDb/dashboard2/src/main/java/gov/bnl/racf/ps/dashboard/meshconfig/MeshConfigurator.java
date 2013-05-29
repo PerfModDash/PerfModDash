@@ -7,6 +7,7 @@ package gov.bnl.racf.ps.dashboard.meshconfig;
 import gov.bnl.racf.ps.dashboard.db.data_objects.*;
 import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsHostManipulator;
+import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsMatrixManipulator;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectCreator;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -22,17 +23,13 @@ import org.json.simple.JSONObject;
  */
 public class MeshConfigurator {
 
-    
     private String mode;
     private PrintWriter out;
     private Session session;
-    
     private JSONObject json;
-    
     // cloud to be configured by current json
     private PsCloud cloud;
     private List<PsMatrix> listOfMatrices = new ArrayList<PsMatrix>();
-    
 
     public void setSession(Session session) {
         this.session = session;
@@ -63,10 +60,10 @@ public class MeshConfigurator {
         configureCloud();
         this.out.println("keys json=" + json2keys(json));
         configureMatrices();
-        
+
         this.out.println("assign matrices to cloud<BR>");
         this.assignMatricesToCloud();
-        
+
     }
 
     private PsCloud createCloudIfNotExists(String cloudName) {
@@ -101,13 +98,13 @@ public class MeshConfigurator {
         }
         return host;
     }
-    
-    private PsMatrix createMatrixIfNotExists(String matrixName, PsServiceType matrixType){
-       PsMatrix matrix = PsDataStore.getMatrixByNameAndType(this.session, matrixName, matrixType);
-       if(matrix==null){
-           matrix = PsObjectCreator.createNewMatrix(session, matrixType, matrixName);
-       }
-       return matrix;
+
+    private PsMatrix createMatrixIfNotExists(String matrixName, PsServiceType matrixType) {
+        PsMatrix matrix = PsDataStore.getMatrixByNameAndType(this.session, matrixName, matrixType);
+        if (matrix == null) {
+            matrix = PsObjectCreator.createNewMatrix(session, matrixType, matrixName);
+        }
+        return matrix;
     }
 
     private String json2keys(JSONObject jsonObject) {
@@ -277,35 +274,35 @@ public class MeshConfigurator {
         }
         return false;
     }
-    
-    private boolean membersTypeIsMesh(JSONObject members){
-        if(members.containsKey("type")){
-            String type = (String)members.get("type");
-            if("mesh".equals(type)){
+
+    private boolean membersTypeIsMesh(JSONObject members) {
+        if (members.containsKey("type")) {
+            String type = (String) members.get("type");
+            if ("mesh".equals(type)) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
-    
-    private PsServiceType testType(JSONObject test) throws Exception{
+
+    private PsServiceType testType(JSONObject test) throws Exception {
         String typeId = "";
-        if(testIsLatency(test)){
+        if (testIsLatency(test)) {
             typeId = PsServiceType.LATENCY;
         }
-        if(testIsBandwidth(test)){
+        if (testIsBandwidth(test)) {
             typeId = PsServiceType.THROUGHPUT;
         }
-        if(testIsTraceroute(test)){
+        if (testIsTraceroute(test)) {
             typeId = PsServiceType.TRACEROUTE;
         }
-        PsServiceType serviceType = 
+        PsServiceType serviceType =
                 PsDataStore.getServiceType(this.session, typeId);
-        if("".equals(typeId)){
-            throw new Exception("unknown test type for test="+test.toString());
+        if ("".equals(typeId)) {
+            throw new Exception("unknown test type for test=" + test.toString());
         }
         return serviceType;
     }
@@ -315,59 +312,64 @@ public class MeshConfigurator {
         Iterator testsIter = tests.iterator();
         while (testsIter.hasNext()) {
             JSONObject test = (JSONObject) testsIter.next();
-            
+
             this.out.println("test: description=" + (String) test.get("description"));
             this.out.println("test: parameters=" + (JSONObject) test.get("parameters"));
             this.out.println("test: members=" + (JSONObject) test.get("members"));
-            if(testIsLatency(test)){
+            if (testIsLatency(test)) {
                 this.out.println("test is latency");
             }
-            if(testIsBandwidth(test)){
+            if (testIsBandwidth(test)) {
                 this.out.println("test is bandwidth");
             }
-            if(testIsTraceroute(test)){
+            if (testIsTraceroute(test)) {
                 this.out.println("test is traceroute");
             }
-            PsServiceType serviceType = testType(test);
-            String matrixName = (String) test.get("description");
-            
-            if(PsDataStore.containsMatrixOfNameAndType(this.session,
-                    matrixName,
-                    serviceType)){
-                this.out.println("This is known matrix");
-            }else{
-                this.out.println("This is unknown matrix");
-            }
-            PsMatrix matrix = createMatrixIfNotExists(matrixName, serviceType);
-            this.listOfMatrices.add(matrix);
-            
-            JSONObject members = (JSONObject)test.get("members");
-            if(membersTypeIsMesh(members)){
-                if(members.containsKey("members")){
-                    JSONArray listOfHostNames = (JSONArray)members.get("members");
-                    Iterator hostNameIter = listOfHostNames.iterator();
-                    while(hostNameIter.hasNext()){
-                        String hostName = (String)hostNameIter.next();
-                        PsHost host = PsDataStore.getHostByName(session, hostName);
-                        if(host==null){
-                            throw new Exception("Unknown host "+hostName);
-                        }else{
-                            if(matrix.containsHost(host)){
-                                this.out.println("Matrix contains host "+hostName);
-                            }else{
-                                this.out.println("Matrix does not contain host "+hostName);
-                                matrix.addHost(host);
+            if (!testIsTraceroute(test)) {
+                PsServiceType serviceType = testType(test);
+                String matrixName = (String) test.get("description");
+
+                if (PsDataStore.containsMatrixOfNameAndType(this.session,
+                        matrixName,
+                        serviceType)) {
+                    this.out.println("This is known matrix");
+                } else {
+                    this.out.println("This is unknown matrix");
+                }
+                PsMatrix matrix = createMatrixIfNotExists(matrixName, serviceType);
+                this.listOfMatrices.add(matrix);
+
+                JSONObject members = (JSONObject) test.get("members");
+                if (membersTypeIsMesh(members)) {
+                    if (members.containsKey("members")) {
+                        JSONArray listOfHostNames = (JSONArray) members.get("members");
+                        Iterator hostNameIter = listOfHostNames.iterator();
+                        while (hostNameIter.hasNext()) {
+                            String hostName = (String) hostNameIter.next();
+                            PsHost host = PsDataStore.getHostByName(session, hostName);
+                            if (host == null) {
+                                throw new Exception("Unknown host " + hostName);
+                            } else {
+                                if (matrix.containsHost(host)) {
+                                    this.out.println("Matrix contains host " + hostName);
+                                } else {
+                                    this.out.println("Matrix does not contain host " + hostName);
+                                    PsMatrixManipulator.addHostToMatrix(session, matrix, host);
+                                    //matrix.addHost(host);
+                                }
                             }
                         }
+                    } else {
+                        this.out.println("Test has no hosts associated with it <BR>");
                     }
-                }else{
-                    this.out.println("Test has no hosts associated with it <BR>");
+
+                } else {
+                    throw new Exception("Unsupported test type " + test);
                 }
-                
             }else{
-                throw new Exception("Unfupported test type "+test);
+                this.out.println("Traceroute matrix type is not supported yet <BR>");
             }
-            
+
         }
 
     }
@@ -375,15 +377,15 @@ public class MeshConfigurator {
     private void assignMatricesToCloud() {
         this.out.println("Assign matrices to clouds<BR>");
         Iterator iter = this.listOfMatrices.iterator();
-        while(iter.hasNext()){
-            PsMatrix currentMatrix = (PsMatrix)iter.next();
-            if(!this.cloud.containsMatrix(currentMatrix)){
-                this.out.println("Assign marix "+currentMatrix.getName()+
-                        " to cloud "+this.cloud.getName()+"<BR>");
+        while (iter.hasNext()) {
+            PsMatrix currentMatrix = (PsMatrix) iter.next();
+            if (!this.cloud.containsMatrix(currentMatrix)) {
+                this.out.println("Assign marix " + currentMatrix.getName()
+                        + " to cloud " + this.cloud.getName() + "<BR>");
                 this.cloud.addMatrix(currentMatrix);
-            }else{
-                this.out.println("Cloud "+this.cloud.getName()
-                        +" contains matrix "+currentMatrix.getName()+"<BR>");
+            } else {
+                this.out.println("Cloud " + this.cloud.getName()
+                        + " contains matrix " + currentMatrix.getName() + "<BR>");
             }
         }
     }

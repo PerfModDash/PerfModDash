@@ -266,6 +266,11 @@ public class PsObjectShredder {
         Query query = session.createQuery("delete PsService");
         int result = query.executeUpdate();
     }
+    
+    public static void deleteAllJobs(Session session) {
+        Query query = session.createQuery("delete PsJob");
+        int result = query.executeUpdate();
+    }
 
     /**
      * delete hosts form the specified list
@@ -294,5 +299,6 @@ public class PsObjectShredder {
         deleteAllServiceResults(session);
         deleteAllRecentServiceResults(session);
         deleteAllServices(session);
+        deleteAllJobs(session);
     }
 }
