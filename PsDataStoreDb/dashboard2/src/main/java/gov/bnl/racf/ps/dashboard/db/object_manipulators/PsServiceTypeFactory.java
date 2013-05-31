@@ -437,7 +437,7 @@ public class PsServiceTypeFactory {
 
         type.setServiceTypeId(PsServiceType.NPAD_PORT_8000);
         type.setJobType("nagios.tcp");
-        type.setName("NPAD Port 8001 Check");
+        type.setName("NPAD Port 8000 Check");
 
         TreeMap<String, PsParameterInfo> serviceParameterInfo =
                 new TreeMap<String, PsParameterInfo>();

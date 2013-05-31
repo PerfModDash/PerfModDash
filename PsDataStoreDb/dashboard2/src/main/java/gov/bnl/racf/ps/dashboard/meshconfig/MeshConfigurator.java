@@ -118,6 +118,7 @@ public class MeshConfigurator {
     }
 
     private boolean isBandwidthHost(JSONObject host) {
+        
         if (host.containsKey("measurement_archives")) {
             JSONArray measurementArchives =
                     (JSONArray) host.get("measurement_archives");
@@ -125,7 +126,7 @@ public class MeshConfigurator {
 
             while (archiveIterator.hasNext()) {
                 JSONObject archiveJson = (JSONObject) archiveIterator.next();
-                if (archiveJson.containsKey("type")) {
+                if (archiveJson.containsKey("type")) {                    
                     String type = (String) archiveJson.get("type");
                     if (type.contains("bwctl")) {
                         return true;
@@ -193,24 +194,19 @@ public class MeshConfigurator {
                     while (hostsIterator.hasNext()) {
                         JSONObject hostJson = (JSONObject) hostsIterator.next();
 
-                        //out.println("host keys=" + json2keys(hostJson));
                         String hostName = (String) ((JSONArray) hostJson.get("addresses")).get(0);
-                        //out.println("host info: description=" + hostJson.get("description")
-                        //        + " address=" + hostJson.get("addresses"));
-                        //if (PsDataStore.getHostByName(this.session, hostName) != null) {
-                        //    out.println("This is known host");
-                        //} else {
-                        //    out.println("This is unknown host");
-                        //}
+                        
                         PsHost host = createHostIfNotExists(hostName);
 
                         if (isBandwidthHost(hostJson)) {
-                            //out.println("This is bandwidth host");
+                            out.println("This is bandwidth host<BR>");
                             PsHostManipulator.addThroughputServices(session, host);
+                        }else{
                         }
                         if (isLatencyHost(hostJson)) {
-                            //out.println("This is latency host");
+                            out.println("This is latency host<BR>");
                             PsHostManipulator.addLatencyServices(session, host);
+                        }else{
                         }
 
 
@@ -355,7 +351,6 @@ public class MeshConfigurator {
                                 } else {
                                     this.out.println("Matrix does not contain host " + hostName);
                                     PsMatrixManipulator.addHostToMatrix(session, matrix, host);
-                                    //matrix.addHost(host);
                                 }
                             }
                         }
