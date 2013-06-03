@@ -13,7 +13,6 @@ Here are the known service types (they are listed in the PsApi java class I ment
     // primitive services
     public static String BWCTL_PORT_4823 = "bwctl_port_4823";
     public static String BWCTL_PORT_8570 = "bwctl_port_8570";
-    public static String CHECK_LOOKUP_SERVICE = "CheckLookupService";
     public static String NDT_PORT_3001 = "NDT_port_3001";
     public static String NDT_PORT_7123 = "NDT_port_7123";
     public static String NPAD_PORT_8000 = "NPAD_port_8000";
@@ -128,10 +127,10 @@ where in the data part of the request you put a JSONArray of service
 type id's.
 
 
-For example to add service types: bwctl_port_4823 and CheckLookupService
+For example to add service types: bwctl_port_4823 and NPAD_port_8000
 you put in the data part
 
-    ["bwctl_port_4823","CheckLookupService"]
+    ["bwctl_port_4823","NPAD_PORT_8000"]
 
 The data store will create services of the requested types, atatch them
 to the hosts and will return a JSON object of the host with the services
@@ -151,7 +150,7 @@ or
 and again in the data you include the service types you want to remove,
 for example:
 
-    ["bwctl_port_4823","CheckLookupService"]
+    ["bwctl_port_4823","NPAD_port_8000"]
 
 
 3. If you want to remove from a host service, but you do not identify
