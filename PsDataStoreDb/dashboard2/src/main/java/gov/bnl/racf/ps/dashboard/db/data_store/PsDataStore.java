@@ -187,6 +187,21 @@ public class PsDataStore {
             return null;
         }
     }
+    
+   /**
+    * search matrices which particular name
+    * @param session
+    * @param name
+    * @return 
+    */
+    public static List<PsMatrix> getMatrixByName(Session session, String name) {
+        Query query = session.createQuery("from PsMatrix where name like :namepar");
+        query.setParameter("namepar", name);
+        query.setCacheable(true);
+        List resultList = query.list();
+
+        return resultList;
+    }
 
     public static boolean containsMatrixOfNameAndType(Session session, String name, PsServiceType type) {
         PsMatrix matrix = getMatrixByNameAndType(session, name, type);

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -100,7 +101,6 @@ public class PsMatricesServlet extends HttpServlet {
                     detailLevel = PsApi.DETAIL_LEVEL_HIGH;
                 }
 
-
                 String idAsString = parameters.get(0);
                 Integer matrixIdInteger = Integer.parseInt(idAsString);
                 int matrixId = matrixIdInteger.intValue();
@@ -111,22 +111,49 @@ public class PsMatricesServlet extends HttpServlet {
                 } else {
                     out.println("Matrix id=" + matrixId + " not found");
                 }
+
             } else {
-                // get list of matrices
-                
-                //get url parameters
-                String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
-                if (detailLevel == null || "".equals(detailLevel)) {
-                    detailLevel = PsApi.DETAIL_LEVEL_LOW;
+
+                String matrixName = request.getParameter(PsMatrix.NAME);
+                if (matrixName != null) {
+                    //get url parameters
+                    String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
+                    if (detailLevel == null || "".equals(detailLevel)) {
+                        detailLevel = PsApi.DETAIL_LEVEL_HIGH;
+                    }
+
+
+                    List<PsMatrix> matrixList = PsDataStore.getMatrixByName(session, matrixName);
+                    if (matrixList.size()>0 ) {
+                        JSONArray listOfMatricesJson = new JSONArray();
+                        Iterator matrixIterator = matrixList.iterator();
+                        while(matrixIterator.hasNext()){
+                            PsMatrix currentMatrix = (PsMatrix)matrixIterator.next();
+                            JSONObject matrixJson = JsonConverter.toJson(currentMatrix, detailLevel);
+                            listOfMatricesJson.add(matrixJson);
+                        }
+                        out.println(listOfMatricesJson.toString());
+                    } else {
+                        out.println("Matrix with name=" + matrixName + " not found");
+                    }
+                } else {
+
+                    // get list of matrices
+
+                    //get url parameters
+                    String detailLevel = request.getParameter(PsApi.DETAIL_LEVEL_PARAMETER);
+                    if (detailLevel == null || "".equals(detailLevel)) {
+                        detailLevel = PsApi.DETAIL_LEVEL_LOW;
+                    }
+
+                    List<PsMatrix> listOfMatrices = PsDataStore.getAllMatrices(session);
+                    JSONArray jsonArray = new JSONArray();
+                    for (PsMatrix matrix : listOfMatrices) {
+                        JSONObject matrixJson = JsonConverter.toJson(matrix, detailLevel);
+                        jsonArray.add(matrixJson);
+                    }
+                    out.println(jsonArray.toString());
                 }
-                
-                List<PsMatrix> listOfMatrices = PsDataStore.getAllMatrices(session);
-                JSONArray jsonArray = new JSONArray();
-                for (PsMatrix matrix : listOfMatrices) {
-                    JSONObject matrixJson = JsonConverter.toJson(matrix, detailLevel);
-                    jsonArray.add(matrixJson);
-                }
-                out.println(jsonArray.toString());
             }
 
             // commit transaction
