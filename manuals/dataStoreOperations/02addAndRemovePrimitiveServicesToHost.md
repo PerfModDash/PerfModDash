@@ -32,7 +32,7 @@ We may define more service types later, here is the list as-of-today.
 
 The primitive service types come in two broad, intersecting sets:
 
-latency services: CHECK_LOOKUP_SERVICE,PERFSONAR_PSB,OWP_861,OWP_8569
+latency services: PERFSONAR_PSB,OWP_861,OWP_8569
 
 throughput services: all primitive services except OWP_861,OWP_8569
 
@@ -92,7 +92,7 @@ operations we want to perform on the services related to this host:
 
 
 here I need to stop for a moment: service may have a service type id (
-for example CHECK_LOOKUP_SERVICE). Once a service is created it is given
+for example NPAD_port_8000). Once a service is created it is given
 its unique service id (for example 123456789.87654321). A host may run
 only one instance of given service type therefore you may demand that
 you want to delete a service identified by host id and service type or
