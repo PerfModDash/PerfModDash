@@ -26,9 +26,9 @@ public class PsServiceTypeFactory {
             if (PsServiceType.BWCTL_PORT_8570.equals(typeName)) {
                 type = create_BWCTL_PORT_8570();
             }
-            if (PsServiceType.CHECK_LOOKUP_SERVICE.equals(typeName)) {
-                type = create_CHECK_LOOKUP_SERVICE();
-            }
+//            if (PsServiceType.CHECK_LOOKUP_SERVICE.equals(typeName)) {
+//                type = create_CHECK_LOOKUP_SERVICE();
+//            }
             if (PsServiceType.NDT_PORT_3001.equals(typeName)) {
                 type = create_NDT_PORT_3001();
             }
@@ -70,9 +70,9 @@ public class PsServiceTypeFactory {
         if (PsServiceType.BWCTL_PORT_8570.equals(typeName)) {
             return true;
         }
-        if (PsServiceType.CHECK_LOOKUP_SERVICE.equals(typeName)) {
-            return true;
-        }
+//        if (PsServiceType.CHECK_LOOKUP_SERVICE.equals(typeName)) {
+//            return true;
+//        }
         if (PsServiceType.NDT_PORT_3001.equals(typeName)) {
             return true;
         }
@@ -132,9 +132,9 @@ public class PsServiceTypeFactory {
         if (PsServiceType.BWCTL_PORT_8570.equals(typeName)) {
             return true;
         }
-        if (PsServiceType.CHECK_LOOKUP_SERVICE.equals(typeName)) {
-            return true;
-        }
+//        if (PsServiceType.CHECK_LOOKUP_SERVICE.equals(typeName)) {
+//            return true;
+//        }
         if (PsServiceType.NDT_PORT_3001.equals(typeName)) {
             return true;
         }
@@ -162,9 +162,9 @@ public class PsServiceTypeFactory {
         if (PsServiceType.BWCTL_PORT_8570.equals(typeName)) {
             return true;
         }
-        if (PsServiceType.CHECK_LOOKUP_SERVICE.equals(typeName)) {
-            return true;
-        }
+//        if (PsServiceType.CHECK_LOOKUP_SERVICE.equals(typeName)) {
+//            return true;
+//        }
         if (PsServiceType.NDT_PORT_3001.equals(typeName)) {
             return true;
         }
@@ -191,9 +191,9 @@ public class PsServiceTypeFactory {
 
     public static boolean isPrimitiveServiceLatency(String typeName) {
 
-        if (PsServiceType.CHECK_LOOKUP_SERVICE.equals(typeName)) {
-            return true;
-        }
+//        if (PsServiceType.CHECK_LOOKUP_SERVICE.equals(typeName)) {
+//            return true;
+//        }
         if (PsServiceType.PERFSONAR_PSB.equals(typeName)) {
             return true;
         }
@@ -210,7 +210,7 @@ public class PsServiceTypeFactory {
         Vector<String> serviceTypes = new Vector<String>();
         serviceTypes.add(PsServiceType.BWCTL_PORT_4823);
         serviceTypes.add(PsServiceType.BWCTL_PORT_8570);
-        serviceTypes.add(PsServiceType.CHECK_LOOKUP_SERVICE);
+        //serviceTypes.add(PsServiceType.CHECK_LOOKUP_SERVICE);
         serviceTypes.add(PsServiceType.NDT_PORT_3001);
         serviceTypes.add(PsServiceType.NDT_PORT_7123);
         serviceTypes.add(PsServiceType.NPAD_PORT_8000);
@@ -228,7 +228,7 @@ public class PsServiceTypeFactory {
         Vector<String> serviceTypes = new Vector<String>();
         serviceTypes.add(PsServiceType.BWCTL_PORT_4823);
         serviceTypes.add(PsServiceType.BWCTL_PORT_8570);
-        serviceTypes.add(PsServiceType.CHECK_LOOKUP_SERVICE);
+        //serviceTypes.add(PsServiceType.CHECK_LOOKUP_SERVICE);
         serviceTypes.add(PsServiceType.NDT_PORT_3001);
         serviceTypes.add(PsServiceType.NDT_PORT_7123);
         serviceTypes.add(PsServiceType.NPAD_PORT_8000);
@@ -241,7 +241,7 @@ public class PsServiceTypeFactory {
         Vector<String> serviceTypes = new Vector<String>();
         serviceTypes.add(PsServiceType.BWCTL_PORT_4823);
         serviceTypes.add(PsServiceType.BWCTL_PORT_8570);
-        serviceTypes.add(PsServiceType.CHECK_LOOKUP_SERVICE);
+        //serviceTypes.add(PsServiceType.CHECK_LOOKUP_SERVICE);
         serviceTypes.add(PsServiceType.NDT_PORT_3001);
         serviceTypes.add(PsServiceType.NDT_PORT_7123);
         serviceTypes.add(PsServiceType.NPAD_PORT_8000);
@@ -258,7 +258,7 @@ public class PsServiceTypeFactory {
      */
     public static Vector<String> listOfPrimitiveLatencyServiceTypes() {
         Vector<String> serviceTypes = new Vector<String>();
-        serviceTypes.add(PsServiceType.CHECK_LOOKUP_SERVICE);
+        //serviceTypes.add(PsServiceType.CHECK_LOOKUP_SERVICE);
         serviceTypes.add(PsServiceType.OWP_861);
         serviceTypes.add(PsServiceType.OWP_8569);
         serviceTypes.add(PsServiceType.PERFSONAR_PSB);
@@ -334,35 +334,35 @@ public class PsServiceTypeFactory {
         return type;
     }
 
-    private static PsServiceType create_CHECK_LOOKUP_SERVICE() {
-        //PsServiceType type = PsObjectCreator.createNewServiceType();
-        PsServiceType type = new PsServiceType();
-
-        type.setServiceTypeId(PsServiceType.CHECK_LOOKUP_SERVICE);
-        type.setJobType("nagios.ps.perfSONAR");
-        type.setName("perfSONAR Lookup Service Test");
-
-        TreeMap<String, PsParameterInfo> serviceParameterInfo =
-                new TreeMap<String, PsParameterInfo>();
-        TreeMap<String, PsParameterInfo> resultParameterInfo =
-                new TreeMap<String, PsParameterInfo>();
-
-        PsParameterInfo param = new PsParameterInfo();
-        param.setDescription("The id of the host where this service runs");
-        serviceParameterInfo.put("host-id", param);
-
-        param = new PsParameterInfo();
-        param.setDescription("The URL of the lookup service to test");
-        serviceParameterInfo.put("url", param);
-
-        type.setServiceParameterInfo(serviceParameterInfo);
-
-        resultParameterInfo = null;
-
-        type.setResultParameterInfo(resultParameterInfo);
-
-        return type;
-    }
+//    private static PsServiceType create_CHECK_LOOKUP_SERVICE() {
+//        //PsServiceType type = PsObjectCreator.createNewServiceType();
+//        PsServiceType type = new PsServiceType();
+//
+//        type.setServiceTypeId(PsServiceType.CHECK_LOOKUP_SERVICE);
+//        type.setJobType("nagios.ps.perfSONAR");
+//        type.setName("perfSONAR Lookup Service Test");
+//
+//        TreeMap<String, PsParameterInfo> serviceParameterInfo =
+//                new TreeMap<String, PsParameterInfo>();
+//        TreeMap<String, PsParameterInfo> resultParameterInfo =
+//                new TreeMap<String, PsParameterInfo>();
+//
+//        PsParameterInfo param = new PsParameterInfo();
+//        param.setDescription("The id of the host where this service runs");
+//        serviceParameterInfo.put("host-id", param);
+//
+//        param = new PsParameterInfo();
+//        param.setDescription("The URL of the lookup service to test");
+//        serviceParameterInfo.put("url", param);
+//
+//        type.setServiceParameterInfo(serviceParameterInfo);
+//
+//        resultParameterInfo = null;
+//
+//        type.setResultParameterInfo(resultParameterInfo);
+//
+//        return type;
+//    }
 
     private static PsServiceType create_NDT_PORT_3001() {
         //PsServiceType type = PsObjectCreator.createNewServiceType();

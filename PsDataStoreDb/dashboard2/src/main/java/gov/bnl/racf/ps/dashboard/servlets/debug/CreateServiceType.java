@@ -55,11 +55,11 @@ public class CreateServiceType extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet CreateServiceType at " + request.getContextPath() + "</h1>");
             
-            PsServiceType serviceType = PsServiceTypeFactory.createType(PsServiceType.CHECK_LOOKUP_SERVICE);
-            out.println("type created<BR>");
-            out.println(serviceType.getJobType()+" "+serviceType.getName()+" "+serviceType.getServiceTypeId());
-            session.save(serviceType);
-            out.println("<BR>saved<BR>");
+//            PsServiceType serviceType = PsServiceTypeFactory.createType(PsServiceType.CHECK_LOOKUP_SERVICE);
+//            out.println("type created<BR>");
+//            out.println(serviceType.getJobType()+" "+serviceType.getName()+" "+serviceType.getServiceTypeId());
+//            session.save(serviceType);
+//            out.println("<BR>saved<BR>");
             
             out.println("</body>");
             out.println("</html>");

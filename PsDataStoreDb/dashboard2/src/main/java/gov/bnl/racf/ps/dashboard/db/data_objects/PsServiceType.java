@@ -23,7 +23,7 @@ public class PsServiceType implements Serializable {
     // service types
     public static String BWCTL_PORT_4823 = "bwctl_port_4823";
     public static String BWCTL_PORT_8570 = "bwctl_port_8570";
-    public static String CHECK_LOOKUP_SERVICE = "CheckLookupService";
+    //public static String CHECK_LOOKUP_SERVICE = "CheckLookupService";
     public static String NDT_PORT_3001 = "NDT_port_3001";
     public static String NDT_PORT_7123 = "NDT_port_7123";
     public static String NPAD_PORT_8000 = "NPAD_port_8000";
@@ -90,9 +90,9 @@ public class PsServiceType implements Serializable {
         if (BWCTL_PORT_8570.equals(type)) {
             result = 2;
         }
-        if (CHECK_LOOKUP_SERVICE.equals(type)) {
-            result = 3;
-        }
+//        if (CHECK_LOOKUP_SERVICE.equals(type)) {
+//            result = 3;
+//        }
         if (NDT_PORT_3001.equals(type)) {
             result = 4;
         }
@@ -134,9 +134,9 @@ public class PsServiceType implements Serializable {
         if (typeId == 2) {
             return BWCTL_PORT_8570;
         }
-        if (typeId == 3) {
-            return CHECK_LOOKUP_SERVICE;
-        }
+//        if (typeId == 3) {
+//            return CHECK_LOOKUP_SERVICE;
+//        }
         if (typeId == 4) {
             return NDT_PORT_3001;
         }
