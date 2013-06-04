@@ -4,7 +4,6 @@
  */
 package gov.bnl.racf.ps.dashboard.db.object_manipulators;
 
-
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsHost;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceType;
@@ -12,7 +11,6 @@ import gov.racf.bnl.ps.dashboard.PsApi.PsApi;
 import java.util.Date;
 import java.util.TreeMap;
 import org.hibernate.Session;
-
 
 /**
  * creates PsService objects
@@ -23,56 +21,56 @@ public class PsServiceFactory {
 
     private static int DEFAULT_CHECKINTERVAL = 1200;
     private static int DEFAULT_TIMEOUT = 60;
+
     /**
-     * create service of type defined by typeId running on host 
+     * create service of type defined by typeId running on host
+     *
      * @param typeId
      * @param host
-     * @return 
+     * @return
      */
-  
-
     /**
      * create primitive service of given type running on given host
      *
      * @param type
      * @param host
      */
-    public static PsService createService(Session session,PsServiceType type, PsHost host) {
-      
+    public static PsService createService(Session session, PsServiceType type, PsHost host) {
+
         PsService service = null;
         if (PsApi.BWCTL_PORT_4823.equals(type.getServiceTypeId())) {
-            service = create_BWCTL_PORT_4823(session,type, host);
+            service = create_BWCTL_PORT_4823(session, type, host);
         }
         if (PsApi.BWCTL_PORT_8570.equals(type.getServiceTypeId())) {
-            service = create_BWCTL_PORT_8570(session,type, host);
+            service = create_BWCTL_PORT_8570(session, type, host);
         }
         if (PsApi.CHECK_LOOKUP_SERVICE.equals(type.getServiceTypeId())) {
-            service = create_CHECK_LOOKUP_SERVICE(session,type, host);
+            service = create_CHECK_LOOKUP_SERVICE(session, type, host);
         }
         if (PsApi.NDT_PORT_3001.equals(type.getServiceTypeId())) {
-            service = create_NDT_PORT_3001(session,type, host);
+            service = create_NDT_PORT_3001(session, type, host);
         }
         if (PsApi.NDT_PORT_7123.equals(type.getServiceTypeId())) {
-            service = create_NDT_PORT_7123(session,type, host);
+            service = create_NDT_PORT_7123(session, type, host);
         }
         if (PsApi.NPAD_PORT_8000.equals(type.getServiceTypeId())) {
-            service = create_NPAD_PORT_8000(session,type, host);
+            service = create_NPAD_PORT_8000(session, type, host);
         }
         if (PsApi.NPAD_PORT_8001.equals(type.getServiceTypeId())) {
-            service = create_NPAD_PORT_8001(session,type, host);
+            service = create_NPAD_PORT_8001(session, type, host);
         }
         if (PsApi.OWP_861.equals(type.getServiceTypeId())) {
-            service = create_OWP_861(session,type, host);
+            service = create_OWP_861(session, type, host);
         }
         if (PsApi.OWP_8569.equals(type.getServiceTypeId())) {
-            service = create_OWP_8569(session,type, host);
+            service = create_OWP_8569(session, type, host);
         }
         if (PsApi.PERFSONAR_PSB.equals(type.getServiceTypeId())) {
-            service = create_PERFSONAR_PSB(session,type, host);
+            service = create_PERFSONAR_PSB(session, type, host);
         }
-        
+
         host.addService(service);
-        
+
         return service;
     }
 
@@ -86,11 +84,11 @@ public class PsServiceFactory {
      */
     public static PsService createService(Session session, PsServiceType type,
             PsHost source, PsHost destination) {
-      
+
         PsService service = null;
         if (PsApi.TRACEROUTE.equals(type.getId())) {
-            service=create_TRACEROUTE(session,type,source,destination);
-                    
+            service = create_TRACEROUTE(session, type, source, destination);
+
         }
         return service;
     }
@@ -110,10 +108,10 @@ public class PsServiceFactory {
             PsHost source, PsHost destination, PsHost monitor) {
         PsService service = null;
         if (PsApi.LATENCY.equals(type.getServiceTypeId())) {
-            service = create_LATENCY(session,type,source,destination,monitor);
+            service = create_LATENCY(session, type, source, destination, monitor);
         }
         if (PsApi.THROUGHPUT.equals(type.getServiceTypeId())) {
-            service = create_THROUGHPUT(session,type,source,destination,monitor);
+            service = create_THROUGHPUT(session, type, source, destination, monitor);
         }
         return service;
     }
@@ -198,7 +196,7 @@ public class PsServiceFactory {
         return service;
     }
 
-    private static PsService create_NDT_PORT_3001(Session session, 
+    private static PsService create_NDT_PORT_3001(Session session,
             PsServiceType type, PsHost host) {
         PsService service = PsObjectCreator.createNewService(session);
         service.setType(type.getServiceTypeId());
@@ -210,7 +208,7 @@ public class PsServiceFactory {
         parameters.put("host-id", host.getId());
         parameters.put("host", host.getHostname());
         parameters.put("port", new Integer(3001));
-        
+
         service.setParameters(parameters);
 
         service.setPrevCheckTime(new Date(1));
@@ -237,7 +235,7 @@ public class PsServiceFactory {
         parameters.put("host-id", host.getId());
         parameters.put("host", host.getHostname());
         parameters.put("port", new Integer(7123));
-        
+
         service.setParameters(parameters);
 
         service.setPrevCheckTime(new Date(1));
@@ -264,7 +262,7 @@ public class PsServiceFactory {
         parameters.put("host-id", host.getId());
         parameters.put("host", host.getHostname());
         parameters.put("port", new Integer(8000));
-        
+
         service.setParameters(parameters);
 
         service.setPrevCheckTime(new Date(1));
@@ -291,7 +289,7 @@ public class PsServiceFactory {
         parameters.put("host-id", host.getId());
         parameters.put("host", host.getHostname());
         parameters.put("port", new Integer(8001));
-        
+
         service.setParameters(parameters);
 
         service.setPrevCheckTime(new Date(1));
@@ -318,7 +316,7 @@ public class PsServiceFactory {
         parameters.put("host-id", host.getId());
         parameters.put("host", host.getHostname());
         parameters.put("port", new Integer(861));
-        
+
         service.setParameters(parameters);
 
         service.setPrevCheckTime(new Date(1));
@@ -332,7 +330,7 @@ public class PsServiceFactory {
 
         return service;
     }
-    
+
     private static PsService create_OWP_8569(Session session,
             PsServiceType type, PsHost host) {
         PsService service = PsObjectCreator.createNewService(session);
@@ -345,7 +343,7 @@ public class PsServiceFactory {
         parameters.put("host-id", host.getId());
         parameters.put("host", host.getHostname());
         parameters.put("port", new Integer(8569));
-        
+
         service.setParameters(parameters);
 
         service.setPrevCheckTime(new Date(1));
@@ -371,10 +369,19 @@ public class PsServiceFactory {
         TreeMap<String, Object> parameters = new TreeMap<String, Object>();
         parameters.put("host-id", host.getId());
         parameters.put("host", host.getHostname());
-        String url = "http://" + host.getIpv4() + ":8085/perfSONAR_PS/services/pSB";
+        String url="";
+        if (host.getIpv4() != null) {
+            url = "http://" + host.getIpv4() + ":8085/perfSONAR_PS/services/pSB";
+        }else{
+            if(host.getHostname()!=null){
+                url = "http://" + host.getHostname() + ":8085/perfSONAR_PS/services/pSB";
+            }else{
+                throw new RuntimeException("Host has neither hostname nor ip name");
+            }
+        }
         parameters.put("url", url);
         parameters.put("template", "2");
-        
+
         service.setParameters(parameters);
 
         service.setPrevCheckTime(new Date(1));
@@ -388,40 +395,40 @@ public class PsServiceFactory {
 
         return service;
     }
-    
+
     private static PsService create_LATENCY(Session session,
             PsServiceType type,
             PsHost source, PsHost destination, PsHost monitor) {
         PsService service = PsObjectCreator.createNewService(session);
-        
+
         service.setType(type.getServiceTypeId());
-        String name = "packet loss_between_" + source.getHostname()+
-                "_and_"+destination.getHostname()+
-                "mon_"+monitor.getHostname();
+        String name = "packet loss_between_" + source.getHostname()
+                + "_and_" + destination.getHostname()
+                + "mon_" + monitor.getHostname();
         service.setName(name);
         service.setDescription(name);
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
-        
+
         TreeMap<String, Object> parameters = new TreeMap<String, Object>();
-        
-        parameters.put("source-host-id",source.getId());
-        parameters.put("destination-host-id",destination.getId());
-        parameters.put("ma-host-id",monitor.getId());
-        
-        parameters.put("source",source.getHostname());
-        parameters.put("destination",destination.getHostname());
-        parameters.put("monitor",monitor.getHostname());
+
+        parameters.put("source-host-id", source.getId());
+        parameters.put("destination-host-id", destination.getId());
+        parameters.put("ma-host-id", monitor.getId());
+
+        parameters.put("source", source.getHostname());
+        parameters.put("destination", destination.getHostname());
+        parameters.put("monitor", monitor.getHostname());
         String port = "8085";
-        String url =  "http://"+monitor.getHostname()+":"+port+"/perfSONAR_PS/services/pSB";
-        parameters.put("url",url);
-        
-        parameters.put("timeRange","1800");
-        parameters.put("loss",new Integer(1));
-        parameters.put("warningThreshold",":2");
-        parameters.put("criticalThreshold",":10");
-        
+        String url = "http://" + monitor.getHostname() + ":" + port + "/perfSONAR_PS/services/pSB";
+        parameters.put("url", url);
+
+        parameters.put("timeRange", "1800");
+        parameters.put("loss", new Integer(1));
+        parameters.put("warningThreshold", ":2");
+        parameters.put("criticalThreshold", ":10");
+
         service.setParameters(parameters);
-        
+
         service.setPrevCheckTime(new Date(1));
         service.setNextCheckTime(new Date());
 
@@ -432,41 +439,41 @@ public class PsServiceFactory {
         service.setResult(null);
 
         return service;
-        
+
     }
-    
-    private static PsService create_THROUGHPUT(Session session,PsServiceType type,
-            PsHost source, PsHost destination, PsHost monitor){
-        
+
+    private static PsService create_THROUGHPUT(Session session, PsServiceType type,
+            PsHost source, PsHost destination, PsHost monitor) {
+
         PsService service = PsObjectCreator.createNewService(session);
-        
+
         service.setType(type.getServiceTypeId());
-        String name = "throughput_between_" + source.getHostname()+
-                "_and_"+destination.getHostname()+
-                "mon_"+monitor.getHostname();
+        String name = "throughput_between_" + source.getHostname()
+                + "_and_" + destination.getHostname()
+                + "mon_" + monitor.getHostname();
         service.setName(name);
         service.setDescription(name);
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
-        
+
         TreeMap<String, Object> parameters = new TreeMap<String, Object>();
-        
-        parameters.put("source-host-id",source.getId());
-        parameters.put("destination-host-id",destination.getId());
-        parameters.put("ma-host-id",monitor.getId());
-        
-        parameters.put("source",source.getHostname());
-        parameters.put("destination",destination.getHostname());
-        parameters.put("monitor",monitor.getHostname());
+
+        parameters.put("source-host-id", source.getId());
+        parameters.put("destination-host-id", destination.getId());
+        parameters.put("ma-host-id", monitor.getId());
+
+        parameters.put("source", source.getHostname());
+        parameters.put("destination", destination.getHostname());
+        parameters.put("monitor", monitor.getHostname());
         String port = "8085";
-        String url =  "http://"+monitor.getHostname()+":"+port+"/perfSONAR_PS/services/pSB";
-        parameters.put("url",url);
-        
-        parameters.put("timeRange","86400");
-        parameters.put("warningThreshold",".1:");
-        parameters.put("criticalThreshold",".01:");
-        
+        String url = "http://" + monitor.getHostname() + ":" + port + "/perfSONAR_PS/services/pSB";
+        parameters.put("url", url);
+
+        parameters.put("timeRange", "86400");
+        parameters.put("warningThreshold", ".1:");
+        parameters.put("criticalThreshold", ".01:");
+
         service.setParameters(parameters);
-        
+
         service.setPrevCheckTime(new Date(1));
         service.setNextCheckTime(new Date());
 
@@ -478,38 +485,37 @@ public class PsServiceFactory {
 
         return service;
     }
-    
-    
-    private static PsService create_TRACEROUTE(Session session, 
+
+    private static PsService create_TRACEROUTE(Session session,
             PsServiceType type,
-            PsHost source, PsHost destination){
+            PsHost source, PsHost destination) {
         PsService service = PsObjectCreator.createNewService(session);
-        
+
         service.setType(type.getServiceTypeId());
-        String name = "traceroute_" + source.getHostname()+
-                "_to_"+destination.getHostname();            
+        String name = "traceroute_" + source.getHostname()
+                + "_to_" + destination.getHostname();
         service.setName(name);
         service.setDescription(name);
         service.setCheckInterval(DEFAULT_CHECKINTERVAL);
-        
+
         TreeMap<String, Object> parameters = new TreeMap<String, Object>();
-        
-        parameters.put("source-host-id",source.getId());
-        parameters.put("destination-host-id",destination.getId());
-       
-        parameters.put("source",source.getHostname());
-        parameters.put("destination",destination.getHostname());
-        
+
+        parameters.put("source-host-id", source.getId());
+        parameters.put("destination-host-id", destination.getId());
+
+        parameters.put("source", source.getHostname());
+        parameters.put("destination", destination.getHostname());
+
         String port = "8086";
-        String url =  "http://"+source.getHostname()+":"+port+"/perfSONAR_PS/services/tracerouteMA";
-        parameters.put("url",url);
-        
-        parameters.put("timeRange","3600");
-        parameters.put("warningThreshold","1:");
-        parameters.put("criticalThreshold","1:");
-        
+        String url = "http://" + source.getHostname() + ":" + port + "/perfSONAR_PS/services/tracerouteMA";
+        parameters.put("url", url);
+
+        parameters.put("timeRange", "3600");
+        parameters.put("warningThreshold", "1:");
+        parameters.put("criticalThreshold", "1:");
+
         service.setParameters(parameters);
-        
+
         service.setPrevCheckTime(new Date(1));
         service.setNextCheckTime(new Date());
 
@@ -521,5 +527,4 @@ public class PsServiceFactory {
 
         return service;
     }
-    
 }
