@@ -124,7 +124,7 @@ public class PsServiceResult implements Serializable , Comparable{
     public int compareTo(Object o) {
         PsServiceResult otherResult = (PsServiceResult)o;
         Date otherTime = otherResult.getTime();
-        return this.getTime().compareTo(otherTime);
+        return -this.getTime().compareTo(otherTime);
     }
 
     
