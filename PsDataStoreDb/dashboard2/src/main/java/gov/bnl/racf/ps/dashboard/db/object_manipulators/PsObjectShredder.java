@@ -157,7 +157,7 @@ public class PsObjectShredder {
 
     public static void delete(Session session, PsServiceResult result) {
         if (result != null) {
-            delete(session, result);
+            session.delete(result);
         }
     }
 
