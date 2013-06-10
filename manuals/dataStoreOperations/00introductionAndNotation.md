@@ -36,30 +36,30 @@ you should perform the request:
 you will be returned a string representation of JSONArray of host Id's which may look like this:
 
 
-[{"id":"23","hostname":"psum01.aglt2.org"},{"id":"24","hostname":"psmsu01.aglt2.org"},
-{"id":"25","hostname":"uct2-net1.uchicago.edu"},{"id":"26","hostname":"iut2-net1.iu.edu"},
-{"id":"27","hostname":"mwt2-ps01.campuscluster.illinois.edu"},{"id":"28","hostname":"netmon1.atlas-swt2.org"},
-{"id":"29","hostname":"ps1.ochep.ou.edu"},{"id":"30","hostname":"atlas-owamp.bu.edu"},
-{"id":"31","hostname":"psndt2.accre.vanderbilt.edu"},{"id":"32","hostname":"perfsonar02.cmsaf.mit.edu"},
-{"id":"33","hostname":"perfsonar01.cmsaf.mit.edu"},{"id":"34","hostname":"hcc-ps02.unl.edu"},
-{"id":"35","hostname":"hcc-ps01.unl.edu"},{"id":"36","hostname":"perfsonar02.hep.wisc.edu"},
-{"id":"37","hostname":"perfsonar01.hep.wisc.edu"},{"id":"38","hostname":"perfsonar-bw.sprace.org.br"},
-{"id":"39","hostname":"perfsonar-lt.sprace.org.br"},{"id":"40","hostname":"mannperf2.itns.purdue.edu"},
-{"id":"41","hostname":"mannperf.itns.purdue.edu"},{"id":"42","hostname":"perfsonar-2.t2.ucsd.edu"},
-{"id":"43","hostname":"perfsonar2.ultralight.org"},{"id":"44","hostname":"perfsonar-bw.grid.iu.edu"},
-{"id":"45","hostname":"perfsonar-lt.grid.iu.edu"},{"id":"46","hostname":"AAAAANewHost.com"}] 
+    [{"id":"23","hostname":"psum01.aglt2.org"},{"id":"24","hostname":"psmsu01.aglt2.org"},
+    {"id":"25","hostname":"uct2-net1.uchicago.edu"},{"id":"26","hostname":"iut2-net1.iu.edu"},
+    {"id":"27","hostname":"mwt2-ps01.campuscluster.illinois.edu"},{"id":"28","hostname":"netmon1.atlas-swt2.org"},
+    {"id":"29","hostname":"ps1.ochep.ou.edu"},{"id":"30","hostname":"atlas-owamp.bu.edu"},
+    {"id":"31","hostname":"psndt2.accre.vanderbilt.edu"},{"id":"32","hostname":"perfsonar02.cmsaf.mit.edu"},
+    {"id":"33","hostname":"perfsonar01.cmsaf.mit.edu"},{"id":"34","hostname":"hcc-ps02.unl.edu"},
+    {"id":"35","hostname":"hcc-ps01.unl.edu"},{"id":"36","hostname":"perfsonar02.hep.wisc.edu"},
+    {"id":"37","hostname":"perfsonar01.hep.wisc.edu"},{"id":"38","hostname":"perfsonar-bw.sprace.org.br"},
+    {"id":"39","hostname":"perfsonar-lt.sprace.org.br"},{"id":"40","hostname":"mannperf2.itns.purdue.edu"},
+    {"id":"41","hostname":"mannperf.itns.purdue.edu"},{"id":"42","hostname":"perfsonar-2.t2.ucsd.edu"},
+    {"id":"43","hostname":"perfsonar2.ultralight.org"},{"id":"44","hostname":"perfsonar-bw.grid.iu.edu"},
+    {"id":"45","hostname":"perfsonar-lt.grid.iu.edu"},{"id":"46","hostname":"AAAAANewHost.com"}] 
 
-   This list contains list of JSON objects which contain abbreviated information about hosts: each JSON object 
-   contains host ID and host name.
+This list contains list of JSON objects which contain abbreviated information about hosts: each JSON object 
+contains host ID and host name.
 
 If you want to know more about host with id 37 you perform request:
 
-   http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/hosts/37
+    http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/hosts/37
 
 and you will be returned string representation of JSONObject corresponding to host 37:
 
 
-{"ipv6":null,"id":"37","services":[{"id":"806","result":{"message":"Unknown return status 22 from command. Verify
+    {"ipv6":null,"id":"37","services":[{"id":"806","result":{"message":"Unknown return status 22 from command. Verify
 that it is a valid Nagios plug-in","id":"819","job-id":"0","time":"2013-06-10T18:44:00.000Z","status":3,"service-id":
 "806","parameters":{"command":"\/opt\/perfsonar_ps\/nagios\/bin\/check_perfSONAR.pl 
 http:\/\/null:8085\/perfSONAR_PS\/services\/pSB -t 2"},"service_result_id":"0"},"description":
@@ -88,11 +88,11 @@ http:\/\/null:8085\/perfSONAR_PS\/services\/pSB -t 2"},"service_result_id":"0"},
 The amount information included in the object JSON id is determined by the detailLevel parameter. 
 The detailLevel can be: low, medium or high. Try out the varous values of the parameters:
 
-http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/hosts/3?detailLevel=low
+    http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/hosts/3?detailLevel=low
 
-http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/hosts/3?detailLevel=medium
+    http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/hosts/3?detailLevel=medium
 
-http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/hosts/3?detailLevel=high
+    http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/hosts/3?detailLevel=high
 
 
 and you will see what effect it has.
@@ -107,7 +107,7 @@ can lead to quite a big output.
 What is the default value for detailLevel parameter? It depends. If you ask information about a particular obejct,
 for example a particular host, then detailLevel is set to high. Try this:
 
-http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/hosts/30
+    http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/hosts/30
 
 and you will get full information about host with id=30.
 
@@ -115,7 +115,7 @@ and you will get full information about host with id=30.
 On the other hand if you are asking for a list of hosts:
 
 
-http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/hosts
+    http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/hosts
 
 
 you will return only low detail level information for each hosts. You can override the default detailLevel.
