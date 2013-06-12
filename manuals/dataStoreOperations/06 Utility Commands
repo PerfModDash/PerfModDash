@@ -1,0 +1,31 @@
+In this section I will describe some utility commands. They are not part of the API, they should not be used when developing applications, butbthey may be useful when managing or debugging the server.
+
+
+In order to count the service results records issue a GET request to
+
+{url}/requests
+
+for example:
+
+curl -i -X GET -H "Content-Type: application/json"  http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/results
+
+It will return a JSON object containing the number of records found and the timestamp of the oldest record:
+
+{"minTime":"2013-06-07T00:00:18.000Z","numberOfRecords":349568}
+
+
+If you want to know the number of results older than a specific time do
+
+
+{url}/requests?tmax={time}
+
+for example
+
+
+curl -i -X GET -H "Content-Type: application/json"  http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/r2sults?tmax=2013-07-06T00:00:00.000Z
+
+In order to delete records older than specific time do a DELETE request to
+
+{url}/requests?tmax={time}
+
+It will delete the oldest records. This command should be used carefully, so in order not to lead you to temptation I do not print an explicit example how to use it. If you really really want to use it - you need to construct the command yourself instead of doing copy - paste, since copy-paste is to easy and could lead to mistakes.
