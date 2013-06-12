@@ -32,6 +32,10 @@
         <servlet-name>PsMeshConfigServlet</servlet-name>
         <servlet-class>gov.bnl.racf.ps.dashboard.meshconfig.PsMeshConfigServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PsServiceResultServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsServiceResultServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PsDumpServlet</servlet-name>
         <url-pattern>/dump</url-pattern>
@@ -86,7 +90,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PsUploadResultsServlet</servlet-name>
-        <url-pattern>/results/*</url-pattern>
+        <url-pattern>/xresults/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PsCreateUsAtlasServlet</servlet-name>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>PsMeshConfigServlet</servlet-name>
         <url-pattern>/meshconfig</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PsServiceResultServlet</servlet-name>
+        <url-pattern>/results/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

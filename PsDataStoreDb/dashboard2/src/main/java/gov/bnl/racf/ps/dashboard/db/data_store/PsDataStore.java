@@ -280,6 +280,30 @@ public class PsDataStore {
         return recentResult;
     }
 
+    public static Date getResultsTimeMin(Session session){
+        Query query = session.createQuery("select min(time) from PsServiceResult");
+        Date result = null;
+        Iterator iter = query.list().iterator();
+        while(iter.hasNext()){
+            result = (Date)iter.next();
+        }
+        return result;
+    }
+    
+    public static int getResultsCount(Session session){
+        int result = ( (Long) session.createQuery("select count(*) from PsServiceResult").iterate().next() ).intValue();
+        return result;
+    }
+    
+    public static int getResultsCount(Session session, Date tmin, Date tmax) {
+        Query query = session.createQuery("select count(*) from PsServiceResult where time between :time_start and :time_end");
+        query.setParameter("time_start", tmin);
+        query.setParameter("time_end", tmax);
+        int result = ( (Long) query.iterate().next() ).intValue();
+        return result;
+    }
+    
+    
     public static List<PsServiceResult> getResults(Session session, PsService service) {
         Query query = session.createQuery("from PsServiceResult where service_id=:parameter");
         int serviceId = service.getId();
@@ -322,4 +346,6 @@ public class PsDataStore {
             return (PsCloud) resultList.get(0);
         }
     }
+
+    
 }
