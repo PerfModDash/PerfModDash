@@ -94,6 +94,9 @@ public class PsMeshConfigServlet extends HttpServlet {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         
+        StringBuffer outBuffer = new StringBuffer();
+        JSONObject resultObject = new JSONObject();
+        
         try {
             /*
              * TODO output your page here. You may use following sample code.
@@ -112,28 +115,23 @@ public class PsMeshConfigServlet extends HttpServlet {
 
             MeshConfigurator configurator = new MeshConfigurator();
             configurator.setJson(jsonObject);
+            
             configurator.setOut(out);
+            configurator.setOutBuffer(outBuffer);
             configurator.setSession(session);
             
-//            JSONArray organisations = (JSONArray) configurator.getJson().get("organizations");
-//            
-//            Iterator iter = organisations.iterator();
-//            while(iter.hasNext()){
-//               JSONObject organisation = (JSONObject)iter.next();
-//               Iterator keyIterator = organisation.keySet().iterator();
-//               while(keyIterator.hasNext()){
-//                   String key=(String)keyIterator.next();
-//                   out.println("key="+key+" ");
-//               }
-//               out.println("<BR>");
-//               out.println(organisation.get("description"));
-//               
-//            }
+
             
             configurator.configure();
             
             // commit transaction and close session
             session.getTransaction().commit();
+            
+            
+            resultObject.put("status",0);
+            resultObject.put("output",outBuffer.toString());
+            
+            out.println(resultObject.toString());
             
             out.println("</body>");
             out.println("</html>");
@@ -143,6 +141,9 @@ public class PsMeshConfigServlet extends HttpServlet {
             Logger.getLogger(getClass()).error(e);
             e.printStackTrace(out);
             out.println("Error occured in " + getClass().getName() + " plase check the logs<BR>" + e);
+            resultObject.put("status",999);
+            resultObject.put("output",outBuffer.toString());
+            out.println(resultObject.toString());
         } finally {
             out.close();
             session.close();

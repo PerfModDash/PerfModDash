@@ -30,6 +30,8 @@ public class MeshConfigurator {
     // cloud to be configured by current json
     private PsCloud cloud;
     private List<PsMatrix> listOfMatrices = new ArrayList<PsMatrix>();
+    
+    private StringBuffer outBuffer;
 
     public void setSession(Session session) {
         this.session = session;
@@ -54,14 +56,19 @@ public class MeshConfigurator {
     public JSONObject getJson() {
         return json;
     }
+    
+     void setOutBuffer(StringBuffer outBuffer) {
+        this.outBuffer = outBuffer;
+    }
 
     public void configure() throws Exception {
         //throw new UnsupportedOperationException("Not yet implemented");
         configureCloud();
-        this.out.println("keys json=" + json2keys(json));
+        //this.out.println("keys json=" + json2keys(json));
+        this.outBuffer.append("keys json=" + json2keys(json)+"\n");
         configureMatrices();
 
-        this.out.println("assign matrices to cloud<BR>");
+        this.outBuffer.append("assign matrices to cloud\n");
         this.assignMatricesToCloud();
 
     }
@@ -70,9 +77,9 @@ public class MeshConfigurator {
         PsCloud cloud = PsDataStore.getCloudByName(this.session, cloudName);
         if (cloud == null) {
             cloud = PsObjectCreator.createNewCloudWithGivenName(session, cloudName);
-            this.out.println("Created new cloud " + cloudName + "<BR>");
+            this.outBuffer.append("Created new cloud " + cloudName + "\n");
         } else {
-            this.out.println("Known cloud " + cloudName + "<BR>");
+            this.outBuffer.append("Known cloud " + cloudName + "\n");
         }
         return cloud;
     }
@@ -81,9 +88,9 @@ public class MeshConfigurator {
         PsSite site = PsDataStore.getSiteByName(this.session, siteName);
         if (site == null) {
             site = PsObjectCreator.createNewSiteWithGivenName(session, siteName);
-            this.out.println("Created new site " + siteName + "<BR>");
+            this.outBuffer.append("Created new site " + siteName + "\n");
         } else {
-            this.out.println("Known site " + siteName + "<BR>");
+            this.outBuffer.append("Known site " + siteName + "\n");
         }
         return site;
     }
@@ -92,9 +99,9 @@ public class MeshConfigurator {
         PsHost host = PsDataStore.getHostByName(this.session, hostName);
         if (host == null) {
             host = PsObjectCreator.createNewHostWithGivenName(session, hostName);
-            this.out.println("Created new host " + hostName + "<BR>");
+            this.outBuffer.append("Created new host " + hostName + "\n");
         } else {
-            this.out.println("Known host " + hostName + "<BR>");
+            this.outBuffer.append("Known host " + hostName + "\n");
         }
         return host;
     }
@@ -166,27 +173,19 @@ public class MeshConfigurator {
         Iterator iter = jsonOrganisations.iterator();
         while (iter.hasNext()) {
             JSONObject organisation = (JSONObject) iter.next();
-            //out.println("========================");
-            //out.println("organisation description="
-            //        + (String) organisation.get("description"));
             JSONArray sites = (JSONArray) organisation.get("sites");
             Iterator sitesIterator = sites.iterator();
             while (sitesIterator.hasNext()) {
                 JSONObject site = (JSONObject) sitesIterator.next();
                 String siteDescription = (String) site.get("description");
-                //out.println("site description = " + siteDescription);
 
                 PsSite currentSite = createSiteIfNotExists(siteDescription);
                 if (this.cloud.containsSite(currentSite)) {
-                    //out.println("cloud " + cloud.getName()
-                    //        + " contains site " + currentSite.getName());
+
                 } else {
-                    //out.println("cloud " + cloud.getName()
-                    //        + " does not contain site " + currentSite.getName());
                     this.cloud.addSite(currentSite);
-                    this.out.println("Site " + currentSite.getName() + " added to cloud " + this.cloud.getName() + "<BR>");
+                    this.outBuffer.append("Site " + currentSite.getName() + " added to cloud " + this.cloud.getName() + "\n");
                 }
-                //out.println("site keys=" + json2keys(site));
                 if (site.containsKey("hosts")) {
                     JSONArray listOfHostsAtSite = (JSONArray) site.get("hosts");
 
@@ -199,31 +198,31 @@ public class MeshConfigurator {
                         PsHost host = createHostIfNotExists(hostName);
 
                         if (isBandwidthHost(hostJson)) {
-                            out.println("This is bandwidth host<BR>");
+                            outBuffer.append("This is bandwidth host\n");
                             PsHostManipulator.addThroughputServices(session, host);
                         }else{
                         }
                         if (isLatencyHost(hostJson)) {
-                            out.println("This is latency host<BR>");
+                            outBuffer.append("This is latency host\n");
                             PsHostManipulator.addLatencyServices(session, host);
                         }else{
                         }
 
 
                         if (currentSite.containsHost(host)) {
-                            //out.println("Site " + currentSite.getName() + " contains host " + host.getHostname());
+
                         } else {
                             currentSite.addHost(host);
-                            this.out.println("Host " + host.getHostname() + " added to " + currentSite.getName() + "<BR>");
+                            this.outBuffer.append("Host " + host.getHostname() + " added to " + currentSite.getName() + "\n");
                         }
                     }
                 } else {
-                    this.out.println("site " + siteDescription + " does not contain hosts information<BR>");
+                    this.outBuffer.append("site " + siteDescription + " does not contain hosts information\n");
                 }
             }
 
         }
-        this.out.println("<BR>");
+        this.outBuffer.append("\n");
     }
 
     private boolean testIsTraceroute(JSONObject test) {
@@ -309,17 +308,17 @@ public class MeshConfigurator {
         while (testsIter.hasNext()) {
             JSONObject test = (JSONObject) testsIter.next();
 
-            this.out.println("test: description=" + (String) test.get("description"));
-            this.out.println("test: parameters=" + (JSONObject) test.get("parameters"));
-            this.out.println("test: members=" + (JSONObject) test.get("members"));
+            this.outBuffer.append("test: description=" + (String) test.get("description")+"\n");
+            this.outBuffer.append("test: parameters=" + (JSONObject) test.get("parameters")+"\n");
+            this.outBuffer.append("test: members=" + (JSONObject) test.get("members")+"\n");
             if (testIsLatency(test)) {
-                this.out.println("test is latency");
+                this.outBuffer.append("test is latency+\n");
             }
             if (testIsBandwidth(test)) {
-                this.out.println("test is bandwidth");
+                this.outBuffer.append("test is bandwidth+\n");
             }
             if (testIsTraceroute(test)) {
-                this.out.println("test is traceroute");
+                this.outBuffer.append("test is traceroute+\n");
             }
             if (!testIsTraceroute(test)) {
                 PsServiceType serviceType = testType(test);
@@ -328,9 +327,9 @@ public class MeshConfigurator {
                 if (PsDataStore.containsMatrixOfNameAndType(this.session,
                         matrixName,
                         serviceType)) {
-                    this.out.println("This is known matrix");
+                    this.outBuffer.append("This is known matrix+\n");
                 } else {
-                    this.out.println("This is unknown matrix");
+                    this.outBuffer.append("This is unknown matrix+\n");
                 }
                 PsMatrix matrix = createMatrixIfNotExists(matrixName, serviceType);
                 this.listOfMatrices.add(matrix);
@@ -347,22 +346,22 @@ public class MeshConfigurator {
                                 throw new Exception("Unknown host " + hostName);
                             } else {
                                 if (matrix.containsHost(host)) {
-                                    this.out.println("Matrix contains host " + hostName);
+                                    this.outBuffer.append("Matrix contains host " + hostName+"\n");
                                 } else {
-                                    this.out.println("Matrix does not contain host " + hostName);
+                                    this.outBuffer.append("Matrix does not contain host " + hostName+"\n");
                                     PsMatrixManipulator.addHostToMatrix(session, matrix, host);
                                 }
                             }
                         }
                     } else {
-                        this.out.println("Test has no hosts associated with it <BR>");
+                        this.outBuffer.append("Test has no hosts associated with it \n");
                     }
 
                 } else {
                     throw new Exception("Unsupported test type " + test);
                 }
             }else{
-                this.out.println("Traceroute matrix type is not supported yet <BR>");
+                this.outBuffer.append("Traceroute matrix type is not supported yet \n");
             }
 
         }
@@ -370,18 +369,20 @@ public class MeshConfigurator {
     }
 
     private void assignMatricesToCloud() {
-        this.out.println("Assign matrices to clouds<BR>");
+        this.outBuffer.append("Assign matrices to clouds\n");
         Iterator iter = this.listOfMatrices.iterator();
         while (iter.hasNext()) {
             PsMatrix currentMatrix = (PsMatrix) iter.next();
             if (!this.cloud.containsMatrix(currentMatrix)) {
-                this.out.println("Assign marix " + currentMatrix.getName()
-                        + " to cloud " + this.cloud.getName() + "<BR>");
+                this.outBuffer.append("Assign marix " + currentMatrix.getName()
+                        + " to cloud " + this.cloud.getName() + "\n");
                 this.cloud.addMatrix(currentMatrix);
             } else {
-                this.out.println("Cloud " + this.cloud.getName()
-                        + " contains matrix " + currentMatrix.getName() + "<BR>");
+                this.outBuffer.append("Cloud " + this.cloud.getName()
+                        + " contains matrix " + currentMatrix.getName() + "\n");
             }
         }
     }
+
+   
 }
