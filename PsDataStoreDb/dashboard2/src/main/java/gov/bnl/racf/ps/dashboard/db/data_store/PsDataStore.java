@@ -187,13 +187,14 @@ public class PsDataStore {
             return null;
         }
     }
-    
-   /**
-    * search matrices which particular name
-    * @param session
-    * @param name
-    * @return 
-    */
+
+    /**
+     * search matrices which particular name
+     *
+     * @param session
+     * @param name
+     * @return
+     */
     public static List<PsMatrix> getMatrixByName(Session session, String name) {
         Query query = session.createQuery("from PsMatrix where name like :namepar");
         query.setParameter("namepar", name);
@@ -280,30 +281,87 @@ public class PsDataStore {
         return recentResult;
     }
 
-    public static Date getResultsTimeMin(Session session){
+    public static Date getResultsTimeMin(Session session) {
         Query query = session.createQuery("select min(time) from PsServiceResult");
         Date result = null;
         Iterator iter = query.list().iterator();
-        while(iter.hasNext()){
-            result = (Date)iter.next();
+        while (iter.hasNext()) {
+            result = (Date) iter.next();
         }
         return result;
     }
-    
-    public static int getResultsCount(Session session){
-        int result = ( (Long) session.createQuery("select count(*) from PsServiceResult").iterate().next() ).intValue();
+
+    public static int getResultsCount(Session session) {
+        int result = ((Long) session.createQuery("select count(*) from PsServiceResult").iterate().next()).intValue();
         return result;
     }
-    
+
     public static int getResultsCount(Session session, Date tmin, Date tmax) {
         Query query = session.createQuery("select count(*) from PsServiceResult where time between :time_start and :time_end");
         query.setParameter("time_start", tmin);
         query.setParameter("time_end", tmax);
-        int result = ( (Long) query.iterate().next() ).intValue();
+        int result = ((Long) query.iterate().next()).intValue();
         return result;
     }
-    
-    
+
+    public static PsServiceResult getResult(Session session, PsService service, Date tAround) {
+        PsServiceResult resultBefore = getResultBefore(session, service, tAround);
+        PsServiceResult resultAfter = getResultAfter(session, service, tAround);
+        
+        if(resultBefore==null){
+            return resultAfter;
+        }
+        
+        if(resultAfter==null){
+            return resultBefore;
+        }
+
+        Date tBefore = resultBefore.getTime();
+        Date tAfter = resultAfter.getTime();
+
+        long tMilisBefore = tBefore.getTime();
+        long tMilisAfter = tAfter.getTime();
+        long tMilisAround = tAround.getTime();
+
+        if (tMilisAfter - tMilisAround < tMilisAround - tMilisBefore) {
+            return resultAfter;
+        } else {
+            return resultBefore;
+        }
+    }
+
+    private static PsServiceResult getResultBefore(Session session, PsService service, Date tAround) {
+        List<PsServiceResult> resultsBefore = getResultsBefore(session, service, tAround);
+        if (resultsBefore.isEmpty()) {
+            return null;
+        } else {
+            Collections.sort(resultsBefore);
+            return resultsBefore.get(0);
+        }
+    }
+
+    private static PsServiceResult getResultAfter(Session session, PsService service, Date tAround) {
+        List<PsServiceResult> resultsAfter = getResultsAfter(session, service, tAround);
+        if (resultsAfter.isEmpty()) {
+            return null;
+        } else {
+            Collections.sort(resultsAfter);
+            return resultsAfter.get(resultsAfter.size() - 1);
+        }
+    }
+
+    public static List<PsServiceResult> getResultsBefore(Session session, PsService service, Date timeEnd) {
+        long secondAfterBeginningOfWorld = 1;
+        Date timeStart = new Date(secondAfterBeginningOfWorld);
+        return getResults(session, service, timeStart, timeEnd);
+    }
+
+    public static List<PsServiceResult> getResultsAfter(Session session, PsService service, Date timeStart) {
+        long secondAfterBeginningOfWorld = 1;
+        Date timeEnd = new Date();
+        return getResults(session, service, timeStart, timeEnd);
+    }
+
     public static List<PsServiceResult> getResults(Session session, PsService service) {
         Query query = session.createQuery("from PsServiceResult where service_id=:parameter");
         int serviceId = service.getId();
@@ -316,7 +374,8 @@ public class PsDataStore {
     }
 
     public static List<PsServiceResult> getResults(Session session, PsService service, Date timeStart, Date timeEnd) {
-        Query query = session.createQuery("from PsServiceResult where service_id=:parameter and time between :time_start and :time_end");
+        //Query query = session.createQuery("from PsServiceResult where service_id=:parameter and time between :time_start and :time_end");
+        Query query = session.createQuery("from PsServiceResult where service_id=:parameter and time>=:time_start and time<=:time_end");
         int serviceId = service.getId();
         query.setParameter("parameter", serviceId);
         query.setParameter("time_start", timeStart);
@@ -346,6 +405,4 @@ public class PsDataStore {
             return (PsCloud) resultList.get(0);
         }
     }
-
-    
 }

@@ -23,6 +23,7 @@ public class PsApi {
     public static final String SERVICE_HISTORY_COMMAND="history";  
     public static final String SERVICE_HISTORY_TMIN="tmin";  
     public static final String SERVICE_HISTORY_TMAX="tmax"; 
+    public static final String SERVICE_HISTORY_TAROUND="tAround"; 
     public static final String SERVICE_HISTORY_HOURS_AGO="hoursAgo";
     
     public static final String SITE="sites";  

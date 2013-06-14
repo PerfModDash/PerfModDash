@@ -120,48 +120,58 @@ public class PsServicesServlet extends HttpServlet {
                     String command = parameters.get(1);
                     if (PsApi.SERVICE_HISTORY_COMMAND.equals(command)) {
 
+                        if (request.getParameterMap().keySet().contains(PsApi.SERVICE_HISTORY_TAROUND)) {
+                            
+                            String tAroundString = request.getParameter(PsApi.SERVICE_HISTORY_TAROUND);
+                            Date tAround=IsoDateConverter.isoDate2Date(tAroundString);
+                            PsServiceResult result = PsDataStore.getResult(session,service,tAround);
+                            
+                            JSONObject resultJson = JsonConverter.toJson(result);
+                            out.println(resultJson.toString());
+                        }else{
+                            
+                            Date tmin = null;
+                            Date tmax = null;
 
-                        Date tmin = null;
-                        Date tmax = null;
-
-                        if (request.getParameterMap().keySet().contains(PsApi.SERVICE_HISTORY_HOURS_AGO)) {
-                            tmax = new Date();
-                            String hoursAgoString = request.getParameter(PsApi.SERVICE_HISTORY_HOURS_AGO);
-                            long nHoursAgo = Long.parseLong(hoursAgoString);
-                            long miliSecondsInHour = 3600 * 1000;
-                            tmin = new Date(tmax.getTime() - nHoursAgo * miliSecondsInHour);
-                        } else {
-
-                            if (request.getParameterMap().keySet().contains(PsApi.SERVICE_HISTORY_TMIN)) {
-                                String tminString = request.getParameter(PsApi.SERVICE_HISTORY_TMIN);
-                                tmin = IsoDateConverter.isoDate2Date(tminString);
-                            } else {
-                                long secondAfterBeginningOfWorld = 1;
-                                tmin = new Date(secondAfterBeginningOfWorld);
-                            }
-                            if (request.getParameterMap().keySet().contains(PsApi.SERVICE_HISTORY_TMAX)) {
-                                String tmaxString = request.getParameter(PsApi.SERVICE_HISTORY_TMAX);
-                                tmax = IsoDateConverter.isoDate2Date(tmaxString);
-                            } else {
+                            if (request.getParameterMap().keySet().contains(PsApi.SERVICE_HISTORY_HOURS_AGO)) {
                                 tmax = new Date();
+                                String hoursAgoString = request.getParameter(PsApi.SERVICE_HISTORY_HOURS_AGO);
+                                long nHoursAgo = Long.parseLong(hoursAgoString);
+                                long miliSecondsInHour = 3600 * 1000;
+                                tmin = new Date(tmax.getTime() - nHoursAgo * miliSecondsInHour);
+                            } else {
+
+                                if (request.getParameterMap().keySet().contains(PsApi.SERVICE_HISTORY_TMIN)) {
+                                    String tminString = request.getParameter(PsApi.SERVICE_HISTORY_TMIN);
+                                    tmin = IsoDateConverter.isoDate2Date(tminString);
+                                } else {
+                                    long secondAfterBeginningOfWorld = 1;
+                                    tmin = new Date(secondAfterBeginningOfWorld);
+                                }
+                                if (request.getParameterMap().keySet().contains(PsApi.SERVICE_HISTORY_TMAX)) {
+                                    String tmaxString = request.getParameter(PsApi.SERVICE_HISTORY_TMAX);
+                                    tmax = IsoDateConverter.isoDate2Date(tmaxString);
+                                } else {
+                                    tmax = new Date();
+                                }
                             }
+
+                            List<PsServiceResult> listOfResults =
+                                    PsDataStore.getResults(session, service, tmin, tmax);
+
+                            //out.println("nresults="+listOfResults.size());
+
+                            JSONArray listOfResultsJson = new JSONArray();
+                            JSONObject currentResultJson = null;
+                            Iterator iter = listOfResults.iterator();
+                            while (iter.hasNext()) {
+                                PsServiceResult currentResult =
+                                        (PsServiceResult) iter.next();
+                                currentResultJson = JsonConverter.toJson(currentResult);
+                                listOfResultsJson.add(currentResultJson);
+                            }
+                            out.println(listOfResultsJson.toString());
                         }
-
-                        List<PsServiceResult> listOfResults =
-                                PsDataStore.getResults(session, service, tmin, tmax);
-
-                        //out.println("nresults="+listOfResults.size());
-
-                        JSONArray listOfResultsJson = new JSONArray();
-                        JSONObject currentResultJson = null;
-                        Iterator iter = listOfResults.iterator();
-                        while (iter.hasNext()) {
-                            PsServiceResult currentResult =
-                                    (PsServiceResult) iter.next();
-                            currentResultJson = JsonConverter.toJson(currentResult);
-                            listOfResultsJson.add(currentResultJson);
-                        }
-                        out.println(listOfResultsJson.toString());
 
                     }
                 }
@@ -195,7 +205,7 @@ public class PsServicesServlet extends HttpServlet {
             Logger.getLogger(PsServicesServlet.class).error("error occured: " + e);
             System.out.println(new Date() + " " + getClass().getName() + " error occured " + e);
             e.printStackTrace(out);
-            
+
         } finally {
             session.close();
             out.close();
@@ -243,7 +253,7 @@ public class PsServicesServlet extends HttpServlet {
         session.beginTransaction();
 
         try {
-           
+
 
             // second order of business is to unpack parameters from url
             ArrayList<String> parameters = UrlUnpacker.unpack(request.getPathInfo());
