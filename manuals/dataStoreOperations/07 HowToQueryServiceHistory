@@ -1,0 +1,53 @@
+How to query service history.
+
+
+The format of the query is
+
+{url}/services/{service id}/history?{parameters}
+
+Parameters can be
+
+tmin = min time
+
+tmax = max time
+
+hoursAgo = number of hours in the past
+
+tAround = time around which we are looking for history record.
+
+The examples below should explain how to make the query
+
+In order to get history records for service 2177 between two times:
+
+
+curl -i -X GET -H "Content-Type: application/json"  http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/services/2177/history?tmin=2013-06-10T00:08:38.000Z&tmax=2013-06-11T00:08:38.000Z
+
+
+To get all history records for a service before some time:
+
+curl -i -X GET -H "Content-Type: application/json"  http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/services/2177/history?tmax=2013-06-11T00:08:38.000Z
+
+
+To get all history records of a service after some time
+
+curl -i -X GET -H "Content-Type: application/json"  http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/services/2177/history?tmin=2013-06-10T00:08:38.000Z
+
+To get all history records for a service which were recorded in the past 7 hours
+
+
+curl -i -X GET -H "Content-Type: application/json"  http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/services/2177/history?hoursAgo=7
+
+
+
+In order to get a single history record which happend as close as possibvle to a specific date:
+
+
+curl -i -X GET -H "Content-Type: application/json"  http://perfsonar.racf.bnl.gov:8080/dashboard2-1.0-SNAPSHOT/services/2177/history?tAround=2013-06-11T00:08:38.000Z
+
+
+
+
+
+
+
+
