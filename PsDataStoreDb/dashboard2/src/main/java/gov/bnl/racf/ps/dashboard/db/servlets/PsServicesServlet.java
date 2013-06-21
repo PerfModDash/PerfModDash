@@ -13,6 +13,8 @@ import gov.bnl.racf.ps.dashboard.db.object_manipulators.JsonConverter;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectShredder;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import gov.bnl.racf.ps.dashboard.db.utils.UrlUnpacker;
+import gov.bnl.racf.ps.exceptionlogmanager.ExceptionLog;
+import gov.bnl.racf.ps.exceptionlogmanager.ExceptionLogImpl;
 import gov.racf.bnl.ps.dashboard.PsApi.PsApi;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -205,6 +207,9 @@ public class PsServicesServlet extends HttpServlet {
             Logger.getLogger(PsServicesServlet.class).error("error occured: " + e);
             System.out.println(new Date() + " " + getClass().getName() + " error occured " + e);
             e.printStackTrace(out);
+            
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
 
         } finally {
             session.close();
@@ -275,6 +280,10 @@ public class PsServicesServlet extends HttpServlet {
             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             Logger.getLogger(PsServicesServlet.class).error(e);
+            
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
+            
         } finally {
             session.close();
             out.close();

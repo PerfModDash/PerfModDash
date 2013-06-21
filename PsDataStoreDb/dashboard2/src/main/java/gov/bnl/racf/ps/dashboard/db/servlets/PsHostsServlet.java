@@ -13,6 +13,8 @@ import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectShredder;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsObjectUpdater;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import gov.bnl.racf.ps.dashboard.db.utils.UrlUnpacker;
+import gov.bnl.racf.ps.exceptionlogmanager.ExceptionLog;
+import gov.bnl.racf.ps.exceptionlogmanager.ExceptionLogImpl;
 import gov.racf.bnl.ps.dashboard.PsApi.PsApi;
 import java.io.File;
 import java.io.IOException;
@@ -145,6 +147,10 @@ public class PsHostsServlet extends HttpServlet {
             Logger.getLogger(PsHostsServlet.class).error(e);
             e.printStackTrace(out);
             out.println("Error occured in " + getClass().getName() + " plase check the logs<BR>" + e);
+            
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
+            
         } finally {
             session.close();
             out.close();
@@ -204,6 +210,10 @@ public class PsHostsServlet extends HttpServlet {
             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             e.printStackTrace();
+            
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
+            
         } finally {
             session.close();
             out.close();
@@ -340,6 +350,10 @@ public class PsHostsServlet extends HttpServlet {
         } catch (Exception e) {
             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
+            
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
+            
         } finally {
             out.close();
             session.close();
@@ -391,6 +405,11 @@ public class PsHostsServlet extends HttpServlet {
         } catch (Exception e) {
             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
+            
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
+            
+            
         } finally {
             out.close();
             session.close();

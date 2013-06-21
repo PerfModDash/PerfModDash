@@ -9,6 +9,8 @@ import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.*;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import gov.bnl.racf.ps.dashboard.db.utils.UrlUnpacker;
+import gov.bnl.racf.ps.exceptionlogmanager.ExceptionLog;
+import gov.bnl.racf.ps.exceptionlogmanager.ExceptionLogImpl;
 import gov.racf.bnl.ps.dashboard.PsApi.PsApi;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -112,7 +114,7 @@ public class PsCloudsServlet extends HttpServlet {
                 if (detailLevel == null || "".equals(detailLevel)) {
                     detailLevel = PsApi.DETAIL_LEVEL_LOW;
                 }
-                
+
                 List<PsCloud> listOfClouds = PsDataStore.getAllClouds(session);
                 JSONArray jsonArray = new JSONArray();
                 for (PsCloud cloud : listOfClouds) {
@@ -129,6 +131,10 @@ public class PsCloudsServlet extends HttpServlet {
             System.out.println(new Date() + " " + getClass().getName() + " " + e);
             Logger.getLogger(PsCloudsServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " plase check the logs<BR>" + e);
+
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
+
         } finally {
             session.close();
             out.close();
@@ -180,6 +186,10 @@ public class PsCloudsServlet extends HttpServlet {
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             Logger.getLogger(PsCloudsServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " plase check the logs<BR>" + e);
+
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
+
         } finally {
             session.close();
             out.close();
@@ -302,6 +312,10 @@ public class PsCloudsServlet extends HttpServlet {
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             Logger.getLogger(PsSitesServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
+
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
+
         } finally {
             session.close();
             out.close();
@@ -310,7 +324,7 @@ public class PsCloudsServlet extends HttpServlet {
 
     /**
      * Handles the HTTP
-     * <code>POST</code> method.
+     * <code>DELETE</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -352,6 +366,10 @@ public class PsCloudsServlet extends HttpServlet {
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             Logger.getLogger(PsCloudsServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
+
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
+
         } finally {
             session.close();
             out.close();

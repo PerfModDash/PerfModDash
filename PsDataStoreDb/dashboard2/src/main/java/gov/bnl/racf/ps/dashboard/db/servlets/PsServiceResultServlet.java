@@ -10,6 +10,8 @@ import gov.bnl.racf.ps.dashboard.db.data_store.PsDataStore;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.*;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
 import gov.bnl.racf.ps.dashboard.db.utils.UrlUnpacker;
+import gov.bnl.racf.ps.exceptionlogmanager.ExceptionLog;
+import gov.bnl.racf.ps.exceptionlogmanager.ExceptionLogImpl;
 import gov.racf.bnl.ps.dashboard.PsApi.PsApi;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -142,6 +144,8 @@ public class PsServiceResultServlet extends HttpServlet {
             System.out.println(new Date() + " " + getClass().getName() + " error occured " + e);
             e.printStackTrace(out);
 
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
 
         } finally {
             out.close();
@@ -256,6 +260,10 @@ public class PsServiceResultServlet extends HttpServlet {
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             org.apache.log4j.Logger.getLogger(PsServiceResultServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
+            
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
+            
         } finally {
             session.close();
             out.close();
@@ -322,6 +330,8 @@ public class PsServiceResultServlet extends HttpServlet {
             System.out.println(new Date() + " " + getClass().getName() + " error occured " + e);
             e.printStackTrace(out);
 
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
 
         } finally {
             out.close();

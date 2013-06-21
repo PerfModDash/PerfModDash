@@ -10,6 +10,8 @@ import gov.bnl.racf.ps.dashboard.db.data_objects.PsService;
 import gov.bnl.racf.ps.dashboard.db.data_objects.PsServiceResult;
 import gov.bnl.racf.ps.dashboard.db.object_manipulators.PsServiceResult2RecentServiceResult;
 import gov.bnl.racf.ps.dashboard.db.session_factory_store.PsSessionFactoryStore;
+import gov.bnl.racf.ps.exceptionlogmanager.ExceptionLog;
+import gov.bnl.racf.ps.exceptionlogmanager.ExceptionLogImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -107,6 +109,10 @@ public class TestServlet extends HttpServlet {
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             org.apache.log4j.Logger.getLogger(TestServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
+            
+            ExceptionLog eLog = new ExceptionLogImpl();
+            eLog.log(getClass().getName(), e);
+            
         } finally {
             session.close();
             out.close();
