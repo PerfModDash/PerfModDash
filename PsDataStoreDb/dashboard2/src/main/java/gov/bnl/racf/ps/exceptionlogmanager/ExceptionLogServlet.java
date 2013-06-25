@@ -68,19 +68,19 @@ public class ExceptionLogServlet extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ExceptionLogServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ExceptionLogServlet at " + request.getContextPath() + "</h1>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet ExceptionLogServlet</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet ExceptionLogServlet at " + request.getContextPath() + "</h1>");
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             JSONArray jsonArray=eLog.toJson();
             out.println(jsonArray.toString());
             
-            out.println("</body>");
-            out.println("</html>");
+//            out.println("</body>");
+//            out.println("</html>");
         } finally {            
             out.close();
         }

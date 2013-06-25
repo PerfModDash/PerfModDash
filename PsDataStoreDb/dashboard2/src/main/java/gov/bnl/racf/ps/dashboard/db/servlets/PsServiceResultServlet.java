@@ -144,7 +144,7 @@ public class PsServiceResultServlet extends HttpServlet {
             System.out.println(new Date() + " " + getClass().getName() + " error occured " + e);
             e.printStackTrace(out);
 
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
 
         } finally {
@@ -261,7 +261,7 @@ public class PsServiceResultServlet extends HttpServlet {
             org.apache.log4j.Logger.getLogger(PsServiceResultServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
         } finally {
@@ -330,7 +330,7 @@ public class PsServiceResultServlet extends HttpServlet {
             System.out.println(new Date() + " " + getClass().getName() + " error occured " + e);
             e.printStackTrace(out);
 
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
 
         } finally {

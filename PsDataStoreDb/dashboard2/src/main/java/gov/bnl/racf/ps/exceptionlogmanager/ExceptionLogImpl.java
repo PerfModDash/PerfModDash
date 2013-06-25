@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -22,6 +23,13 @@ import org.json.simple.parser.ParseException;
 public class ExceptionLogImpl implements ExceptionLog {
 
     private String fileName = "exceptionLog.log";
+
+    public ExceptionLogImpl(String baseDirectory) {
+
+        fileName = baseDirectory + fileName;
+//        System.out.println(fileName);
+//        System.out.flush();
+    }
 
     @Override
     public void log(String className, Exception e) {
@@ -65,7 +73,7 @@ public class ExceptionLogImpl implements ExceptionLog {
 
         String everything = logFileContent();
         everything = everything.trim();
-        if(everything.startsWith(",")){
+        if (everything.startsWith(",")) {
             String marker = "QWERTYUIOP";
             everything = marker + everything;
             everything = everything.replace(marker + ",", "");
@@ -85,6 +93,11 @@ public class ExceptionLogImpl implements ExceptionLog {
     }
 
     private String logFileContent() {
+//        String workingDir = System.getProperty("user.dir");
+//        System.out.println("Current work dir = " + workingDir);
+//        System.out.flush();
+
+
         String everything = "";
         BufferedReader br = null;
         try {
@@ -150,6 +163,8 @@ public class ExceptionLogImpl implements ExceptionLog {
     }
 
     private void writeToFile(String data, boolean append) {
+
+
         try {
             File file = new File(this.fileName);
 
@@ -159,9 +174,12 @@ public class ExceptionLogImpl implements ExceptionLog {
             }
 
             //true = append file
-            FileWriter fileWritter = new FileWriter(file.getName(), append);
+            //FileWriter fileWritter = new FileWriter(file.getName(), append);
+            FileWriter fileWritter = new FileWriter(file, append);
             BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
-            bufferWritter.write(data+"\n");
+            bufferWritter.write(data + "\n");
+            
+            bufferWritter.flush();
             bufferWritter.close();
 
         } catch (IOException e) {

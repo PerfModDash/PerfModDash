@@ -167,7 +167,7 @@ public class PsMatricesServlet extends HttpServlet {
             Logger.getLogger(PsSitesServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs<BR>" + e);
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
         } finally {
@@ -237,7 +237,7 @@ public class PsMatricesServlet extends HttpServlet {
                 out.println(e.getStackTrace()[i]);
             }
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
         } finally {
@@ -367,7 +367,7 @@ public class PsMatricesServlet extends HttpServlet {
             Logger.getLogger(PsMatricesServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
         } finally {
@@ -423,7 +423,7 @@ public class PsMatricesServlet extends HttpServlet {
             Logger.getLogger(PsMatricesServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs<BR>");
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
 

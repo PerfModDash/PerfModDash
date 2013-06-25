@@ -218,7 +218,7 @@ public class PsQueryJobsServlet extends HttpServlet {
             Logger.getLogger(PsQueryJobsServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
         } finally {

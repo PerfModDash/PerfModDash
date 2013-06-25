@@ -148,7 +148,7 @@ public class PsHostsServlet extends HttpServlet {
             e.printStackTrace(out);
             out.println("Error occured in " + getClass().getName() + " plase check the logs<BR>" + e);
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
         } finally {
@@ -211,7 +211,7 @@ public class PsHostsServlet extends HttpServlet {
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             e.printStackTrace();
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
         } finally {
@@ -351,7 +351,7 @@ public class PsHostsServlet extends HttpServlet {
             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
         } finally {
@@ -406,7 +406,7 @@ public class PsHostsServlet extends HttpServlet {
             session.getTransaction().rollback();
             System.out.println(new Date() + " Error in " + getClass().getName() + " " + e);
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
             

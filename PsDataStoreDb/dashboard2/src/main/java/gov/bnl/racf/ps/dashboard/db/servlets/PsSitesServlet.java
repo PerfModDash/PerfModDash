@@ -137,7 +137,7 @@ public class PsSitesServlet extends HttpServlet {
             Logger.getLogger(PsSitesServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " plase check the logs<BR>" + e);
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
         } finally {
@@ -195,7 +195,7 @@ public class PsSitesServlet extends HttpServlet {
             Logger.getLogger(PsSitesServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " plase check the logs<BR>" + e);
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
         } finally {
@@ -300,7 +300,7 @@ public class PsSitesServlet extends HttpServlet {
             Logger.getLogger(PsSitesServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
         } finally {
@@ -354,7 +354,7 @@ public class PsSitesServlet extends HttpServlet {
             Logger.getLogger(PsSitesServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " please check the logs <BR>" + e);
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
             
         } finally {

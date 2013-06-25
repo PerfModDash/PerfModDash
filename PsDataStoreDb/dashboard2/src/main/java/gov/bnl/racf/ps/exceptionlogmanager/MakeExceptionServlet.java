@@ -45,7 +45,7 @@ public class MakeExceptionServlet extends HttpServlet {
             out.println("</html>");
             throw new Exception("Test exception");
         }catch(Exception ex){
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), ex);
         } finally {            
             out.close();

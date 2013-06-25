@@ -112,6 +112,26 @@
         <servlet-name>PsServiceResultServlet</servlet-name>
         <url-pattern>/results/*</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ExceptionLogServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.exceptionlogmanager.ExceptionLogServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MakeExceptionServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.exceptionlogmanager.MakeExceptionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ExceptionLogServlet</servlet-name>
+        <url-pattern>/exception</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MakeExceptionServlet</servlet-name>
+        <url-pattern>/makeException</url-pattern>
+    </servlet-mapping>
+    
+    
+    
     <session-config>
         <session-timeout>
             30

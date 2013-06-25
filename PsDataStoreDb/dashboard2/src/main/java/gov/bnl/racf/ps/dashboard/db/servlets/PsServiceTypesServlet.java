@@ -107,7 +107,7 @@ public class PsServiceTypesServlet extends HttpServlet {
             Logger.getLogger(PsServiceTypesServlet.class).error(e);
             out.println("Error occured in " + getClass().getName() + " plase check the logs " + e);
             
-            ExceptionLog eLog = new ExceptionLogImpl();
+            ExceptionLog eLog = new ExceptionLogImpl(getServletContext().getRealPath("/"));
             eLog.log(getClass().getName(), e);
            
         } finally {            
