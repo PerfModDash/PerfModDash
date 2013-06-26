@@ -106,6 +106,12 @@ function fullTableForService(objectJson){
     objectTblBody.appendChild(historyRow);
     historyRow.appendChild(singleCelltext("History")); 
     historyRow.appendChild(cellWithHistoryLinks(objectJson.id));
+    
+    var plotRow = document.createElement("tr");
+    objectTblBody.appendChild(plotRow);
+    plotRow.appendChild(singleCelltext("Plot")); 
+    plotRow.appendChild(cellWithPlotLinks(objectJson.id));
+    
 }
 
 

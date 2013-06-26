@@ -88,8 +88,38 @@ function cellWithHistoryLinks(id){
     return cell;
 }
 
+function cellWithPlotLinks(id){
+    var cell = document.createElement("td");
+    
+    cell.appendChild(linkToServiceHistoryPlot(id,"1"));
+    cell.appendChild(linkToServiceHistoryPlot(id,"6"));
+    cell.appendChild(linkToServiceHistoryPlot(id,"12"));
+    cell.appendChild(linkToServiceHistoryPlot(id,"24"));
+    cell.appendChild(linkToServiceHistoryPlot(id,"48"));
+    cell.appendChild(linkToServiceHistoryPlot(id,""));
+    return cell;
+}
+
 function linkToServiceHistory(id,hoursAgo){
     linkUrl=urlToDisplayHistory+"?id="+id;
+    linkText="all history";
+    if(""!=hoursAgo){
+        linkUrl=linkUrl+"&hoursAgo="+hoursAgo;
+        linkText=hoursAgo+" hours ago, "
+    }
+    
+    var link = document.createElement("a");
+    link.setAttribute("href", linkUrl);
+    
+    var textNode=document.createTextNode(linkText); 
+    link.appendChild(textNode);
+    
+    return link;
+}
+
+
+function linkToServiceHistoryPlot(id,hoursAgo){
+    linkUrl=urlToDisplayHistoryPlot+"?id="+id;
     linkText="all history";
     if(""!=hoursAgo){
         linkUrl=linkUrl+"&hoursAgo="+hoursAgo;
