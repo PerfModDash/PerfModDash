@@ -342,6 +342,7 @@ public class MeshConfigurator {
                         while (hostNameIter.hasNext()) {
                             String hostName = (String) hostNameIter.next();
                             PsHost host = PsDataStore.getHostByName(session, hostName);
+ 
                             if (host == null) {
                                 throw new Exception("Unknown host " + hostName);
                             } else {
