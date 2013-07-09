@@ -60,11 +60,13 @@ public class PsMatrix {
     // rows
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "PsMatrix_PsHostsInRows")
+    @IndexColumn(name="idx")
     private List<PsHost> hostsInRows = new ArrayList<PsHost>();
     //
     // columns
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "PsMatrix_PsHostsInColumns")
+    @IndexColumn(name="idx")
     private List<PsHost> hostsInColumns = new ArrayList<PsHost>();
     //
     private int maxNumberOfServiceNames = 2;
