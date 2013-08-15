@@ -1,0 +1,65 @@
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        
+        
+        <import resource="/application.xml"/>
+        
+         <context:component-scan base-package="gov.bnl.racf.ps.dashboard3.control"/>
+        
+<!--        <bean class="org.tomw.medialibrary.controllers.FirstController">
+            <property name="mediaSourceDao" ref="mediaSourceDao"/>
+        </bean>
+        
+        <bean  class="org.tomw.medialibrary.controllers.MediaSourcesController">
+            <property name="mediaSourceService" ref="mediaSourceService"/>
+        </bean>
+        
+        <bean  class="org.tomw.medialibrary.controllers.ListMediaSourcesController">
+            <property name="mediaSourceService" ref="mediaSourceService"/>
+        </bean>
+        
+        <bean class="org.tomw.medialibrary.controllers.MediaSourcesEditController">
+            <property name="mediaSourceService" ref="mediaSourceService"/>
+        </bean>
+        
+        <bean  class="org.tomw.medialibrary.controllers.MediaTagController">
+            <property name="mediaTagService" ref="mediaTagService"/>
+        </bean>-->
+        
+<!--         <bean name="/viewAll.do" class="org.tomw.medialibrary.controllers.FirstController">
+            <property name="mediaSourceDao" ref="mediaSourceDao"/>
+        </bean>
+        
+        <bean name="/mediaSources.do" class="org.tomw.medialibrary.controllers.MediaSourcesController">
+            <property name="mediaSourceService" ref="mediaSourceService"/>
+        </bean>
+        
+        <bean name="/listMediaSources.do" class="org.tomw.medialibrary.controllers.ListMediaSourcesController">
+            <property name="mediaSourceService" ref="mediaSourceService"/>
+        </bean>
+        
+        <bean name="/editMediaSource.do" class="org.tomw.medialibrary.controllers.MediaSourcesEditController">
+            <property name="mediaSourceService" ref="mediaSourceService"/>
+        </bean>
+        
+        <bean name="/createMediaTag.do" class="org.tomw.medialibrary.controllers.MediaTagController">
+            <property name="mediaTagService" ref="mediaTagService"/>
+        </bean>
+        -->
+        
+        
+<!--        <bean name="/addNewMediaSource.do" class="org.tomw.medialibrary.controllers.MediaSourcesController">
+            <property name="mediaSourceService" ref="mediaSourceService"/>
+        </bean>-->
+        
+        
+<!--        <context:component-scan base-package="medialibrary"/>-->
+        
+</beans>

@@ -1,0 +1,5 @@
+Static class containing useful constants. Those constants are used by Lucy's
+Gui module, so this class is vital to allow both modules to communicate.
+
+It may be a wise idea to move this class to some common area accessible both by 
+GUI and the data store code, but that is left for future.
