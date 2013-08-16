@@ -10,12 +10,12 @@
         
     <!--  Service Beans -->  
     
-<!--    
+
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="url" value="jdbc:mysql://localhost/medialibrary" />
+        <property name="url" value="jdbc:mysql://localhost/dashboard3" />
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="username" value="media" />
-        <property name="password" value="library" />
+        <property name="username" value="data" />
+        <property name="password" value="store" />
     </bean>
     
     <bean id="sessionFactory"
@@ -24,17 +24,16 @@
 
         <property name="annotatedClasses">
             <list>
-                <value>org.tomw.medialibrary.objects.MediaSource</value>
-                <value>org.tomw.medialibrary.objects.MediaTag</value>
+                <value>gov.bnl.racf.ps.dashboard3.objects.PsHost</value>
             </list>
         </property>
 
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop> 
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
             </props>
         </property>
     </bean>
@@ -42,21 +41,16 @@
     <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-
-    <bean id="mediaSourceDao" class="org.tomw.medialibrary.dao.impl.MediaSourceDaoHibernateImpl">
+    
+    <bean id="psHostDao" class="gov.bnl.racf.ps.dashboard3.dao.impl.PsHostDaoHibernateImpl">
         <property name="hibernateTemplate" ref="hibernateTemplate" />	
+    </bean>  
+    
+    <bean id="ps2Json" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.Ps2JsonSimpleImpl">
+    </bean>
+    
+    <bean id="psHostOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsHostOperator">
+        <property name="psHostDao" ref="psHostDao" />	
+        <property name="ps2Json" ref="ps2Json" />	
     </bean>   
-    
-    
-    <bean id="mediaTagDao" class="org.tomw.medialibrary.dao.impl.MediaTagDaoHibernateImpl">
-        <property name="hibernateTemplate" ref="hibernateTemplate" />	
-    </bean>   
-    
-     <bean id="mediaSourceService" class="org.tomw.medialibrary.services.impl.MediaSourceServiceImpl">
-        <property name="mediaSourceDao" ref="mediaSourceDao" />	
-    </bean>   
-    
-    <bean id="mediaTagService" class="org.tomw.medialibrary.services.impl.MediaTagServiceImpl">
-        <property name="mediaTagDao" ref="mediaTagDao" />	
-    </bean>   -->
 </beans>
