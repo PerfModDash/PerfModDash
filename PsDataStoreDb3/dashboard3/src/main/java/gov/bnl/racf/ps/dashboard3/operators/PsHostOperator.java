@@ -6,6 +6,7 @@ package gov.bnl.racf.ps.dashboard3.operators;
 
 import gov.bnl.racf.ps.dashboard3.dao.PsHostDao;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
+import gov.bnl.racf.ps.dashboard3.jsonconverter.Ps2Json;
 import gov.bnl.racf.ps.dashboard3.objects.PsHost;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  * class for manipulating perfSonar hosts
@@ -20,79 +22,122 @@ import org.json.simple.JSONArray;
  * @author tomw
  */
 public class PsHostOperator {
-    
-    
-    private PsHostDao psHostDao;
-    public void setPsHostDao(PsHostDao psHostDao) {this.psHostDao = psHostDao;}
 
-    public String test(){
+    private PsHostDao psHostDao;
+
+    public void setPsHostDao(PsHostDao psHostDao) {
+        this.psHostDao = psHostDao;
+    }
+    
+    private Ps2Json ps2Json;
+    public void setPs2Json(Ps2Json ps2Json) {this.ps2Json = ps2Json;}
+
+    public String test() {
         return "Test of PsHostOperator";
     }
-    
+
     /**
      * create new (empty) host
-     * @return 
+     *
+     * @return
      */
-    public PsHost create(){
+    public PsHost create() {
         return this.psHostDao.create();
     }
-    
+
     /**
      * create new host
-     * @param host 
+     *
+     * @param host
      */
-    public void create(PsHost host){
+    public void create(PsHost host) {
         this.psHostDao.create(host);
     }
-    
-    
+
     /**
      * get host by id
+     *
      * @param id
-     * @return PsHost 
-     * @throws PsObjectNotFoundException 
+     * @return PsHost
+     * @throws PsObjectNotFoundException
      */
-    public PsHost getById(int id) throws PsObjectNotFoundException{
+    public PsHost getById(int id) throws PsObjectNotFoundException {
         return this.psHostDao.getById(id);
     }
-    
+
     /**
      * get list of all hosts
-     * @return 
+     *
+     * @return
      */
-    public List<PsHost> getAll(){
+    public List<PsHost> getAll() {
         return this.psHostDao.getAll();
     }
-    
-    public void update(PsHost host){
-         this.psHostDao.update(host);
+
+    public void update(PsHost host) {
+        this.psHostDao.update(host);
     }
+
     /**
      * delete a host
-     * @param host 
+     *
+     * @param host
      */
-    public void delete(PsHost host){
-        
+    public void delete(PsHost host) {
+
         //TODO expand this, to delete services on this host,
         //TODO remove it from matrices,sites
         this.psHostDao.delete(host);
     }
-    
-    /** 
+
+    /**
      * delete host based on id
      */
-    public void delete(int id){
+    public void delete(int id) {
         PsHost host;
         try {
             host = this.psHostDao.getById(id);
             this.psHostDao.delete(host);
         } catch (PsObjectNotFoundException ex) {
             Logger.getLogger(PsHostOperator.class.getName()).log(Level.SEVERE, null, ex);
-            Logger.getLogger(PsHostOperator.class.getName()).log(Level.SEVERE, " Failed to delete host id="+id);
+            Logger.getLogger(PsHostOperator.class.getName()).log(Level.SEVERE, " Failed to delete host id=" + id);
         }
     }
-    
-    
+
+    /**
+     * convert PsHost into JsonArray
+     * @param host
+     * @return 
+     */
+    public JSONObject toJson(PsHost host){
+        return this.ps2Json.toJson(host);
+    }
+    /**
+     * convert PsHost into JsonArray
+     * @param host
+     * @param detailLevel
+     * @return 
+     */
+    public JSONObject toJson(PsHost host,String detailLevel){
+        return this.ps2Json.toJson(host);
+    }
+    /**
+     * convert list of hosts to JSONArray
+     * @param listOfHosts
+     * @return 
+     */
+    public JSONArray toJson(List<PsHost> listOfHosts) {
+        return this.ps2Json.toJson(listOfHosts);
+    }
+   /**
+    * convert list of hosts to JSONArray
+    * @param listOfHosts
+    * @param detailLevel
+    * @return 
+    */
+    public JSONArray toJson(List<PsHost> listOfHosts,String detailLevel) {
+        return this.ps2Json.toJson(listOfHosts,detailLevel);
+    }
     /**
      * add service to host
      *
@@ -102,7 +147,6 @@ public class PsHostOperator {
 //    public static void addService(Session session, PsHost host, PsService service) {
 //        host.addService(service);
 //    }
-
     /**
      * remove service from host
      *
@@ -113,7 +157,6 @@ public class PsHostOperator {
 //        host.removeService(service);
 //        session.delete(service);
 //    }
-
     /**
      * remove serviceId from host
      *
@@ -125,7 +168,6 @@ public class PsHostOperator {
 //        PsService service = (PsService) session.get(PsService.class, serviceId);
 //        session.delete(service);
 //    }
-
     /**
      * remove all primitive services from the host
      *
@@ -145,7 +187,6 @@ public class PsHostOperator {
 //            removeService(session, host, serviceToBeRemoved);
 //        }
 //    }
-
     /**
      * add service of type serviceTypeId to the host first check if the host
      * contains this service type if not create the service then add this
@@ -174,7 +215,6 @@ public class PsHostOperator {
 //            }
 //        }
 //    }
-
     /**
      * remove service of a given type from the host also remove the service from
      * data store
@@ -194,7 +234,6 @@ public class PsHostOperator {
 //            }
 //        }
 //    }
-
     /**
      * takes host and adds latency primitive services the relevant services are
      * also added to the data store
@@ -210,7 +249,6 @@ public class PsHostOperator {
 //                addServiceType(session,host, currentTypeId);
 //        }
 //    }
-
     /**
      * takes host and adds throughput services to it the relevant services are
      * added to the data store
@@ -225,7 +263,6 @@ public class PsHostOperator {
 //                addServiceType(session,host, currentTypeId);
 //        }
 //    }
-
     /**
      * takes host and adds all primitive services. To be used to build
      * multipurpose latency/bandwidth hosts the services are created and added
@@ -240,7 +277,6 @@ public class PsHostOperator {
 //            addServiceType(session,host, currentTypeId);
 //        }
 //    }
-
     /**
      * take given host and add to it list of service types stored in the input
      * JSONArray object
@@ -256,7 +292,6 @@ public class PsHostOperator {
 //            addServiceType(session,host, serviceTypeId);
 //        }
 //    }
-
     /**
      * take given host and remove from it list of service types stored in the
      * input JSONArray object
@@ -272,16 +307,15 @@ public class PsHostOperator {
 //            removeServiceType(session,host, serviceTypeId);
 //        }
 //    }
-
-    
     /**
-     * take given host and remove from it list of services identified by their ID's stored in the input
-     * JSONArray object
-     * 
+     * take given host and remove from it list of services identified by their
+     * ID's stored in the input JSONArray object
+     *
      * service ids are in JSONArray represented by strings.
+     *
      * @param session
      * @param host
-     * @param listOfServiceIds 
+     * @param listOfServiceIds
      */
 //    public static void removeServices(Session session, 
 //            PsHost host, JSONArray listOfServiceIds) {
@@ -292,6 +326,4 @@ public class PsHostOperator {
 //            removeService(session, host, serviceId);
 //        }
 //    }
-
-    
 }

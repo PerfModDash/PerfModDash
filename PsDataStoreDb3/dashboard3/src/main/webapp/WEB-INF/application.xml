@@ -49,8 +49,10 @@
     <bean id="ps2Json" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.Ps2JsonSimpleImpl">
     </bean>
     
-    <bean id="psHostOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsHostOperator">
+    
+    
+    <bean id="psHostsOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsHostOperator">
         <property name="psHostDao" ref="psHostDao" />	
-        <property name="ps2Json" ref="ps2Json" />	
+        <property name="ps2Json" ref="ps2Json" />
     </bean>   
 </beans>

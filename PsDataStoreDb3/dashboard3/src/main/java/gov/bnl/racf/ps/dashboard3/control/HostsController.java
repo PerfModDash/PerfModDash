@@ -24,25 +24,19 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/hosts")
 public class HostsController {
-    
+
     @Autowired
     private PsHostOperator psHostOperator;
-    
-    private Ps2Json ps2Json;
-    public void setPs2Json(Ps2Json ps2Json) {
-        this.ps2Json = ps2Json;
-    }
 
     public void setPsHostOperator(PsHostOperator psHostOperator) {
         this.psHostOperator = psHostOperator;
     }
 
-    
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseBody
     public String test() {
         String message = "we are in test()";
-        
+
         PsHost host = new PsHost();
         host.setHostname("abc.com");
         this.psHostOperator.create(host);
@@ -54,13 +48,14 @@ public class HostsController {
     @ResponseBody
     public String hostsGet(
             @RequestParam(value = PsApi.DETAIL_LEVEL_PARAMETER, required = false) String detailLevel) {
-        String message = "we are in hostsGet detailLevel=" + detailLevel;
-        
-        List<PsHost> listOfHosts = this.psHostOperator.getAll();
-        
-        JSONArray jsonArray = this.ps2Json.toJson(listOfHosts);
 
-        return jsonArray.toString();
+        List<PsHost> listOfHosts = this.psHostOperator.getAll();
+
+        if (detailLevel == null) {
+            return this.psHostOperator.toJson(listOfHosts).toString();
+        } else {
+            return this.psHostOperator.toJson(listOfHosts, detailLevel).toString();
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
