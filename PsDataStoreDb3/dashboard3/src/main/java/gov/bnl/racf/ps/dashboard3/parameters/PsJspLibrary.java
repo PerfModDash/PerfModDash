@@ -9,5 +9,5 @@ package gov.bnl.racf.ps.dashboard3.parameters;
  * @author tomw
  */
 public class PsJspLibrary {
-    public static String LIST_HOSTS="listHosts.jsp";
+    public static String LIST_HOSTS="/listHosts.jsp";
 }

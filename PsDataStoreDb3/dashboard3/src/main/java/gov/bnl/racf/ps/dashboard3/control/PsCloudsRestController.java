@@ -10,42 +10,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Controller to manage service types. REST interface
- *
+ * Class for managing REST interface to cloud objects
+ * //TODO: finish methods
  * @author tomw
  */
 @Controller
-@RequestMapping(value = "/servicetypes")
-public class ServiceTypesController {
-
+@RequestMapping(value = "/clouds")
+public class PsCloudsRestController {
+    
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public String serviceTypeGet() {
-        String message = "we are in serviceTypeGet()";
+    public String cloudGet() {
+        String message = "we are in cloudGet()";
         //TODO finish the method    
         return message;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public String serviceTypePost() {
-        String message = "we are in serviceTypePost()";
+    public String cloudPost() {
+        String message = "we are in cloudPost()";
         //TODO finish the method
         return message;
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseBody
-    public String serviceTypePut() {
-        String message = "we are in serviceTypePut()";
+    public String cloudPut() {
+        String message = "we are in cloudPut()";
         //TODO finish the method
         return message;
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
     @ResponseBody
-    public String serviceTypeDelete() {
-        String message = "we are in serviceTypeDelete()";
+    public String cloudDelete() {
+        String message = "we are cloudDelete()";
         //TODO finish the method
         return message;
     }

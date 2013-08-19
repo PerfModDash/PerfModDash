@@ -5,7 +5,7 @@
 package gov.bnl.racf.ps.dashboard3.dao;
 
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
-import gov.bnl.racf.ps.dashboard3.objects.PsHost;
+import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
 import java.util.List;
 
 /**

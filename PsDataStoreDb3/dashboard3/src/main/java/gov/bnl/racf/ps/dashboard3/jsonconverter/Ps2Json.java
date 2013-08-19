@@ -4,7 +4,7 @@
  */
 package gov.bnl.racf.ps.dashboard3.jsonconverter;
 
-import gov.bnl.racf.ps.dashboard3.objects.PsHost;
+import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

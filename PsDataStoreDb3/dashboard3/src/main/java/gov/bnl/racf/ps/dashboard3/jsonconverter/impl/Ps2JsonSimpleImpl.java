@@ -5,8 +5,8 @@
 package gov.bnl.racf.ps.dashboard3.jsonconverter.impl;
 
 import gov.bnl.racf.ps.dashboard3.jsonconverter.Ps2Json;
-import gov.bnl.racf.ps.dashboard3.objects.PsHost;
-import gov.bnl.racf.ps.dashboard3.parameters.PsApi;
+import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
+import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
 import java.util.Iterator;
 import java.util.List;
 import org.json.simple.JSONArray;
@@ -25,7 +25,7 @@ public class Ps2JsonSimpleImpl implements Ps2Json {
         json.put(PsHost.ID, int2String(host.getId()));
         json.put(PsHost.HOSTNAME, host.getHostname());
 
-        if (!PsApi.DETAIL_LEVEL_LOW.equals(detailLevel)) {
+        if (!PsParameters.DETAIL_LEVEL_LOW.equals(detailLevel)) {
 
             json.put(PsHost.IPV4, host.getIpv4());
             json.put(PsHost.IPV6, host.getIpv6());
@@ -37,12 +37,12 @@ public class Ps2JsonSimpleImpl implements Ps2Json {
 //            while (iter.hasNext()) {
 //
 //                PsService service = (PsService) iter.next();
-//                if (PsApi.DETAIL_LEVEL_MEDIUM.equals(detailLevel)) {
-//                    JSONObject serviceObject = toJson(service, PsApi.DETAIL_LEVEL_LOW);
+//                if (PsParameters.DETAIL_LEVEL_MEDIUM.equals(detailLevel)) {
+//                    JSONObject serviceObject = toJson(service, PsParameters.DETAIL_LEVEL_LOW);
 //                    services.add(serviceObject);
 //                }
-//                if (PsApi.DETAIL_LEVEL_HIGH.equals(detailLevel)) {
-//                    JSONObject serviceObject = toJson(service, PsApi.DETAIL_LEVEL_HIGH);
+//                if (PsParameters.DETAIL_LEVEL_HIGH.equals(detailLevel)) {
+//                    JSONObject serviceObject = toJson(service, PsParameters.DETAIL_LEVEL_HIGH);
 //                    services.add(serviceObject);
 //                }
 //
@@ -55,12 +55,12 @@ public class Ps2JsonSimpleImpl implements Ps2Json {
     
     @Override
     public JSONObject toJson(PsHost host) {
-        return toJson(host, PsApi.DETAIL_LEVEL_LOW);
+        return toJson(host, PsParameters.DETAIL_LEVEL_LOW);
     }
 
     @Override
     public JSONArray toJson(List<PsHost> listOfHosts) {
-        return toJson(listOfHosts,PsApi.DETAIL_LEVEL_LOW);
+        return toJson(listOfHosts,PsParameters.DETAIL_LEVEL_LOW);
     }
     
     @Override

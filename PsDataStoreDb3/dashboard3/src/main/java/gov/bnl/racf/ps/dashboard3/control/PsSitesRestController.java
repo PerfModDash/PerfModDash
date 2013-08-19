@@ -10,43 +10,44 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Controller to manage service types. REST interface
- *
+ * Class for managing REST interface to sites.
  * @author tomw
  */
 @Controller
-@RequestMapping(value = "/servicetypes")
-public class ServiceTypesController {
-
+@RequestMapping(value = "/sites")
+public class PsSitesRestController {
+    
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public String serviceTypeGet() {
-        String message = "we are in serviceTypeGet()";
+    public String siteGet() {
+        String message = "we are in siteGet()";
         //TODO finish the method    
         return message;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public String serviceTypePost() {
-        String message = "we are in serviceTypePost()";
+    public String sitePost() {
+        String message = "we are in sitePost()";
         //TODO finish the method
         return message;
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseBody
-    public String serviceTypePut() {
-        String message = "we are in serviceTypePut()";
+    public String servicePut() {
+        String message = "we are in sitePut()";
         //TODO finish the method
         return message;
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
     @ResponseBody
-    public String serviceTypeDelete() {
-        String message = "we are in serviceTypeDelete()";
+    public String siteDelete() {
+        String message = "we are siteDelete()";
         //TODO finish the method
         return message;
     }
+    
+    
 }

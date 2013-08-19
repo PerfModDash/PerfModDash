@@ -24,7 +24,7 @@
 
         <property name="annotatedClasses">
             <list>
-                <value>gov.bnl.racf.ps.dashboard3.objects.PsHost</value>
+                <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsHost</value>
             </list>
         </property>
 

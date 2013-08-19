@@ -7,7 +7,9 @@ package gov.bnl.racf.ps.dashboard3.operators;
 import gov.bnl.racf.ps.dashboard3.dao.PsHostDao;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.Ps2Json;
-import gov.bnl.racf.ps.dashboard3.objects.PsHost;
+import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
+import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -25,9 +27,7 @@ public class PsHostOperator {
 
     private PsHostDao psHostDao;
 
-    public void setPsHostDao(PsHostDao psHostDao) {
-        this.psHostDao = psHostDao;
-    }
+    public void setPsHostDao(PsHostDao psHostDao) {this.psHostDao = psHostDao;}
     
     private Ps2Json ps2Json;
     public void setPs2Json(Ps2Json ps2Json) {this.ps2Json = ps2Json;}
@@ -73,7 +73,31 @@ public class PsHostOperator {
     public List<PsHost> getAll() {
         return this.psHostDao.getAll();
     }
-
+    
+    
+    public List<PsHost> getAll(String sortingVariable, String sortingOrder) {
+        List<PsHost> listOfHosts = getAll();
+        if(sortingVariable!=null){
+            Collections.sort(listOfHosts, 
+                    PsHost.selectPropertyComparator(sortingVariable));
+            if (PsParameters.SORTING_ORDER_UP.equals(sortingOrder)){
+                Collections.reverse(listOfHosts);
+            }else{
+                if(PsParameters.SORTING_ORDER_DOWN.equals(sortingOrder)){
+                
+            }else{
+                    throw new RuntimeException("unknown host sorting order: " + sortingOrder);
+                }
+            }
+        }
+        
+        return listOfHosts;
+    }
+    
+    /**
+     * update a host
+     * @param host 
+     */
     public void update(PsHost host) {
         this.psHostDao.update(host);
     }
