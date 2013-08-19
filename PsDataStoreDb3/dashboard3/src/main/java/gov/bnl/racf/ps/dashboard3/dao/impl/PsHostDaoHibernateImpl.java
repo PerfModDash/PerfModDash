@@ -60,7 +60,7 @@ public class PsHostDaoHibernateImpl implements PsHostDao {
     
     @Override
     public void update(PsHost host) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.hibernateTemplate.update(host);
     }
     
     @Override

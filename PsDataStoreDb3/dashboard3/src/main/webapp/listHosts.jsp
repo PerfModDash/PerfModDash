@@ -20,8 +20,7 @@
 
         <div id="entries">
             <H1>Hosts</h1>
-<!--             <img src="../../images/leftArrow.png">
-              <img src="../../images/downArrow.png">-->
+
             <table>
                 <tr>
                     <td>
@@ -129,12 +128,12 @@
                                             <input type="image" src="../../images/delete-icon.png" alt="Delete" title="Delete"/>
                                         </form>
                                     </td>
-                                    <td>
+<!--                                    <td>
                                         <form method="get" action="showEntry">
                                             <input type="hidden" name="id" value="${host.id}"/>                                
                                             <input type="image" src="../../images/zoom-icon.png" alt="Show" title="Show"/>
                                         </form>
-                                    </td>
+                                    </td>-->
                                     <td>
                                         <form method="get" action="edit/">
                                             <input type="hidden" name="id" value="${host.id}"/>                                

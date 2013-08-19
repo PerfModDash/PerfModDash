@@ -10,4 +10,9 @@ package gov.bnl.racf.ps.dashboard3.parameters;
  */
 public class PsJspLibrary {
     public static String LIST_HOSTS="/listHosts.jsp";
+    public static String EDIT_HOST="/editHost.jsp";
+    
+    
+    public static String MESSAGE="/message.jsp";
+    
 }
