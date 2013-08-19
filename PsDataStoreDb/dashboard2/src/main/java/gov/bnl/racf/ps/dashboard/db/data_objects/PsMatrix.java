@@ -54,8 +54,8 @@ public class PsMatrix {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime;
     // max allowed matrix size
-    private int maxNumberOfColumns = 40;
-    private int maxNumberOfRows = 40;
+    private int maxNumberOfColumns = 60;
+    private int maxNumberOfRows = 60;
     // 
     // rows
     @ManyToMany(cascade = CascadeType.ALL)

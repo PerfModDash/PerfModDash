@@ -36,6 +36,10 @@
         <servlet-name>PsServiceResultServlet</servlet-name>
         <servlet-class>gov.bnl.racf.ps.dashboard.db.servlets.PsServiceResultServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TestDataPartServlet</servlet-name>
+        <servlet-class>gov.bnl.racf.ps.dashboard.servlets.debug.TestDataPartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PsDumpServlet</servlet-name>
         <url-pattern>/dump</url-pattern>
@@ -112,7 +116,6 @@
         <servlet-name>PsServiceResultServlet</servlet-name>
         <url-pattern>/results/*</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>ExceptionLogServlet</servlet-name>
         <servlet-class>gov.bnl.racf.ps.exceptionlogmanager.ExceptionLogServlet</servlet-class>
@@ -129,9 +132,10 @@
         <servlet-name>MakeExceptionServlet</servlet-name>
         <url-pattern>/makeException</url-pattern>
     </servlet-mapping>
-    
-    
-    
+    <servlet-mapping>
+        <servlet-name>TestDataPartServlet</servlet-name>
+        <url-pattern>/testDataPart</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
