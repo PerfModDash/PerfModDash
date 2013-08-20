@@ -18,51 +18,47 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * @author tomw
  */
 public class PsHostDaoHibernateImpl implements PsHostDao {
-    
+
     private HibernateTemplate hibernateTemplate;
-    
+
     public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
         this.hibernateTemplate = hibernateTemplate;
     }
-    
+
     @Override
     public PsHost create() {
         PsHost host = new PsHost();
         this.create(host);
         return host;
     }
-    
+
     @Override
     public void create(PsHost host) {
         this.hibernateTemplate.save(host);
     }
-    
+
     @Override
     public PsHost getById(int id) throws PsObjectNotFoundException {
-        String query = "from PsHost where id=?";
-        List<PsHost> listOfHosts = this.hibernateTemplate.find(query, new Object[]{id});
-        if (listOfHosts.isEmpty()) {
+        try {
+            PsHost resultHost = (PsHost) this.hibernateTemplate.get(PsHost.class, id);
+            return resultHost;
+        } catch (Exception e) {
             throw new PsObjectNotFoundException();
-        } else {
-            if (listOfHosts.size() > 1) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, " more than one host with id found, id=" + id);
-            }            
-            return listOfHosts.get(0);
         }
     }
-    
+
     @Override
     public List<PsHost> getAll() {
         String query = "from PsHost";
         List<PsHost> listOfHosts = this.hibernateTemplate.find(query);
         return listOfHosts;
     }
-    
+
     @Override
     public void update(PsHost host) {
         this.hibernateTemplate.update(host);
     }
-    
+
     @Override
     public void delete(int id) {
         try {
@@ -73,9 +69,9 @@ public class PsHostDaoHibernateImpl implements PsHostDao {
             Logger.getLogger(PsHostDaoHibernateImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void delete(PsHost host) {
-        this.hibernateTemplate.delete(host);        
+        this.hibernateTemplate.delete(host);
     }
 }

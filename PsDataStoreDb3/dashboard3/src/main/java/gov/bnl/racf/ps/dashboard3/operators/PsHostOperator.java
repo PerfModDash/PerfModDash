@@ -6,8 +6,9 @@ package gov.bnl.racf.ps.dashboard3.operators;
 
 import gov.bnl.racf.ps.dashboard3.dao.PsHostDao;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
-import gov.bnl.racf.ps.dashboard3.jsonconverter.Ps2Json;
+
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
+import gov.bnl.racf.ps.dashboard3.jsonconverter.PsHostJson;
 import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
 import java.util.Collections;
 import java.util.Iterator;
@@ -29,8 +30,12 @@ public class PsHostOperator {
 
     public void setPsHostDao(PsHostDao psHostDao) {this.psHostDao = psHostDao;}
     
-    private Ps2Json ps2Json;
-    public void setPs2Json(Ps2Json ps2Json) {this.ps2Json = ps2Json;}
+    private PsHostJson psHostJson;
+
+    public void setPsHostJson(PsHostJson psHostJson) {
+        this.psHostJson = psHostJson;
+    }
+    
 
     public String test() {
         return "Test of PsHostOperator";
@@ -134,7 +139,7 @@ public class PsHostOperator {
      * @return 
      */
     public JSONObject toJson(PsHost host){
-        return this.ps2Json.toJson(host);
+        return this.psHostJson.toJson(host);
     }
     /**
      * convert PsHost into JsonArray
@@ -143,7 +148,7 @@ public class PsHostOperator {
      * @return 
      */
     public JSONObject toJson(PsHost host,String detailLevel){
-        return this.ps2Json.toJson(host);
+        return this.psHostJson.toJson(host, detailLevel);
     }
     /**
      * convert list of hosts to JSONArray
@@ -151,7 +156,7 @@ public class PsHostOperator {
      * @return 
      */
     public JSONArray toJson(List<PsHost> listOfHosts) {
-        return this.ps2Json.toJson(listOfHosts);
+        return this.psHostJson.toJson(listOfHosts);
     }
    /**
     * convert list of hosts to JSONArray
@@ -160,7 +165,7 @@ public class PsHostOperator {
     * @return 
     */
     public JSONArray toJson(List<PsHost> listOfHosts,String detailLevel) {
-        return this.ps2Json.toJson(listOfHosts,detailLevel);
+        return this.psHostJson.toJson(listOfHosts,detailLevel);
     }
     /**
      * add service to host

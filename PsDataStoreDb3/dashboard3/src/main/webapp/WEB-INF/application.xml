@@ -5,10 +5,9 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         
-    <!--  This configuration is using Mock implementations of the services so we can 
-          concentrate on the front end for this course.  -->    
+  
         
-    <!--  Service Beans -->  
+    <!--  Data Access Beans -->  
     
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -24,6 +23,8 @@
 
         <property name="annotatedClasses">
             <list>
+                <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsParameterInfo</value>
+                <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType</value>
                 <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsHost</value>
             </list>
         </property>
@@ -42,17 +43,39 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     
+<!--    Application beans-->
+    
+    
+    <bean id="psServiceTypeDao" class="gov.bnl.racf.ps.dashboard3.dao.impl.PsServiceTypeDaoHibernateImpl">
+        <property name="hibernateTemplate" ref="hibernateTemplate" />	
+    </bean>  
+    
     <bean id="psHostDao" class="gov.bnl.racf.ps.dashboard3.dao.impl.PsHostDaoHibernateImpl">
         <property name="hibernateTemplate" ref="hibernateTemplate" />	
     </bean>  
     
-    <bean id="ps2Json" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.Ps2JsonSimpleImpl">
+    <bean id="psHostJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsHostJsonSimpleImpl">
     </bean>
     
+    <bean id="psParameterInfoJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsParameterInfoJsonSimpleImpl">
+    </bean>
     
+    <bean id="psServiceTypeJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsServiceTypeJsonSimpleImpl">
+         <property name="psParameterInfoJson" ref="psParameterInfoJson" />
+    </bean>
+    
+    <bean id="psServiceTypeFactory" class="gov.bnl.racf.ps.dashboard3.domainobjects.factories.impl.PsServiceTypeFactorySimpleImplementation">
+         
+    </bean>
+    
+    <bean id="psServiceTypeOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsServiceTypeOperator">
+        <property name="psServiceTypeDao" ref="psServiceTypeDao" />	
+        <property name="psServiceTypeJson" ref="psServiceTypeJson" />
+        <property name="psServiceTypeFactory" ref="psServiceTypeFactory" />
+    </bean> 
     
     <bean id="psHostsOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsHostOperator">
         <property name="psHostDao" ref="psHostDao" />	
-        <property name="ps2Json" ref="ps2Json" />
+        <property name="psHostJson" ref="psHostJson" />
     </bean>   
 </beans>
