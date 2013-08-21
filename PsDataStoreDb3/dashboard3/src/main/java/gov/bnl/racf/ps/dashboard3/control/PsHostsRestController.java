@@ -6,6 +6,7 @@ package gov.bnl.racf.ps.dashboard3.control;
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsUnknownCommandExeption;
 import gov.bnl.racf.ps.dashboard3.operators.PsHostOperator;
 import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
 import java.util.List;
@@ -115,8 +116,7 @@ public class PsHostsRestController {
     }
 
     /**
-     * REST call to create a new host
-     * //TODO add HttpException
+     * REST call to create a new host //TODO add HttpException
      *
      * @param requestBody
      * @return hostAsJsonString
@@ -124,7 +124,7 @@ public class PsHostsRestController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public String hostsPost(@RequestBody String requestBody) {
-       
+
         // first order of business is to convert request body to JSON 
         JSONParser parser = new JSONParser();
         JSONObject jsonInput;
@@ -134,9 +134,9 @@ public class PsHostsRestController {
             JSONObject jsonOutput = this.psHostOperator.insertNewHostFromJson(jsonInput);
             // finally return the newly created host
             return jsonOutput.toString();
-           
+
         } catch (ParseException ex) {
-            String message="Incomprehensible input: "+requestBody;
+            String message = "Incomprehensible input: " + requestBody;
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
             return message;
@@ -160,17 +160,17 @@ public class PsHostsRestController {
         try {
             jsonInput = (JSONObject) parser.parse(requestBody);
             //second order of business is to build and insert host object based on the request
-            JSONObject jsonOutput = this.psHostOperator.updateHostFromJson(id,jsonInput);
+            JSONObject jsonOutput = this.psHostOperator.updateHostFromJson(id, jsonInput);
             // finally return the newly created host
             return jsonOutput.toString();
-           
+
         } catch (ParseException ex) {
-            message="Incomprehensible input: "+requestBody;
+            message = "Incomprehensible input: " + requestBody;
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
             return message;
-        }catch(PsObjectNotFoundException ex){
-            message="Unknown host with id="+id;
+        } catch (PsObjectNotFoundException ex) {
+            message = "Unknown host with id=" + id;
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
             return message;
@@ -186,9 +186,35 @@ public class PsHostsRestController {
      */
     @RequestMapping(value = "/{id}/{command}", method = RequestMethod.PUT)
     @ResponseBody
-    public String hostsPutCommand(@PathVariable Long id, @PathVariable String command) {
-        String message = "Not implemented yet, we are in hostsPut, id = " + id + " command=" + command;
-        return message;
+    public String hostsPutCommand(@PathVariable int id, @PathVariable String command, @RequestBody String requestBody) {
+        String message = "we are in hostsPut, id = " + id 
+                    + " command=" + command+ " requestBody="+requestBody;
+        try {
+
+            PsHost updatedHost = this.psHostOperator.executeCommand(id,command,requestBody);
+            
+            JSONObject hostAsJson = 
+                    this.psHostOperator.toJson(updatedHost, PsParameters.DETAIL_LEVEL_HIGH);
+
+            return hostAsJson.toString();
+            
+            
+        } catch (PsObjectNotFoundException ex) {
+            message=message+" host not found";
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            return message;
+        } catch (PsUnknownCommandExeption ex) {
+            message=message+" unknown command";
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            return message;
+        } catch (ParseException ex) {
+            message=message+" error parsing request body";
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            return message;
+        }
     }
 
     /**
@@ -202,7 +228,7 @@ public class PsHostsRestController {
     public String hostsDeleteById(@PathVariable int id) {
         String message = "we are in hostsDeleteById, delete host id = " + id;
         this.psHostOperator.delete(id);
-        message=message+" Ordered deletion of host id="+id;
+        message = message + " Ordered deletion of host id=" + id;
         return message;
     }
 }

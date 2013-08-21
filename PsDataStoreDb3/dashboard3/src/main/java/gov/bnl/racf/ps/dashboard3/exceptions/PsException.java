@@ -5,9 +5,9 @@
 package gov.bnl.racf.ps.dashboard3.exceptions;
 
 /**
- * Exception raised when user refernces non existing perfsonar object
+ * Top level exception for all perfsonar related exceptions
  * @author tomw
  */
-public class PsObjectNotFoundException extends PsException {
+class PsException extends Exception{
     
 }

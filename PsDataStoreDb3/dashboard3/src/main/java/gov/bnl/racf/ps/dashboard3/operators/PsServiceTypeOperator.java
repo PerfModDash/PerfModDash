@@ -126,5 +126,27 @@ public class PsServiceTypeOperator {
         return result;
     }
     
+    /**
+     * check if the service type is known
+     * @param serviceTypeId
+     * @return 
+     */
+    public boolean isKnownServiceType(String serviceTypeId){
+        return this.psServiceTypeFactory.isKnownType(serviceTypeId);
+    }
+    /**
+     * check if the given service type represents primitive service
+     * @param serviceTypeId
+     * @return 
+     */
+    public boolean isPrimitiveService(String serviceTypeId){
+        return this.psServiceTypeFactory.isPrimitiveService(serviceTypeId);
+    }
+    
+
+    PsServiceType getServiceType(String serviceTypeId) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+    
     //TODO finish rest of this class
 }

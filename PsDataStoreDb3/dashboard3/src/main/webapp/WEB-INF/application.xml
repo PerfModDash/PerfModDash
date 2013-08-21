@@ -77,5 +77,6 @@
     <bean id="psHostsOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsHostOperator">
         <property name="psHostDao" ref="psHostDao" />	
         <property name="psHostJson" ref="psHostJson" />
+        <property name="psServiceTypeOperator" ref="psServiceTypeOperator" />
     </bean>   
 </beans>

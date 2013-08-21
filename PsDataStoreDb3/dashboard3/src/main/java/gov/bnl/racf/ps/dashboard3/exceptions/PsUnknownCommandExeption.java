@@ -5,9 +5,9 @@
 package gov.bnl.racf.ps.dashboard3.exceptions;
 
 /**
- * Exception raised when user refernces non existing perfsonar object
+ * Exception raised when user orders unknown command
  * @author tomw
  */
-public class PsObjectNotFoundException extends PsException {
+public class PsUnknownCommandExeption extends PsException{
     
 }

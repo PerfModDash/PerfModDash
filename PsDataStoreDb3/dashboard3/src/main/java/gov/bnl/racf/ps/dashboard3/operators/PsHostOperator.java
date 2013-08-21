@@ -8,6 +8,8 @@ import gov.bnl.racf.ps.dashboard3.dao.PsHostDao;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
+import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsUnknownCommandExeption;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsHostJson;
 import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
 import java.util.Collections;
@@ -18,6 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * class for manipulating perfSonar hosts
@@ -26,6 +30,8 @@ import org.json.simple.JSONObject;
  */
 public class PsHostOperator {
 
+    // --- dependency injection part --- //
+    
     private PsHostDao psHostDao;
 
     public void setPsHostDao(PsHostDao psHostDao) {
@@ -37,6 +43,19 @@ public class PsHostOperator {
         this.psHostJson = psHostJson;
     }
 
+    private PsServiceTypeOperator psServiceTypeOperator;
+
+    public void setPsServiceTypeOperator(PsServiceTypeOperator psServiceTypeOperator) {
+        this.psServiceTypeOperator = psServiceTypeOperator;
+    }
+    
+    
+    // --- main code of the class ---///
+    
+    /**
+     * debug method, returns test string. 
+     * @return 
+     */
     public String test() {
         return "Test of PsHostOperator";
     }
@@ -120,7 +139,7 @@ public class PsHostOperator {
 
     /**
      * delete host based on id
-     * 
+     *
      */
     public void delete(int id) {
         PsHost host;
@@ -380,17 +399,18 @@ public class PsHostOperator {
         //third order of business is to save the updated object
         this.psHostDao.update(newHost);
         //last order of business is to convert the result to JSON and return JSON object
-        JSONObject jsonOutput = this.psHostJson.toJson(newHost,PsParameters.DETAIL_LEVEL_HIGH);
+        JSONObject jsonOutput = this.psHostJson.toJson(newHost, PsParameters.DETAIL_LEVEL_HIGH);
         return jsonOutput;
     }
 
     /**
-     * Take JSON object representing a host and integer id of that host. 
-     * Obtain the corresponding host object and update it according to JSON.
+     * Take JSON object representing a host and integer id of that host. Obtain
+     * the corresponding host object and update it according to JSON.
+     *
      * @param id
      * @param jsonInput
      * @return jsonOutput
-     * @throws PsObjectNotFoundException 
+     * @throws PsObjectNotFoundException
      */
     public JSONObject updateHostFromJson(int id, JSONObject jsonInput) throws PsObjectNotFoundException {
         // first order of business is to get the host to be updated
@@ -405,9 +425,8 @@ public class PsHostOperator {
     }
 
     /**
-     * update host object with values from JSON. 
-     * If JSON has valid id and it does
-     * not match the host id throw an exception
+     * update host object with values from JSON. If JSON has valid id and it
+     * does not match the host id throw an exception
      *
      * @param host
      * @param json
@@ -458,5 +477,98 @@ public class PsHostOperator {
             // PsParameters
         }
 
+    }
+
+    public PsHost executeCommand(int id, String command, String requestBody) throws PsObjectNotFoundException, PsUnknownCommandExeption, ParseException {
+
+        PsHost host = this.getById(id);
+
+        boolean thisIsUnknownCommand = true;
+
+        if (PsParameters.HOST_ADD_SERVICE_TYPE_COMMAND.equals(command)) {
+            thisIsUnknownCommand = false;
+
+            // first order of business is to unpack request body. It should contain
+            // JSONArray of strings representing servicetypes
+            JSONParser parser = new JSONParser();
+            JSONArray servicetypeIds = (JSONArray) parser.parse(requestBody);
+            this.addServiceTypes(host, servicetypeIds);
+        }
+
+        if (PsParameters.HOST_ADD_ALL_SERVICES_COMMAND.equals(command)) {
+            thisIsUnknownCommand = false;
+            throw new UnsupportedOperationException("Command " + command + " is not implemented yet.");
+        }
+        if (PsParameters.HOST_ADD_LATENCY_SERVICES_COMMAND.equals(command)) {
+            thisIsUnknownCommand = false;
+            throw new UnsupportedOperationException("Command " + command + " is not implemented yet.");
+        }
+
+        if (PsParameters.HOST_ADD_THROUGHPUT_SERVICES_COMMAND.equals(command)) {
+            thisIsUnknownCommand = false;
+            throw new UnsupportedOperationException("Command " + command + " is not implemented yet.");
+        }
+
+        if (PsParameters.HOST_REMOVE_SERVICE_TYPE_COMMAND.equals(command)) {
+            thisIsUnknownCommand = false;
+            throw new UnsupportedOperationException("Command " + command + " is not implemented yet.");
+        }
+
+        if (PsParameters.HOST_REMOVE_SERVICE_ID_COMMAND.equals(command)) {
+            thisIsUnknownCommand = false;
+            throw new UnsupportedOperationException("Command " + command + " is not implemented yet.");
+        }
+
+        if (PsParameters.HOST_REMOVE_ALL_SERVICES_COMMAND.equals(command)) {
+            thisIsUnknownCommand = false;
+            throw new UnsupportedOperationException("Command " + command + " is not implemented yet.");
+        }
+
+        if (thisIsUnknownCommand) {
+            throw new PsUnknownCommandExeption();
+        }
+
+        return host;
+    }
+
+    // --- methods for high level host commands start here --- //
+    /**
+     * add primitive services with types defined in servicetypeIds to the host
+     *
+     * @param host
+     * @param servicetypeIds
+     */
+    public void addServiceTypes(PsHost host, JSONArray servicetypeIds) {
+        
+        Iterator iter = servicetypeIds.iterator();
+        while (iter.hasNext()) {
+            String serviceTypeId = (String) iter.next();
+            this.addServiceType(host, serviceTypeId);
+        }
+    }
+
+    /**
+     * add primitive service of given type to the host
+     * @param host
+     * @param serviceTypeId 
+     */
+    private void addServiceType(PsHost host, String serviceTypeId) {
+        if (this.psServiceTypeOperator.isKnownServiceType(serviceTypeId)) {
+            if (this.psServiceTypeOperator.isPrimitiveService(serviceTypeId)) {
+
+
+                PsServiceType type = this.psServiceTypeOperator.getServiceType(serviceTypeId);
+                if (type != null) {
+                    // if service of this type is already associated to the host do nothing
+                    if (!host.hasServiceType(type)) {
+                        PsService service = 
+                                PsServiceFactory.createService(session,type, host);
+                        // service factory already saved the service to session 
+                        // and added it to host, so no need to do it now.
+                        
+                    }
+                }
+            }
+        }
     }
 }
