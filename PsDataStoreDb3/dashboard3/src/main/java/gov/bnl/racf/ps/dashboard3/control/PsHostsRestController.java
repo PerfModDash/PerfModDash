@@ -135,8 +135,8 @@ public class PsHostsRestController {
             //second order of business is to build and insert host object based on the request
             JSONObject jsonOutput = this.psHostOperator.insertNewHostFromJson(jsonInput);
             // finally return the newly created host
-//            return jsonOutput.toString();
-            return "Input="+jsonInput.toString()+" output="+jsonOutput.toString();
+            return jsonOutput.toString();
+           
         } catch (ParseException ex) {
             message="Incomprehensible input: "+requestBody;
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
