@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping(value = "/hosts")
-public class HostsController {
+public class PsHostsController {
 
     @Autowired
     private PsHostOperator psHostOperator;
@@ -87,8 +87,8 @@ public class HostsController {
                 return this.psHostOperator.toJson(host, detailLevel).toString();
             }
         } catch (PsObjectNotFoundException ex) {
-            Logger.getLogger(HostsController.class.getName()).log(Level.SEVERE, null, ex);
-            Logger.getLogger(HostsController.class.getName()).log(Level.SEVERE, null, "host with id="+id+" not found");
+            Logger.getLogger(PsHostsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PsHostsController.class.getName()).log(Level.SEVERE, null, "host with id="+id+" not found");
             throw new RuntimeException("host with id="+id+" not found");
         }
     }
