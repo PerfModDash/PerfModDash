@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface PsServiceResultDao {
     public  PsServiceResult create();
-    public void insert(PsServiceResult host);
+    public void insert(PsServiceResult serviceResult);
     
     public PsServiceResult getById(int id) throws PsObjectNotFoundException;
     
