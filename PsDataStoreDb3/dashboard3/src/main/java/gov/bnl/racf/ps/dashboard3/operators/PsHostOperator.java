@@ -56,7 +56,7 @@ public class PsHostOperator {
      * @param host
      */
     public void create(PsHost host) {
-        this.psHostDao.create(host);
+        this.psHostDao.insert(host);
     }
 
     /**

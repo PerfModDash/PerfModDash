@@ -15,7 +15,7 @@ import java.util.List;
 public interface PsHostDao {
     
     public PsHost create();
-    public void create(PsHost host);
+    public void insert(PsHost host);
     
     public PsHost getById(int id) throws PsObjectNotFoundException;
     
