@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +39,8 @@ public class PsHostsRestController {
     /**
      * test method, for development only. Create by hand a couple of hosts
      * //TODO delete this method before moving to production
-     * @return 
+     *
+     * @return
      */
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseBody
@@ -67,8 +70,9 @@ public class PsHostsRestController {
 
     /**
      * REST call to get list of all hosts
+     *
      * @param detailLevel
-     * @return 
+     * @return
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
@@ -86,16 +90,17 @@ public class PsHostsRestController {
 
     /**
      * REST call to get a specific host
+     *
      * @param id
      * @param detailLevel
-     * @return  hostAsJsonString
+     * @return hostAsJsonString
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String hostsGetById(
             @PathVariable int id,
             @RequestParam(value = PsParameters.DETAIL_LEVEL_PARAMETER, required = false) String detailLevel) {
-        try {            
+        try {
             PsHost host = this.psHostOperator.getById(id);
             if (detailLevel == null) {
                 return this.psHostOperator.toJson(host).toString();
@@ -104,13 +109,15 @@ public class PsHostsRestController {
             }
         } catch (PsObjectNotFoundException ex) {
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, "host with id="+id+" not found");
-            throw new RuntimeException("host with id="+id+" not found");
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, "host with id=" + id + " not found");
+            throw new RuntimeException("host with id=" + id + " not found");
         }
     }
 
     /**
      * REST call to create a new host
+     * //TODO add HttpException
+     *
      * @param requestBody
      * @return hostAsJsonString
      */
@@ -118,11 +125,29 @@ public class PsHostsRestController {
     @ResponseBody
     public String hostsPost(@RequestBody String requestBody) {
         String message = "we are in hostsPost, request body = " + requestBody;
-        return message;
+//        return message;
+        
+        // first order of business is to convert request body to JSON 
+        JSONParser parser = new JSONParser();
+        JSONObject jsonInput;
+        try {
+            jsonInput = (JSONObject) parser.parse(requestBody);
+            //second order of business is to build and insert host object based on the request
+            JSONObject jsonOutput = this.psHostOperator.insertNewHostFromJson(jsonInput);
+            // finally return the newly created host
+//            return jsonOutput.toString();
+            return "Input="+jsonInput.toString()+" output="+jsonOutput.toString();
+        } catch (ParseException ex) {
+            message="Incomprehensible input: "+requestBody;
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            return message;
+        }
     }
 
     /**
      * REST call to modify the selected host
+     *
      * @param id
      * @param requestBody
      * @return hostAsJsonString
@@ -136,6 +161,7 @@ public class PsHostsRestController {
 
     /**
      * REST call to perform high level operation on host
+     *
      * @param id
      * @param command
      * @return hostAsJsonString
@@ -149,8 +175,9 @@ public class PsHostsRestController {
 
     /**
      * REST call to delete the selected host
+     *
      * @param id
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
