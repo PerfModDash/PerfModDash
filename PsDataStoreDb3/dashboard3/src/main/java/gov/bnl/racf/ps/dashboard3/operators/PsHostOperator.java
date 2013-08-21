@@ -120,6 +120,7 @@ public class PsHostOperator {
 
     /**
      * delete host based on id
+     * 
      */
     public void delete(int id) {
         PsHost host;

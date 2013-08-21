@@ -200,7 +200,9 @@ public class PsHostsRestController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public String hostsDeleteById(@PathVariable int id) {
-        String message = "Not implemented yet,we are in hostsDeleteById, id = " + id;
+        String message = "we are in hostsDeleteById, delete host id = " + id;
+        this.psHostOperator.delete(id);
+        message=message+" Ordered deletion of host id="+id;
         return message;
     }
 }
