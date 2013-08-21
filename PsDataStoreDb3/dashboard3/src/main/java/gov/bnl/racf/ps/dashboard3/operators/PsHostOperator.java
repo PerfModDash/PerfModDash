@@ -28,14 +28,14 @@ public class PsHostOperator {
 
     private PsHostDao psHostDao;
 
-    public void setPsHostDao(PsHostDao psHostDao) {this.psHostDao = psHostDao;}
-    
+    public void setPsHostDao(PsHostDao psHostDao) {
+        this.psHostDao = psHostDao;
+    }
     private PsHostJson psHostJson;
 
     public void setPsHostJson(PsHostJson psHostJson) {
         this.psHostJson = psHostJson;
     }
-    
 
     public String test() {
         return "Test of PsHostOperator";
@@ -78,30 +78,29 @@ public class PsHostOperator {
     public List<PsHost> getAll() {
         return this.psHostDao.getAll();
     }
-    
-    
+
     public List<PsHost> getAll(String sortingVariable, String sortingOrder) {
         List<PsHost> listOfHosts = getAll();
-        if(sortingVariable!=null){
-            Collections.sort(listOfHosts, 
+        if (sortingVariable != null) {
+            Collections.sort(listOfHosts,
                     PsHost.selectPropertyComparator(sortingVariable));
-            if (PsParameters.SORTING_ORDER_UP.equals(sortingOrder)){
+            if (PsParameters.SORTING_ORDER_UP.equals(sortingOrder)) {
                 Collections.reverse(listOfHosts);
-            }else{
-                if(PsParameters.SORTING_ORDER_DOWN.equals(sortingOrder)){
-                
-            }else{
+            } else {
+                if (PsParameters.SORTING_ORDER_DOWN.equals(sortingOrder)) {
+                } else {
                     throw new RuntimeException("unknown host sorting order: " + sortingOrder);
                 }
             }
         }
-        
+
         return listOfHosts;
     }
-    
+
     /**
      * update a host
-     * @param host 
+     *
+     * @param host
      */
     public void update(PsHost host) {
         this.psHostDao.update(host);
@@ -135,38 +134,46 @@ public class PsHostOperator {
 
     /**
      * convert PsHost into JsonArray
+     *
      * @param host
-     * @return 
+     * @return
      */
-    public JSONObject toJson(PsHost host){
+    public JSONObject toJson(PsHost host) {
         return this.psHostJson.toJson(host);
     }
+
     /**
      * convert PsHost into JsonArray
+     *
      * @param host
      * @param detailLevel
-     * @return 
+     * @return
      */
-    public JSONObject toJson(PsHost host,String detailLevel){
+    public JSONObject toJson(PsHost host, String detailLevel) {
         return this.psHostJson.toJson(host, detailLevel);
     }
+
     /**
      * convert list of hosts to JSONArray
+     *
      * @param listOfHosts
-     * @return 
+     * @return
      */
     public JSONArray toJson(List<PsHost> listOfHosts) {
         return this.psHostJson.toJson(listOfHosts);
     }
-   /**
-    * convert list of hosts to JSONArray
-    * @param listOfHosts
-    * @param detailLevel
-    * @return 
-    */
-    public JSONArray toJson(List<PsHost> listOfHosts,String detailLevel) {
-        return this.psHostJson.toJson(listOfHosts,detailLevel);
+
+    /**
+     * convert list of hosts to JSONArray
+     *
+     * @param listOfHosts
+     * @param detailLevel
+     * @return
+     */
+    public JSONArray toJson(List<PsHost> listOfHosts, String detailLevel) {
+        return this.psHostJson.toJson(listOfHosts, detailLevel);
     }
+
     /**
      * add service to host
      *
@@ -355,16 +362,16 @@ public class PsHostOperator {
 //            removeService(session, host, serviceId);
 //        }
 //    }
-    
     /**
-     * Get json object describing a host. Based on this create and persost a PsHost object. 
-     * If succesful, return JSONObject of the new host (it will include id).
-     * //TODO make a custom exception
-     * //TODO make this operation transactional
+     * Get json object describing a host. Based on this create and persost a
+     * PsHost object. If succesful, return JSONObject of the new host (it will
+     * include id). //TODO make a custom exception //TODO make this operation
+     * transactional
+     *
      * @param jsonInput
-     * @return 
+     * @return
      */
-    public JSONObject insertNewHostFromJson(JSONObject jsonInput){
+    public JSONObject insertNewHostFromJson(JSONObject jsonInput) {
         // first order of business is to create new host
         PsHost newHost = this.psHostDao.create();
         //second order of business is to update the host object
@@ -372,19 +379,39 @@ public class PsHostOperator {
         //third order of business is to save the updated object
         this.psHostDao.update(newHost);
         //last order of business is to convert the result to JSON and return JSON object
-        JSONObject jsonOutput = this.psHostJson.toJson(newHost);
+        JSONObject jsonOutput = this.psHostJson.toJson(newHost,PsParameters.DETAIL_LEVEL_HIGH);
         return jsonOutput;
     }
-    
-    
-     /**
-     * update host object with values from JSON
-     * If JSON has valid id and it does not match the host id throw an exception
+
+    /**
+     * Take JSON object representing a host and integer id of that host. 
+     * Obtain the corresponding host object and update it according to JSON.
+     * @param id
+     * @param jsonInput
+     * @return jsonOutput
+     * @throws PsObjectNotFoundException 
+     */
+    public JSONObject updateHostFromJson(int id, JSONObject jsonInput) throws PsObjectNotFoundException {
+        // first order of business is to get the host to be updated
+        PsHost host = this.psHostDao.getById(id);
+        // second order of business is to update this host
+        this.update(host, jsonInput);
+        //third order of business is to save the updated object
+        this.psHostDao.update(host);
+        //last order of business is to convert the result to JSON and return JSON object
+        JSONObject jsonOutput = this.psHostJson.toJson(host, PsParameters.DETAIL_LEVEL_HIGH);
+        return jsonOutput;
+    }
+
+    /**
+     * update host object with values from JSON. 
+     * If JSON has valid id and it does
+     * not match the host id throw an exception
      *
      * @param host
      * @param json
      */
-    public  void update(PsHost host, JSONObject json) {
+    public void update(PsHost host, JSONObject json) {
         // first order of business is to compare id
 
         boolean jsonHasValidId = false;
@@ -393,28 +420,28 @@ public class PsHostOperator {
                 jsonHasValidId = true;
             }
         }
-        
-        boolean idTestPassed=false;
-        
+
+        boolean idTestPassed = false;
+
         if (jsonHasValidId) {
             int hostId = host.getId();
             String hostIdAsString = (String) json.get(PsHost.ID);
-           
-            int hostIdInJson  = Integer.parseInt(hostIdAsString);
+
+            int hostIdInJson = Integer.parseInt(hostIdAsString);
             if (hostId != hostIdInJson) {
                 System.out.println("ERROR: host id and json id do not match");
-                idTestPassed=false;
-            }else{
-                idTestPassed=true;
+                idTestPassed = false;
+            } else {
+                idTestPassed = true;
             }
-        }else{
-            idTestPassed=true;
+        } else {
+            idTestPassed = true;
         }
 
         if (!idTestPassed) {
             System.out.println("ERROR: failed the id test.");
             //TODO create a custom exception to handle this type of problem
-            throw new RuntimeException("the json object and host object do not agree on id "+json.toString());
+            throw new RuntimeException("the json object and host object do not agree on id " + json.toString());
         } else {
             if (json.keySet().contains(PsHost.HOSTNAME)) {
                 host.setHostname((String) json.get(PsHost.HOSTNAME));
@@ -427,9 +454,8 @@ public class PsHostOperator {
             }
             // We do not handle services here. 
             // Adding and removeing services is done by dedicated command from 
-            // PsApi
+            // PsParameters
         }
 
     }
-    
 }

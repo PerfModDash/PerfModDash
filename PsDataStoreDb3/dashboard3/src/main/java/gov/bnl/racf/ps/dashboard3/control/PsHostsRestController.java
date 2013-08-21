@@ -124,9 +124,7 @@ public class PsHostsRestController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public String hostsPost(@RequestBody String requestBody) {
-        String message = "we are in hostsPost, request body = " + requestBody;
-//        return message;
-        
+       
         // first order of business is to convert request body to JSON 
         JSONParser parser = new JSONParser();
         JSONObject jsonInput;
@@ -138,7 +136,7 @@ public class PsHostsRestController {
             return jsonOutput.toString();
            
         } catch (ParseException ex) {
-            message="Incomprehensible input: "+requestBody;
+            String message="Incomprehensible input: "+requestBody;
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
             return message;
@@ -154,9 +152,29 @@ public class PsHostsRestController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public String hostsPut(@PathVariable Long id, @RequestBody String requestBody) {
+    public String hostsPut(@PathVariable int id, @RequestBody String requestBody) {
         String message = "we are in hostsPut, id = " + id + " requestBody=" + requestBody;
-        return message;
+        // first order of business is to convert request body to JSON 
+        JSONParser parser = new JSONParser();
+        JSONObject jsonInput;
+        try {
+            jsonInput = (JSONObject) parser.parse(requestBody);
+            //second order of business is to build and insert host object based on the request
+            JSONObject jsonOutput = this.psHostOperator.updateHostFromJson(id,jsonInput);
+            // finally return the newly created host
+            return jsonOutput.toString();
+           
+        } catch (ParseException ex) {
+            message="Incomprehensible input: "+requestBody;
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            return message;
+        }catch(PsObjectNotFoundException ex){
+            message="Unknown host with id="+id;
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            return message;
+        }
     }
 
     /**
@@ -169,7 +187,7 @@ public class PsHostsRestController {
     @RequestMapping(value = "/{id}/{command}", method = RequestMethod.PUT)
     @ResponseBody
     public String hostsPutCommand(@PathVariable Long id, @PathVariable String command) {
-        String message = "we are in hostsPut, id = " + id + " command=" + command;
+        String message = "Not implemented yet, we are in hostsPut, id = " + id + " command=" + command;
         return message;
     }
 
@@ -182,7 +200,7 @@ public class PsHostsRestController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public String hostsDeleteById(@PathVariable int id) {
-        String message = "we are in hostsDeleteById, id = " + id;
+        String message = "Not implemented yet,we are in hostsDeleteById, id = " + id;
         return message;
     }
 }
