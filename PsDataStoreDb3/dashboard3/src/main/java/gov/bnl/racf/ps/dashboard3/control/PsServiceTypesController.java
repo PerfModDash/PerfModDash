@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping(value = "/servicetypes")
-public class ServiceTypesController {
+public class PsServiceTypesController {
     
     // --- dependency injection part ---///
     @Autowired
