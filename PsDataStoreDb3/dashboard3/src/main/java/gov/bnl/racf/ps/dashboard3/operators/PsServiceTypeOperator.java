@@ -7,6 +7,7 @@ package gov.bnl.racf.ps.dashboard3.operators;
 import gov.bnl.racf.ps.dashboard3.dao.PsServiceTypeDao;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
 import gov.bnl.racf.ps.dashboard3.domainobjects.factories.PsServiceTypeFactory;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsServiceTypeJson;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -144,8 +145,14 @@ public class PsServiceTypeOperator {
     }
     
 
-    PsServiceType getServiceType(String serviceTypeId) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    /**
+     * get service type of given service type id
+     * @param serviceTypeId
+     * @return
+     * @throws PsObjectNotFoundException 
+     */
+    PsServiceType getServiceType(String serviceTypeId) throws PsObjectNotFoundException {
+        return this.psServiceTypeDao.getByServiceTypeId(serviceTypeId);
     }
     
     //TODO finish rest of this class

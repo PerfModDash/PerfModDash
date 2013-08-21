@@ -36,9 +36,9 @@ public class PsHost {
     private String ipv4 = "";
     private String ipv6 = "";
 
-    // Commented out until we return services
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    private Collection<PsService> services = new Vector<PsService>();
+    
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Collection<PsService> services = new Vector<PsService>();
     /**
      * get and set methods
      *
@@ -113,9 +113,9 @@ public class PsHost {
      *
      * @return
      */
-//    public Iterator<PsService> serviceIterator() {
-//        return services.iterator();
-//    }
+    public Iterator<PsService> serviceIterator() {
+        return services.iterator();
+    }
     /**
      * check if host contains servcieId
      *
@@ -180,24 +180,24 @@ public class PsHost {
      * @param type
      * @return
      */
-//    public boolean hasServiceType(PsServiceType type) {
-//        Iterator<PsService> iter = serviceIterator();
-//        while (iter.hasNext()) {
-//            PsService currentService = (PsService) iter.next();
-//            String currentTypeId = currentService.getType();
-//            if (type != null) {
-//                if (currentTypeId != null) {
-//                    if (currentTypeId.equals(type.getServiceTypeId())) {
-//                        return true;
-//                    }
-//                } else {
-//                    Logger logger = Logger.getLogger(PsHost.class);
-//                    logger.warn("service on host " + this.getId() + " has type null");
-//                }
-//            }
-//        }
-//        return false;
-//    }
+    public boolean hasServiceType(PsServiceType type) {
+        Iterator<PsService> iter = this.serviceIterator();
+        while (iter.hasNext()) {
+            PsService currentService = (PsService) iter.next();
+            String currentTypeId = currentService.getType();
+            if (type != null) {
+                if (currentTypeId != null) {
+                    if (currentTypeId.equals(type.getServiceTypeId())) {
+                        return true;
+                    }
+                } else {
+                    Logger logger = Logger.getLogger(PsHost.class);
+                    logger.warn("service on host " + this.getId() + " has type null");
+                }
+            }
+        }
+        return false;
+    }
     /**
      * check if host contains primitive service of serviceTypeId
      *

@@ -552,7 +552,7 @@ public class PsHostOperator {
      * @param host
      * @param serviceTypeId 
      */
-    private void addServiceType(PsHost host, String serviceTypeId) {
+    private void addServiceType(PsHost host, String serviceTypeId) throws PsObjectNotFoundException {
         if (this.psServiceTypeOperator.isKnownServiceType(serviceTypeId)) {
             if (this.psServiceTypeOperator.isPrimitiveService(serviceTypeId)) {
 
