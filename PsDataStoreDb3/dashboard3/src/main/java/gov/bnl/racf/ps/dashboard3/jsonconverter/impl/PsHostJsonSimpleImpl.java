@@ -6,7 +6,9 @@ package gov.bnl.racf.ps.dashboard3.jsonconverter.impl;
 
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
+import gov.bnl.racf.ps.dashboard3.domainobjects.PsService;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsHostJson;
+import gov.bnl.racf.ps.dashboard3.jsonconverter.PsServiceJson;
 import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
 import java.util.Iterator;
 import java.util.List;
@@ -19,6 +21,14 @@ import org.json.simple.JSONObject;
  */
 public class PsHostJsonSimpleImpl implements PsHostJson {
 
+    // === dependency injection part === //
+    
+    private PsServiceJson psServiceJson;
+
+    public void setPsServiceJson(PsServiceJson psServiceJson) {
+        this.psServiceJson = psServiceJson;
+    }
+    
     @Override
     public JSONObject toJson(PsHost host, String detailLevel) {
         JSONObject json = new JSONObject();
@@ -30,25 +40,9 @@ public class PsHostJsonSimpleImpl implements PsHostJson {
 
             json.put(PsHost.IPV4, host.getIpv4());
             json.put(PsHost.IPV6, host.getIpv6());
-
-            //TODO services part is to be added later
-            
-//            JSONArray services = new JSONArray();
-//            Iterator<PsService> iter = host.serviceIterator();
-//            while (iter.hasNext()) {
-//
-//                PsService service = (PsService) iter.next();
-//                if (PsParameters.DETAIL_LEVEL_MEDIUM.equals(detailLevel)) {
-//                    JSONObject serviceObject = toJson(service, PsParameters.DETAIL_LEVEL_LOW);
-//                    services.add(serviceObject);
-//                }
-//                if (PsParameters.DETAIL_LEVEL_HIGH.equals(detailLevel)) {
-//                    JSONObject serviceObject = toJson(service, PsParameters.DETAIL_LEVEL_HIGH);
-//                    services.add(serviceObject);
-//                }
-//
-//            }
-//            json.put(PsHost.SERVICES, services);
+          
+            List<PsService>listOfServicesOnThisHost=(List<PsService>)host.getServices();
+            json.put(PsHost.SERVICES, this.psServiceJson.toJson(listOfServicesOnThisHost));
         }
         
         return json;

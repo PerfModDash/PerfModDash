@@ -5,19 +5,16 @@
 package gov.bnl.racf.ps.dashboard3.operators;
 
 import gov.bnl.racf.ps.dashboard3.dao.PsHostDao;
-import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
-
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsService;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
-import gov.bnl.racf.ps.dashboard3.domainobjects.factories.PsServiceTypeFactory;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsUnknownCommandExeption;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsHostJson;
 import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -27,7 +24,7 @@ import org.json.simple.parser.ParseException;
 
 /**
  * class for manipulating perfSonar hosts
- *
+ * //TODO make its methods @Transactional
  * @author tomw
  */
 public class PsHostOperator {
@@ -79,11 +76,11 @@ public class PsHostOperator {
     }
 
     /**
-     * create new host
+     * insert new host
      *
      * @param host
      */
-    public void create(PsHost host) {
+    public void insert(PsHost host) {
         this.psHostDao.insert(host);
     }
 
@@ -107,6 +104,12 @@ public class PsHostOperator {
         return this.psHostDao.getAll();
     }
 
+    /**
+     * get list of all hosts, sort them according to a given sorting order
+     * @param sortingVariable
+     * @param sortingOrder
+     * @return 
+     */
     public List<PsHost> getAll(String sortingVariable, String sortingOrder) {
         List<PsHost> listOfHosts = getAll();
         if (sortingVariable != null) {
@@ -203,15 +206,7 @@ public class PsHostOperator {
         return this.psHostJson.toJson(listOfHosts, detailLevel);
     }
 
-    /**
-     * add service to host
-     *
-     * @param host
-     * @param service
-     */
-//    public static void addService(Session session, PsHost host, PsService service) {
-//        host.addService(service);
-//    }
+   
     /**
      * remove service from host
      *

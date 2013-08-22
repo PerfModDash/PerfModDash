@@ -19,4 +19,6 @@ public interface PsServiceJson {
     public JSONObject toJson(PsService service, String detailLevel);
     public JSONArray toJson(List<PsService> listOfServices);
     public JSONArray toJson(List<PsService> listOfServices,String detailLevel);
+    
+    public JSONObject serviceParametersAsJson(PsService service);
 }

@@ -38,6 +38,8 @@ public class PsHost {
     @ManyToMany(cascade = CascadeType.ALL)
     private Collection<PsService> services = new Vector<PsService>();
 
+    
+
     /**
      * get and set methods
      *
@@ -75,6 +77,15 @@ public class PsHost {
         this.ipv6 = ipv6;
     }
 
+    public Collection<PsService> getServices() {
+        return services;
+    }
+
+    public void setServices(Collection<PsService> services) {
+        this.services = services;
+    }
+    
+    
     /**
      * Constructor to generate empty host, only id is filled
      */

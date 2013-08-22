@@ -77,7 +77,7 @@ public class PsHostsGuiController {
             //re-present
             return new ModelAndView(PsJspLibrary.EDIT_HOST, "host", host);
         } else {
-            this.psHostOperator.create(host);
+            this.psHostOperator.insert(host);
             return new ModelAndView("redirect:../list");
         }
     }

@@ -4,17 +4,17 @@
  */
 package gov.bnl.racf.ps.dashboard3.operators;
 
-import gov.bnl.racf.ps.dashboard3.dao.PsHostDao;
 import gov.bnl.racf.ps.dashboard3.dao.PsServiceDao;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsService;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
 import gov.bnl.racf.ps.dashboard3.domainobjects.factories.PsServiceFactory;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
-import gov.bnl.racf.ps.dashboard3.jsonconverter.PsHostJson;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsServiceJson;
 import java.util.Collection;
 import java.util.List;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -35,26 +35,14 @@ public class PsServiceOperator {
     public void setPsServiceDao(PsServiceDao psServiceDao) {
         this.psServiceDao = psServiceDao;
     }
-    private PsHostJson psHostJson;
 
-    public void setPsHostJson(PsHostJson psHostJson) {
-        this.psHostJson = psHostJson;
-    }
     private PsServiceJson psServiceJson;
 
     public void setPsServiceJson(PsServiceJson psServiceJson) {
         this.psServiceJson = psServiceJson;
     }
-    private PsServiceTypeOperator psServiceTypeOperator;
 
-    public void setPsServiceTypeOperator(PsServiceTypeOperator psServiceTypeOperator) {
-        this.psServiceTypeOperator = psServiceTypeOperator;
-    }
-    private PsHostOperator psHostOperator;
-
-    public void setPsHostOperator(PsHostOperator psHostOperator) {
-        this.psHostOperator = psHostOperator;
-    }
+   
 
     // --- class code starts here --- //
     // --- simple CRUD methods go first --- //
@@ -161,5 +149,61 @@ public class PsServiceOperator {
      */
     public PsService createService(PsServiceType type, PsHost source, PsHost destination, PsHost monitor) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
+    // === JSON conversion methods ===//
+    /**
+     * convert service to JSON
+     * @param service
+     * @return 
+     */
+    public JSONObject toJson(PsService service){
+        return this.psServiceJson.toJson(service);
+    }
+    /**
+     * convert service to JSON, use requested detailLevel
+     * @param service
+     * @param detailLevel
+     * @return 
+     */
+    public JSONObject toJson(PsService service,String detailLevel){
+        return this.psServiceJson.toJson(service,detailLevel);
+    }
+    /**
+     * convert list of services to JSONArray
+     * @param listOfServices
+     * @return 
+     */
+    public JSONArray toJson(List<PsService>listOfServices){
+        JSONArray resultJson = new JSONArray();
+        for(PsService service:listOfServices){
+            resultJson.add(this.toJson(service));
+        }
+        return resultJson;
+    }
+    /**
+     * convert list of services to JSONArray, use requested detail level
+     * @param listOfServices
+     * @param detailLevel
+     * @return 
+     */
+    public JSONArray toJson(List<PsService>listOfServices,String detailLevel){
+        JSONArray resultJson = new JSONArray();
+        for(PsService service:listOfServices){
+            resultJson.add(this.toJson(service,detailLevel));
+        }
+        return resultJson;
+    }
+
+    /**
+     * get JSON representation of service, build from it PsService object and insert it to database.
+     * //TODO implement it later, this is lower priority since
+     * normally service creation is handled by high level host and matrix commands
+     * @param jsonInput
+     * @return 
+     */
+    public JSONObject insertNewServiceFromJson(JSONObject jsonInput) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

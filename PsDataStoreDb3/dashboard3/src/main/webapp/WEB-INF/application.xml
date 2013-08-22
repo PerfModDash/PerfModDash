@@ -18,7 +18,7 @@
     </bean>
     
     <bean id="sessionFactory"
-              class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
 
         <property name="annotatedClasses">
@@ -46,7 +46,13 @@
 <!--    Application beans-->
     
     
+<!--    DAO beans-->
+    
     <bean id="psServiceTypeDao" class="gov.bnl.racf.ps.dashboard3.dao.impl.PsServiceTypeDaoHibernateImpl">
+        <property name="hibernateTemplate" ref="hibernateTemplate" />	
+    </bean>  
+    
+    <bean id="psServiceDao" class="gov.bnl.racf.ps.dashboard3.dao.impl.PsServiceDaoHibernateImpl">
         <property name="hibernateTemplate" ref="hibernateTemplate" />	
     </bean>  
     
@@ -54,19 +60,41 @@
         <property name="hibernateTemplate" ref="hibernateTemplate" />	
     </bean>  
     
-    <bean id="psHostJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsHostJsonSimpleImpl">
-    </bean>
     
+<!--    JSON conversion beans-->
+
     <bean id="psParameterInfoJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsParameterInfoJsonSimpleImpl">
     </bean>
-    
+
     <bean id="psServiceTypeJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsServiceTypeJsonSimpleImpl">
-         <property name="psParameterInfoJson" ref="psParameterInfoJson" />
+        <property name="psParameterInfoJson" ref="psParameterInfoJson" />
     </bean>
+    
+    <bean id="psRecentServiceResultJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsRecentServiceResultJsonSimpleImpl">
+    </bean>
+    
+    <bean id="psServiceResultJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsServiceResultJsonSimpleImpl">
+    </bean>
+    
+    <bean id="psServiceJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsServiceJsonSimpleImpl">
+        <property name="psRecentServiceResultJson" ref="psRecentServiceResultJson" />
+    </bean>
+    
+    <bean id="psHostJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsHostJsonSimpleImpl">
+        <property name="psServiceJson" ref="psServiceJson"/>
+    </bean>
+    
+    
+<!--    Object factory beans-->
     
     <bean id="psServiceTypeFactory" class="gov.bnl.racf.ps.dashboard3.domainobjects.factories.impl.PsServiceTypeFactorySimpleImplementation">
-         
     </bean>
+    
+    <bean id="psServiceFactory" class="gov.bnl.racf.ps.dashboard3.domainobjects.factories.impl.PsServiceFactorySimpleImplementation">
+    </bean>
+    
+    
+<!--    Object operator beans-->
     
     <bean id="psServiceTypeOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsServiceTypeOperator">
         <property name="psServiceTypeDao" ref="psServiceTypeDao" />	
@@ -74,9 +102,24 @@
         <property name="psServiceTypeFactory" ref="psServiceTypeFactory" />
     </bean> 
     
+    <bean id="psServiceOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsServiceOperator">
+        <property name="psServiceDao" ref="psServiceDao" />
+        <property name="psServiceFactory" ref="psServiceFactory" />
+        <property name="psServiceJson" ref="psServiceJson" />
+    </bean> 
+    
     <bean id="psHostsOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsHostOperator">
         <property name="psHostDao" ref="psHostDao" />	
         <property name="psHostJson" ref="psHostJson" />
         <property name="psServiceTypeOperator" ref="psServiceTypeOperator" />
+        <property name="psServiceOperator" ref="psServiceOperator" />
+    </bean>   
+    
+    <bean id="psServiceResultOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsServiceResultOperator">
+        <property name="psServiceResultJson" ref="psServiceResultJson" />
+    </bean>   
+    
+    <bean id="psRecentServiceResultOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsRecentServiceResultOperator">
+        <property name="psRecentServiceResultJson" ref="psRecentServiceResultJson" />
     </bean>   
 </beans>

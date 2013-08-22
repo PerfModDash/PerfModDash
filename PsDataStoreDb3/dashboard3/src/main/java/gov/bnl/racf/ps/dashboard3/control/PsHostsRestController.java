@@ -51,20 +51,20 @@ public class PsHostsRestController {
         PsHost host = new PsHost();
         host.setHostname("abc.com");
         host.setIpv4("123.456.78.90");
-        this.psHostOperator.create(host);
+        this.psHostOperator.insert(host);
 
 
         PsHost host2 = new PsHost();
         host2.setHostname("xyz.com");
         host2.setIpv4("444.444.44.44");
         host2.setIpv6("fakeIpv6");
-        this.psHostOperator.create(host2);
+        this.psHostOperator.insert(host2);
 
         PsHost host3 = new PsHost();
         host3.setHostname("abcd.org");
         host3.setIpv4("555.555.55.55");
         host3.setIpv6("anotherFakeIpv6");
-        this.psHostOperator.create(host3);
+        this.psHostOperator.insert(host3);
 
         return message;
     }

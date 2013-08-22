@@ -5,6 +5,7 @@
 package gov.bnl.racf.ps.dashboard3.operators;
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsRecentServiceResult;
+import gov.bnl.racf.ps.dashboard3.jsonconverter.PsRecentServiceResultJson;
 import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
 import java.util.List;
 import org.json.simple.JSONArray;
@@ -15,6 +16,17 @@ import org.json.simple.JSONObject;
  * @author tomw
  */
 public class PsRecentServiceResultOperator {
+    
+    //=== dependency injection ===//
+    private PsRecentServiceResultJson psRecentServiceResultJson;
+
+    public void setPsRecentServiceResultJson(PsRecentServiceResultJson psRecentServiceResultJson) {
+        this.psRecentServiceResultJson = psRecentServiceResultJson;
+    }
+    
+    
+    //=== main code ===//
+    
     /**
      * convert recent service result to JSON, default (high) detail level
      * @param psRecentServiceResult
@@ -31,7 +43,7 @@ public class PsRecentServiceResultOperator {
      */
     public JSONObject toJson(PsRecentServiceResult psRecentServiceResult,
             String detailLevel){
-        throw new UnsupportedOperationException("method not implemented yet");
+        return this.psRecentServiceResultJson.toJson(psRecentServiceResult, detailLevel);
     }
     
     /**

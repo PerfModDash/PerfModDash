@@ -22,13 +22,7 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
     private static int DEFAULT_CHECKINTERVAL = 1200;
     private static int DEFAULT_TIMEOUT = 60;
 
-    // --- dependency injection part ---//
-    
-    private HibernateTemplate hibernateTemplate;
-
-    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-        this.hibernateTemplate = hibernateTemplate;
-    }
+   
    
     /**
      * create primitive service of given type running on given host

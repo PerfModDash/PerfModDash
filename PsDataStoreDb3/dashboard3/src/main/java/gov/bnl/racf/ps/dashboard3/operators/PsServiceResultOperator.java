@@ -5,6 +5,7 @@
 package gov.bnl.racf.ps.dashboard3.operators;
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceResult;
+import gov.bnl.racf.ps.dashboard3.jsonconverter.PsServiceResultJson;
 import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
 import java.util.List;
 import org.json.simple.JSONArray;
@@ -15,6 +16,15 @@ import org.json.simple.JSONObject;
  * @author tomw
  */
 public class PsServiceResultOperator {
+    
+    //=== dependency injection ===//
+    private PsServiceResultJson psServiceResultJson;
+
+    public void setPsServiceResultJson(PsServiceResultJson psServiceResultJson) {
+        this.psServiceResultJson = psServiceResultJson;
+    }
+    //=== main code ===//
+    
     /**
      * convert service result to JSON, default (high) detail level
      * @param psServiceResult
@@ -31,7 +41,7 @@ public class PsServiceResultOperator {
      */
     public JSONObject toJson(PsServiceResult psServiceResult,
             String detailLevel){
-        throw new UnsupportedOperationException("method not implemented yet");
+        return this.psServiceResultJson.toJson(psServiceResult, detailLevel);
     }
     
     /**
