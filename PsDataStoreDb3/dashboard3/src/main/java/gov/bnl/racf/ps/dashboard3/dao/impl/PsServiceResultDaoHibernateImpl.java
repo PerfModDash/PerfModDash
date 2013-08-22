@@ -9,6 +9,8 @@ import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceResult;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
@@ -56,42 +58,59 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
 
     @Override
     public List<PsServiceResult> getAllForServiceId(int service_id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String query="from PsServiceResult where serviceId=?";
+        List<PsServiceResult>listOfResults = 
+                this.hibernateTemplate.find(query, new Object[]{service_id});
+        return listOfResults;
     }
 
     @Override
     public List<PsServiceResult> getAllForServiceId(int service_id, Date timeAfter) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String query="from PsServiceResult where serviceId=? and time>?";
+        List<PsServiceResult>listOfResults = 
+                this.hibernateTemplate.find(query, new Object[]{service_id,timeAfter});
+        return listOfResults;
     }
 
     @Override
     public void update(PsServiceResult psServiceResult) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.hibernateTemplate.update(psServiceResult);
     }
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            PsServiceResult psServiceResult=this.getById(id);
+            this.delete(psServiceResult);
+        } catch (PsObjectNotFoundException ex) {
+            String message="Failed to delete servcie result id="+id+" ; object not found";
+            Logger.getLogger(PsServiceResultDaoHibernateImpl.class.getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(PsServiceResultDaoHibernateImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @Override
     public void delete(PsServiceResult psServiceResult) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.hibernateTemplate.delete(psServiceResult);
     }
 
     @Override
     public void deleteAllBefore(Date timeBefore) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String query="delete from PsServiceResult where time<?";
+        this.hibernateTemplate.bulkUpdate(query, timeBefore);
     }
 
     @Override
     public void deleteForServiceId(int service_id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String query="from PsServiceResult where serviceId=?";
+        this.hibernateTemplate.bulkUpdate(query, new Object[]{service_id});
     }
 
     @Override
     public void deleteForServiceId(int service_id, Date timeBefore) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String query="from PsServiceResult where serviceId=? and time<?";
+        this.hibernateTemplate.bulkUpdate(query, new Object[]{service_id,timeBefore});
     }
     
 }
