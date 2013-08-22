@@ -25,6 +25,10 @@
             <list>
                 <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsParameterInfo</value>
                 <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType</value>
+                <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceResult</value>
+                <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsRecentServiceResult</value>
+                <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsParameterInfo</value>
+                <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsService</value>
                 <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsHost</value>
             </list>
         </property>
@@ -90,7 +94,7 @@
     <bean id="psServiceTypeFactory" class="gov.bnl.racf.ps.dashboard3.domainobjects.factories.impl.PsServiceTypeFactorySimpleImplementation">
     </bean>
     
-    <bean id="psServiceFactory" class="gov.bnl.racf.ps.dashboard3.domainobjects.factories.impl.PsServiceFactorySimpleImplementation">
+    <bean id="psServiceFactory" class="gov.bnl.racf.ps.dashboard3.domainobjects.factories.impl.PsServiceFactorySimpleImpl">
     </bean>
     
     
