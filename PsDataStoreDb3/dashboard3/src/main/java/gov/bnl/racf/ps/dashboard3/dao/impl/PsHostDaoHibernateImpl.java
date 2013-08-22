@@ -29,7 +29,7 @@ public class PsHostDaoHibernateImpl implements PsHostDao {
     public PsHost create() {
         PsHost host = new PsHost();
         this.insert(host);
-        return host;
+        return host;        
     }
 
     @Override

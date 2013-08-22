@@ -17,7 +17,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * Hibernate implementation of the service factory class.
  * @author tomw
  */
-public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
+public class PsServiceFactorySimpleImpl implements PsServiceFactory {
     // --- constants part --///
     private static int DEFAULT_CHECKINTERVAL = 1200;
     private static int DEFAULT_TIMEOUT = 60;
@@ -70,8 +70,6 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
             service = create_PERFSONAR_PSB(type, host);
         }
 
-        host.addService(service);
-
         return service;
     }
 
@@ -87,9 +85,8 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
             PsHost source, PsHost destination) {
 
         PsService service = null;
-        if (PsApi.TRACEROUTE.equals(type.getId())) {
+        if (PsParameters.TRACEROUTE.equals(type.getId())) {
             service = this.create_TRACEROUTE(type, source, destination);
-
         }
         return service;
     }
@@ -104,21 +101,20 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
      * @param monitor
      * @return
      */
-    public  PsService createService(Session session,
-            PsServiceType type,
+    public  PsService createService(PsServiceType type,
             PsHost source, PsHost destination, PsHost monitor) {
         PsService service = null;
-        if (PsApi.LATENCY.equals(type.getServiceTypeId())) {
-            service = create_LATENCY(session, type, source, destination, monitor);
+        if (PsParameters.LATENCY.equals(type.getServiceTypeId())) {
+            service = create_LATENCY(type, source, destination, monitor);
         }
-        if (PsApi.THROUGHPUT.equals(type.getServiceTypeId())) {
-            service = create_THROUGHPUT(session, type, source, destination, monitor);
+        if (PsParameters.THROUGHPUT.equals(type.getServiceTypeId())) {
+            service = create_THROUGHPUT(type, source, destination, monitor);
         }
         return service;
     }
 
     private  PsService create_BWCTL_PORT_4823(PsServiceType type, PsHost host) {
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
@@ -142,7 +138,7 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
     }
 
     private  PsService create_BWCTL_PORT_8570(PsServiceType type, PsHost host) {
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
@@ -167,7 +163,7 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
     }
 
     private  PsService create_CHECK_LOOKUP_SERVICE(PsServiceType type, PsHost host) {
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
@@ -195,7 +191,7 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
     }
 
     private  PsService create_NDT_PORT_3001(PsServiceType type, PsHost host) {
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
@@ -221,7 +217,7 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
     }
 
     private  PsService create_NDT_PORT_7123(PsServiceType type, PsHost host) {
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
@@ -247,7 +243,7 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
     }
 
     private  PsService create_NPAD_PORT_8000(PsServiceType type, PsHost host) {
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
@@ -273,7 +269,7 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
     }
 
     private  PsService create_NPAD_PORT_8001(PsServiceType type, PsHost host) {
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
@@ -299,7 +295,7 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
     }
 
     private  PsService create_OWP_861(PsServiceType type, PsHost host) {
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
@@ -325,7 +321,7 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
     }
 
     private  PsService create_OWP_8569(PsServiceType type, PsHost host) {
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
@@ -351,7 +347,7 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
     }
 
     private  PsService create_PERFSONAR_PSB( PsServiceType type, PsHost host) {
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
         service.setDescription(type.getName());
@@ -387,10 +383,9 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_LATENCY(Session session,
-            PsServiceType type,
+    private  PsService create_LATENCY(PsServiceType type,
             PsHost source, PsHost destination, PsHost monitor) {
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
 
         service.setType(type.getServiceTypeId());
         String name = "packet loss_between_" + source.getHostname()
@@ -433,10 +428,10 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
 
     }
 
-    private  PsService create_THROUGHPUT(Session session, PsServiceType type,
+    private  PsService create_THROUGHPUT(PsServiceType type,
             PsHost source, PsHost destination, PsHost monitor) {
 
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
 
         service.setType(type.getServiceTypeId());
         String name = "throughput_between_" + source.getHostname()
@@ -477,10 +472,9 @@ public class PsServiceFactoryHibernateImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_TRACEROUTE(Session session,
-            PsServiceType type,
+    private  PsService create_TRACEROUTE(PsServiceType type,
             PsHost source, PsHost destination) {
-        PsService service = PsObjectCreator.createNewService(session);
+        PsService service = new PsService();
 
         service.setType(type.getServiceTypeId());
         String name = "traceroute_" + source.getHostname()

@@ -35,10 +35,9 @@ public class PsHost {
     private String hostname = "";
     private String ipv4 = "";
     private String ipv6 = "";
-
-    
     @ManyToMany(cascade = CascadeType.ALL)
     private Collection<PsService> services = new Vector<PsService>();
+
     /**
      * get and set methods
      *
@@ -116,6 +115,7 @@ public class PsHost {
     public Iterator<PsService> serviceIterator() {
         return services.iterator();
     }
+
     /**
      * check if host contains servcieId
      *
@@ -151,6 +151,7 @@ public class PsHost {
             services.add(service);
         }
     }
+
     /**
      * remove service from host this does not delete the service from data store
      * deletion from data store should be done by object manipulator
@@ -198,30 +199,32 @@ public class PsHost {
         }
         return false;
     }
+
     /**
      * check if host contains primitive service of serviceTypeId
      *
      * @param serviceTypeId
      * @return
      */
-//    public boolean hasServiceType(String serviceTypeId) {
-//        Iterator<PsService> iter = serviceIterator();
-//        while (iter.hasNext()) {
-//            PsService currentService = (PsService) iter.next();
-//            String currentTypeId = currentService.getType();
-//            if (PsServiceTypeFactory.isKnownType(serviceTypeId)) {
-//                if (currentTypeId != null) {
-//                    if (currentTypeId.equals(serviceTypeId)) {
-//                        return true;
-//                    }
-//                } else {
-//                    Logger logger = Logger.getLogger(PsHost.class);
-//                    logger.warn("service on host " + this.getId() + " has type null");
-//                }
-//            }
-//        }
-//        return false;
-//    }
+    public boolean hasServiceType(String serviceTypeId) {
+        Iterator<PsService> iter = serviceIterator();
+        while (iter.hasNext()) {
+            PsService currentService = (PsService) iter.next();
+            String currentTypeId = currentService.getType();
+
+            if (currentTypeId != null) {
+                if (currentTypeId.equals(serviceTypeId)) {
+                    return true;
+                }
+            } else {
+                Logger logger = Logger.getLogger(PsHost.class);
+                logger.warn("service on host " + this.getId() + " has type null");
+            }
+
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -241,54 +244,52 @@ public class PsHost {
     public String toString() {
         return "PsHost{" + "id=" + id + ", hostname=" + hostname + ", ipv4=" + ipv4 + ", ipv6=" + ipv6 + '}';
     }
-    
-    public static Comparator<PsHost> selectPropertyComparator(String propertyName){
-        if(HOSTNAME.equals(propertyName)){
+
+    public static Comparator<PsHost> selectPropertyComparator(String propertyName) {
+        if (HOSTNAME.equals(propertyName)) {
             return hostnameComparator;
         }
-        if(ID.equals(propertyName)){
+        if (ID.equals(propertyName)) {
             return idComparator;
         }
-        if(IPV4.equals(propertyName)){
+        if (IPV4.equals(propertyName)) {
             return hostIpv4Comparator;
         }
-        if(IPV6.equals(propertyName)){
+        if (IPV6.equals(propertyName)) {
             return hostIpv6Comparator;
         }
-        throw new RuntimeException("Unknown property to compare hosts on: "+propertyName);
+        throw new RuntimeException("Unknown property to compare hosts on: " + propertyName);
     }
-    
-    
-    public static Comparator<PsHost>idComparator = new Comparator<PsHost>() {
+    public static Comparator<PsHost> idComparator = new Comparator<PsHost>() {
+
         public int compare(PsHost host1, PsHost host2) {
-            int id1=host1.getId();
-            int id2=host2.getId();
-            if(id1==id2){
+            int id1 = host1.getId();
+            int id2 = host2.getId();
+            if (id1 == id2) {
                 return 0;
-            }else{
-                if(id1<id2){
+            } else {
+                if (id1 < id2) {
                     return -1;
-                }else{
+                } else {
                     return 1;
                 }
             }
         }
     };
-    
-    public static Comparator<PsHost>hostIpv4Comparator = new Comparator<PsHost>() {
+    public static Comparator<PsHost> hostIpv4Comparator = new Comparator<PsHost>() {
+
         public int compare(PsHost host1, PsHost host2) {
             return host1.getIpv4().compareTo(host2.getIpv4());
-            
+
         }
     };
-    
-    public static Comparator<PsHost>hostIpv6Comparator = new Comparator<PsHost>() {
+    public static Comparator<PsHost> hostIpv6Comparator = new Comparator<PsHost>() {
+
         public int compare(PsHost host1, PsHost host2) {
             return host1.getIpv6().compareTo(host2.getIpv6());
-            
+
         }
     };
-    
     public static Comparator<PsHost> hostnameComparator = new Comparator<PsHost>() {
 
         public int compare(PsHost host1, PsHost host2) {
@@ -298,35 +299,31 @@ public class PsHost {
 
             return compareHostNames(hostname1, hostname2);
         }
+
         /**
          * Compare hostnames in inverted order
          */
         private int compareHostNames(String hostname1, String hostname2) {
-            String invertedhostname1=invert(hostname1);
-            String invertedhostname2=invert(hostname2);
+            String invertedhostname1 = invert(hostname1);
+            String invertedhostname2 = invert(hostname2);
             return invertedhostname1.compareTo(invertedhostname2);
         }
 
         /**
          * private method to invert order of hostnames
-         * www.google.com-->com.google.www
-         * Such inversion is useful when sorting host names 
+         * www.google.com-->com.google.www Such inversion is useful when sorting
+         * host names
          */
         private String invert(String hostname) {
             String[] hostnameSplit = hostname.split(".");
-            String result="";
-            for(int i=hostnameSplit.length-1;i>-1;i=i-1){
-                result=result+hostnameSplit[i]+".";
-            }    
+            String result = "";
+            for (int i = hostnameSplit.length - 1; i > -1; i = i - 1) {
+                result = result + hostnameSplit[i] + ".";
+            }
             //remove trailing "." character
-            result=result+"@QWERT";
-            result=result.replace(".@QWERT","");
+            result = result + "@QWERT";
+            result = result.replace(".@QWERT", "");
             return result;
         }
-        
     };
-
-    
-        
-    
 }

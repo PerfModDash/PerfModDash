@@ -8,7 +8,9 @@ import gov.bnl.racf.ps.dashboard3.dao.PsHostDao;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
+import gov.bnl.racf.ps.dashboard3.domainobjects.PsService;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
+import gov.bnl.racf.ps.dashboard3.domainobjects.factories.PsServiceTypeFactory;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsUnknownCommandExeption;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsHostJson;
 import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
@@ -48,6 +50,13 @@ public class PsHostOperator {
     public void setPsServiceTypeOperator(PsServiceTypeOperator psServiceTypeOperator) {
         this.psServiceTypeOperator = psServiceTypeOperator;
     }
+    
+    private PsServiceOperator psServiceOperator;
+
+    public void setPsServiceOperator(PsServiceOperator psServiceOperator) {
+        this.psServiceOperator = psServiceOperator;
+    }
+    
     
     
     // --- main code of the class ---///
@@ -538,7 +547,7 @@ public class PsHostOperator {
      * @param host
      * @param servicetypeIds
      */
-    public void addServiceTypes(PsHost host, JSONArray servicetypeIds) {
+    public void addServiceTypes(PsHost host, JSONArray servicetypeIds) throws PsObjectNotFoundException {
         
         Iterator iter = servicetypeIds.iterator();
         while (iter.hasNext()) {
@@ -561,11 +570,10 @@ public class PsHostOperator {
                 if (type != null) {
                     // if service of this type is already associated to the host do nothing
                     if (!host.hasServiceType(type)) {
-                        PsService service = 
-                                PsServiceFactory.createService(session,type, host);
-                        // service factory already saved the service to session 
-                        // and added it to host, so no need to do it now.
-                        
+                        PsService service = this.psServiceOperator.createService(type, host);
+                        // service operator already saved the service, so we do not need to do it now
+                        // but we need to add it to the host
+                        host.addService(service);
                     }
                 }
             }
