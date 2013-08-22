@@ -146,11 +146,11 @@ public class PsHost {
      *
      * @param service
      */
-//    public void addService(PsService service) {
-//        if (!hasServiceType(service.getType())) {
-//            services.add(service);
-//        }
-//    }
+    public void addService(PsService service) {
+        if (!hasServiceType(service.getType())) {
+            services.add(service);
+        }
+    }
     /**
      * remove service from host this does not delete the service from data store
      * deletion from data store should be done by object manipulator
