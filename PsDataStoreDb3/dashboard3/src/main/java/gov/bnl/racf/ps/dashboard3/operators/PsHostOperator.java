@@ -532,7 +532,11 @@ public class PsHostOperator {
 
         if (PsParameters.HOST_REMOVE_SERVICE_TYPE_COMMAND.equals(command)) {
             thisIsUnknownCommand = false;
-            throw new UnsupportedOperationException("Command " + command + " is not implemented yet.");
+           // first order of business is to unpack request body. It should contain
+            // JSONArray of strings representing servicetypes
+            JSONParser parser = new JSONParser();
+            JSONArray servicetypeIds = (JSONArray) parser.parse(requestBody);
+            this.removeServiceTypes(host, servicetypeIds);
         }
 
         if (PsParameters.HOST_REMOVE_SERVICE_ID_COMMAND.equals(command)) {
@@ -565,7 +569,22 @@ public class PsHostOperator {
         Iterator iter = servicetypeIds.iterator();
         while (iter.hasNext()) {
             String serviceTypeId = (String) iter.next();
-            this.addServiceType(host, serviceTypeId);
+            this.addServiceTypeId(host, serviceTypeId);
+        }
+    }
+    /**
+     * remove specified service types from host
+     * @param host
+     * @param servicetypeIds
+     * @throws PsObjectNotFoundException 
+     */
+    @Transactional
+    public void removeServiceTypes(PsHost host, JSONArray servicetypeIds) throws PsObjectNotFoundException {
+        
+        Iterator iter = servicetypeIds.iterator();
+        while (iter.hasNext()) {
+            String serviceTypeId = (String) iter.next();
+            this.removeServiceTypeId(host, serviceTypeId);
         }
     }
 
@@ -575,7 +594,7 @@ public class PsHostOperator {
      * @param serviceTypeId 
      */
     @Transactional
-    private void addServiceType(PsHost host, String serviceTypeId) throws PsObjectNotFoundException {
+    private void addServiceTypeId(PsHost host, String serviceTypeId) throws PsObjectNotFoundException {
         if (this.psServiceTypeOperator.isKnownServiceType(serviceTypeId)) {
             if (this.psServiceTypeOperator.isPrimitiveService(serviceTypeId)) {
 
@@ -593,4 +612,22 @@ public class PsHostOperator {
             }
         }
     }
+    /**
+     * remove primitive service of given type id form host, delete the service
+     * @param host
+     * @param serviceTypeId 
+     */
+    @Transactional
+    public  void removeServiceTypeId(PsHost host, String serviceTypeId) {
+       
+        Iterator<PsService> iter = host.serviceIterator();
+        while (iter.hasNext()) {
+            PsService currentService = (PsService) iter.next();
+            if (currentService.getType().equals(serviceTypeId)) {
+                this.psServiceOperator.delete(currentService);
+                iter.remove();
+            }
+        }
+    }
+    
 }
