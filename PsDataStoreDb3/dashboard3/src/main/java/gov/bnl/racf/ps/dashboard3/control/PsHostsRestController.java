@@ -6,7 +6,7 @@ package gov.bnl.racf.ps.dashboard3.control;
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
-import gov.bnl.racf.ps.dashboard3.exceptions.PsUnknownCommandExeption;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsUnknownCommandException;
 import gov.bnl.racf.ps.dashboard3.operators.PsHostOperator;
 import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
 import java.util.List;
@@ -204,7 +204,7 @@ public class PsHostsRestController {
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
             return message;
-        } catch (PsUnknownCommandExeption ex) {
+        } catch (PsUnknownCommandException ex) {
             message = message + " unknown command";
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);

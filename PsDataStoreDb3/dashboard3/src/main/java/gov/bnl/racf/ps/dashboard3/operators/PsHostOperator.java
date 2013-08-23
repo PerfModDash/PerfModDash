@@ -8,8 +8,9 @@ import gov.bnl.racf.ps.dashboard3.dao.PsHostDao;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsService;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsHostNotFoundException;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
-import gov.bnl.racf.ps.dashboard3.exceptions.PsUnknownCommandExeption;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsUnknownCommandException;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsHostJson;
 import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class PsHostOperator {
      * @throws PsObjectNotFoundException
      */
     @Transactional
-    public PsHost getById(int id) throws PsObjectNotFoundException {
+    public PsHost getById(int id) throws PsHostNotFoundException {
         return this.psHostDao.getById(id);
     }
 
@@ -496,7 +497,7 @@ public class PsHostOperator {
     }
 
     @Transactional
-    public PsHost executeCommand(int id, String command, String requestBody) throws PsObjectNotFoundException, PsUnknownCommandExeption, ParseException {
+    public PsHost executeCommand(int id, String command, String requestBody) throws PsObjectNotFoundException, PsUnknownCommandException, ParseException {
 
         PsHost host = this.getById(id);
 
@@ -567,7 +568,7 @@ public class PsHostOperator {
         }
 
         if (thisIsUnknownCommand) {
-            throw new PsUnknownCommandExeption();
+            throw new PsUnknownCommandException();
         }
 
         return host;
@@ -687,36 +688,5 @@ public class PsHostOperator {
         this.psHostDao.update(host);
         this.psServiceOperator.delete(servicesToBeDeleted);
 
-
-
-
-//        List<PsService> listOfServicesToBeRemoved = new ArrayList<PsService>();
-//        Iterator<PsService> iter = host.serviceIterator();
-//        while (iter.hasNext()) {
-//            listOfServicesToBeRemoved.add((PsService) iter.next());
-//        }
-//        
-//        for(PsService service : listOfServicesToBeRemoved){
-//            this.removeServiceFromHost(host, service);
-//        }
-// 
-
-
-
-
-
-
-//        // now we have list of services to be removed
-//        // 
-//        
-//        // delete services
-//        this.psServiceOperator.delete(listOfServicesToBeRemoved);
-//        
-//        
-//        // remove all services from host
-//        host.removeAllServices();
-//        
-//        // update host status
-//        this.psHostDao.update(host);
     }
 }

@@ -7,6 +7,7 @@ package gov.bnl.racf.ps.dashboard3.dao.impl;
 import gov.bnl.racf.ps.dashboard3.dao.PsHostDao;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsHostNotFoundException;
 import gov.bnl.racf.ps.dashboard3.operators.PsHostOperator;
 import java.util.List;
 import java.util.logging.Level;
@@ -38,12 +39,12 @@ public class PsHostDaoHibernateImpl implements PsHostDao {
     }
 
     @Override
-    public PsHost getById(int id) throws PsObjectNotFoundException {
+    public PsHost getById(int id) throws PsHostNotFoundException {
         try {
             PsHost resultHost = (PsHost) this.hibernateTemplate.get(PsHost.class, id);
             return resultHost;
         } catch (Exception e) {
-            throw new PsObjectNotFoundException();
+            throw new PsHostNotFoundException();
         }
     }
 

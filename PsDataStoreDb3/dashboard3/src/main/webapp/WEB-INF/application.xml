@@ -30,6 +30,7 @@
                 <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsParameterInfo</value>
                 <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsService</value>
                 <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsHost</value>
+                <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsSite</value>
             </list>
         </property>
 
@@ -64,6 +65,10 @@
         <property name="hibernateTemplate" ref="hibernateTemplate" />	
     </bean>  
     
+    <bean id="psSiteDao" class="gov.bnl.racf.ps.dashboard3.dao.impl.PsSiteDaoHibernateImpl">
+        <property name="hibernateTemplate" ref="hibernateTemplate" />	
+    </bean>  
+    
     
 <!--    JSON conversion beans-->
 
@@ -86,6 +91,9 @@
     
     <bean id="psHostJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsHostJsonSimpleImpl">
         <property name="psServiceJson" ref="psServiceJson"/>
+    </bean>
+    
+    <bean id="psSiteJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsSiteJsonSimpleImpl">
     </bean>
     
     
@@ -126,4 +134,12 @@
     <bean id="psRecentServiceResultOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsRecentServiceResultOperator">
         <property name="psRecentServiceResultJson" ref="psRecentServiceResultJson" />
     </bean>   
+    
+     <bean id="psSiteOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsSiteOperator">
+        <property name="psSiteDao" ref="psSiteDao" />	
+        <property name="psSiteJson" ref="psSiteJson" />	
+        <property name="psHostsOperator" ref="psHostsOperator" />	
+    </bean>  
+    
+    
 </beans>

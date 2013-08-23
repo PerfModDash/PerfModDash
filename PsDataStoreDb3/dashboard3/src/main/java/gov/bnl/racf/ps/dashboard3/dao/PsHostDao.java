@@ -4,8 +4,8 @@
  */
 package gov.bnl.racf.ps.dashboard3.dao;
 
-import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsHostNotFoundException;
 import java.util.List;
 
 /**
@@ -17,7 +17,7 @@ public interface PsHostDao {
     public PsHost create();
     public void insert(PsHost host);
     
-    public PsHost getById(int id) throws PsObjectNotFoundException;
+    public PsHost getById(int id) throws PsHostNotFoundException;
     
     public List<PsHost> getAll();
     
