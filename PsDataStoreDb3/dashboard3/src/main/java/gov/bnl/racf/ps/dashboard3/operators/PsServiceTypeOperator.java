@@ -44,6 +44,44 @@ public class PsServiceTypeOperator {
     
     // --- body of the class ---//
     
+     //=== methods to access utility methods from service type factory ===//
+    
+    /**
+     * get list of all service types, from the service type factory
+     * @return 
+     */
+    public  List<String> listOfServiceTypes(){
+        return this.psServiceTypeFactory.listOfServiceTypes();
+    }
+    /**
+     * get list of all primitive  service types, from the service type factory
+     * @return 
+     */
+    public  List<String> listOfPrimitiveServiceTypes(){
+        return this.psServiceTypeFactory.listOfPrimitiveServiceTypes();
+    }
+    
+    /**
+     * get list of all primitive throughput service types, from the service type factory
+     * @return 
+     */
+    public  List<String> listOfPrimitiveThroughputServiceTypes(){
+        return this.psServiceTypeFactory.listOfPrimitiveThroughputServiceTypes();
+    }
+    
+    /**
+     * get list of all primitive latency service types, from the service type factory
+     * @return 
+     */
+    public  List<String> listOfPrimitiveLatencyServiceTypes(){
+        return this.psServiceTypeFactory.listOfPrimitiveLatencyServiceTypes();
+    }
+    
+    
+    
+    
+    
+    
     /**
      * initialize the service types in database
      */

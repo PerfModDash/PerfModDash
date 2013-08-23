@@ -119,6 +119,9 @@ public class PsServiceOperator {
         this.psServiceDao.delete(servicesToBeDeleted);
     }
 
+   
+    
+    
     //--- methods for creation of services --//
     /**
      * create primitive service of given type running on a given host

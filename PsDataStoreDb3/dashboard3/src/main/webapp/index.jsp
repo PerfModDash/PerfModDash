@@ -12,6 +12,8 @@
         
         <a href="http://localhost:8084/dashboard3/app/util/initServiceTypes"><strong>init service types</strong></a>
         
+        <br>
+        
         <a href="http://localhost:8084/dashboard3/app/hosts/test/"><strong>create test list of hosts</strong></a>
         
         <br>

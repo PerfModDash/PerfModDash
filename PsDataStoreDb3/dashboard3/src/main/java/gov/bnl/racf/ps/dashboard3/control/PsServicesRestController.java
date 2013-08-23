@@ -55,10 +55,10 @@ public class PsServicesRestController {
         try {
             PsService service = this.psServiceOperator.getById(id);
             if (detailLevel == null) {
-                return this.psServiceOperator.toJson(service).toString();
-            } else {
-                return this.psServiceOperator.toJson(service,detailLevel).toString();
+                detailLevel = PsParameters.DETAIL_LEVEL_HIGH;
             }
+            return this.psServiceOperator.toJson(service, detailLevel).toString();
+
         } catch (PsObjectNotFoundException ex) {
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, "service with id=" + id + " not found");
@@ -66,20 +66,19 @@ public class PsServicesRestController {
         }
     }
 
-    /** 
-     * method to create new service.
-     * However in normal circumstances users are not supposed to call this methid: 
-     * all service creations should be handled by high level host and matrix operations.
-     * This method is for experts only and in the future we may require that
-     * only authorized users use it.
-     * 
+    /**
+     * method to create new service. However in normal circumstances users are
+     * not supposed to call this methid: all service creations should be handled
+     * by high level host and matrix operations. This method is for experts only
+     * and in the future we may require that only authorized users use it.
+     *
      * @param requestBody
-     * @return 
+     * @return
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public String servicePost(@RequestBody String requestBody) {
-        
+
         // first order of business is to convert request body to JSON 
         JSONParser parser = new JSONParser();
         JSONObject jsonInput;
@@ -106,23 +105,22 @@ public class PsServicesRestController {
         return message;
     }
 
-    
     /**
-     * method to delete service with given id. 
-     * However in normal circumstances users are not supposed to call this methid: 
-     * all service deletions should be handled by high level host and matrix operations.
-     * This method is for experts only and in the future we may require that
-     * only authorized users use it.
-     * 
+     * method to delete service with given id. However in normal circumstances
+     * users are not supposed to call this methid: all service deletions should
+     * be handled by high level host and matrix operations. This method is for
+     * experts only and in the future we may require that only authorized users
+     * use it.
+     *
      * @param id
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public String serviceDelete(@PathVariable int id) {
         String message = "we are in serviceDelete()";
         this.psServiceOperator.delete(id);
-        message=message+" service id="+id+" deleted!";
+        message = message + " service id=" + id + " deleted!";
         return message;
     }
 }

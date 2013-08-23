@@ -104,10 +104,10 @@ public class PsHostsRestController {
         try {
             PsHost host = this.psHostOperator.getById(id);
             if (detailLevel == null) {
-                return this.psHostOperator.toJson(host).toString();
-            } else {
-                return this.psHostOperator.toJson(host, detailLevel).toString();
+                detailLevel = PsParameters.DETAIL_LEVEL_HIGH;
             }
+            return this.psHostOperator.toJson(host, detailLevel).toString();
+
         } catch (PsObjectNotFoundException ex) {
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, "host with id=" + id + " not found");
@@ -187,30 +187,30 @@ public class PsHostsRestController {
     @RequestMapping(value = "/{id}/{command}", method = RequestMethod.PUT)
     @ResponseBody
     public String hostsPutCommand(@PathVariable int id, @PathVariable String command, @RequestBody String requestBody) {
-        String message = "we are in hostsPut, id = " + id 
-                    + " command=" + command+ " requestBody="+requestBody;
+        String message = "we are in hostsPut, id = " + id
+                + " command=" + command + " requestBody=" + requestBody;
         try {
 
-            PsHost updatedHost = this.psHostOperator.executeCommand(id,command,requestBody);
-            
-            JSONObject hostAsJson = 
+            PsHost updatedHost = this.psHostOperator.executeCommand(id, command, requestBody);
+
+            JSONObject hostAsJson =
                     this.psHostOperator.toJson(updatedHost, PsParameters.DETAIL_LEVEL_HIGH);
 
             return hostAsJson.toString();
-            
-            
+
+
         } catch (PsObjectNotFoundException ex) {
-            message=message+" host not found";
+            message = message + " host not found";
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
             return message;
         } catch (PsUnknownCommandExeption ex) {
-            message=message+" unknown command";
+            message = message + " unknown command";
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
             return message;
         } catch (ParseException ex) {
-            message=message+" error parsing request body";
+            message = message + " error parsing request body";
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
             return message;

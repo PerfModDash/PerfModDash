@@ -5,9 +5,9 @@
 package gov.bnl.racf.ps.dashboard3.domainobjects.factories.impl;
 
 
-import gov.bnl.racf.ps.dashboard3.domainobjects.factories.*;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsParameterInfo;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
+import gov.bnl.racf.ps.dashboard3.domainobjects.factories.PsServiceTypeFactory;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -19,6 +19,7 @@ import java.util.TreeMap;
  */
 public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFactory{
 
+    @Override
     public  PsServiceType createType(String typeName) {
         PsServiceType type = null;
         if (isKnownType(typeName)) {
@@ -63,6 +64,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return type;
     }
 
+    @Override
     public  boolean isKnownType(String typeName) {
         if (PsServiceType.BWCTL_PORT_4823.equals(typeName)) {
             return true;
@@ -109,6 +111,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
      * @param typeName
      * @return
      */
+    @Override
     public  boolean isMatrixType(String typeName) {
         if (PsServiceType.LATENCY.equals(typeName)) {
             return true;
@@ -122,6 +125,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return false;
     }
 
+    @Override
     public  boolean isPrimitiveServiceThroughput(String typeName) {
         if (PsServiceType.BWCTL_PORT_4823.equals(typeName)) {
             return true;
@@ -149,6 +153,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return false;
     }
 
+    @Override
     public  boolean isPrimitiveService(String typeName) {
         if (PsServiceType.BWCTL_PORT_4823.equals(typeName)) {
             return true;
@@ -180,6 +185,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return false;
     }
 
+    @Override
     public  boolean isPrimitiveServiceLatency(String typeName) {
 
         if (PsServiceType.PERFSONAR_PSB.equals(typeName)) {
@@ -194,6 +200,8 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return false;
     }
 
+    
+    @Override
     public  ArrayList<String> listOfServiceTypes() {
         ArrayList<String> serviceTypes = new ArrayList<String>();
         serviceTypes.add(PsServiceType.BWCTL_PORT_4823);
@@ -211,6 +219,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
 
         return serviceTypes;
     }
+    @Override
     public  ArrayList<String> listOfPrimitiveThroughputServiceTypes() {
         ArrayList<String> serviceTypes = new ArrayList<String>();
         serviceTypes.add(PsServiceType.BWCTL_PORT_4823);
@@ -223,6 +232,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
 
         return serviceTypes;
     }
+    @Override
     public  ArrayList<String> listOfPrimitiveServiceTypes() {
         ArrayList<String> serviceTypes = new ArrayList<String>();
         serviceTypes.add(PsServiceType.BWCTL_PORT_4823);
@@ -241,6 +251,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
      * get list of latency service types
      * @return 
      */
+    @Override
     public  ArrayList<String> listOfPrimitiveLatencyServiceTypes() {
         ArrayList<String> serviceTypes = new ArrayList<String>();
         serviceTypes.add(PsServiceType.OWP_861);

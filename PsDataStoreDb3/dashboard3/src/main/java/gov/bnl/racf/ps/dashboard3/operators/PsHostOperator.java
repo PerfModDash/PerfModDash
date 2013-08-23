@@ -12,6 +12,7 @@ import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsUnknownCommandExeption;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsHostJson;
 import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -24,14 +25,13 @@ import org.json.simple.parser.ParseException;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * class for manipulating perfSonar hosts
- * //TODO make its methods @Transactional
+ * class for manipulating perfSonar hosts //TODO make its methods @Transactional
+ *
  * @author tomw
  */
 public class PsHostOperator {
 
     // --- dependency injection part --- //
-    
     private PsHostDao psHostDao;
 
     public void setPsHostDao(PsHostDao psHostDao) {
@@ -42,26 +42,22 @@ public class PsHostOperator {
     public void setPsHostJson(PsHostJson psHostJson) {
         this.psHostJson = psHostJson;
     }
-
     private PsServiceTypeOperator psServiceTypeOperator;
 
     public void setPsServiceTypeOperator(PsServiceTypeOperator psServiceTypeOperator) {
         this.psServiceTypeOperator = psServiceTypeOperator;
     }
-    
     private PsServiceOperator psServiceOperator;
 
     public void setPsServiceOperator(PsServiceOperator psServiceOperator) {
         this.psServiceOperator = psServiceOperator;
     }
-    
-    
-    
+
     // --- main code of the class ---///
-    
     /**
-     * debug method, returns test string. 
-     * @return 
+     * debug method, returns test string.
+     *
+     * @return
      */
     public String test() {
         return "Test of PsHostOperator";
@@ -111,9 +107,10 @@ public class PsHostOperator {
 
     /**
      * get list of all hosts, sort them according to a given sorting order
+     *
      * @param sortingVariable
      * @param sortingOrder
-     * @return 
+     * @return
      */
     @Transactional
     public List<PsHost> getAll(String sortingVariable, String sortingOrder) {
@@ -219,7 +216,6 @@ public class PsHostOperator {
         return this.psHostJson.toJson(listOfHosts, detailLevel);
     }
 
-   
     /**
      * remove service from host
      *
@@ -507,36 +503,56 @@ public class PsHostOperator {
         boolean thisIsUnknownCommand = true;
 
         if (PsParameters.HOST_ADD_SERVICE_TYPE_COMMAND.equals(command)) {
+            // add service of selected service type id to the host
             thisIsUnknownCommand = false;
 
             // first order of business is to unpack request body. It should contain
             // JSONArray of strings representing servicetypes
             JSONParser parser = new JSONParser();
             JSONArray servicetypeIds = (JSONArray) parser.parse(requestBody);
-            this.addServiceTypes(host, servicetypeIds);
+            this.addServiceTypes(host, (List<String>) servicetypeIds);
         }
 
         if (PsParameters.HOST_ADD_ALL_SERVICES_COMMAND.equals(command)) {
+            // add all primitive service to this host
             thisIsUnknownCommand = false;
-            throw new UnsupportedOperationException("Command " + command + " is not implemented yet.");
+
+            // first order of business is to obtain a list of primitive service ids
+            List<String> listOfServiceTypeIds = this.psServiceTypeOperator.listOfPrimitiveServiceTypes();
+
+            // second order of business is to add those services to host
+            this.addServiceTypes(host, listOfServiceTypeIds);
+
         }
         if (PsParameters.HOST_ADD_LATENCY_SERVICES_COMMAND.equals(command)) {
             thisIsUnknownCommand = false;
-            throw new UnsupportedOperationException("Command " + command + " is not implemented yet.");
+
+            // first order of business is to obtain list of latency services
+            List<String> listOfServiceTypeIds = this.psServiceTypeOperator.listOfPrimitiveLatencyServiceTypes();
+
+            //second order of business is to add them to the host
+            this.addServiceTypes(host, listOfServiceTypeIds);
         }
 
         if (PsParameters.HOST_ADD_THROUGHPUT_SERVICES_COMMAND.equals(command)) {
             thisIsUnknownCommand = false;
-            throw new UnsupportedOperationException("Command " + command + " is not implemented yet.");
+
+            // first order of business is to obtain list of latency services
+            List<String> listOfServiceTypeIds = this.psServiceTypeOperator.listOfPrimitiveThroughputServiceTypes();
+
+            //second order of business is to add them to the host
+            this.addServiceTypes(host, listOfServiceTypeIds);
         }
 
         if (PsParameters.HOST_REMOVE_SERVICE_TYPE_COMMAND.equals(command)) {
             thisIsUnknownCommand = false;
-           // first order of business is to unpack request body. It should contain
+            // first order of business is to unpack request body. It should contain
             // JSONArray of strings representing servicetypes
             JSONParser parser = new JSONParser();
             JSONArray servicetypeIds = (JSONArray) parser.parse(requestBody);
-            this.removeServiceTypes(host, servicetypeIds);
+
+            // second order of business is to remove the services
+            this.removeServiceTypes(host, (List<String>) servicetypeIds);
         }
 
         if (PsParameters.HOST_REMOVE_SERVICE_ID_COMMAND.equals(command)) {
@@ -546,7 +562,8 @@ public class PsHostOperator {
 
         if (PsParameters.HOST_REMOVE_ALL_SERVICES_COMMAND.equals(command)) {
             thisIsUnknownCommand = false;
-            throw new UnsupportedOperationException("Command " + command + " is not implemented yet.");
+
+            this.removeAllServicesFromHost(host);
         }
 
         if (thisIsUnknownCommand) {
@@ -563,24 +580,35 @@ public class PsHostOperator {
      * @param host
      * @param servicetypeIds
      */
+//    @Transactional
+//    public void addServiceTypes(PsHost host, JSONArray servicetypeIds) throws PsObjectNotFoundException {
+//        
+//        Iterator iter = servicetypeIds.iterator();
+//        while (iter.hasNext()) {
+//            String serviceTypeId = (String) iter.next();
+//            this.addServiceTypeId(host, serviceTypeId);
+//        }
+//    }
     @Transactional
-    public void addServiceTypes(PsHost host, JSONArray servicetypeIds) throws PsObjectNotFoundException {
-        
+    public void addServiceTypes(PsHost host, List<String> servicetypeIds) throws PsObjectNotFoundException {
+
         Iterator iter = servicetypeIds.iterator();
         while (iter.hasNext()) {
             String serviceTypeId = (String) iter.next();
             this.addServiceTypeId(host, serviceTypeId);
         }
     }
+
     /**
      * remove specified service types from host
+     *
      * @param host
      * @param servicetypeIds
-     * @throws PsObjectNotFoundException 
+     * @throws PsObjectNotFoundException
      */
     @Transactional
-    public void removeServiceTypes(PsHost host, JSONArray servicetypeIds) throws PsObjectNotFoundException {
-        
+    public void removeServiceTypes(PsHost host, List<String> servicetypeIds) throws PsObjectNotFoundException {
+
         Iterator iter = servicetypeIds.iterator();
         while (iter.hasNext()) {
             String serviceTypeId = (String) iter.next();
@@ -590,14 +618,14 @@ public class PsHostOperator {
 
     /**
      * add primitive service of given type to the host
+     *
      * @param host
-     * @param serviceTypeId 
+     * @param serviceTypeId
      */
     @Transactional
     private void addServiceTypeId(PsHost host, String serviceTypeId) throws PsObjectNotFoundException {
         if (this.psServiceTypeOperator.isKnownServiceType(serviceTypeId)) {
             if (this.psServiceTypeOperator.isPrimitiveService(serviceTypeId)) {
-
 
                 PsServiceType type = this.psServiceTypeOperator.getServiceType(serviceTypeId);
                 if (type != null) {
@@ -607,27 +635,88 @@ public class PsHostOperator {
                         // service operator already saved the service, so we do not need to do it now
                         // but we need to add it to the host
                         host.addService(service);
+
+                        this.psHostDao.update(host);
                     }
                 }
             }
         }
     }
+
     /**
      * remove primitive service of given type id form host, delete the service
+     *
      * @param host
-     * @param serviceTypeId 
+     * @param serviceTypeId
      */
     @Transactional
-    public  void removeServiceTypeId(PsHost host, String serviceTypeId) {
-       
+    public void removeServiceTypeId(PsHost host, String serviceTypeId) {
+
+        List<PsService> servicesToBeDeleted = new ArrayList<PsService>();
+
         Iterator<PsService> iter = host.serviceIterator();
         while (iter.hasNext()) {
             PsService currentService = (PsService) iter.next();
             if (currentService.getType().equals(serviceTypeId)) {
-                this.psServiceOperator.delete(currentService);
+                servicesToBeDeleted.add(currentService);
                 iter.remove();
             }
         }
+        this.psHostDao.update(host);
+        this.psServiceOperator.delete(servicesToBeDeleted);
     }
-    
+
+    public void removeServiceFromHost(PsHost host, PsService service) {
+        host.removeService(service);
+        this.psServiceOperator.delete(service);
+        this.psHostDao.update(host);
+    }
+
+    public void removeAllServicesFromHost(PsHost host) {
+
+        List<PsService> servicesToBeDeleted = new ArrayList<PsService>();
+
+        Iterator<PsService> iter = host.serviceIterator();
+        while (iter.hasNext()) {
+            PsService currentService = (PsService) iter.next();
+
+            servicesToBeDeleted.add(currentService);
+            iter.remove();
+
+        }
+        this.psHostDao.update(host);
+        this.psServiceOperator.delete(servicesToBeDeleted);
+
+
+
+
+//        List<PsService> listOfServicesToBeRemoved = new ArrayList<PsService>();
+//        Iterator<PsService> iter = host.serviceIterator();
+//        while (iter.hasNext()) {
+//            listOfServicesToBeRemoved.add((PsService) iter.next());
+//        }
+//        
+//        for(PsService service : listOfServicesToBeRemoved){
+//            this.removeServiceFromHost(host, service);
+//        }
+// 
+
+
+
+
+
+
+//        // now we have list of services to be removed
+//        // 
+//        
+//        // delete services
+//        this.psServiceOperator.delete(listOfServicesToBeRemoved);
+//        
+//        
+//        // remove all services from host
+//        host.removeAllServices();
+//        
+//        // update host status
+//        this.psHostDao.update(host);
+    }
 }

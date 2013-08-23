@@ -5,7 +5,7 @@
 package gov.bnl.racf.ps.dashboard3.domainobjects.factories;
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -28,13 +28,13 @@ public interface PsServiceTypeFactory {
     public  boolean isPrimitiveService(String typeName);
     
 
-    public  ArrayList<String> listOfServiceTypes();
+    public  List<String> listOfServiceTypes();
     
-    public  ArrayList<String> listOfPrimitiveServiceTypes();
+    public  List<String> listOfPrimitiveServiceTypes();
     
-    public  ArrayList<String> listOfPrimitiveThroughputServiceTypes();
+    public  List<String> listOfPrimitiveThroughputServiceTypes();
     
-    public  ArrayList<String> listOfPrimitiveLatencyServiceTypes();
+    public  List<String> listOfPrimitiveLatencyServiceTypes();
 
    
 }

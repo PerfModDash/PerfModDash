@@ -162,6 +162,12 @@ public class PsHost {
             services.add(service);
         }
     }
+    /**
+     * remove all services from host
+     */
+    public void removeAllServices(){
+        this.services.clear();
+    }
 
     /**
      * remove service from host this does not delete the service from data store
@@ -169,23 +175,23 @@ public class PsHost {
      *
      * @param serviceId
      */
-//    public void removeService(int serviceId) {
-//        Iterator iter = serviceIterator();
-//        while (iter.hasNext()) {
-//            if (((PsService) iter.next()).getId() == serviceId) {
-//                iter.remove();
-//            }
-//        }
-//    }
+    public void removeService(int serviceId) {
+        Iterator iter = serviceIterator();
+        while (iter.hasNext()) {
+            if (((PsService) iter.next()).getId() == serviceId) {
+                iter.remove();
+            }
+        }
+    }
     /**
      * remove service from host this does not delete the service from data store
      * deletion from data store should be done by object manipulator
      *
      * @param service
      */
-//    public void removeService(PsService service) {
-//        removeService(service.getId());
-//    }
+    public void removeService(PsService service) {
+        removeService(service.getId());
+    }
     /**
      * checks if the host has a service of type type associated with it
      *
