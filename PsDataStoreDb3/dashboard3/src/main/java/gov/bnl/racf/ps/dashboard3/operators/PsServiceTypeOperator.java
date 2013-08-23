@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Operator on the PsServiceType class
@@ -46,6 +47,7 @@ public class PsServiceTypeOperator {
     /**
      * initialize the service types in database
      */
+    @Transactional
     public List<String>  initServiceTypes(){
         List<String> knownServiceTypeNames=this.psServiceTypeFactory.listOfServiceTypes();
         List<String> listOfNewServiceNames=new ArrayList<String>();
@@ -69,10 +71,11 @@ public class PsServiceTypeOperator {
      * get list of all known service types in the database
      * @return 
      */
+    @Transactional
     public List<PsServiceType> getAll(){
         return this.psServiceTypeDao.getAll();
     }
-    
+    @Transactional
     public void deleteAllServiceTypes(){
         List<PsServiceType> listOfAllServiceTypes = this.getAll();
         Iterator iter = listOfAllServiceTypes.iterator();
@@ -88,6 +91,7 @@ public class PsServiceTypeOperator {
      * @param psServiceType
      * @return 
      */
+    @Transactional
     public JSONObject toJson(PsServiceType psServiceType){
         return this.psServiceTypeJson.toJson(psServiceType);
     }
@@ -97,6 +101,7 @@ public class PsServiceTypeOperator {
      * @param detailLevel
      * @return 
      */
+    @Transactional
     public JSONObject toJson(PsServiceType psServiceType,String detailLevel){
         return this.psServiceTypeJson.toJson(psServiceType,detailLevel);
     }
@@ -105,6 +110,7 @@ public class PsServiceTypeOperator {
      * @param listOfServiceTypes
      * @return 
      */
+    @Transactional
     public JSONArray toJson(List<PsServiceType> listOfServiceTypes){
         JSONArray result=new JSONArray();
         for(PsServiceType serviceType : listOfServiceTypes){
@@ -119,6 +125,7 @@ public class PsServiceTypeOperator {
      * @param detailLevel
      * @return 
      */
+    @Transactional
     public JSONArray toJson(List<PsServiceType> listOfServiceTypes, String detailLevel){
         JSONArray result=new JSONArray();
         for(PsServiceType serviceType : listOfServiceTypes){
@@ -132,6 +139,7 @@ public class PsServiceTypeOperator {
      * @param serviceTypeId
      * @return 
      */
+    @Transactional
     public boolean isKnownServiceType(String serviceTypeId){
         return this.psServiceTypeFactory.isKnownType(serviceTypeId);
     }
@@ -140,6 +148,7 @@ public class PsServiceTypeOperator {
      * @param serviceTypeId
      * @return 
      */
+    @Transactional
     public boolean isPrimitiveService(String serviceTypeId){
         return this.psServiceTypeFactory.isPrimitiveService(serviceTypeId);
     }
@@ -151,6 +160,7 @@ public class PsServiceTypeOperator {
      * @return
      * @throws PsObjectNotFoundException 
      */
+    @Transactional
     PsServiceType getServiceType(String serviceTypeId) throws PsObjectNotFoundException {
         return this.psServiceTypeDao.getByServiceTypeId(serviceTypeId);
     }

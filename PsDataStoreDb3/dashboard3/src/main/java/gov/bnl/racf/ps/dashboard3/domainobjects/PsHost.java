@@ -35,7 +35,7 @@ public class PsHost {
     private String hostname = "";
     private String ipv4 = "";
     private String ipv6 = "";
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<PsService> services = new Vector<PsService>();
 
     

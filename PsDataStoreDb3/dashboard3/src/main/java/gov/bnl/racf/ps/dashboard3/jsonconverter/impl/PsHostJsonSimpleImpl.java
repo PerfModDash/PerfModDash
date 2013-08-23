@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -29,6 +30,9 @@ public class PsHostJsonSimpleImpl implements PsHostJson {
         this.psServiceJson = psServiceJson;
     }
     
+    //=== body of the class ===//
+    
+    @Transactional
     @Override
     public JSONObject toJson(PsHost host, String detailLevel) {
         JSONObject json = new JSONObject();
@@ -48,16 +52,19 @@ public class PsHostJsonSimpleImpl implements PsHostJson {
         return json;
     }
     
+    @Transactional
     @Override
     public JSONObject toJson(PsHost host) {
         return toJson(host, PsParameters.DETAIL_LEVEL_LOW);
     }
 
+    @Transactional
     @Override
     public JSONArray toJson(List<PsHost> listOfHosts) {
         return toJson(listOfHosts,PsParameters.DETAIL_LEVEL_LOW);
     }
     
+    @Transactional
     @Override
     public JSONArray toJson(List<PsHost> listOfHosts, String detailLevel) {
         JSONArray jsonArray = new JSONArray();
@@ -69,7 +76,7 @@ public class PsHostJsonSimpleImpl implements PsHostJson {
         return jsonArray;
     }
     
-    
+    @Transactional
     public static String int2String(int intValue) {
         Integer integerVariable = new Integer(intValue);
         return integerVariable.toString();

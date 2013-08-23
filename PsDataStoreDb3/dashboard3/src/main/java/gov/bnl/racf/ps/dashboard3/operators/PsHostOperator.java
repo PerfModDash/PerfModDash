@@ -21,6 +21,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * class for manipulating perfSonar hosts
@@ -71,6 +72,7 @@ public class PsHostOperator {
      *
      * @return
      */
+    @Transactional
     public PsHost create() {
         return this.psHostDao.create();
     }
@@ -80,6 +82,7 @@ public class PsHostOperator {
      *
      * @param host
      */
+    @Transactional
     public void insert(PsHost host) {
         this.psHostDao.insert(host);
     }
@@ -91,6 +94,7 @@ public class PsHostOperator {
      * @return PsHost
      * @throws PsObjectNotFoundException
      */
+    @Transactional
     public PsHost getById(int id) throws PsObjectNotFoundException {
         return this.psHostDao.getById(id);
     }
@@ -100,6 +104,7 @@ public class PsHostOperator {
      *
      * @return
      */
+    @Transactional
     public List<PsHost> getAll() {
         return this.psHostDao.getAll();
     }
@@ -110,6 +115,7 @@ public class PsHostOperator {
      * @param sortingOrder
      * @return 
      */
+    @Transactional
     public List<PsHost> getAll(String sortingVariable, String sortingOrder) {
         List<PsHost> listOfHosts = getAll();
         if (sortingVariable != null) {
@@ -133,6 +139,7 @@ public class PsHostOperator {
      *
      * @param host
      */
+    @Transactional
     public void update(PsHost host) {
         this.psHostDao.update(host);
     }
@@ -142,6 +149,7 @@ public class PsHostOperator {
      *
      * @param host
      */
+    @Transactional
     public void delete(PsHost host) {
 
         //TODO expand this, to delete services on this host,
@@ -153,6 +161,7 @@ public class PsHostOperator {
      * delete host based on id
      *
      */
+    @Transactional
     public void delete(int id) {
         PsHost host;
         try {
@@ -170,6 +179,7 @@ public class PsHostOperator {
      * @param host
      * @return
      */
+    @Transactional
     public JSONObject toJson(PsHost host) {
         return this.psHostJson.toJson(host);
     }
@@ -181,6 +191,7 @@ public class PsHostOperator {
      * @param detailLevel
      * @return
      */
+    @Transactional
     public JSONObject toJson(PsHost host, String detailLevel) {
         return this.psHostJson.toJson(host, detailLevel);
     }
@@ -191,6 +202,7 @@ public class PsHostOperator {
      * @param listOfHosts
      * @return
      */
+    @Transactional
     public JSONArray toJson(List<PsHost> listOfHosts) {
         return this.psHostJson.toJson(listOfHosts);
     }
@@ -202,6 +214,7 @@ public class PsHostOperator {
      * @param detailLevel
      * @return
      */
+    @Transactional
     public JSONArray toJson(List<PsHost> listOfHosts, String detailLevel) {
         return this.psHostJson.toJson(listOfHosts, detailLevel);
     }
@@ -395,6 +408,7 @@ public class PsHostOperator {
      * @param jsonInput
      * @return
      */
+    @Transactional
     public JSONObject insertNewHostFromJson(JSONObject jsonInput) {
         // first order of business is to create new host
         PsHost newHost = this.psHostDao.create();
@@ -416,6 +430,7 @@ public class PsHostOperator {
      * @return jsonOutput
      * @throws PsObjectNotFoundException
      */
+    @Transactional
     public JSONObject updateHostFromJson(int id, JSONObject jsonInput) throws PsObjectNotFoundException {
         // first order of business is to get the host to be updated
         PsHost host = this.psHostDao.getById(id);
@@ -435,6 +450,7 @@ public class PsHostOperator {
      * @param host
      * @param json
      */
+    @Transactional
     public void update(PsHost host, JSONObject json) {
         // first order of business is to compare id
 
@@ -483,6 +499,7 @@ public class PsHostOperator {
 
     }
 
+    @Transactional
     public PsHost executeCommand(int id, String command, String requestBody) throws PsObjectNotFoundException, PsUnknownCommandExeption, ParseException {
 
         PsHost host = this.getById(id);
@@ -542,6 +559,7 @@ public class PsHostOperator {
      * @param host
      * @param servicetypeIds
      */
+    @Transactional
     public void addServiceTypes(PsHost host, JSONArray servicetypeIds) throws PsObjectNotFoundException {
         
         Iterator iter = servicetypeIds.iterator();
@@ -556,6 +574,7 @@ public class PsHostOperator {
      * @param host
      * @param serviceTypeId 
      */
+    @Transactional
     private void addServiceType(PsHost host, String serviceTypeId) throws PsObjectNotFoundException {
         if (this.psServiceTypeOperator.isKnownServiceType(serviceTypeId)) {
             if (this.psServiceTypeOperator.isPrimitiveService(serviceTypeId)) {

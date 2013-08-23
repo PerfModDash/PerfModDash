@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -39,6 +40,7 @@ public class PsServiceJsonSimpleImpl implements PsServiceJson{
      * @param service
      * @return 
      */
+    @Transactional
     @Override
     public JSONObject toJson(PsService service) {
         return this.toJson(service, PsParameters.DETAIL_LEVEL_LOW);
@@ -50,6 +52,7 @@ public class PsServiceJsonSimpleImpl implements PsServiceJson{
      * @param detailLevel
      * @return 
      */
+    @Transactional
     @Override
     public JSONObject toJson(PsService service, String detailLevel) {
         JSONObject json = new JSONObject();
@@ -99,6 +102,7 @@ public class PsServiceJsonSimpleImpl implements PsServiceJson{
      * @param listOfServices
      * @return 
      */
+    @Transactional
     @Override
     public JSONArray toJson(List<PsService> listOfServices) {
         JSONArray jsonArray=new JSONArray();
@@ -116,6 +120,7 @@ public class PsServiceJsonSimpleImpl implements PsServiceJson{
      * @param detailLevel
      * @return 
      */
+    @Transactional
     @Override
     public JSONArray toJson(List<PsService> listOfServices, String detailLevel) {
         JSONArray jsonArray=new JSONArray();
@@ -127,6 +132,7 @@ public class PsServiceJsonSimpleImpl implements PsServiceJson{
         return jsonArray;
     }
 
+    @Transactional
     @Override
     public JSONObject serviceParametersAsJson(PsService service) {
        JSONObject serviceParameters = new JSONObject();

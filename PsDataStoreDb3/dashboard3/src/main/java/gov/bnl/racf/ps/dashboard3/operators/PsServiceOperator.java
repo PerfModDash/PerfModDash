@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -51,6 +52,7 @@ public class PsServiceOperator {
      *
      * @param service
      */
+    @Transactional
     public void insert(PsService service) {
         this.psServiceDao.insert(service);
     }
@@ -62,6 +64,7 @@ public class PsServiceOperator {
      * @return
      * @throws PsObjectNotFoundException
      */
+    @Transactional
     public PsService getById(int id) throws PsObjectNotFoundException {
         return this.psServiceDao.getById(id);
     }
@@ -71,6 +74,7 @@ public class PsServiceOperator {
      *
      * @return
      */
+    @Transactional
     public List<PsService> getAll() {
         return this.psServiceDao.getAll();
     }
@@ -80,6 +84,7 @@ public class PsServiceOperator {
      *
      * @param service
      */
+    @Transactional
     public void update(PsService service) {
         this.psServiceDao.update(service);
     }
@@ -89,6 +94,7 @@ public class PsServiceOperator {
      *
      * @param id
      */
+    @Transactional
     public void delete(int id) {
         this.psServiceDao.delete(id);
     }
@@ -98,6 +104,7 @@ public class PsServiceOperator {
      *
      * @param serviceToBeDeleted
      */
+    @Transactional
     public void delete(PsService serviceToBeDeleted) {
         this.psServiceDao.delete(serviceToBeDeleted);
     }
@@ -107,6 +114,7 @@ public class PsServiceOperator {
      *
      * @param servicesToBeDeleted
      */
+    @Transactional
     public void delete(Collection<PsService> servicesToBeDeleted) {
         this.psServiceDao.delete(servicesToBeDeleted);
     }
@@ -119,6 +127,7 @@ public class PsServiceOperator {
      * @param host
      * @return
      */
+    @Transactional
     public PsService createService(PsServiceType type, PsHost host) {
         // first order of business is to call service factor to create the service
         PsService service = this.psServiceFactory.createService(type, host);
@@ -135,6 +144,7 @@ public class PsServiceOperator {
      * @param destination
      * @return 
      */
+    @Transactional
     public PsService createService(PsServiceType type, PsHost source, PsHost destination) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -147,6 +157,7 @@ public class PsServiceOperator {
      * @param monitor
      * @return 
      */
+    @Transactional
     public PsService createService(PsServiceType type, PsHost source, PsHost destination, PsHost monitor) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -158,6 +169,7 @@ public class PsServiceOperator {
      * @param service
      * @return 
      */
+    @Transactional
     public JSONObject toJson(PsService service){
         return this.psServiceJson.toJson(service);
     }
@@ -167,6 +179,7 @@ public class PsServiceOperator {
      * @param detailLevel
      * @return 
      */
+    @Transactional
     public JSONObject toJson(PsService service,String detailLevel){
         return this.psServiceJson.toJson(service,detailLevel);
     }
@@ -175,6 +188,7 @@ public class PsServiceOperator {
      * @param listOfServices
      * @return 
      */
+    @Transactional
     public JSONArray toJson(List<PsService>listOfServices){
         JSONArray resultJson = new JSONArray();
         for(PsService service:listOfServices){
@@ -188,6 +202,7 @@ public class PsServiceOperator {
      * @param detailLevel
      * @return 
      */
+    @Transactional
     public JSONArray toJson(List<PsService>listOfServices,String detailLevel){
         JSONArray resultJson = new JSONArray();
         for(PsService service:listOfServices){
@@ -203,6 +218,7 @@ public class PsServiceOperator {
      * @param jsonInput
      * @return 
      */
+    @Transactional
     public JSONObject insertNewServiceFromJson(JSONObject jsonInput) {
         throw new UnsupportedOperationException("Not yet implemented");
     }

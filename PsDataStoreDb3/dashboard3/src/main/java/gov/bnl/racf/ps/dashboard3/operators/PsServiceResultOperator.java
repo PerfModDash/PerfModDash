@@ -10,6 +10,7 @@ import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -30,6 +31,7 @@ public class PsServiceResultOperator {
      * @param psServiceResult
      * @return JSONObject
      */
+    @Transactional
     public JSONObject toJson(PsServiceResult psServiceResult){
         return this.toJson(psServiceResult, PsParameters.DETAIL_LEVEL_HIGH);
     }
@@ -39,6 +41,7 @@ public class PsServiceResultOperator {
      * @param detailLevel
      * @return 
      */
+    @Transactional
     public JSONObject toJson(PsServiceResult psServiceResult,
             String detailLevel){
         return this.psServiceResultJson.toJson(psServiceResult, detailLevel);
@@ -50,6 +53,7 @@ public class PsServiceResultOperator {
      * @param detailLevel
      * @return 
      */
+    @Transactional
     public JSONArray toJson(List<PsServiceResult> listOfResults,
             String detailLevel){
         JSONArray listOfResultsJson = new JSONArray();
@@ -63,6 +67,7 @@ public class PsServiceResultOperator {
      * @param listOfRecentResults
      * @return 
      */
+    @Transactional
     public JSONArray toJson(List<PsServiceResult> listOfResults){
         return this.toJson(listOfResults, PsParameters.DETAIL_LEVEL_HIGH);
     }
