@@ -43,6 +43,7 @@ public class PsHostOperator {
     public void setPsHostJson(PsHostJson psHostJson) {
         this.psHostJson = psHostJson;
     }
+    
     private PsServiceTypeOperator psServiceTypeOperator;
 
     public void setPsServiceTypeOperator(PsServiceTypeOperator psServiceTypeOperator) {

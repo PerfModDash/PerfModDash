@@ -149,7 +149,9 @@
     </bean>  
     
     <bean id="psMatrixOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsMatrixOperator">
-        <property name="psMatrixDao" ref="psMatrixDao" />	
+        <property name="psMatrixDao" ref="psMatrixDao" />
+        <property name="psMatrixFactory" ref="psMatrixFactory" />
+        <property name="psServiceTypeOperator" ref="psServiceTypeOperator" />
     </bean>
     
     

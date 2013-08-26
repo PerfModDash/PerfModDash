@@ -7,7 +7,7 @@ package gov.bnl.racf.ps.dashboard3.operators;
 import gov.bnl.racf.ps.dashboard3.dao.PsServiceTypeDao;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
 import gov.bnl.racf.ps.dashboard3.domainobjects.factories.PsServiceTypeFactory;
-import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceTypeNotFoundException;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsServiceTypeJson;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -199,7 +199,7 @@ public class PsServiceTypeOperator {
      * @throws PsObjectNotFoundException 
      */
     @Transactional
-    PsServiceType getServiceType(String serviceTypeId) throws PsObjectNotFoundException {
+    PsServiceType getServiceType(String serviceTypeId) throws PsServiceTypeNotFoundException {
         return this.psServiceTypeDao.getByServiceTypeId(serviceTypeId);
     }
     

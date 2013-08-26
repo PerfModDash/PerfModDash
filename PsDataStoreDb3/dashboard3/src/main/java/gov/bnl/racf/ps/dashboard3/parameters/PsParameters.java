@@ -46,6 +46,7 @@ public class PsParameters {
     public static final String MATRIX_REMOVE_COLUMN_HOST_IDS="removecolumnhostids";
     public static final String MATRIX_ADD_ROW_HOST_IDS="addrowhostids";
     public static final String MATRIX_REMOVE_ROW_HOST_IDS="removerowhostids";
+    public static final String MATRIX_REMOVE_ALL_HOSTS="removeallhosts";
     
     
     // detail level
@@ -77,5 +78,6 @@ public class PsParameters {
     // sorting orders
     public static String SORTING_ORDER_UP="up";
     public static String SORTING_ORDER_DOWN="down";
+    
     
 }

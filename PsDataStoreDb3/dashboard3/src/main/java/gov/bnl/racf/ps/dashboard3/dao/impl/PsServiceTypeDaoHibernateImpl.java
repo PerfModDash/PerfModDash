@@ -7,6 +7,7 @@ package gov.bnl.racf.ps.dashboard3.dao.impl;
 import gov.bnl.racf.ps.dashboard3.dao.PsServiceTypeDao;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceTypeNotFoundException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +42,7 @@ public class PsServiceTypeDaoHibernateImpl implements PsServiceTypeDao {
 
     @Transactional
     @Override
-    public PsServiceType getById(int id) throws PsObjectNotFoundException {
+    public PsServiceType getById(int id) throws PsServiceTypeNotFoundException {
         PsServiceType result = 
                 (PsServiceType)this.hibernateTemplate.get(PsServiceType.class, id);
         return result;
@@ -49,12 +50,12 @@ public class PsServiceTypeDaoHibernateImpl implements PsServiceTypeDao {
 
     @Transactional
     @Override
-    public PsServiceType getByServiceTypeId(String serviceTypeId) throws PsObjectNotFoundException{
+    public PsServiceType getByServiceTypeId(String serviceTypeId) throws PsServiceTypeNotFoundException{
         String query = "from PsServiceType where serviceTypeId=?";
         List<PsServiceType> listOfServiceTypes = 
                 this.hibernateTemplate.find(query, new Object[]{serviceTypeId});
         if(listOfServiceTypes.isEmpty()){
-            throw new PsObjectNotFoundException();
+            throw new PsServiceTypeNotFoundException();
         }else{
             if(listOfServiceTypes.size()>1){
                 throw new RuntimeException("More than one service type with id="+serviceTypeId+" found!");

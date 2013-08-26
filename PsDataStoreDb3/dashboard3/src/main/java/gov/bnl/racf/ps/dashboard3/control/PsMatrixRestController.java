@@ -5,9 +5,7 @@
 package gov.bnl.racf.ps.dashboard3.control;
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsMatrix;
-import gov.bnl.racf.ps.dashboard3.exceptions.PsHostNotFoundException;
-import gov.bnl.racf.ps.dashboard3.exceptions.PsMatrixNotFoundException;
-import gov.bnl.racf.ps.dashboard3.exceptions.PsUnknownCommandException;
+import gov.bnl.racf.ps.dashboard3.exceptions.*;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsMatrixJson;
 import gov.bnl.racf.ps.dashboard3.operators.PsMatrixOperator;
 import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
@@ -99,10 +97,25 @@ public class PsMatrixRestController {
             // finally return the newly created host
             return jsonOutput.toString();
 
+        } catch (PsMissingMatrixNameException ex) {
+             message = " missing matrix name";
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            return message;
+        } catch (PsMissingServiceTypeException ex) {
+            message = " missing service type";
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            return message;
+        } catch (PsServiceTypeNotFoundException ex) {
+            message = " service type not found";
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            return message;
         } catch (ParseException ex) {
             message = "Incomprehensible input: " + requestBody;
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
         }
 
@@ -114,7 +127,7 @@ public class PsMatrixRestController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public String matrixPut(@PathVariable int id, @RequestBody String requestBody) {
-        String message = "we are in matrixPut, id = " + id + " requestBody=" + requestBody;
+       String message;
         // first order of business is to convert request body to JSON 
         JSONParser parser = new JSONParser();
         JSONObject jsonInput;
@@ -129,13 +142,13 @@ public class PsMatrixRestController {
 
         } catch (ParseException ex) {
             message = "Incomprehensible input: " + requestBody;
-            Logger.getLogger(PsMatrixRestController.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsMatrixRestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
         } catch (PsMatrixNotFoundException ex) {
             message = "Unknown matrix with id=" + id;
-            Logger.getLogger(PsMatrixRestController.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsMatrixRestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
         }
     }
@@ -188,11 +201,5 @@ public class PsMatrixRestController {
         return message;
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    @ResponseBody
-    public String matrixDelete() {
-        String message = "we are matrixDelete()";
-        //TODO finish the method
-        return message;
-    }
+    
 }
