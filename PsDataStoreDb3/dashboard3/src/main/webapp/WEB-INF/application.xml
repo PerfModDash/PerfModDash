@@ -100,6 +100,10 @@
         <property name="psHostJson" ref="psHostJson"/>
     </bean>
     
+    <bean id="psMatrixJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsMatrixJsonSimpleImpl">
+        
+    </bean>
+    
     
 <!--    Object factory beans-->
     
@@ -150,7 +154,11 @@
     
     <bean id="psMatrixOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsMatrixOperator">
         <property name="psMatrixDao" ref="psMatrixDao" />
+        <property name="psMatrixJson" ref="psMatrixJson" />
         <property name="psMatrixFactory" ref="psMatrixFactory" />
+        <property name="psServiceFactory" ref="psServiceFactory" />
+        <property name="psServiceOperator" ref="psServiceOperator" />
+        <property name="psHostOperator" ref="psHostOperator" />
         <property name="psServiceTypeOperator" ref="psServiceTypeOperator" />
     </bean>
     
