@@ -15,6 +15,7 @@ import java.util.List;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -43,9 +44,10 @@ public class PsSitesRestController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public String siteGet() {
-        String message = "we are in siteGet()";
+       
         List<PsSite> listOfSites = this.psSiteOperator.getAll();
-        return message;
+        JSONArray listOfSitesJson = this.psSiteOperator.toJson(listOfSites);
+        return listOfSitesJson.toString();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -70,7 +72,7 @@ public class PsSitesRestController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public String sitePost(@RequestBody String requestBody) {
-        String message = "we are in sitePost()";
+       String message;
 
         // first order of business is to convert request body to JSON 
         JSONParser parser = new JSONParser();
@@ -139,7 +141,9 @@ public class PsSitesRestController {
 
 
         } catch (PsHostNotFoundException ex) {
+            message = message + " host not found";
             Logger.getLogger(PsSitesRestController.class.getName()).log(Level.SEVERE, null, ex);
+            return message;
         } catch (PsSiteNotFoundException ex) {
             message = message + " host not found";
             Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);

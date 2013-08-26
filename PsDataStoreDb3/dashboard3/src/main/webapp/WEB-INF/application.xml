@@ -94,6 +94,7 @@
     </bean>
     
     <bean id="psSiteJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsSiteJsonSimpleImpl">
+        <property name="psHostJson" ref="psHostJson"/>
     </bean>
     
     
@@ -138,7 +139,7 @@
      <bean id="psSiteOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsSiteOperator">
         <property name="psSiteDao" ref="psSiteDao" />	
         <property name="psSiteJson" ref="psSiteJson" />	
-        <property name="psHostsOperator" ref="psHostsOperator" />	
+        <property name="psHostOperator" ref="psHostsOperator" />	
     </bean>  
     
     

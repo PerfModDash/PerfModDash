@@ -76,6 +76,9 @@ public class PsSiteOperator {
     }
 
     public void delete(PsSite site) {
+        // 1. remove all hosts from site
+        this.removeAllHosts(site);
+        // 2. delete site        
         this.psSiteDao.delete(site);
     }
 
@@ -153,8 +156,9 @@ public class PsSiteOperator {
         JSONArray arrayOfHostIds = (JSONArray) this.jsonParser.parse(requestBody);
 
         boolean thisIsKnownCommand = false;
+        
         if (PsParameters.SITE_ADD_HOST_IDS.equals(userCommand)) {
-            thisIsKnownCommand = false;
+            thisIsKnownCommand = true;
             // user wants to add hosts to site
 
             // add those hosts
@@ -162,11 +166,19 @@ public class PsSiteOperator {
         }
 
         if (PsParameters.SITE_REMOVE_HOST_IDS.equals(userCommand)) {
-            thisIsKnownCommand = false;
+            thisIsKnownCommand = true;
             // user wants to remove hosts from site
 
             // remove those hosts
-            PsSiteManipulator.removeHosts(session, site, jsonArray);
+            this.removeHosts(site, arrayOfHostIds);
+        }
+        
+        if (PsParameters.SITE_REMOVE_ALL_HOSTS.equals(userCommand)) {
+            thisIsKnownCommand = true;
+            // user wants to remove hosts from site
+
+            // remove those hosts
+            this.removeAllHosts(site);
         }
         
         if(!thisIsKnownCommand){
@@ -175,6 +187,8 @@ public class PsSiteOperator {
         return site;
     }
 
+    // === commands for adding hosts to a site ===//
+    
     public  void addHosts(PsSite site, JSONArray listOfHostIds) throws PsHostNotFoundException{
         Iterator iter = listOfHostIds.iterator();
         while (iter.hasNext()) {
@@ -189,7 +203,72 @@ public class PsSiteOperator {
     }
 
     private void addHost(PsSite site, PsHost host) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        // firs order of business is to add the host
+        site.addHost(host);
+        // then save the updated site
+        this.update(site);
     }
+
+    // === commands for removing hosts from site === //
+    
+    
+    
+    /**
+     * remove host from site. The host is not deleted, just removed.
+     * @param site
+     * @param host 
+     */
+    public  void removeHost(PsSite site, PsHost host){
+        site.removeHost(host);
+        this.psSiteDao.update(site);
+    }
+    
+    /**
+     * remove host with given id from site
+     * @param site
+     * @param hostId
+     * @throws PsHostNotFoundException 
+     */
+    public  void removeHostId(PsSite site, int hostId) throws PsHostNotFoundException{
+        PsHost host = this.psHostOperator.getById(hostId);
+        this.removeHost(site,host);
+    }
+    
+
+    /**
+     * remove hosts whose list of id's is in JSONArray from the designated site
+     * @param site
+     * @param listOfHostIds
+     * @throws PsHostNotFoundException 
+     */
+    public  void removeHosts(PsSite site, JSONArray listOfHostIds) throws PsHostNotFoundException{
+        Iterator iter = listOfHostIds.iterator();
+        while(iter.hasNext()){
+            String hostIdString  = (String)iter.next();
+            int hostId = Integer.parseInt(hostIdString);
+            this.removeHostId(site,hostId);
+        }
+    }
+//    public  void removeHosts(PsSite site, List<PsHost>listOfHosts) throws PsHostNotFoundException{
+//        Iterator iter = listOfHosts.iterator();
+//        while(iter.hasNext()){
+//            PsHost currentHost  = (PsHost)iter.next();
+//            this.removeHost(site,currentHost);
+//        }
+//    }
+    
+
+    /**
+     * remove all hosts from the designated site
+     * @param site 
+     */
+    private void removeAllHosts(PsSite site ) {
+        
+        site.removeAllHosts();
+        
+        this.psSiteDao.update(site);
+    }
+    
+    
     
 }

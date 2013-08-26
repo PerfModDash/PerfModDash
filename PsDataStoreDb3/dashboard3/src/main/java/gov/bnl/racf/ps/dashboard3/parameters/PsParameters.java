@@ -29,6 +29,7 @@ public class PsParameters {
     public static final String SITE="sites";  
     public static final String SITE_ADD_HOST_IDS="addhostids";
     public static final String SITE_REMOVE_HOST_IDS="removehostids";
+    public static final String SITE_REMOVE_ALL_HOSTS="removeallhosts";
     
     public static final String CLOUD="clouds";
     public static final String CLOUD_ADD_SITE_IDS="addsiteids";

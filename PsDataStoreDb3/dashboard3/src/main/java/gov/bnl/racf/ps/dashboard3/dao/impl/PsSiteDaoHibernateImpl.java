@@ -8,6 +8,9 @@ import gov.bnl.racf.ps.dashboard3.dao.PsSiteDao;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsSite;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsSiteNotFoundException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
  *
@@ -15,39 +18,61 @@ import java.util.List;
  */
 public class PsSiteDaoHibernateImpl implements PsSiteDao{
 
+    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
+    }
+    
+    private HibernateTemplate hibernateTemplate;
+    
+
     @Override
     public PsSite create() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        PsSite site = new PsSite();
+        this.insert(site);
+        return site;
     }
 
     @Override
     public void insert(PsSite site) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.hibernateTemplate.save(site);
     }
 
     @Override
     public PsSite getById(int id) throws PsSiteNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        PsSite site = (PsSite)this.hibernateTemplate.get(PsSite.class, id);
+        if(site==null){
+            throw new PsSiteNotFoundException();
+        }else{
+            return site;
+        }
     }
 
     @Override
     public List<PsSite> getAll() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String query="from PsSite";
+        return this.hibernateTemplate.find(query);
     }
 
     @Override
     public void update(PsSite site) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.hibernateTemplate.update(site);
     }
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            PsSite site = this.getById(id);
+            this.hibernateTemplate.delete(site);
+        } catch (PsSiteNotFoundException ex) {
+            String message="site with id="+id+" not found";
+            Logger.getLogger(PsSiteDaoHibernateImpl.class.getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(PsSiteDaoHibernateImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void delete(PsSite site) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.hibernateTemplate.delete(site);
     }
     
 }
