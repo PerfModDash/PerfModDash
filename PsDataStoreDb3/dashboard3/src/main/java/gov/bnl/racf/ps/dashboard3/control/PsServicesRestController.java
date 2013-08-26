@@ -60,8 +60,8 @@ public class PsServicesRestController {
             return this.psServiceOperator.toJson(service, detailLevel).toString();
 
         } catch (PsObjectNotFoundException ex) {
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, "service with id=" + id + " not found");
+            Logger.getLogger(PsServicesRestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PsServicesRestController.class.getName()).log(Level.SEVERE, null, "service with id=" + id + " not found");
             throw new RuntimeException("service with id=" + id + " not found");
         }
     }
@@ -91,8 +91,8 @@ public class PsServicesRestController {
 
         } catch (ParseException ex) {
             String message = "Incomprehensible input: " + requestBody;
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PsServicesRestController.class.getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(PsServicesRestController.class.getName()).log(Level.SEVERE, null, ex);
             return message;
         }
     }

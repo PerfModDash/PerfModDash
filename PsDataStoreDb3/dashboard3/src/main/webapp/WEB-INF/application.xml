@@ -69,6 +69,9 @@
         <property name="hibernateTemplate" ref="hibernateTemplate" />	
     </bean>  
     
+    <bean id="psMatrixDao" class="gov.bnl.racf.ps.dashboard3.dao.impl.PsMatrixDaoHibernateImpl">
+        <property name="hibernateTemplate" ref="hibernateTemplate" />	
+    </bean>  
     
 <!--    JSON conversion beans-->
 
@@ -106,6 +109,9 @@
     <bean id="psServiceFactory" class="gov.bnl.racf.ps.dashboard3.domainobjects.factories.impl.PsServiceFactorySimpleImpl">
     </bean>
     
+    <bean id="psMatrixFactory" class="gov.bnl.racf.ps.dashboard3.domainobjects.factories.impl.PsMatrixFactorySimpleImpl">
+    </bean>
+    
     
 <!--    Object operator beans-->
     
@@ -136,11 +142,15 @@
         <property name="psRecentServiceResultJson" ref="psRecentServiceResultJson" />
     </bean>   
     
-     <bean id="psSiteOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsSiteOperator">
+    <bean id="psSiteOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsSiteOperator">
         <property name="psSiteDao" ref="psSiteDao" />	
         <property name="psSiteJson" ref="psSiteJson" />	
         <property name="psHostOperator" ref="psHostsOperator" />	
     </bean>  
+    
+    <bean id="psMatrixOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsMatrixOperator">
+        <property name="psMatrixDao" ref="psMatrixDao" />	
+    </bean>
     
     
 </beans>
