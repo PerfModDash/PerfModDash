@@ -101,7 +101,8 @@
     </bean>
     
     <bean id="psMatrixJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsMatrixJsonSimpleImpl">
-        
+        <property name="psHostJson" ref="psHostJson"/>
+        <property name="psServiceJson" ref="psServiceJson"/>
     </bean>
     
     
