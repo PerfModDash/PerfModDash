@@ -124,6 +124,148 @@ public class PsMatrixManipulator {
             }
         }
     }
+    /**
+     * add hostId to columns of matrix matrixId
+     * @param session
+     * @param matrixId
+     * @param hostId 
+     */
+    public static void addHostToMatrixColumn(Session session, int matrixId, int hostId) {
+
+
+        PsMatrix matrix = PsDataStore.getMatrix(session, matrixId);
+        if (matrix == null) {
+            throw new Error("Matrix with id=" + matrixId + " does not exist!");
+        }
+
+        PsHost host = PsDataStore.getHost(session, hostId);
+        if (host == null) {
+            throw new Error("Host with id=" + hostId + " does not exist!");
+        }
+
+        addHostToMatrixColumn(session, matrix, host);
+
+    }
+    
+    /**
+     * add host to columns in matrix
+     * @param session
+     * @param matrix
+     * @param host 
+     */
+    public static void addHostToMatrixColumn(Session session, PsMatrix matrix, PsHost host){
+        if (!matrix.containsHostInColumn(host) ) {
+            // first of all add host to columns and rows
+            matrix.addHostToColumn(host);
+
+            // ok, host has been added to matrix
+            // now fill the relevant services
+            if (matrix.isThroughput() || matrix.isLatency()) {
+                // let us fill column first
+                int columnIndex = matrix.getColumnNumberOfHost(host);
+                for (int rowIndex = 0;
+                        rowIndex < matrix.getNumberOfRows(); rowIndex = rowIndex + 1) {
+                    // TODO for latency services we should create the diagonal
+                    // services as well, to be done later.
+                    if (columnIndex != rowIndex) {
+
+                        PsHost rowHost = matrix.getHostInRow(rowIndex);
+                        //create  services
+                        PsService service1 =
+                                PsServiceFactory.createService(
+                                session,
+                                matrix.getType(),
+                                rowHost, host, rowHost);
+                        PsService service2 =
+                                PsServiceFactory.createService(
+                                session,
+                                matrix.getType(),
+                                rowHost, host, host);
+                        // insert those services into matrix
+                        matrix.addService(columnIndex, rowIndex, 0, service1);
+                        matrix.addService(columnIndex, rowIndex, 1, service2);
+                    }
+
+                }
+            }
+            if (matrix.isTraceroute()) {
+                throw new Error("Traceroute matrix not yet implemented");
+            }
+        }
+    }
+    
+    /**
+     * add host hostId to rows of matrix matrixId
+     * @param session
+     * @param matrixId
+     * @param hostId 
+     */
+    public static void addHostToMatrixRow(Session session, int matrixId, int hostId) {
+
+
+        PsMatrix matrix = PsDataStore.getMatrix(session, matrixId);
+        if (matrix == null) {
+            throw new Error("Matrix with id=" + matrixId + " does not exist!");
+        }
+
+        PsHost host = PsDataStore.getHost(session, hostId);
+        if (host == null) {
+            throw new Error("Host with id=" + hostId + " does not exist!");
+        }
+
+        addHostToMatrixRow(session, matrix, host);
+
+    }
+    
+    /**
+     * add host to rows in matrix
+     * @param session
+     * @param matrix
+     * @param host 
+     */
+    public static void addHostToMatrixRow(Session session, PsMatrix matrix, PsHost host){
+        if (!matrix.containsHostInRow(host)) {
+            // first of all add host to rows
+            matrix.addHostToRow(host);
+
+            // ok, host has been added to matrix
+            // now fill the relevant services
+            
+            if (matrix.isThroughput() || matrix.isLatency()) {
+                //let us add row
+                int rowIndex = matrix.getRowNumberOfHost(host);
+                for (int columnIndex = 0;
+                        columnIndex < matrix.getNumberOfColumns();
+                        columnIndex = columnIndex + 1) {
+                    // TODO for latency services we should create the diagonal
+                    // services as well, to be done later.
+                    if (columnIndex != rowIndex) {
+                        PsHost columnHost = matrix.getHostInColumn(columnIndex);
+                        //create  services
+                        PsService service1 =
+                                PsServiceFactory.createService(
+                                session,
+                                matrix.getType(),
+                                host, columnHost, host);
+                        PsService service2 =
+                                PsServiceFactory.createService(
+                                session,
+                                matrix.getType(),
+                                host, columnHost, columnHost);
+                        // insert those services into matrix
+                        matrix.addService(columnIndex, rowIndex, 0, service1);
+                        matrix.addService(columnIndex, rowIndex, 1, service2);
+                    }
+                }
+
+            }
+
+            if (matrix.isTraceroute()) {
+                throw new Error("Traceroute matrix not yet implemented");
+            }
+        }
+    }
+    
 
     /**
      * remove host hostId from matrix matrixId. Delete all relevant matrix
@@ -218,6 +360,59 @@ public class PsMatrixManipulator {
 
         PsMatrix matrix = PsDataStore.getMatrix(session, matrixId);
         addHostIdsToMatrix(session, matrix, listOfHostIds);
+    }
+
+    /**
+     * add list of hosts with given ids to matrix matrix id columns
+     * @param session
+     * @param matrixId
+     * @param listOfHostIds 
+     */
+    public static void addHostIdsToMatrixColumns(Session session, int matrixId, JSONArray listOfHostIds) {
+        PsMatrix matrix = PsDataStore.getMatrix(session, matrixId);
+        addHostIdsToMatrixColumns(session, matrix, listOfHostIds);
+    }
+    
+    public static void addHostIdsToMatrixRows(Session session, int matrixId, JSONArray listOfHostIds) {
+        PsMatrix matrix = PsDataStore.getMatrix(session, matrixId);
+        addHostIdsToMatrixRows(session, matrix, listOfHostIds);
+    }
+    /**
+     * add list of hosts with given ids to matrix  columns
+     * @param session
+     * @param matrix
+     * @param listOfHostIds 
+     */
+    public static void addHostIdsToMatrixColumns(Session session, PsMatrix matrix, JSONArray listOfHostIds) {
+        Iterator iter = listOfHostIds.iterator();
+        while (iter.hasNext()) {
+            String hostIdString = (String) iter.next();
+            int hostId = Integer.parseInt(hostIdString);
+            addHostToMatrixColumn(session, matrix, hostId);
+        }
+    }
+    public static void addHostIdsToMatrixRows(Session session, PsMatrix matrix, JSONArray listOfHostIds) {
+        Iterator iter = listOfHostIds.iterator();
+        while (iter.hasNext()) {
+            String hostIdString = (String) iter.next();
+            int hostId = Integer.parseInt(hostIdString);
+            addHostToMatrixRow(session, matrix, hostId);
+        }
+    }
+    /**
+     * add host host id to matrix column
+     * @param session
+     * @param matrix
+     * @param hostId 
+     */
+    public static void addHostToMatrixColumn(Session session, PsMatrix matrix, int hostId) {
+        PsHost host = PsDataStore.getHost(session, hostId);
+        addHostToMatrixColumn(session, matrix, host);
+    }
+    
+    public static void addHostToMatrixRow(Session session, PsMatrix matrix, int hostId) {
+        PsHost host = PsDataStore.getHost(session, hostId);
+        addHostToMatrixRow(session, matrix, host);
     }
 
     /**

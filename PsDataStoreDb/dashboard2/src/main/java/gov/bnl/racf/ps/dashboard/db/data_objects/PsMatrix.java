@@ -659,7 +659,8 @@ public class PsMatrix {
 
         if (column>-1 && column<this.getNumberOfColumns() &&
                 row> -1 && row<this.getNumberOfRows()) {
-            int serviceId = matrixOfServiceIds[row][column][serviceNo];
+            //int serviceId = matrixOfServiceIds[row][column][serviceNo];
+            int serviceId = matrixOfServiceIds[column][row][serviceNo];
             return getServiceById(serviceId);
         } else {
             return null;

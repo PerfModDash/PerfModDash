@@ -331,7 +331,8 @@ public class PsMatricesServlet extends HttpServlet {
                         }
                         if (PsApi.MATRIX_ADD_COLUMN_HOST_IDS.equals(userCommand)) {
                             knownCommand = true;
-                            throw new UnsupportedOperationException("Operation " + userCommand + " not yet implemented");
+                            PsMatrixManipulator.addHostIdsToMatrixColumns(session, matrix, jsonArray);
+                            //throw new UnsupportedOperationException("Operation " + userCommand + " not yet implemented");
                         }
                         if (PsApi.MATRIX_REMOVE_COLUMN_HOST_IDS.equals(userCommand)) {
                             knownCommand = true;
@@ -339,7 +340,8 @@ public class PsMatricesServlet extends HttpServlet {
                         }
                         if (PsApi.MATRIX_ADD_ROW_HOST_IDS.equals(userCommand)) {
                             knownCommand = true;
-                            throw new UnsupportedOperationException("Operation " + userCommand + " not yet implemented");
+                            PsMatrixManipulator.addHostIdsToMatrixRows(session, matrix, jsonArray);
+                            //throw new UnsupportedOperationException("Operation " + userCommand + " not yet implemented");
                         }
                         if (PsApi.MATRIX_REMOVE_ROW_HOST_IDS.equals(userCommand)) {
                             knownCommand = true;
