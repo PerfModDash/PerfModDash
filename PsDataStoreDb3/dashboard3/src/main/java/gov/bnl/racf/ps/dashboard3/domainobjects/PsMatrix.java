@@ -651,16 +651,21 @@ public class PsMatrix {
 
     }
 
+    
     /**
-     * return service which stands in matrix in a given row, column and serviceNo
-     *
-     * 
+     * get service which stands in matrix in a given column and row and given service number.
+     * @param column
+     * @param row
+     * @param serviceNo
+     * @return 
      */
     public PsService getService(int column, int row,  int serviceNo) {
 
         if (column>-1 && column<this.getNumberOfColumns() &&
                 row> -1 && row<this.getNumberOfRows()) {
-            int serviceId = matrixOfServiceIds[row][column][serviceNo];
+            //int serviceId = matrixOfServiceIds[row][column][serviceNo];
+            // fixed bug following the non-spring dashboard
+            int serviceId = matrixOfServiceIds[column][row][serviceNo];
             return getServiceById(serviceId);
         } else {
             return null;
@@ -668,7 +673,7 @@ public class PsMatrix {
     }
 
     /**
-     * return service from this matric by Id. Null if service not found.
+     * return service from this matrix by Id. Null if service not found.
      *
      * @param serviceId
      * @return
