@@ -301,7 +301,7 @@ public class MeshConfigurator {
             return false;
         }
     }
-    
+
     private boolean membersTypeIsDisjoint(JSONObject members) {
         if (members.containsKey("type")) {
             String type = (String) members.get("type");
@@ -396,8 +396,8 @@ public class MeshConfigurator {
                                 this.outBuffer.append("Test has no hosts associated with it \n");
                             }
 
-                        } 
-                        if(membersTypeIsDisjoint(members)){
+                        }
+                        if (membersTypeIsDisjoint(members)) {
                             knownMembersType = true;
                             if (members.containsKey("a_members")) {
                                 JSONArray listOfHostNames = (JSONArray) members.get("a_members");
@@ -420,47 +420,48 @@ public class MeshConfigurator {
                             } else {
                                 this.outBuffer.append("Test has no  group A hosts associated with it \n");
                             }
-                            
-                            if(membersTypeIsDisjoint(members)){
-                            knownMembersType = true;
-                            if (members.containsKey("b_members")) {
-                                JSONArray listOfHostNames = (JSONArray) members.get("b_members");
-                                Iterator hostNameIter = listOfHostNames.iterator();
-                                while (hostNameIter.hasNext()) {
-                                    String hostName = (String) hostNameIter.next();
-                                    PsHost host = PsDataStore.getHostByName(session, hostName);
 
-                                    if (host == null) {
-                                        throw new Exception("Unknown host " + hostName);
-                                    } else {
-                                        if (matrix.containsHostInRow(host)) {
-                                            this.outBuffer.append("Matrix contains host in rows" + hostName + "\n");
+                            if (membersTypeIsDisjoint(members)) {
+                                knownMembersType = true;
+                                if (members.containsKey("b_members")) {
+                                    JSONArray listOfHostNames = (JSONArray) members.get("b_members");
+                                    Iterator hostNameIter = listOfHostNames.iterator();
+                                    while (hostNameIter.hasNext()) {
+                                        String hostName = (String) hostNameIter.next();
+                                        PsHost host = PsDataStore.getHostByName(session, hostName);
+
+                                        if (host == null) {
+                                            throw new Exception("Unknown host " + hostName);
                                         } else {
-                                            this.outBuffer.append("Matrix does not contain host in rows " + hostName + "\n");
-                                            PsMatrixManipulator.addHostToMatrixRow(session, matrix, host);
+                                            if (matrix.containsHostInRow(host)) {
+                                                this.outBuffer.append("Matrix contains host in rows" + hostName + "\n");
+                                            } else {
+                                                this.outBuffer.append("Matrix does not contain host in rows " + hostName + "\n");
+                                                PsMatrixManipulator.addHostToMatrixRow(session, matrix, host);
+                                            }
                                         }
                                     }
+                                } else {
+                                    this.outBuffer.append("Test has no  group B hosts associated with it \n");
                                 }
-                            } else {
-                                this.outBuffer.append("Test has no  group B hosts associated with it \n");
+
                             }
-                            
-                        }
-                        if(!knownMembersType){
-                            throw new Exception("Unsupported members configuration type " + test);
+                            if (!knownMembersType) {
+                                throw new Exception("Unsupported members configuration type " + test);
+                            }
+                        } else {
+                            this.outBuffer.append("Traceroute matrix type is not supported yet \n");
                         }
                     } else {
-                        this.outBuffer.append("Traceroute matrix type is not supported yet \n");
+                        this.outBuffer.append("test: test members are of unknown type, skip\n");
                     }
                 } else {
-                    this.outBuffer.append("test: test members are of unknown type, skip\n");
+                    this.outBuffer.append("test: test is of unknown type, skip\n");
                 }
-            } else {
-                this.outBuffer.append("test: test is of unknown type, skip\n");
+
             }
 
         }
-
     }
 
     private void assignMatricesToCloud() {
@@ -478,6 +479,4 @@ public class MeshConfigurator {
             }
         }
     }
-
-    
 }
