@@ -289,6 +289,11 @@ public class PsMatrixOperator {
         }
         if (PsParameters.MATRIX_ADD_COLUMN_HOST_IDS.equals(command)) {
             thisIsUnknownCommand = false;
+            
+            JSONParser parser = new JSONParser();
+            JSONArray hostIds = (JSONArray) parser.parse(requestBody);
+            
+            this.addHostIdsToColumns(matrix, hostIds);
             throw new UnsupportedOperationException("Not yet implemented");
         }
         if (PsParameters.MATRIX_REMOVE_COLUMN_HOST_IDS.equals(command)) {
@@ -482,5 +487,56 @@ public class PsMatrixOperator {
         //4. save the updated matrix (it should have been saved by removeHostFromMatrix, 
         // but it does not hurt to do it again)
         this.update(matrix);
+    }
+
+    private void addHostIdsToColumns(PsMatrix matrix, JSONArray hostIds) throws PsHostNotFoundException {
+        Iterator iter = hostIds.iterator();
+        while (iter.hasNext()) {
+            String hostIdString = (String) iter.next();
+            int hostId = Integer.parseInt(hostIdString);
+            this.addHostToMatrixColumn(matrix, hostId);
+        }
+    }
+
+    private void addHostToMatrixColumn(PsMatrix matrix, int hostId) throws PsHostNotFoundException {
+        PsHost host = this.psHostOperator.getById(hostId);
+        addHostToMatrixColumn(matrix, host);
+    }
+
+    private void addHostToMatrixColumn(PsMatrix matrix, PsHost host) {
+        if (!matrix.containsHostInColumn(host) ) {
+            // first of all add host to columns and rows
+            matrix.addHostToColumn(host);
+
+            // ok, host has been added to matrix
+            // now fill the relevant services
+            if (matrix.isThroughput() || matrix.isLatency()) {
+                // let us fill column first
+                int columnIndex = matrix.getColumnNumberOfHost(host);
+                for (int rowIndex = 0;
+                        rowIndex < matrix.getNumberOfRows(); rowIndex = rowIndex + 1) {
+                    // TODO for latency services we should create the diagonal
+                    // services as well, to be done later.
+                    if (columnIndex != rowIndex) {
+
+                        PsHost rowHost = matrix.getHostInRow(rowIndex);
+                        //create  services
+                        PsService service1 =psServiceFactory.createService(
+                                matrix.getType(),
+                                rowHost, host, rowHost);
+                        PsService service2 =psServiceFactory.createService(
+                                matrix.getType(),
+                                rowHost, host, host);
+                        // insert those services into matrix
+                        matrix.addService(columnIndex, rowIndex, 0, service1);
+                        matrix.addService(columnIndex, rowIndex, 1, service2);
+                    }
+
+                }
+            }
+            if (matrix.isTraceroute()) {
+                throw new Error("Traceroute matrix not yet implemented");
+            }
+        }
     }
 }
