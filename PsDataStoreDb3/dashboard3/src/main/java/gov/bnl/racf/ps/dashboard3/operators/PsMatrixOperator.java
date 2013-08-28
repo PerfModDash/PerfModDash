@@ -294,11 +294,14 @@ public class PsMatrixOperator {
             JSONArray hostIds = (JSONArray) parser.parse(requestBody);
             
             this.addHostIdsToColumns(matrix, hostIds);
-            throw new UnsupportedOperationException("Not yet implemented");
         }
         if (PsParameters.MATRIX_REMOVE_COLUMN_HOST_IDS.equals(command)) {
             thisIsUnknownCommand = false;
-            throw new UnsupportedOperationException("Not yet implemented");
+            
+            JSONParser parser = new JSONParser();
+            JSONArray hostIds = (JSONArray) parser.parse(requestBody);
+            
+            this.removeHostIdsFromColumns(matrix, hostIds);
         }
         if (PsParameters.MATRIX_ADD_ROW_HOST_IDS.equals(command)) {
             thisIsUnknownCommand = false;
@@ -489,6 +492,12 @@ public class PsMatrixOperator {
         this.update(matrix);
     }
 
+    /**
+     * add hosts with ids specified in JSONArray to columns of matrix
+     * @param matrix
+     * @param hostIds
+     * @throws PsHostNotFoundException 
+     */
     private void addHostIdsToColumns(PsMatrix matrix, JSONArray hostIds) throws PsHostNotFoundException {
         Iterator iter = hostIds.iterator();
         while (iter.hasNext()) {
@@ -498,11 +507,22 @@ public class PsMatrixOperator {
         }
     }
 
+    /**
+     * add host with given id to columns of matrix
+     * @param matrix
+     * @param hostId
+     * @throws PsHostNotFoundException 
+     */
     private void addHostToMatrixColumn(PsMatrix matrix, int hostId) throws PsHostNotFoundException {
         PsHost host = this.psHostOperator.getById(hostId);
         addHostToMatrixColumn(matrix, host);
     }
 
+    /**
+     * add host to columns of matrix
+     * @param matrix
+     * @param host 
+     */
     private void addHostToMatrixColumn(PsMatrix matrix, PsHost host) {
         if (!matrix.containsHostInColumn(host) ) {
             // first of all add host to columns and rows
@@ -537,6 +557,46 @@ public class PsMatrixOperator {
             if (matrix.isTraceroute()) {
                 throw new Error("Traceroute matrix not yet implemented");
             }
+        }
+    }
+
+    /**
+     * remove hosts with ids given in JAONArray from matrix columns
+     * @param matrix
+     * @param hostIds
+     * @throws PsHostNotFoundException 
+     */
+    private void removeHostIdsFromColumns(PsMatrix matrix, JSONArray hostIds) throws PsHostNotFoundException {
+        Iterator iter = hostIds.iterator();
+        while (iter.hasNext()) {
+            String hostIdString = (String) iter.next();
+            int hostId = Integer.parseInt(hostIdString);
+            this.removeHostFromMatrixColumn(matrix, hostId);
+        }
+    }
+
+    /**
+     * remove host with given id from matrix columns
+     * @param matrix
+     * @param hostId
+     * @throws PsHostNotFoundException 
+     */
+    private void removeHostFromMatrixColumn(PsMatrix matrix, int hostId) throws PsHostNotFoundException {
+        PsHost host = this.psHostOperator.getById(hostId);
+        removeHostFromMatrixColumn(matrix, host);
+    }
+
+    /**
+     * remove host from matrix columns
+     * @param matrix
+     * @param host 
+     */
+    private void removeHostFromMatrixColumn(PsMatrix matrix, PsHost host) {
+         if (matrix.containsHostInColumn(host)) {
+            List<PsService> servicesToBeDeleted = matrix.removeHostFromColumns(host.getId());
+            this.update(matrix);
+            this.psServiceOperator.delete(servicesToBeDeleted);
+            servicesToBeDeleted.clear();
         }
     }
 }
