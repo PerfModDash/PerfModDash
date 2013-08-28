@@ -315,7 +315,11 @@ public class PsMatrixOperator {
         }
         if (PsParameters.MATRIX_REMOVE_ROW_HOST_IDS.equals(command)) {
             thisIsUnknownCommand = false;
-            throw new UnsupportedOperationException("Not yet implemented");
+
+            JSONParser parser = new JSONParser();
+            JSONArray hostIds = (JSONArray) parser.parse(requestBody);
+
+            this.removeHostIdsFromRows(matrix, hostIds);
         }
         if (PsParameters.MATRIX_REMOVE_ALL_HOSTS.equals(command)) {
             thisIsUnknownCommand = false;
@@ -637,7 +641,7 @@ public class PsMatrixOperator {
 
             // ok, host has been added to matrix
             // now fill the relevant services
-            
+
             if (matrix.isThroughput() || matrix.isLatency()) {
                 //let us add row
                 int rowIndex = matrix.getRowNumberOfHost(host);
@@ -652,7 +656,7 @@ public class PsMatrixOperator {
                         PsService service1 = psServiceFactory.createService(
                                 matrix.getType(),
                                 host, columnHost, host);
-                        PsService service2 =psServiceFactory.createService(
+                        PsService service2 = psServiceFactory.createService(
                                 matrix.getType(),
                                 host, columnHost, columnHost);
                         // insert those services into matrix
@@ -666,6 +670,29 @@ public class PsMatrixOperator {
             if (matrix.isTraceroute()) {
                 throw new Error("Traceroute matrix not yet implemented");
             }
+        }
+    }
+
+    private void removeHostIdsFromRows(PsMatrix matrix, JSONArray hostIds) throws PsHostNotFoundException {
+        Iterator iter = hostIds.iterator();
+        while (iter.hasNext()) {
+            String hostIdString = (String) iter.next();
+            int hostId = Integer.parseInt(hostIdString);
+            this.removeHostFromMatrixRow(matrix, hostId);
+        }
+    }
+
+    private void removeHostFromMatrixRow(PsMatrix matrix, int hostId) throws PsHostNotFoundException {
+        PsHost host = this.psHostOperator.getById(hostId);
+        this.removeHostFromMatrixRow(matrix, host);
+    }
+
+    private void removeHostFromMatrixRow(PsMatrix matrix, PsHost host) {
+        if (matrix.containsHostInRow(host)) {
+            List<PsService> servicesToBeDeleted = matrix.removeHostFromRows(host.getId());
+            this.update(matrix);
+            this.psServiceOperator.delete(servicesToBeDeleted);
+            servicesToBeDeleted.clear();
         }
     }
 }
