@@ -195,13 +195,15 @@ public class PsMatrixOperator {
         if (jsonInput.containsKey(PsMatrix.NAME)) {
             matrixName = (String) jsonInput.get(PsMatrix.NAME);
         } else {
-            throw new PsMissingMatrixNameException();
+            throw new PsMissingMatrixNameException(this.getClass().getName()+
+                    " json input is missing matrix name:"+jsonInput.toString());
         }
         String serviceTypeId;
         if (jsonInput.containsKey(PsMatrix.SERVICE_TYPE_ID)) {
             serviceTypeId = (String) jsonInput.get(PsMatrix.SERVICE_TYPE_ID);
         } else {
-            throw new PsMissingServiceTypeException();
+            throw new PsMissingServiceTypeException(this.getClass().getName()+
+                    " json input is missing service type id:"+jsonInput.toString());
         }
 
         //2. get the requested service type
@@ -328,7 +330,7 @@ public class PsMatrixOperator {
 
 
         if (thisIsUnknownCommand) {
-            throw new PsUnknownCommandException();
+            throw new PsUnknownCommandException(this.getClass().getName()+ " unknown command: "+command);
         }
         return matrix;
     }

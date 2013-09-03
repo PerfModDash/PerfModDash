@@ -407,16 +407,15 @@ public class PsHostOperator {
      * @return
      */
     @Transactional
-    public JSONObject insertNewHostFromJson(JSONObject jsonInput) {
+    public PsHost insertNewHostFromJson(JSONObject jsonInput) {
         // first order of business is to create new host
         PsHost newHost = this.psHostDao.create();
         //second order of business is to update the host object
         this.update(newHost, jsonInput);
         //third order of business is to save the updated object
         this.psHostDao.update(newHost);
-        //last order of business is to convert the result to JSON and return JSON object
-        JSONObject jsonOutput = this.psHostJson.toJson(newHost, PsParameters.DETAIL_LEVEL_HIGH);
-        return jsonOutput;
+        
+        return newHost;
     }
 
     /**
@@ -569,7 +568,7 @@ public class PsHostOperator {
         }
 
         if (thisIsUnknownCommand) {
-            throw new PsUnknownCommandException();
+            throw new PsUnknownCommandException(this.getClass().getName()+" unknown command: "+command);
         }
 
         return host;

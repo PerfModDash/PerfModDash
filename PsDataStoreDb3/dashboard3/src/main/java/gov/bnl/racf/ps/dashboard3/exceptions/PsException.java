@@ -6,8 +6,12 @@ package gov.bnl.racf.ps.dashboard3.exceptions;
 
 /**
  * Top level exception for all perfsonar related exceptions
+ *
  * @author tomw
  */
-class PsException extends Exception{
-    
+class PsException extends Exception {
+
+    public PsException(String message) {
+        super(message);
+    }
 }

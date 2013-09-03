@@ -6,8 +6,12 @@ package gov.bnl.racf.ps.dashboard3.exceptions;
 
 /**
  * Exception raised when user orders unknown command
+ *
  * @author tomw
  */
-public class PsUnknownCommandException extends PsException{
-    
+public class PsUnknownCommandException extends PsException {
+
+    public PsUnknownCommandException(String message) {
+        super(message);
+    }
 }

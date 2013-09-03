@@ -8,6 +8,9 @@ package gov.bnl.racf.ps.dashboard3.exceptions;
  *
  * @author tomw
  */
-public class PsServiceTypeNotFoundException extends PsObjectNotFoundException{
-    
+public class PsServiceTypeNotFoundException extends PsObjectNotFoundException {
+
+    public PsServiceTypeNotFoundException(String message) {
+        super(message);
+    }
 }

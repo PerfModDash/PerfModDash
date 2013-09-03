@@ -182,7 +182,7 @@ public class PsSiteOperator {
         }
         
         if(!thisIsKnownCommand){
-            throw new PsUnknownCommandException();
+            throw new PsUnknownCommandException(this.getClass().getName()+" unknown command: "+userCommand);
         }
         return site;
     }

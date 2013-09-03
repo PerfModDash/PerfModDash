@@ -58,16 +58,22 @@ public class PsCloudsRestController {
     public String cloudGetById(
             @PathVariable int id,
             @RequestParam(value = PsParameters.DETAIL_LEVEL_PARAMETER, required = false) String detailLevel) {
+        try {
+            PsCloud cloud = this.psCloudOperator.getById(id);
 
-        PsCloud cloud = this.psCloudOperator.getById(id);
-
-        JSONObject cloudJson;
-        if (detailLevel == null) {
-            cloudJson = this.psCloudOperator.toJson(cloud);
-        } else {
-            cloudJson = this.psCloudOperator.toJson(cloud, detailLevel);
+            JSONObject cloudJson;
+            if (detailLevel == null) {
+                cloudJson = this.psCloudOperator.toJson(cloud);
+            } else {
+                cloudJson = this.psCloudOperator.toJson(cloud, detailLevel);
+            }
+            return cloudJson.toString();
+        } catch (PsCloudNotFoundException ex) {
+            String message = "We are in "+this.getClass().getName()+" missing cloud id="+id;
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            return message;
         }
-        return cloudJson.toString();
     }
 
     @RequestMapping(method = RequestMethod.POST)

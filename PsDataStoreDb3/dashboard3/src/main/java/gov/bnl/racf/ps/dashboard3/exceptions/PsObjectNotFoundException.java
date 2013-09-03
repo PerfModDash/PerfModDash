@@ -9,5 +9,7 @@ package gov.bnl.racf.ps.dashboard3.exceptions;
  * @author tomw
  */
 public class PsObjectNotFoundException extends PsException {
-    
+    public PsObjectNotFoundException(String message) {
+        super(message);
+    }
 }

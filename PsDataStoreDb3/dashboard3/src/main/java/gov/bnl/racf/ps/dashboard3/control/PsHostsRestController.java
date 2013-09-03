@@ -131,14 +131,20 @@ public class PsHostsRestController {
         try {
             jsonInput = (JSONObject) parser.parse(requestBody);
             //second order of business is to build and insert host object based on the request
-            JSONObject jsonOutput = this.psHostOperator.insertNewHostFromJson(jsonInput);
+
+            PsHost host = this.psHostOperator.insertNewHostFromJson(jsonInput);
+
+            // convert this host to JSON
+            JSONObject jsonOutput = 
+                    this.psHostOperator.toJson(host, PsParameters.DETAIL_LEVEL_HIGH);
+            
             // finally return the newly created host
             return jsonOutput.toString();
 
         } catch (ParseException ex) {
-            String message = "Incomprehensible input: " + requestBody;
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            String message = this.getClass().getName()+" Incomprehensible input: " + requestBody;
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
         }
     }
@@ -166,13 +172,13 @@ public class PsHostsRestController {
 
         } catch (ParseException ex) {
             message = "Incomprehensible input: " + requestBody;
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
         } catch (PsObjectNotFoundException ex) {
             message = "Unknown host with id=" + id;
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
         }
     }
@@ -201,18 +207,18 @@ public class PsHostsRestController {
 
         } catch (PsObjectNotFoundException ex) {
             message = message + " host not found";
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
         } catch (PsUnknownCommandException ex) {
             message = message + " unknown command";
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
         } catch (ParseException ex) {
             message = message + " error parsing request body";
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsHostsRestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
         }
     }

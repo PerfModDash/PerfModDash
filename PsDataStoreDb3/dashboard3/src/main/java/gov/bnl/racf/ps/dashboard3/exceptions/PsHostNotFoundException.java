@@ -8,6 +8,9 @@ package gov.bnl.racf.ps.dashboard3.exceptions;
  *
  * @author tomw
  */
-public class PsHostNotFoundException extends PsObjectNotFoundException{
-    
+public class PsHostNotFoundException extends PsObjectNotFoundException {
+
+    public PsHostNotFoundException(String message) {
+        super(message);
+    }
 }
