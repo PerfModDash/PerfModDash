@@ -7,6 +7,7 @@ package gov.bnl.racf.ps.dashboard3.dao.impl;
 import gov.bnl.racf.ps.dashboard3.dao.PsServiceResultDao;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceResult;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceNotFoundException;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -45,7 +46,7 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
         if(result!=null){
             return result;
         }else{
-            throw new PsObjectNotFoundException();
+            throw new PsServiceNotFoundException(this.getClass().getName()+" service nod found id="+id);
         }
     }
 

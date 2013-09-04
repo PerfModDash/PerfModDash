@@ -41,7 +41,7 @@ public class PsSiteDaoHibernateImpl implements PsSiteDao{
     public PsSite getById(int id) throws PsSiteNotFoundException {
         PsSite site = (PsSite)this.hibernateTemplate.get(PsSite.class, id);
         if(site==null){
-            throw new PsSiteNotFoundException();
+            throw new PsSiteNotFoundException(this.getClass().getName()+" site not dound id="+id);
         }else{
             return site;
         }

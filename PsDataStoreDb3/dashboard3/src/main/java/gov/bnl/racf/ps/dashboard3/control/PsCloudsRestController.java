@@ -147,6 +147,11 @@ public class PsCloudsRestController {
             return cloudAsJson.toString();
 
 
+        } catch (PsCloudNotFoundException ex) {
+            message = message + " cloud not found, id="+id;
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            return message;
         }catch (PsMatrixNotFoundException ex) {
             message = message + " matrix not found";
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);

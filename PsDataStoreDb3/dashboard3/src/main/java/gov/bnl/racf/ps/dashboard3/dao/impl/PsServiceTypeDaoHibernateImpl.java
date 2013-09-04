@@ -55,7 +55,8 @@ public class PsServiceTypeDaoHibernateImpl implements PsServiceTypeDao {
         List<PsServiceType> listOfServiceTypes = 
                 this.hibernateTemplate.find(query, new Object[]{serviceTypeId});
         if(listOfServiceTypes.isEmpty()){
-            throw new PsServiceTypeNotFoundException();
+            throw new PsServiceTypeNotFoundException(
+                    this.getClass().getName()+" service type not found type id="+serviceTypeId);
         }else{
             if(listOfServiceTypes.size()>1){
                 throw new RuntimeException("More than one service type with id="+serviceTypeId+" found!");

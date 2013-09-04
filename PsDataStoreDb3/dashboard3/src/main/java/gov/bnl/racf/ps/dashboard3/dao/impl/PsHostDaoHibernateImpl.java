@@ -44,7 +44,7 @@ public class PsHostDaoHibernateImpl implements PsHostDao {
             PsHost resultHost = (PsHost) this.hibernateTemplate.get(PsHost.class, id);
             return resultHost;
         } catch (Exception e) {
-            throw new PsHostNotFoundException();
+            throw new PsHostNotFoundException(this.getClass().getName()+" hos not found id="+id);
         }
     }
 

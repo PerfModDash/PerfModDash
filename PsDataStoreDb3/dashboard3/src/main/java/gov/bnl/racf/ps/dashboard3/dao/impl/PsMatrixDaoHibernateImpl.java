@@ -37,7 +37,7 @@ public class PsMatrixDaoHibernateImpl implements PsMatrixDao {
         if (matrix != null) {
             return matrix;
         } else {
-            throw new PsMatrixNotFoundException();
+            throw new PsMatrixNotFoundException(this.getClass().getName()+" matrix not found id="+id);
         }
     }
 

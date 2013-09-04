@@ -22,7 +22,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
- * placeholder for PsCloud operator //TODO supply the PsCloud operator code
+ * PsCloud operator 
  *
  * @author tomw
  */
