@@ -9,9 +9,12 @@ import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceResult;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceNotFoundException;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Query;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
@@ -112,6 +115,26 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
     public void deleteForServiceId(int service_id, Date timeBefore) {
         String query="from PsServiceResult where serviceId=? and time<?";
         this.hibernateTemplate.bulkUpdate(query, new Object[]{service_id,timeBefore});
+    }
+
+    @Override
+    public int getResultsCount(Date tmin, Date tmax) {
+        String query = "select count(*) from PsServiceResult where time between ? and ?";
+        
+        return DataAccessUtils.intResult(this.hibernateTemplate.find(query, new Object[]{tmin,tmax}));
+        
+    }
+
+    @Override
+    public Date getResultsTimeMin() {
+        String query = "select min(time) from PsServiceResult";
+        
+        Date result = null;
+        Iterator iter = this.hibernateTemplate.find(query).iterator();
+        while (iter.hasNext()) {
+            result = (Date) iter.next();
+        }
+        return result;        
     }
     
 }

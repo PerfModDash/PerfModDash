@@ -5,14 +5,16 @@
 package gov.bnl.racf.ps.dashboard3.operators;
 
 import gov.bnl.racf.ps.dashboard3.dao.PsServiceDao;
-import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
-import gov.bnl.racf.ps.dashboard3.domainobjects.PsService;
-import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
+import gov.bnl.racf.ps.dashboard3.dao.PsServiceResultDao;
+import gov.bnl.racf.ps.dashboard3.domainobjects.*;
 import gov.bnl.racf.ps.dashboard3.domainobjects.factories.PsServiceFactory;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceNotFoundException;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsServiceJson;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import javax.management.timer.Timer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +39,15 @@ public class PsServiceOperator {
         this.psServiceDao = psServiceDao;
     }
 
+    private PsServiceResultOperator psServiceResultOperator;
+
+    public void setPsServiceResultOperator(PsServiceResultOperator psServiceResultOperator) {
+        this.psServiceResultOperator = psServiceResultOperator;
+    }
+
+   
+    
+    
     private PsServiceJson psServiceJson;
 
     public void setPsServiceJson(PsServiceJson psServiceJson) {
@@ -223,6 +234,56 @@ public class PsServiceOperator {
      */
     @Transactional
     public JSONObject insertNewServiceFromJson(JSONObject jsonInput) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    PsService updateServiceResult(PsServiceResult serviceResult) throws PsServiceNotFoundException {
+        //TODO finish this method
+        
+        int serviceId = serviceResult.getService_id();
+
+        PsService service = this.psServiceDao.getById(serviceId);
+
+        if (service != null) {
+
+            service.setRunning(false);
+            Date prevCheckTime = serviceResult.getTime();
+            service.setPrevCheckTime(prevCheckTime);
+
+            int checkInterval = service.getCheckInterval();
+            Date nextCheckTime = new Date(prevCheckTime.getTime()
+                    + (long) checkInterval * Timer.ONE_SECOND);
+            service.setNextCheckTime(nextCheckTime);
+            
+            PsRecentServiceResult recentResult = 
+                    this.psServiceResultOperator.toRecentServiceResult(serviceResult);
+                   
+
+            service.setResult(recentResult);
+            
+            this.psServiceResultOperator.insert(serviceResult);
+            
+            
+
+        }
+
+        return service;
+    }
+
+    PsRecentServiceResult getRecentResultForService(int serviceId) {
+        
+        
+         Query query = session.createQuery("from PsRecentServiceResult where service_id=:parameter");
+        query.setParameter("parameter", serviceId);
+        query.setCacheable(true);
+        List resultList = query.list();
+        PsRecentServiceResult recentResult = null;
+        Iterator iter = resultList.iterator();
+        while (iter.hasNext()) {
+            recentResult = (PsRecentServiceResult) iter.next();
+        }
+        return recentResult;
+        
         throw new UnsupportedOperationException("Not yet implemented");
     }
 }

@@ -6,6 +6,7 @@ package gov.bnl.racf.ps.dashboard3.dao;
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceResult;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceResultNotFoundException;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface PsServiceResultDao {
     public  PsServiceResult create();
     public void insert(PsServiceResult serviceResult);
     
-    public PsServiceResult getById(int id) throws PsObjectNotFoundException;
+    public PsServiceResult getById(int id) throws PsServiceResultNotFoundException;
     
     public List<PsServiceResult> getAll();
     
@@ -36,6 +37,10 @@ public interface PsServiceResultDao {
     public void deleteForServiceId(int service_id);
     
     public void deleteForServiceId(int service_id, Date timeBefore);
+
+    public int getResultsCount(Date tmin, Date tmax);
+
+    public Date getResultsTimeMin();
     
    
 }

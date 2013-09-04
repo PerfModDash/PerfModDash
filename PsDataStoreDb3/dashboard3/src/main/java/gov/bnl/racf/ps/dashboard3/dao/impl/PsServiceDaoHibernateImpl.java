@@ -7,6 +7,7 @@ package gov.bnl.racf.ps.dashboard3.dao.impl;
 import gov.bnl.racf.ps.dashboard3.dao.PsServiceDao;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsService;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceNotFoundException;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -41,7 +42,7 @@ public class PsServiceDaoHibernateImpl implements PsServiceDao {
      * @throws PsObjectNotFoundException 
      */
     @Override
-    public PsService getById(int id) throws PsObjectNotFoundException {
+    public PsService getById(int id) throws PsServiceNotFoundException {
         return this.hibernateTemplate.get(PsService.class, id);
     }
 

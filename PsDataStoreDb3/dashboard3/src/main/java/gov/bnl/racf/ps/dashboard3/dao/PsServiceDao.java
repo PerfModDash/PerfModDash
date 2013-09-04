@@ -6,6 +6,7 @@ package gov.bnl.racf.ps.dashboard3.dao;
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsService;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceNotFoundException;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface PsServiceDao {
     
     public void insert(PsService service);
     
-    public PsService getById(int id) throws PsObjectNotFoundException;
+    public PsService getById(int id) throws PsServiceNotFoundException;
     
     public List<PsService> getAll();
     
