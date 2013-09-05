@@ -70,23 +70,50 @@ public class PsCloudOperator {
     }
 
     // === JSON methods ===/
+    /**
+     * convert list of clouds to JSONArray
+     * @param listOfClouds
+     * @return 
+     */
     public JSONArray toJson(List<PsCloud> listOfClouds) {
         return this.psCloudJson.toJson(listOfClouds);
     }
 
+    /**
+     *  convert list of clouds to JSONArray using specified detail level
+     * @param listOfClouds
+     * @param detailLevel
+     * @return 
+     */
     public JSONArray toJson(List<PsCloud> listOfClouds, String detailLevel) {
         return this.psCloudJson.toJson(listOfClouds, detailLevel);
     }
 
+    /**
+     * convert cloud to JSON
+     * @param cloud
+     * @return 
+     */
     public JSONObject toJson(PsCloud cloud) {
         return this.psCloudJson.toJson(cloud);
     }
 
+    /** 
+     * convert cloud to JSON using specific detail level
+     * @param cloud
+     * @param detailLevel
+     * @return 
+     */
     public JSONObject toJson(PsCloud cloud, String detailLevel) {
         return this.psCloudJson.toJson(cloud, detailLevel);
     }
 
     // === main business methods ===//
+    /**
+     * take JSON object representing a cloud, build PsCloud object from it and insert it to database
+     * @param jsonInput
+     * @return 
+     */
     public PsCloud insertNewCloudFromJson(JSONObject jsonInput) {
         // first order of business is to create new cloud
         PsCloud newCloud = this.psCloudDao.create();
@@ -99,6 +126,13 @@ public class PsCloudOperator {
 
     }
 
+    /**
+     * get cloud id, obtain from it cloud object and update it according to JSON representation of the cloud
+     * @param id
+     * @param jsonInput
+     * @return
+     * @throws PsCloudNotFoundException 
+     */
     public PsCloud updateCloudFromJson(int id, JSONObject jsonInput) throws PsCloudNotFoundException {
 
         //first order of business is to find the requested cloud
@@ -115,6 +149,11 @@ public class PsCloudOperator {
 
     }
 
+    /**
+     * get clud information in JSON object and update the cloud object accordingly
+     * @param cloud
+     * @param jsonInput 
+     */
     private void updateCloudFromJson(PsCloud cloud, JSONObject jsonInput) {
         // first order of business is to compare id
 
@@ -154,6 +193,18 @@ public class PsCloudOperator {
         }
     }
 
+    /**
+     * execute specific user command
+     * @param id
+     * @param userCommand
+     * @param requestBody
+     * @return
+     * @throws PsCloudNotFoundException
+     * @throws PsUnknownCommandException
+     * @throws ParseException
+     * @throws PsMatrixNotFoundException
+     * @throws PsSiteNotFoundException 
+     */
     public PsCloud executeCommand(int id, String userCommand, String requestBody)
             throws
             PsCloudNotFoundException,
@@ -206,7 +257,13 @@ public class PsCloudOperator {
         return cloud;
     }
 
-    private void addMatrixIds(PsCloud cloud, JSONArray arrayOfMatrixIds) throws PsMatrixNotFoundException {
+    /**
+     * add matrices with ids stored in JSONArray to cloud
+     * @param cloud
+     * @param arrayOfMatrixIds
+     * @throws PsMatrixNotFoundException 
+     */
+    public void addMatrixIds(PsCloud cloud, JSONArray arrayOfMatrixIds) throws PsMatrixNotFoundException {
         Iterator iter = arrayOfMatrixIds.iterator();
         while (iter.hasNext()) {
             String marixIdString = (String) iter.next();
@@ -215,7 +272,13 @@ public class PsCloudOperator {
         }
     }
 
-    private void removeMatrixIds(PsCloud cloud, JSONArray arrayOfMatrixIds) throws PsMatrixNotFoundException {
+    /**
+     * remove matrices with ids stored in JSONArray from cloud
+     * @param cloud
+     * @param arrayOfMatrixIds
+     * @throws PsMatrixNotFoundException 
+     */
+    public void removeMatrixIds(PsCloud cloud, JSONArray arrayOfMatrixIds) throws PsMatrixNotFoundException {
         Iterator iter = arrayOfMatrixIds.iterator();
         while (iter.hasNext()) {
             String marixIdString = (String) iter.next();
@@ -224,7 +287,13 @@ public class PsCloudOperator {
         }
     }
 
-    private void addSiteIds(PsCloud cloud, JSONArray arrayOfSiteIds) throws PsSiteNotFoundException {
+    /**
+     * add sites with ids stored in JSONArray to cloud
+     * @param cloud
+     * @param arrayOfSiteIds
+     * @throws PsSiteNotFoundException 
+     */
+    public void addSiteIds(PsCloud cloud, JSONArray arrayOfSiteIds) throws PsSiteNotFoundException {
         Iterator iter = arrayOfSiteIds.iterator();
         while (iter.hasNext()) {
             String siteIdString = (String) iter.next();
@@ -233,7 +302,13 @@ public class PsCloudOperator {
         }
     }
 
-    private void removeSiteIds(PsCloud cloud, JSONArray arrayOfSiteIds) throws PsSiteNotFoundException {
+    /**
+     * remove sites with ids in JSONArary from cloud
+     * @param cloud
+     * @param arrayOfSiteIds
+     * @throws PsSiteNotFoundException 
+     */
+    public void removeSiteIds(PsCloud cloud, JSONArray arrayOfSiteIds) throws PsSiteNotFoundException {
         Iterator iter = arrayOfSiteIds.iterator();
         while (iter.hasNext()) {
             String siteIdString = (String) iter.next();
@@ -242,13 +317,24 @@ public class PsCloudOperator {
         }
     }
 
-    private void addMatrixId(PsCloud cloud, int matrixId) throws PsMatrixNotFoundException {
+    /**
+     * add matrix with given id to cloud
+     * @param cloud
+     * @param matrixId
+     * @throws PsMatrixNotFoundException 
+     */
+    public void addMatrixId(PsCloud cloud, int matrixId) throws PsMatrixNotFoundException {
         PsMatrix matrix = this.psMatrixOperator.getById(matrixId);
 
         this.addMatrix(cloud, matrix);
     }
 
-    private void removeMatrixId(PsCloud cloud, int matrixId) throws PsMatrixNotFoundException {
+    /**
+     * remove matrix with given id from cloud
+     * @param cloud
+     * @param matrixId 
+     */
+    public void removeMatrixId(PsCloud cloud, int matrixId) {
         boolean matrixFound=false;
         
         Iterator<PsMatrix> iter = cloud.matrixIterator();
@@ -260,19 +346,31 @@ public class PsCloudOperator {
             }
         }
         if(matrixFound){
-            this.psCloudDao.update(cloud);
+            this.update(cloud);
         }else{
             
         }
     }
 
-    private void addSiteId(PsCloud cloud, int siteId) throws PsSiteNotFoundException {
+    /**
+     * add site with given id to cloud
+     * @param cloud
+     * @param siteId
+     * @throws PsSiteNotFoundException 
+     */
+    public void addSiteId(PsCloud cloud, int siteId) throws PsSiteNotFoundException {
         PsSite site = this.psSiteOperator.getById(siteId);
 
         this.addSite(cloud, site);
     }
 
-    private void removeSiteId(PsCloud cloud, int siteId) throws PsSiteNotFoundException {
+    /**
+     * remove site with given id from cloud
+     * @param cloud
+     * @param siteId
+     * @throws PsSiteNotFoundException 
+     */
+    public void removeSiteId(PsCloud cloud, int siteId) throws PsSiteNotFoundException {
         boolean siteFound=false;
         Iterator<PsSite> iter = cloud.sitesIterator();
         while (iter.hasNext()) {
@@ -289,21 +387,57 @@ public class PsCloudOperator {
         }
     }
 
-    private void addMatrix(PsCloud cloud, PsMatrix matrix) {
+    /**
+     * add matrix to cloud
+     * @param cloud
+     * @param matrix 
+     */
+    public void addMatrix(PsCloud cloud, PsMatrix matrix) {
         cloud.addMatrix(matrix);
         this.update(cloud);
     }
 
-    private void removeMatrix(PsCloud cloud, PsMatrix matrix) throws PsMatrixNotFoundException {
+    /**
+     * remove matrix from cloud
+     * @param cloud
+     * @param matrix 
+     */
+    public void removeMatrix(PsCloud cloud, PsMatrix matrix)  {
         this.removeMatrixId(cloud, matrix.getId());
     }
 
-    private void addSite(PsCloud cloud, PsSite site) {
+    /**
+     * add site to cloud
+     * @param cloud
+     * @param site 
+     */
+    public void addSite(PsCloud cloud, PsSite site) {
         cloud.addSite(site);
         this.update(cloud);
     }
 
-    private void removeSite(PsCloud cloud, PsSite site) throws PsSiteNotFoundException {
+    /**
+     * remove site from cloud
+     * @param cloud
+     * @param site
+     * @throws PsSiteNotFoundException 
+     */
+    public void removeSite(PsCloud cloud, PsSite site) throws PsSiteNotFoundException {
         this.removeSiteId(cloud,site.getId());
+    }
+
+    /**
+     * remove matrix from all clouds. Does not delete matrix - only removes reference in cloud.
+     * @param matrix 
+     */
+    public void removeMatrixFromAllClouds(PsMatrix matrix) {
+        Iterator iter = this.getAll().iterator();
+        while(iter.hasNext()){
+            PsCloud currentCloud = (PsCloud)iter.next();
+            if(currentCloud.containsMatrix(matrix)){
+                this.removeMatrix(currentCloud,matrix);
+                this.update(currentCloud);
+            }
+        }
     }
 }

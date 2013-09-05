@@ -34,9 +34,11 @@ public interface PsServiceResultDao {
    
     public void deleteAllBefore(Date timeBefore);
     
-    public void deleteForServiceId(int service_id);
+    public int deleteBetween(Date tmin, Date tmax);
     
-    public void deleteForServiceId(int service_id, Date timeBefore);
+    public int deleteForServiceId(int service_id);
+    
+    public int deleteForServiceId(int service_id, Date timeBefore);
 
     public int getResultsCount(Date tmin, Date tmax);
 

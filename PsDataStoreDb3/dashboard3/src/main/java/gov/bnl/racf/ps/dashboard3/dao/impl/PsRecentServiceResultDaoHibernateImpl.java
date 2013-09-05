@@ -9,6 +9,8 @@ import gov.bnl.racf.ps.dashboard3.domainobjects.PsRecentServiceResult;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsRecentServiceResultNotFoundException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
@@ -24,7 +26,7 @@ public class PsRecentServiceResultDaoHibernateImpl implements PsRecentServiceRes
         this.hibernateTemplate = hibernateTemplate;
     }
     
-    
+    //=== CRUD methods ===//
     
     @Override
     public PsRecentServiceResult create() {
@@ -70,12 +72,18 @@ public class PsRecentServiceResultDaoHibernateImpl implements PsRecentServiceRes
 
     @Override
     public void delete(PsRecentServiceResult psRecentServiceResult) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.hibernateTemplate.delete(psRecentServiceResult);
     }
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            PsRecentServiceResult psRecentServiceResult=this.getbyId(id);
+            this.delete(psRecentServiceResult);
+        } catch (PsRecentServiceResultNotFoundException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, "PsRecentServiceResult not found, id="+id);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

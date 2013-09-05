@@ -8,6 +8,7 @@ import gov.bnl.racf.ps.dashboard3.dao.PsServiceResultDao;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceResult;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceNotFoundException;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceResultNotFoundException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -43,13 +44,13 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
     }
 
     @Override
-    public PsServiceResult getById(int id) throws PsObjectNotFoundException {
+    public PsServiceResult getById(int id) throws PsServiceResultNotFoundException {
         PsServiceResult result = 
                 (PsServiceResult) this.hibernateTemplate.get(PsServiceResult.class, id);
         if(result!=null){
             return result;
         }else{
-            throw new PsServiceNotFoundException(this.getClass().getName()+" service nod found id="+id);
+            throw new PsServiceResultNotFoundException(this.getClass().getName()+" service result not found id="+id);
         }
     }
 
@@ -106,15 +107,15 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
     }
 
     @Override
-    public void deleteForServiceId(int service_id) {
+    public int deleteForServiceId(int service_id) {
         String query="from PsServiceResult where serviceId=?";
-        this.hibernateTemplate.bulkUpdate(query, new Object[]{service_id});
+        return this.hibernateTemplate.bulkUpdate(query, new Object[]{service_id});
     }
 
     @Override
-    public void deleteForServiceId(int service_id, Date timeBefore) {
+    public int deleteForServiceId(int service_id, Date timeBefore) {
         String query="from PsServiceResult where serviceId=? and time<?";
-        this.hibernateTemplate.bulkUpdate(query, new Object[]{service_id,timeBefore});
+        return this.hibernateTemplate.bulkUpdate(query, new Object[]{service_id,timeBefore});
     }
 
     @Override
@@ -135,6 +136,14 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
             result = (Date) iter.next();
         }
         return result;        
+    }
+
+    @Override
+    public int deleteBetween(Date tmin, Date tmax) {
+        String queryString = "delete from PsServiceResult where time between ? and ?";
+        int numberOfObjectsDeleted = 
+                this.hibernateTemplate.bulkUpdate(queryString, new Object[]{tmin,tmax});
+        return numberOfObjectsDeleted;
     }
     
 }

@@ -13,7 +13,10 @@ import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceNotFoundException;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsServiceJson;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.management.timer.Timer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -76,7 +79,7 @@ public class PsServiceOperator {
      * @throws PsObjectNotFoundException
      */
     @Transactional
-    public PsService getById(int id) throws PsObjectNotFoundException {
+    public PsService getById(int id) throws PsServiceNotFoundException {
         return this.psServiceDao.getById(id);
     }
 
@@ -101,33 +104,45 @@ public class PsServiceOperator {
     }
 
     /**
-     * delete service by Id //TODO delete service history too
+     * delete service by Id 
      *
      * @param id
      */
     @Transactional
     public void delete(int id) {
-        this.psServiceDao.delete(id);
+        try {
+            PsService service = this.getById(id);
+            this.delete(service);
+        } catch (PsServiceNotFoundException ex) {
+            String message=" failed to delete service id="+id;
+            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, null, ex);
+        }
     }
 
     /**
-     * delete service //TODO delete service history too
+     * delete service. Also delete corresponding history records
      *
      * @param serviceToBeDeleted
      */
     @Transactional
     public void delete(PsService serviceToBeDeleted) {
+        int numberOfObjectsDeleted = this.psServiceResultOperator.deleteResultsForService(serviceToBeDeleted);
         this.psServiceDao.delete(serviceToBeDeleted);
     }
 
     /**
-     * delete collection of services //TODO delete service history too
+     * delete collection of services 
      *
      * @param servicesToBeDeleted
      */
     @Transactional
     public void delete(Collection<PsService> servicesToBeDeleted) {
-        this.psServiceDao.delete(servicesToBeDeleted);
+        Iterator iter = servicesToBeDeleted.iterator();
+        while(iter.hasNext()){
+            PsService currentService = (PsService)iter.next();
+            this.delete(currentService);
+        }
     }
 
    
@@ -237,9 +252,15 @@ public class PsServiceOperator {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    PsService updateServiceResult(PsServiceResult serviceResult) throws PsServiceNotFoundException {
-        //TODO finish this method
-        
+    /**
+     * Get result of service test. Find out to which service it corresponds, 
+     * update the service
+     * @param serviceResult
+     * @return
+     * @throws PsServiceNotFoundException 
+     */
+    public PsService updateServiceResult(PsServiceResult serviceResult) throws PsServiceNotFoundException {
+       
         int serviceId = serviceResult.getService_id();
 
         PsService service = this.psServiceDao.getById(serviceId);
@@ -258,32 +279,25 @@ public class PsServiceOperator {
             PsRecentServiceResult recentResult = 
                     this.psServiceResultOperator.toRecentServiceResult(serviceResult);
                    
-
             service.setResult(recentResult);
             
             this.psServiceResultOperator.insert(serviceResult);
             
-            
-
+            this.update(service);
         }
 
         return service;
     }
 
-    PsRecentServiceResult getRecentResultForService(int serviceId) {
-        
-        
-         Query query = session.createQuery("from PsRecentServiceResult where service_id=:parameter");
-        query.setParameter("parameter", serviceId);
-        query.setCacheable(true);
-        List resultList = query.list();
-        PsRecentServiceResult recentResult = null;
-        Iterator iter = resultList.iterator();
-        while (iter.hasNext()) {
-            recentResult = (PsRecentServiceResult) iter.next();
-        }
-        return recentResult;
-        
-        throw new UnsupportedOperationException("Not yet implemented");
+    /**
+     * take service id, find what is its recent result
+     * @param serviceId
+     * @return
+     * @throws PsServiceNotFoundException 
+     */
+    public PsRecentServiceResult getRecentResultForService(int serviceId) throws PsServiceNotFoundException {
+        PsService service = this.getById(serviceId);
+        PsRecentServiceResult psRecentServiceResult=service.getResult();
+        return psRecentServiceResult;
     }
 }
