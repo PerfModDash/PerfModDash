@@ -81,7 +81,9 @@
         <property name="hibernateTemplate" ref="hibernateTemplate" />	
     </bean>  
     
-    
+    <bean id="psJobDao" class="gov.bnl.racf.ps.dashboard3.dao.impl.PsJobDaoHibernateImpl">
+        <property name="hibernateTemplate" ref="hibernateTemplate" />	
+    </bean>  
     
 <!--    JSON conversion beans-->
 
@@ -120,6 +122,10 @@
         <property name="psSiteJson" ref="psSiteJson"/>
     </bean>
     
+    <bean id="psJobJson" class="gov.bnl.racf.ps.dashboard3.jsonconverter.impl.PsJobJsonSimpleImpl">
+       
+    </bean>
+    
     
 <!--    Object factory beans-->
     
@@ -145,6 +151,7 @@
         <property name="psServiceDao" ref="psServiceDao" />
         <property name="psServiceFactory" ref="psServiceFactory" />
         <property name="psServiceJson" ref="psServiceJson" />
+        <property name="psServiceTypeOperator" ref="psServiceTypeOperator" />
     </bean> 
     
     <bean id="psHostsOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsHostOperator">
@@ -187,6 +194,12 @@
     
     <bean id="psCloudOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsCloudOperator">
         <property name="psCloudDao" ref="psCloudDao" />	
-    </bean>  
+    </bean> 
+    
+    
+    <bean id="psJobOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsJobOperator">
+        <property name="psJobDao"  ref="psJobDao" />	
+        <property name="psJobJson" ref="psJobJson" />	
+    </bean> 
     
 </beans>

@@ -196,6 +196,8 @@ public class PsServiceResultOperator {
         PsServiceResult serviceResult = this.unpackJson(json);
 
         PsService service = this.psServiceOperator.updateServiceResult(serviceResult);
+        
+        this.deletePsJobCorrespondingToService(service);
 
         return service;
     }
@@ -341,6 +343,11 @@ public class PsServiceResultOperator {
      */
     public int deleteResultsForServiceId(int id) {
        return this.psServiceResultDao.deleteForServiceId(id);
+    }
+
+    private void deletePsJobCorrespondingToService(PsService service) {
+        //TODO implement this
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     
 }

@@ -80,4 +80,9 @@ public class PsParameters {
     public static String SORTING_ORDER_DOWN="down";
     
     
+    public static final String ID="id";
+    public static final String SET_RUNNING="setRunning";
+    public static final String RUNNING="running";
+    
+    
 }

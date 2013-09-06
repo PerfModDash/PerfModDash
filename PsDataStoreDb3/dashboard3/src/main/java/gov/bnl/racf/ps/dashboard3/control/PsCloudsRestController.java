@@ -69,7 +69,7 @@ public class PsCloudsRestController {
             }
             return cloudJson.toString();
         } catch (PsCloudNotFoundException ex) {
-            String message = "We are in "+this.getClass().getName()+" missing cloud id="+id;
+            String message = "We are in " + this.getClass().getName() + " missing cloud id=" + id;
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
@@ -80,7 +80,7 @@ public class PsCloudsRestController {
     @ResponseBody
     public String cloudPost(@RequestBody String requestBody) {
         String message = "we are in cloudPost(). ";
-        
+
         // first order of business is to convert request body to JSON 
         JSONParser parser = new JSONParser();
         JSONObject jsonInput;
@@ -102,7 +102,7 @@ public class PsCloudsRestController {
         }
     }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public String cloudPut(@PathVariable int id, @RequestBody String requestBody) {
         String message = "we are in cloudPut(), id = " + id + " requestBody=" + requestBody;
@@ -119,19 +119,19 @@ public class PsCloudsRestController {
             return jsonOutput.toString();
 
         } catch (ParseException ex) {
-            message = message+" Incomprehensible input: " + requestBody;
+            message = message + " Incomprehensible input: " + requestBody;
             Logger.getLogger(PsSitesRestController.class.getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(PsSitesRestController.class.getName()).log(Level.SEVERE, null, ex);
             return message;
         } catch (PsCloudNotFoundException ex) {
-            message = message+" Unknown cloud with id=" + id;
+            message = message + " Unknown cloud with id=" + id;
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
         }
-      
+
     }
-    
+
     @RequestMapping(value = "/{id}/{command}", method = RequestMethod.PUT)
     @ResponseBody
     public String cloudPutCommand(@PathVariable int id, @PathVariable String command, @RequestBody String requestBody) {
@@ -148,16 +148,16 @@ public class PsCloudsRestController {
 
 
         } catch (PsCloudNotFoundException ex) {
-            message = message + " cloud not found, id="+id;
+            message = message + " cloud not found, id=" + id;
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
-        }catch (PsMatrixNotFoundException ex) {
+        } catch (PsMatrixNotFoundException ex) {
             message = message + " matrix not found";
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return message;
-        }catch (PsSiteNotFoundException ex) {
+        } catch (PsSiteNotFoundException ex) {
             message = message + " host not found";
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
@@ -175,7 +175,7 @@ public class PsCloudsRestController {
         }
     }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public String cloudDelete(@PathVariable int id) {
         String message = "we are cloudDelete()";

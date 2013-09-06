@@ -6,10 +6,12 @@ package gov.bnl.racf.ps.dashboard3.operators;
 
 import gov.bnl.racf.ps.dashboard3.dao.PsServiceDao;
 import gov.bnl.racf.ps.dashboard3.dao.PsServiceResultDao;
+import gov.bnl.racf.ps.dashboard3.dao.PsServiceTypeDao;
 import gov.bnl.racf.ps.dashboard3.domainobjects.*;
 import gov.bnl.racf.ps.dashboard3.domainobjects.factories.PsServiceFactory;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceNotFoundException;
+import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceTypeNotFoundException;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsServiceJson;
 import java.util.Collection;
 import java.util.Date;
@@ -29,35 +31,36 @@ import org.springframework.transaction.annotation.Transactional;
 public class PsServiceOperator {
 
     // --- dependency injection part --- //
-    
     private PsServiceFactory psServiceFactory;
 
     public void setPsServiceFactory(PsServiceFactory psServiceFactory) {
         this.psServiceFactory = psServiceFactory;
     }
-    
     private PsServiceDao psServiceDao;
 
     public void setPsServiceDao(PsServiceDao psServiceDao) {
         this.psServiceDao = psServiceDao;
     }
+    public PsServiceTypeDao psServiceTypeDao;
 
+    public void setPsServiceTypeDao(PsServiceTypeDao psServiceTypeDao) {
+        this.psServiceTypeDao = psServiceTypeDao;
+    }
     private PsServiceResultOperator psServiceResultOperator;
 
     public void setPsServiceResultOperator(PsServiceResultOperator psServiceResultOperator) {
         this.psServiceResultOperator = psServiceResultOperator;
     }
+    private PsJobOperator psJobOperator;
 
-   
-    
-    
+    public void setPsJobOperator(PsJobOperator psJobOperator) {
+        this.psJobOperator = psJobOperator;
+    }
     private PsServiceJson psServiceJson;
 
     public void setPsServiceJson(PsServiceJson psServiceJson) {
         this.psServiceJson = psServiceJson;
     }
-
-   
 
     // --- class code starts here --- //
     // --- simple CRUD methods go first --- //
@@ -104,7 +107,7 @@ public class PsServiceOperator {
     }
 
     /**
-     * delete service by Id 
+     * delete service by Id
      *
      * @param id
      */
@@ -114,7 +117,7 @@ public class PsServiceOperator {
             PsService service = this.getById(id);
             this.delete(service);
         } catch (PsServiceNotFoundException ex) {
-            String message=" failed to delete service id="+id;
+            String message = " failed to delete service id=" + id;
             Logger.getLogger(this.getClass().getName()).log(Level.WARNING, null, message);
             Logger.getLogger(this.getClass().getName()).log(Level.WARNING, null, ex);
         }
@@ -132,22 +135,19 @@ public class PsServiceOperator {
     }
 
     /**
-     * delete collection of services 
+     * delete collection of services
      *
      * @param servicesToBeDeleted
      */
     @Transactional
     public void delete(Collection<PsService> servicesToBeDeleted) {
         Iterator iter = servicesToBeDeleted.iterator();
-        while(iter.hasNext()){
-            PsService currentService = (PsService)iter.next();
+        while (iter.hasNext()) {
+            PsService currentService = (PsService) iter.next();
             this.delete(currentService);
         }
     }
 
-   
-    
-    
     //--- methods for creation of services --//
     /**
      * create primitive service of given type running on a given host
@@ -168,10 +168,11 @@ public class PsServiceOperator {
 
     /**
      * //TODO implement this method
+     *
      * @param type
      * @param source
      * @param destination
-     * @return 
+     * @return
      */
     @Transactional
     public PsService createService(PsServiceType type, PsHost source, PsHost destination) {
@@ -180,72 +181,81 @@ public class PsServiceOperator {
 
     /**
      * //TODO implement this method
+     *
      * @param type
      * @param source
      * @param destination
      * @param monitor
-     * @return 
+     * @return
      */
     @Transactional
     public PsService createService(PsServiceType type, PsHost source, PsHost destination, PsHost monitor) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
+
     // === JSON conversion methods ===//
     /**
      * convert service to JSON
+     *
      * @param service
-     * @return 
+     * @return
      */
     @Transactional
-    public JSONObject toJson(PsService service){
+    public JSONObject toJson(PsService service) {
         return this.psServiceJson.toJson(service);
     }
+
     /**
      * convert service to JSON, use requested detailLevel
+     *
      * @param service
      * @param detailLevel
-     * @return 
+     * @return
      */
     @Transactional
-    public JSONObject toJson(PsService service,String detailLevel){
-        return this.psServiceJson.toJson(service,detailLevel);
+    public JSONObject toJson(PsService service, String detailLevel) {
+        return this.psServiceJson.toJson(service, detailLevel);
     }
+
     /**
      * convert list of services to JSONArray
+     *
      * @param listOfServices
-     * @return 
+     * @return
      */
     @Transactional
-    public JSONArray toJson(List<PsService>listOfServices){
+    public JSONArray toJson(List<PsService> listOfServices) {
         JSONArray resultJson = new JSONArray();
-        for(PsService service:listOfServices){
+        for (PsService service : listOfServices) {
             resultJson.add(this.toJson(service));
-        }
-        return resultJson;
-    }
-    /**
-     * convert list of services to JSONArray, use requested detail level
-     * @param listOfServices
-     * @param detailLevel
-     * @return 
-     */
-    @Transactional
-    public JSONArray toJson(List<PsService>listOfServices,String detailLevel){
-        JSONArray resultJson = new JSONArray();
-        for(PsService service:listOfServices){
-            resultJson.add(this.toJson(service,detailLevel));
         }
         return resultJson;
     }
 
     /**
-     * get JSON representation of service, build from it PsService object and insert it to database.
-     * //TODO implement it later, this is lower priority since
-     * normally service creation is handled by high level host and matrix commands
+     * convert list of services to JSONArray, use requested detail level
+     *
+     * @param listOfServices
+     * @param detailLevel
+     * @return
+     */
+    @Transactional
+    public JSONArray toJson(List<PsService> listOfServices, String detailLevel) {
+        JSONArray resultJson = new JSONArray();
+        for (PsService service : listOfServices) {
+            resultJson.add(this.toJson(service, detailLevel));
+        }
+        return resultJson;
+    }
+
+    /**
+     * get JSON representation of service, build from it PsService object and
+     * insert it to database. //TODO implement it later, this is lower priority
+     * since normally service creation is handled by high level host and matrix
+     * commands
+     *
      * @param jsonInput
-     * @return 
+     * @return
      */
     @Transactional
     public JSONObject insertNewServiceFromJson(JSONObject jsonInput) {
@@ -253,14 +263,15 @@ public class PsServiceOperator {
     }
 
     /**
-     * Get result of service test. Find out to which service it corresponds, 
+     * Get result of service test. Find out to which service it corresponds,
      * update the service
+     *
      * @param serviceResult
      * @return
-     * @throws PsServiceNotFoundException 
+     * @throws PsServiceNotFoundException
      */
     public PsService updateServiceResult(PsServiceResult serviceResult) throws PsServiceNotFoundException {
-       
+
         int serviceId = serviceResult.getService_id();
 
         PsService service = this.psServiceDao.getById(serviceId);
@@ -275,14 +286,14 @@ public class PsServiceOperator {
             Date nextCheckTime = new Date(prevCheckTime.getTime()
                     + (long) checkInterval * Timer.ONE_SECOND);
             service.setNextCheckTime(nextCheckTime);
-            
-            PsRecentServiceResult recentResult = 
+
+            PsRecentServiceResult recentResult =
                     this.psServiceResultOperator.toRecentServiceResult(serviceResult);
-                   
+
             service.setResult(recentResult);
-            
+
             this.psServiceResultOperator.insert(serviceResult);
-            
+
             this.update(service);
         }
 
@@ -291,13 +302,34 @@ public class PsServiceOperator {
 
     /**
      * take service id, find what is its recent result
+     *
      * @param serviceId
      * @return
-     * @throws PsServiceNotFoundException 
+     * @throws PsServiceNotFoundException
      */
     public PsRecentServiceResult getRecentResultForService(int serviceId) throws PsServiceNotFoundException {
         PsService service = this.getById(serviceId);
-        PsRecentServiceResult psRecentServiceResult=service.getResult();
+        PsRecentServiceResult psRecentServiceResult = service.getResult();
         return psRecentServiceResult;
+    }
+
+    public PsJob buildJob(PsService service) {
+        PsJob job = this.psJobOperator.create();
+
+        job.setService_id(service.getId());
+
+        try {
+            PsServiceType type;
+            type = this.psServiceTypeDao.getByServiceTypeId(service.getType());
+            String jobType = type.getJobType();
+            job.setType(jobType);
+        } catch (PsServiceTypeNotFoundException ex) {
+            job.setType("unknown");
+            Logger.getLogger(PsServiceOperator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        job.setParameters(service.getParameters());
+
+        return job;
     }
 }
