@@ -151,10 +151,10 @@
         <property name="psServiceDao" ref="psServiceDao" />
         <property name="psServiceFactory" ref="psServiceFactory" />
         <property name="psServiceJson" ref="psServiceJson" />
-        <property name="psServiceTypeOperator" ref="psServiceTypeOperator" />
+<!--        <property name="psServiceTypeOperator" ref="psServiceTypeOperator" />-->
     </bean> 
     
-    <bean id="psHostsOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsHostOperator">
+    <bean id="psHostOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsHostOperator">
         <property name="psHostDao" ref="psHostDao" />	
         <property name="psHostJson" ref="psHostJson" />
         <property name="psServiceTypeOperator" ref="psServiceTypeOperator" />
@@ -172,7 +172,7 @@
     <bean id="psSiteOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsSiteOperator">
         <property name="psSiteDao" ref="psSiteDao" />	
         <property name="psSiteJson" ref="psSiteJson" />	
-        <property name="psHostOperator" ref="psHostsOperator" />	
+        <property name="psHostOperator" ref="psHostOperator" />	
     </bean>  
     
     <bean id="psMatrixOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsMatrixOperator">
@@ -184,13 +184,6 @@
         <property name="psHostOperator" ref="psHostOperator" />
         <property name="psServiceTypeOperator" ref="psServiceTypeOperator" />
     </bean>
-    
-    <bean id="psSiteOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsSiteOperator">
-        <property name="psSiteDao" ref="psSiteDao" />	
-        <property name="psSiteJson" ref="psSiteJson" />	
-        <property name="psHostOperator" ref="psHostsOperator" />	
-    </bean>  
-    
     
     <bean id="psCloudOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsCloudOperator">
         <property name="psCloudDao" ref="psCloudDao" />	
