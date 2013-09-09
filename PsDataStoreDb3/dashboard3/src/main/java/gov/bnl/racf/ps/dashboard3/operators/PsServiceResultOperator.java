@@ -47,6 +47,14 @@ public class PsServiceResultOperator {
     public void setPsServiceOperator(PsServiceOperator psServiceOperator) {
         this.psServiceOperator = psServiceOperator;
     }
+    
+    private PsJobOperator psJobOperator;
+
+    public void setPsJobOperator(PsJobOperator psJobOperator) {
+        this.psJobOperator = psJobOperator;
+    }
+    
+    
     // === utility objects ===//
     private JSONParser jsonParser = new JSONParser();
 
@@ -346,8 +354,7 @@ public class PsServiceResultOperator {
     }
 
     private void deletePsJobCorrespondingToService(PsService service) {
-        //TODO implement this
-        throw new UnsupportedOperationException("Not yet implemented");
+        this.psJobOperator.deletePsJobForService(service);
     }
     
 }

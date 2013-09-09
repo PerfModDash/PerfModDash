@@ -140,4 +140,8 @@ public class PsJobOperator {
     public PsJob getJobById(int id) {
         return this.psJobDao.getById(id);
     }
+
+    void deletePsJobForService(PsService service) {
+        this.psJobDao.deletePsJobForService(service);
+    }
 }

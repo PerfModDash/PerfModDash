@@ -5,6 +5,7 @@
 package gov.bnl.racf.ps.dashboard3.dao;
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsJob;
+import gov.bnl.racf.ps.dashboard3.domainobjects.PsService;
 import java.util.List;
 
 /**
@@ -24,5 +25,7 @@ public interface PsJobDao {
     public void delete(PsJob psJob);
     
     public void delete(int id);
+
+    public void deletePsJobForService(PsService service);
     
 }
