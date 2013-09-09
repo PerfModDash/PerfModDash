@@ -16,8 +16,12 @@ root {
     float: left;
     left: 161px;
     top: 104px;
-    width: 1025px;
+    width: 1025px; 
+    background: -webkit-linear-gradient(bottom, #55aaee, #003366);
     background: -moz-linear-gradient(bottom, #55aaee, #003366);
+    background: -ms-linear-gradient(bottom, #55aaee, #003366);
+    background: -o-linear-gradient(bottom, #55aaee, #003366);
+    background: linear-gradient(0deg, #55aaee, #003366);
 }
 #topNavTemp{
     background-color: #4E9258;
@@ -86,11 +90,19 @@ root {
     background-repeat: repeat-x;
     height: 140px;
     width: 1200px;
+    background: -webkit-linear-gradient(bottom, blue, #003366);
     background: -moz-linear-gradient(bottom, blue, #003366);
+    background: -ms-linear-gradient(bottom, blue, #003366);
+    background: -o-linear-gradient(bottom, blue, #003366);
+    background: linear-gradient(0deg, blue, #003366);
 }
 #titleTemp{
     background-color: #4E9258;
+    background: -webkit-linear-gradient(bottom, #55aaee, #003366);
     background: -moz-linear-gradient(bottom, #55aaee, #003366);
+    background: -ms-linear-gradient(bottom, #55aaee, #003366);
+    background: -o-linear-gradient(bottom, #55aaee, #003366);
+    background: linear-gradient(0deg, #55aaee, #003366);
     height: 92px;
 }
 
@@ -123,7 +135,11 @@ root {
     top: 150px;
     width: 134px;
     height: 100%;
+    background: -webkit-linear-gradient(top, gold, #FFFFFF);
     background: -moz-linear-gradient(top, gold, #FFFFFF);
+    background: -ms-linear-gradient(top, gold, #FFFFFF);
+    background: -o-linear-gradient(top, gold, #FFFFFF);
+    background: linear-gradient(180deg, gold, #FFFFFF);
 }
 #rightNav p { padding: 3px;
              font-size: 10pt;
@@ -139,12 +155,21 @@ root {
     top: 150px;
     width: 134px;
     height: 100%;
+    background: -webkit-linear-gradient(top, gold, #FFFFFF);
     background: -moz-linear-gradient(top, gold, #FFFFFF);
+    background: -ms-linear-gradient(top, gold, #FFFFFF);
+    background: -o-linear-gradient(top, gold, #FFFFFF);
+    background: linear-gradient(180deg, gold, #FFFFFF);
     
 }
 
 #temp{ background-color: #4E9258;
+       
+       background: -webkit-linear-gradient(bottom, #FFB90F, #FFFFFF);
        background: -moz-linear-gradient(bottom, #FFB90F, #FFFFFF);
+       background: -ms-linear-gradient(bottom, #FFB90F, #FFFFFF);
+       background: -o-linear-gradient(bottom, #FFB90F, #FFFFFF);
+       background: linear-gradient(0deg, #FFB90F, #FFFFFF);
 }
 
 #sideNav p { padding: 3px;
