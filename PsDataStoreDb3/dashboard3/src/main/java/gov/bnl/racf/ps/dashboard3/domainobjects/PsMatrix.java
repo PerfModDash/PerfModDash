@@ -50,7 +50,8 @@ public class PsMatrix {
     private String name;
     private String detailLevel = "low";
 
-    @CollectionOfElements()
+    @CollectionOfElements(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SELECT)
     private List<String> statusLabels = new ArrayList<String>();
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime;
@@ -59,13 +60,15 @@ public class PsMatrix {
     private int maxNumberOfRows = 60;
     // 
     // rows
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SELECT)
     @JoinTable(name = "PsMatrix_PsHostsInRows")
     @IndexColumn(name="idx")
     private List<PsHost> hostsInRows = new ArrayList<PsHost>();
     //
     // columns
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SELECT)
     @JoinTable(name = "PsMatrix_PsHostsInColumns")
     @IndexColumn(name="idx")
     private List<PsHost> hostsInColumns = new ArrayList<PsHost>();
@@ -74,7 +77,8 @@ public class PsMatrix {
 
     //@Lob
     //private String[] serviceNames = new String[2];
-    @CollectionOfElements()
+    @CollectionOfElements(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SELECT)
     private List<String> serviceNames = new ArrayList<String>();
     //
     //

@@ -66,6 +66,7 @@ public class PsCloudDaoHibernateImpl implements PsCloudDao{
 
     @Override
     public void update(PsCloud cloud) {
+        this.hibernateTemplate.merge(cloud);
         this.hibernateTemplate.update(cloud);
     }
 
