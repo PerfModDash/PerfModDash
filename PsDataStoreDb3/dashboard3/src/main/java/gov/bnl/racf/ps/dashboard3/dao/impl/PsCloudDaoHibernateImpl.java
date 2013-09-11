@@ -66,7 +66,7 @@ public class PsCloudDaoHibernateImpl implements PsCloudDao{
 
     @Override
     public void update(PsCloud cloud) {
-        this.hibernateTemplate.update(this);
+        this.hibernateTemplate.update(cloud);
     }
 
     @Override
@@ -76,8 +76,8 @@ public class PsCloudDaoHibernateImpl implements PsCloudDao{
             this.delete(cloud);
         } catch (PsCloudNotFoundException ex) {
             String message=this.getClass().getName()+" failed to delete cloud, cloud not found, id="+id;
-            Logger.getLogger(PsCloudDaoHibernateImpl.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsCloudDaoHibernateImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, message);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
 

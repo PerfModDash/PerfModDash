@@ -50,7 +50,7 @@ public class PsMatrix {
     private String name;
     private String detailLevel = "low";
 
-    @CollectionOfElements
+    @CollectionOfElements()
     private List<String> statusLabels = new ArrayList<String>();
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime;
@@ -74,15 +74,15 @@ public class PsMatrix {
 
     //@Lob
     //private String[] serviceNames = new String[2];
-    @CollectionOfElements
+    @CollectionOfElements()
     private List<String> serviceNames = new ArrayList<String>();
     //
     //
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Collection<PsService> services = new Vector<PsService>();
     @Lob
     private int[][][] matrixOfServiceIds = new int[maxNumberOfColumns][maxNumberOfRows][maxNumberOfServiceNames];
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private PsServiceType matrixType;
 
     /**

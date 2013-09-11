@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * Object describing a perfSonar cloud.
@@ -31,9 +33,14 @@ public class PsCloud {
     private int id;
     private String name;
     private int status;
-    @ManyToMany(cascade = CascadeType.ALL)
+    
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
+    //@ManyToMany(cascade = CascadeType.ALL)
     private List<PsSite> sites = new ArrayList<PsSite>();
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
+    //@ManyToMany(cascade = CascadeType.ALL)
     private List<PsMatrix> matrices = new ArrayList<PsMatrix>();
     
     /** 

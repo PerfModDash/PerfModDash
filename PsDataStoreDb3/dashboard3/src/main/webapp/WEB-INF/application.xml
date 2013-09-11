@@ -31,6 +31,9 @@
                 <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsService</value>
                 <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsHost</value>
                 <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsSite</value>
+                <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsCloud</value>
+                <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsMatrix</value>
+                <value>gov.bnl.racf.ps.dashboard3.domainobjects.PsJob</value>
             </list>
         </property>
 
@@ -186,7 +189,10 @@
     </bean>
     
     <bean id="psCloudOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsCloudOperator">
-        <property name="psCloudDao" ref="psCloudDao" />	
+        <property name="psCloudDao"       ref="psCloudDao" />	
+        <property name="psCloudJson"      ref="psCloudJson" />
+        <property name="psMatrixOperator" ref="psMatrixOperator" />
+        <property name="psSiteOperator"   ref="psSiteOperator" />
     </bean> 
     
     

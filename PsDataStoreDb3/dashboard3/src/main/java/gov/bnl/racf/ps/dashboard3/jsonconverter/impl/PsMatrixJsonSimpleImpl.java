@@ -145,7 +145,7 @@ public class PsMatrixJsonSimpleImpl implements PsMatrixJson{
     public JSONArray toJson(List<PsMatrix> listOfMatrices, String detailLevel) {
         JSONArray resultList = new JSONArray();
         for(PsMatrix matrix : listOfMatrices){
-            resultList.add(this.toJson(listOfMatrices, detailLevel));
+            resultList.add(this.toJson(matrix, detailLevel));
         }
         return resultList;
     }
@@ -159,7 +159,7 @@ public class PsMatrixJsonSimpleImpl implements PsMatrixJson{
     public JSONArray toJson(List<PsMatrix> listOfMatrices) {
         JSONArray resultList = new JSONArray();
         for(PsMatrix matrix : listOfMatrices){
-            resultList.add(this.toJson(listOfMatrices));
+            resultList.add(this.toJson(matrix));
         }
         return resultList;
     }
