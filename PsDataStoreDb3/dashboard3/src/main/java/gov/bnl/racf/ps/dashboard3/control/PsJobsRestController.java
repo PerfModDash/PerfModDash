@@ -37,7 +37,7 @@ public class PsJobsRestController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public String jobsGet(
-            @RequestParam(value = PsParameters.ID, required = false) int id,
+            //@RequestParam(value = PsParameters.ID, required = false) int id,
             @RequestParam(value = PsParameters.SET_RUNNING, required = false) String setRunningString,
             @RequestParam(value = PsParameters.RUNNING, required = false) String runningString) {
         // unpack and validate input parameters

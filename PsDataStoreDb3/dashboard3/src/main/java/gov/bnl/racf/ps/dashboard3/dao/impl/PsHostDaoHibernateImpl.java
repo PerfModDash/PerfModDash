@@ -42,9 +42,10 @@ public class PsHostDaoHibernateImpl implements PsHostDao {
     public PsHost getById(int id) throws PsHostNotFoundException {
         try {
             PsHost resultHost = (PsHost) this.hibernateTemplate.get(PsHost.class, id);
+            resultHost = this.hibernateTemplate.merge(resultHost);
             return resultHost;
         } catch (Exception e) {
-            throw new PsHostNotFoundException(this.getClass().getName()+" hos not found id="+id);
+            throw new PsHostNotFoundException(this.getClass().getName()+" host not found id="+id);
         }
     }
 

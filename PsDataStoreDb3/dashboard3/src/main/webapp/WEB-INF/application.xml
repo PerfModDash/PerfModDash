@@ -154,6 +154,7 @@
         <property name="psServiceDao" ref="psServiceDao" />
         <property name="psServiceFactory" ref="psServiceFactory" />
         <property name="psServiceJson" ref="psServiceJson" />
+        <property name="psJobOperator" ref="psJobOperator" />
 <!--        <property name="psServiceTypeOperator" ref="psServiceTypeOperator" />-->
     </bean> 
     
@@ -199,6 +200,7 @@
     <bean id="psJobOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsJobOperator">
         <property name="psJobDao"  ref="psJobDao" />	
         <property name="psJobJson" ref="psJobJson" />	
+        <property name="psServiceOperator" ref="psServiceOperator" />	
     </bean> 
     
 </beans>
