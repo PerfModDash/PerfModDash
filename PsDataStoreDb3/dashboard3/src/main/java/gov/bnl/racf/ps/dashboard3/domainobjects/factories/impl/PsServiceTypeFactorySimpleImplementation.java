@@ -4,23 +4,23 @@
  */
 package gov.bnl.racf.ps.dashboard3.domainobjects.factories.impl;
 
-
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsParameterInfo;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
 import gov.bnl.racf.ps.dashboard3.domainobjects.factories.PsServiceTypeFactory;
 import java.util.ArrayList;
 import java.util.TreeMap;
-
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Factory of service types, hardcoded implementation
  *
  * @author tomw
  */
-public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFactory{
+public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFactory {
 
     @Override
-    public  PsServiceType createType(String typeName) {
+    @Transactional
+    public PsServiceType createType(String typeName) {
         PsServiceType type = null;
         if (isKnownType(typeName)) {
 
@@ -65,7 +65,8 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
     }
 
     @Override
-    public  boolean isKnownType(String typeName) {
+    @Transactional
+    public boolean isKnownType(String typeName) {
         if (PsServiceType.BWCTL_PORT_4823.equals(typeName)) {
             return true;
         }
@@ -112,7 +113,8 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
      * @return
      */
     @Override
-    public  boolean isMatrixType(String typeName) {
+    @Transactional
+    public boolean isMatrixType(String typeName) {
         if (PsServiceType.LATENCY.equals(typeName)) {
             return true;
         }
@@ -126,7 +128,8 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
     }
 
     @Override
-    public  boolean isPrimitiveServiceThroughput(String typeName) {
+    @Transactional
+    public boolean isPrimitiveServiceThroughput(String typeName) {
         if (PsServiceType.BWCTL_PORT_4823.equals(typeName)) {
             return true;
         }
@@ -154,7 +157,8 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
     }
 
     @Override
-    public  boolean isPrimitiveService(String typeName) {
+    @Transactional
+    public boolean isPrimitiveService(String typeName) {
         if (PsServiceType.BWCTL_PORT_4823.equals(typeName)) {
             return true;
         }
@@ -186,7 +190,8 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
     }
 
     @Override
-    public  boolean isPrimitiveServiceLatency(String typeName) {
+    @Transactional
+    public boolean isPrimitiveServiceLatency(String typeName) {
 
         if (PsServiceType.PERFSONAR_PSB.equals(typeName)) {
             return true;
@@ -200,9 +205,9 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return false;
     }
 
-    
     @Override
-    public  ArrayList<String> listOfServiceTypes() {
+    @Transactional
+    public ArrayList<String> listOfServiceTypes() {
         ArrayList<String> serviceTypes = new ArrayList<String>();
         serviceTypes.add(PsServiceType.BWCTL_PORT_4823);
         serviceTypes.add(PsServiceType.BWCTL_PORT_8570);
@@ -219,8 +224,10 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
 
         return serviceTypes;
     }
+
     @Override
-    public  ArrayList<String> listOfPrimitiveThroughputServiceTypes() {
+    @Transactional
+    public ArrayList<String> listOfPrimitiveThroughputServiceTypes() {
         ArrayList<String> serviceTypes = new ArrayList<String>();
         serviceTypes.add(PsServiceType.BWCTL_PORT_4823);
         serviceTypes.add(PsServiceType.BWCTL_PORT_8570);
@@ -232,8 +239,10 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
 
         return serviceTypes;
     }
+
     @Override
-    public  ArrayList<String> listOfPrimitiveServiceTypes() {
+    @Transactional
+    public ArrayList<String> listOfPrimitiveServiceTypes() {
         ArrayList<String> serviceTypes = new ArrayList<String>();
         serviceTypes.add(PsServiceType.BWCTL_PORT_4823);
         serviceTypes.add(PsServiceType.BWCTL_PORT_8570);
@@ -247,12 +256,15 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
 
         return serviceTypes;
     }
+
     /**
      * get list of latency service types
-     * @return 
+     *
+     * @return
      */
     @Override
-    public  ArrayList<String> listOfPrimitiveLatencyServiceTypes() {
+    @Transactional
+    public ArrayList<String> listOfPrimitiveLatencyServiceTypes() {
         ArrayList<String> serviceTypes = new ArrayList<String>();
         serviceTypes.add(PsServiceType.OWP_861);
         serviceTypes.add(PsServiceType.OWP_8569);
@@ -261,6 +273,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return serviceTypes;
     }
 
+    @Transactional
     private static PsServiceType create_BWCTL_PORT_4823() {
         PsServiceType type = new PsServiceType();
 
@@ -294,6 +307,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return type;
     }
 
+    @Transactional
     private static PsServiceType create_BWCTL_PORT_8570() {
         PsServiceType type = new PsServiceType();
 
@@ -327,8 +341,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return type;
     }
 
-
-
+    @Transactional
     private static PsServiceType create_NDT_PORT_3001() {
         PsServiceType type = new PsServiceType();
 
@@ -362,6 +375,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
 
     }
 
+    @Transactional
     private static PsServiceType create_NDT_PORT_7123() {
         PsServiceType type = new PsServiceType();
 
@@ -394,6 +408,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return type;
     }
 
+    @Transactional
     private static PsServiceType create_NPAD_PORT_8000() {
         PsServiceType type = new PsServiceType();
 
@@ -426,6 +441,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return type;
     }
 
+    @Transactional
     private static PsServiceType create_NPAD_PORT_8001() {
         PsServiceType type = new PsServiceType();
 
@@ -458,6 +474,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return type;
     }
 
+    @Transactional
     private static PsServiceType create_OWP_861() {
         PsServiceType type = new PsServiceType();
 
@@ -490,6 +507,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return type;
     }
 
+    @Transactional
     private static PsServiceType create_OWP_8569() {
         PsServiceType type = new PsServiceType();
 
@@ -522,6 +540,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return type;
     }
 
+    @Transactional
     private static PsServiceType create_PERFSONAR_PSB() {
         PsServiceType type = new PsServiceType();
 
@@ -555,6 +574,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return type;
     }
 
+    @Transactional
     private static PsServiceType create_LATENCY() {
         PsServiceType type = new PsServiceType();
 
@@ -641,6 +661,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return type;
     }
 
+    @Transactional
     private static PsServiceType create_THROUGHPUT() {
         PsServiceType type = new PsServiceType();
 
@@ -723,6 +744,7 @@ public class PsServiceTypeFactorySimpleImplementation implements PsServiceTypeFa
         return type;
     }
 
+    @Transactional
     private static PsServiceType create_TRACEROUTE() {
         PsServiceType type = new PsServiceType();
 

@@ -19,6 +19,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * PsSite operator class
@@ -29,21 +30,17 @@ public class PsSiteOperator {
     //=== useful properties ==//
 
     JSONParser jsonParser = new JSONParser();
-    
-    
     // === dependency injection part ===//
     private PsSiteDao psSiteDao;
 
     public void setPsSiteDao(PsSiteDao psSiteDao) {
         this.psSiteDao = psSiteDao;
     }
-    
     private PsHostOperator psHostOperator;
 
     public void setPsHostOperator(PsHostOperator psHostOperator) {
         this.psHostOperator = psHostOperator;
     }
-    
     private PsSiteJson psSiteJson;
 
     public void setPsSiteJson(PsSiteJson psSiteJson) {
@@ -51,30 +48,37 @@ public class PsSiteOperator {
     }
 
     // === CRUD methods ===//
+    @Transactional
     public PsSite create() {
         return this.psSiteDao.create();
     }
 
+    @Transactional
     public void insert(PsSite site) {
         this.psSiteDao.insert(site);
     }
 
+    @Transactional
     public void update(PsSite site) {
         this.psSiteDao.update(site);
     }
 
+    @Transactional
     public List<PsSite> getAll() {
         return this.psSiteDao.getAll();
     }
 
+    @Transactional
     public PsSite getById(int id) throws PsSiteNotFoundException {
         return this.psSiteDao.getById(id);
     }
 
+    @Transactional
     public void delete(int id) {
         this.psSiteDao.delete(id);
     }
 
+    @Transactional
     public void delete(PsSite site) {
         // 1. remove all hosts from site
         this.removeAllHosts(site);
@@ -83,23 +87,28 @@ public class PsSiteOperator {
     }
 
     // === JSON methods ===//
+    @Transactional
     public JSONObject toJson(PsSite site, String detailLevel) {
         return this.psSiteJson.toJson(site, detailLevel);
     }
 
+    @Transactional
     public JSONObject toJson(PsSite site) {
         return this.psSiteJson.toJson(site);
     }
 
+    @Transactional
     public JSONArray toJson(List<PsSite> listOfSites) {
         return this.psSiteJson.toJson(listOfSites);
     }
 
+    @Transactional
     public JSONArray toJson(List<PsSite> listOfSites, String detailLevel) {
         return this.psSiteJson.toJson(listOfSites, detailLevel);
     }
 
     // === main methods ===//
+    @Transactional
     public PsSite insertNewSiteFromJson(JSONObject jsonInput) {
         // first order of business is to create new PsSite object
         PsSite newSite = new PsSite();
@@ -114,6 +123,7 @@ public class PsSiteOperator {
         return newSite;
     }
 
+    @Transactional
     public PsSite updateSiteFromJson(int id, JSONObject jsonInput) throws PsSiteNotFoundException, ParseException, PsSiteNotFoundException {
         //first order of business is to find the requested site
         PsSite site = this.getById(id);
@@ -128,6 +138,7 @@ public class PsSiteOperator {
         return site;
     }
 
+    @Transactional
     public void update(PsSite site, JSONObject json) {
 
         if (json.keySet().contains(PsSite.NAME)) {
@@ -147,6 +158,7 @@ public class PsSiteOperator {
         // //TODO Make the id comparison test
     }
 
+    @Transactional
     public PsSite executeCommand(int id, String userCommand, String requestBody)
             throws PsUnknownCommandException, PsSiteNotFoundException, PsHostNotFoundException, ParseException {
 
@@ -156,7 +168,7 @@ public class PsSiteOperator {
         JSONArray arrayOfHostIds = (JSONArray) this.jsonParser.parse(requestBody);
 
         boolean thisIsKnownCommand = false;
-        
+
         if (PsParameters.SITE_ADD_HOST_IDS.equals(userCommand)) {
             thisIsKnownCommand = true;
             // user wants to add hosts to site
@@ -172,7 +184,7 @@ public class PsSiteOperator {
             // remove those hosts
             this.removeHosts(site, arrayOfHostIds);
         }
-        
+
         if (PsParameters.SITE_REMOVE_ALL_HOSTS.equals(userCommand)) {
             thisIsKnownCommand = true;
             // user wants to remove hosts from site
@@ -180,16 +192,16 @@ public class PsSiteOperator {
             // remove those hosts
             this.removeAllHosts(site);
         }
-        
-        if(!thisIsKnownCommand){
-            throw new PsUnknownCommandException(this.getClass().getName()+" unknown command: "+userCommand);
+
+        if (!thisIsKnownCommand) {
+            throw new PsUnknownCommandException(this.getClass().getName() + " unknown command: " + userCommand);
         }
         return site;
     }
 
     // === commands for adding hosts to a site ===//
-    
-    public  void addHosts(PsSite site, JSONArray listOfHostIds) throws PsHostNotFoundException{
+    @Transactional
+    public void addHosts(PsSite site, JSONArray listOfHostIds) throws PsHostNotFoundException {
         Iterator iter = listOfHostIds.iterator();
         while (iter.hasNext()) {
             String hostIdString = (String) iter.next();
@@ -197,11 +209,14 @@ public class PsSiteOperator {
             this.addHostId(site, hostId);
         }
     }
-    public  void addHostId(PsSite site, int hostId) throws PsHostNotFoundException{
+
+    @Transactional
+    public void addHostId(PsSite site, int hostId) throws PsHostNotFoundException {
         PsHost host = this.psHostOperator.getById(hostId);
-        this.addHost(site,host);
+        this.addHost(site, host);
     }
 
+    @Transactional
     private void addHost(PsSite site, PsHost host) {
         // firs order of business is to add the host
         site.addHost(host);
@@ -210,65 +225,58 @@ public class PsSiteOperator {
     }
 
     // === commands for removing hosts from site === //
-    
-    
-    
     /**
      * remove host from site. The host is not deleted, just removed.
+     *
      * @param site
-     * @param host 
+     * @param host
      */
-    public  void removeHost(PsSite site, PsHost host){
+    @Transactional
+    public void removeHost(PsSite site, PsHost host) {
         site.removeHost(host);
         this.psSiteDao.update(site);
     }
-    
+
     /**
      * remove host with given id from site
+     *
      * @param site
      * @param hostId
-     * @throws PsHostNotFoundException 
+     * @throws PsHostNotFoundException
      */
-    public  void removeHostId(PsSite site, int hostId) throws PsHostNotFoundException{
+    @Transactional
+    public void removeHostId(PsSite site, int hostId) throws PsHostNotFoundException {
         PsHost host = this.psHostOperator.getById(hostId);
-        this.removeHost(site,host);
+        this.removeHost(site, host);
     }
-    
 
     /**
      * remove hosts whose list of id's is in JSONArray from the designated site
+     *
      * @param site
      * @param listOfHostIds
-     * @throws PsHostNotFoundException 
+     * @throws PsHostNotFoundException
      */
-    public  void removeHosts(PsSite site, JSONArray listOfHostIds) throws PsHostNotFoundException{
+    @Transactional
+    public void removeHosts(PsSite site, JSONArray listOfHostIds) throws PsHostNotFoundException {
         Iterator iter = listOfHostIds.iterator();
-        while(iter.hasNext()){
-            String hostIdString  = (String)iter.next();
+        while (iter.hasNext()) {
+            String hostIdString = (String) iter.next();
             int hostId = Integer.parseInt(hostIdString);
-            this.removeHostId(site,hostId);
+            this.removeHostId(site, hostId);
         }
     }
-//    public  void removeHosts(PsSite site, List<PsHost>listOfHosts) throws PsHostNotFoundException{
-//        Iterator iter = listOfHosts.iterator();
-//        while(iter.hasNext()){
-//            PsHost currentHost  = (PsHost)iter.next();
-//            this.removeHost(site,currentHost);
-//        }
-//    }
-    
 
     /**
      * remove all hosts from the designated site
-     * @param site 
+     *
+     * @param site
      */
-    private void removeAllHosts(PsSite site ) {
-        
+    @Transactional
+    private void removeAllHosts(PsSite site) {
+
         site.removeAllHosts();
-        
+
         this.psSiteDao.update(site);
     }
-    
-    
-    
 }

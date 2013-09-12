@@ -33,6 +33,7 @@ public class PsCloudDaoHibernateImpl implements PsCloudDao {
 
     //=== main methods ===//
     @Override
+    @Transactional
     public PsCloud create() {
         PsCloud newCloud = new PsCloud();
         this.insert(newCloud);
@@ -40,11 +41,13 @@ public class PsCloudDaoHibernateImpl implements PsCloudDao {
     }
 
     @Override
+    @Transactional
     public void insert(PsCloud cloud) {
         this.hibernateTemplate.save(cloud);
     }
 
     @Override
+    @Transactional
     public PsCloud getById(int id) throws PsCloudNotFoundException {
         PsCloud cloud = this.hibernateTemplate.get(PsCloud.class, id);
         if (cloud == null) {
@@ -55,6 +58,7 @@ public class PsCloudDaoHibernateImpl implements PsCloudDao {
     }
 
     @Override
+    @Transactional
     public List<PsCloud> getByName(String cloudName) {
         String query = "from PsCloud where name=?";
         List<PsCloud> listOfResults = this.hibernateTemplate.find(query, cloudName);
@@ -62,6 +66,7 @@ public class PsCloudDaoHibernateImpl implements PsCloudDao {
     }
 
     @Override
+    @Transactional
     public List<PsCloud> getAll() {
         String query = "from PsCloud";
         List<PsCloud> listOfResults = this.hibernateTemplate.find(query);
@@ -105,6 +110,7 @@ public class PsCloudDaoHibernateImpl implements PsCloudDao {
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         try {
             PsCloud cloud = this.getById(id);
@@ -117,6 +123,7 @@ public class PsCloudDaoHibernateImpl implements PsCloudDao {
     }
 
     @Override
+    @Transactional
     public void delete(PsCloud cloud) {
         this.hibernateTemplate.delete(cloud);
     }

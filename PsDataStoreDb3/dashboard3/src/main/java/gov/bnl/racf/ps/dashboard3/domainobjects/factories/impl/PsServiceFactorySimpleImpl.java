@@ -12,29 +12,31 @@ import gov.bnl.racf.ps.dashboard3.parameters.PsParameters;
 import java.util.Date;
 import java.util.TreeMap;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Hibernate implementation of the service factory class.
+ *
  * @author tomw
  */
 public class PsServiceFactorySimpleImpl implements PsServiceFactory {
     // --- constants part --///
+
     private static int DEFAULT_CHECKINTERVAL = 1200;
     private static int DEFAULT_TIMEOUT = 60;
 
-   
-   
     /**
      * create primitive service of given type running on given host
      *
      * @param type
      * @param host
      */
-    public  PsService createService(PsServiceType type, PsHost host) {
+    @Transactional
+    public PsService createService(PsServiceType type, PsHost host) {
 
         PsService service = null;
         if (PsParameters.BWCTL_PORT_4823.equals(type.getServiceTypeId())) {
-            service = this.create_BWCTL_PORT_4823( type, host);
+            service = this.create_BWCTL_PORT_4823(type, host);
         }
         if (PsParameters.BWCTL_PORT_8570.equals(type.getServiceTypeId())) {
             service = create_BWCTL_PORT_8570(type, host);
@@ -75,7 +77,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
      * @param source
      * @param destination
      */
-    public  PsService createService(PsServiceType type,
+    @Transactional
+    public PsService createService(PsServiceType type,
             PsHost source, PsHost destination) {
 
         PsService service = null;
@@ -95,7 +98,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
      * @param monitor
      * @return
      */
-    public  PsService createService(PsServiceType type,
+    @Transactional
+    public PsService createService(PsServiceType type,
             PsHost source, PsHost destination, PsHost monitor) {
         PsService service = null;
         if (PsParameters.LATENCY.equals(type.getServiceTypeId())) {
@@ -107,7 +111,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_BWCTL_PORT_4823(PsServiceType type, PsHost host) {
+    @Transactional
+    private PsService create_BWCTL_PORT_4823(PsServiceType type, PsHost host) {
         PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
@@ -131,7 +136,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_BWCTL_PORT_8570(PsServiceType type, PsHost host) {
+    @Transactional
+    private PsService create_BWCTL_PORT_8570(PsServiceType type, PsHost host) {
         PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
@@ -156,7 +162,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_CHECK_LOOKUP_SERVICE(PsServiceType type, PsHost host) {
+    @Transactional
+    private PsService create_CHECK_LOOKUP_SERVICE(PsServiceType type, PsHost host) {
         PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
@@ -184,7 +191,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_NDT_PORT_3001(PsServiceType type, PsHost host) {
+    @Transactional
+    private PsService create_NDT_PORT_3001(PsServiceType type, PsHost host) {
         PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
@@ -210,7 +218,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_NDT_PORT_7123(PsServiceType type, PsHost host) {
+    @Transactional
+    private PsService create_NDT_PORT_7123(PsServiceType type, PsHost host) {
         PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
@@ -236,7 +245,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_NPAD_PORT_8000(PsServiceType type, PsHost host) {
+    @Transactional
+    private PsService create_NPAD_PORT_8000(PsServiceType type, PsHost host) {
         PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
@@ -262,7 +272,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_NPAD_PORT_8001(PsServiceType type, PsHost host) {
+    @Transactional
+    private PsService create_NPAD_PORT_8001(PsServiceType type, PsHost host) {
         PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
@@ -288,7 +299,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_OWP_861(PsServiceType type, PsHost host) {
+    @Transactional
+    private PsService create_OWP_861(PsServiceType type, PsHost host) {
         PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
@@ -314,7 +326,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_OWP_8569(PsServiceType type, PsHost host) {
+    @Transactional
+    private PsService create_OWP_8569(PsServiceType type, PsHost host) {
         PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
@@ -340,7 +353,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_PERFSONAR_PSB( PsServiceType type, PsHost host) {
+    @Transactional
+    private PsService create_PERFSONAR_PSB(PsServiceType type, PsHost host) {
         PsService service = new PsService();
         service.setType(type.getServiceTypeId());
         service.setName(type.getServiceTypeId() + "_on_" + host.getHostname());
@@ -350,13 +364,13 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         TreeMap<String, Object> parameters = new TreeMap<String, Object>();
         parameters.put("host-id", host.getId());
         parameters.put("host", host.getHostname());
-        String url="";
+        String url = "";
         if (host.getIpv4() != null) {
             url = "http://" + host.getIpv4() + ":8085/perfSONAR_PS/services/pSB";
-        }else{
-            if(host.getHostname()!=null){
+        } else {
+            if (host.getHostname() != null) {
                 url = "http://" + host.getHostname() + ":8085/perfSONAR_PS/services/pSB";
-            }else{
+            } else {
                 throw new RuntimeException("Host has neither hostname nor ip name");
             }
         }
@@ -377,7 +391,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_LATENCY(PsServiceType type,
+    @Transactional
+    private PsService create_LATENCY(PsServiceType type,
             PsHost source, PsHost destination, PsHost monitor) {
         PsService service = new PsService();
 
@@ -422,7 +437,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
 
     }
 
-    private  PsService create_THROUGHPUT(PsServiceType type,
+    @Transactional
+    private PsService create_THROUGHPUT(PsServiceType type,
             PsHost source, PsHost destination, PsHost monitor) {
 
         PsService service = new PsService();
@@ -466,7 +482,8 @@ public class PsServiceFactorySimpleImpl implements PsServiceFactory {
         return service;
     }
 
-    private  PsService create_TRACEROUTE(PsServiceType type,
+    @Transactional
+    private PsService create_TRACEROUTE(PsServiceType type,
             PsHost source, PsHost destination) {
         PsService service = new PsService();
 

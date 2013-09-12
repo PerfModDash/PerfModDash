@@ -54,9 +54,9 @@
 <!--    Application beans-->
     
     
-<!--    DAO beans-->
+<!--    DAO beans  with Hibernate Template-->
     
-    <bean id="psServiceTypeDao" class="gov.bnl.racf.ps.dashboard3.dao.impl.PsServiceTypeDaoHibernateImpl">
+<!--    <bean id="psServiceTypeDao" class="gov.bnl.racf.ps.dashboard3.dao.impl.PsServiceTypeDaoHibernateImpl">
         <property name="hibernateTemplate" ref="hibernateTemplate" />	
     </bean>  
     
@@ -87,6 +87,52 @@
     <bean id="psJobDao" class="gov.bnl.racf.ps.dashboard3.dao.impl.PsJobDaoHibernateImpl">
         <property name="hibernateTemplate" ref="hibernateTemplate" />	
     </bean>  
+    
+    <bean id="sessionStore" class="gov.bnl.racf.ps.dashboard3.dao.sessionimpl.SessionStore">
+        <property name="hibernateTemplate" ref="hibernateTemplate" />	
+    </bean>  -->
+    
+    <!--    DAO beans  with Hibernate Session -->
+    
+    <bean id="sessionStore" class="gov.bnl.racf.ps.dashboard3.dao.sessionimpl.SessionStore">
+        <property name="hibernateTemplate" ref="hibernateTemplate" />	
+    </bean>  
+    
+    
+    <bean id="psServiceTypeDao" class="gov.bnl.racf.ps.dashboard3.dao.sessionimpl.PsServiceTypeDaoHibernateSessionImpl">
+        <property name="sessionStore" ref="sessionStore" />	
+    </bean>  
+    
+    <bean id="psServiceDao" class="gov.bnl.racf.ps.dashboard3.dao.sessionimpl.PsServiceDaoHibernateSessionImpl">
+        <property name="sessionStore" ref="sessionStore" />	
+    </bean>  
+    
+    <bean id="psHostDao" class="gov.bnl.racf.ps.dashboard3.dao.sessionimpl.PsHostDaoHibernateSessionImpl">
+        <property name="sessionStore" ref="sessionStore" />	
+    </bean>  
+    
+    <bean id="psSiteDao" class="gov.bnl.racf.ps.dashboard3.dao.sessionimpl.PsSiteDaoHibernateSessionImpl">
+        <property name="sessionStore" ref="sessionStore" />	
+    </bean>  
+    
+    <bean id="psMatrixDao" class="gov.bnl.racf.ps.dashboard3.dao.sessionimpl.PsMatrixDaoHibernateSessionImpl">
+        <property name="sessionStore" ref="sessionStore" />	
+    </bean>  
+    
+    <bean id="psCloudDao" class="gov.bnl.racf.ps.dashboard3.dao.sessionimpl.PsCloudDaoHibernateSessionImpl">
+        <property name="sessionStore" ref="sessionStore" />	
+    </bean>  
+    
+    <bean id="PsRecentServiceResultDao" class="gov.bnl.racf.ps.dashboard3.dao.sessionimpl.PsRecentServiceResultDaoHibernateSessionImpl">
+        <property name="sessionStore" ref="sessionStore" />	
+    </bean>  
+    
+    <bean id="psJobDao" class="gov.bnl.racf.ps.dashboard3.dao.sessionimpl.PsJobDaoHibernateSessionImpl">
+        <property name="sessionStore" ref="sessionStore" />	
+    </bean>  
+    
+   
+    
     
 <!--    JSON conversion beans-->
 

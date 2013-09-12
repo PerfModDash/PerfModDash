@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -43,6 +44,7 @@ public class PsMatrixJsonSimpleImpl implements PsMatrixJson{
      * @return 
      */
     @Override
+    @Transactional
     public JSONObject toJson(PsMatrix matrix) {
         return this.toJson(matrix, PsParameters.DETAIL_LEVEL_LOW);
     }
@@ -54,6 +56,7 @@ public class PsMatrixJsonSimpleImpl implements PsMatrixJson{
      * @return 
      */
     @Override
+    @Transactional
     public JSONObject toJson(PsMatrix matrix, String detailLevel) {
         
         JSONObject json = new JSONObject();
@@ -142,6 +145,7 @@ public class PsMatrixJsonSimpleImpl implements PsMatrixJson{
      * @return 
      */
     @Override
+    @Transactional
     public JSONArray toJson(List<PsMatrix> listOfMatrices, String detailLevel) {
         JSONArray resultList = new JSONArray();
         for(PsMatrix matrix : listOfMatrices){
@@ -156,6 +160,7 @@ public class PsMatrixJsonSimpleImpl implements PsMatrixJson{
      * @return 
      */
     @Override
+    @Transactional
     public JSONArray toJson(List<PsMatrix> listOfMatrices) {
         JSONArray resultList = new JSONArray();
         for(PsMatrix matrix : listOfMatrices){

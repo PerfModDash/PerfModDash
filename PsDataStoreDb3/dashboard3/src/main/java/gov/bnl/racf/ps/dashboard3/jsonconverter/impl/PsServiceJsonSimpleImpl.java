@@ -22,9 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author tomw
  */
 public class PsServiceJsonSimpleImpl implements PsServiceJson{
-
-    
-
     
     // ---  dependency injection part --- //
     private PsRecentServiceResultJson psRecentServiceResultJson;
@@ -156,6 +153,7 @@ public class PsServiceJsonSimpleImpl implements PsServiceJson{
     
     //--- private utility methods ---//
     //TODO add the PsMatrix part when working on psmatrix
+    @Transactional
     private static boolean thisIsObjectId(String key) {
 
         if (PsService.PARAMETER_HOST_ID.equals(key)) {

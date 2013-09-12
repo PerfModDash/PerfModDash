@@ -4,6 +4,7 @@
  */
 package gov.bnl.racf.ps.dashboard3.control;
 
+import gov.bnl.racf.ps.dashboard3.dao.sessionimpl.SessionStore;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsHost;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 import gov.bnl.racf.ps.dashboard3.operators.PsHostOperator;
@@ -21,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Controller for GUI pages for hosts
- * 
+ *
  * //TODO persost the sorting criteria in session
  *
  * @author tomw
@@ -36,30 +37,31 @@ public class PsHostsGuiController {
     public void setPsHostOperator(PsHostOperator psHostOperator) {
         this.psHostOperator = psHostOperator;
     }
-
+    
     /**
      * controller to display list of hosts
+     *
      * @param sortingOrder
      * @param sortingVariable
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView list(
             @RequestParam(value = "sortingOrder", required = false) String sortingOrder,
             @RequestParam(value = "sortingVariable", required = false) String sortingVariable) {
 
-        List<PsHost> listOfHosts = 
-                this.psHostOperator.getAll(sortingVariable,sortingOrder);
-        
-        return new ModelAndView(PsJspLibrary.LIST_HOSTS, "listOfHosts", listOfHosts);       
+        List<PsHost> listOfHosts =
+                this.psHostOperator.getAll(sortingVariable, sortingOrder);
+
+        return new ModelAndView(PsJspLibrary.LIST_HOSTS, "listOfHosts", listOfHosts);
     }
-    
+
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public ModelAndView list(
             @RequestParam(value = "id", required = false) int id) {
 
         this.psHostOperator.delete(id);
-        
+
         return new ModelAndView("redirect:../list");
     }
 
@@ -67,10 +69,9 @@ public class PsHostsGuiController {
     public ModelAndView create() {
         PsHost newHost = new PsHost();
         return new ModelAndView(PsJspLibrary.EDIT_HOST, "host", newHost);
-             
+
     }
-    
-    
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView insertNewHost(PsHost host, Errors result) {
         if (result.hasErrors()) {
@@ -81,24 +82,22 @@ public class PsHostsGuiController {
             return new ModelAndView("redirect:../list");
         }
     }
-    
-    
+
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public ModelAndView edit(@RequestParam(value = "id") int id) {
-       
+
         PsHost host;
         try {
             host = this.psHostOperator.getById(id);
         } catch (PsObjectNotFoundException ex) {
             Logger.getLogger(PsHostsGuiController.class.getName()).log(Level.SEVERE, null, ex);
-            String message = "Host id="+id+" not found";
-            return new ModelAndView(PsJspLibrary.MESSAGE, "message", message);     
+            String message = "Host id=" + id + " not found";
+            return new ModelAndView(PsJspLibrary.MESSAGE, "message", message);
         }
         return new ModelAndView(PsJspLibrary.EDIT_HOST, "host", host);
-             
+
     }
-    
-    
+
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ModelAndView save(PsHost host, Errors result) {
         if (result.hasErrors()) {

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.TreeMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Convert the PsServiceType objects to json and back
@@ -28,6 +29,7 @@ public class PsServiceTypeJsonSimpleImpl implements PsServiceTypeJson {
     }
     
     @Override
+    @Transactional
     public JSONObject toJson(PsServiceType serviceType) {
         JSONObject json = new JSONObject();
         // warning: externally id means 'service type id'
@@ -75,12 +77,14 @@ public class PsServiceTypeJsonSimpleImpl implements PsServiceTypeJson {
     }
 
     @Override
+    @Transactional
     public JSONObject toJson(PsServiceType serviceType, String detailLevel) {
         // we ignore the detailLevel parameter
         return this.toJson(serviceType);
     }
 
     @Override
+    @Transactional
     public JSONArray toJson(List<PsServiceType> listOfServiceTypes) {
         JSONArray jsonArray = new JSONArray();
         Iterator iter  = listOfServiceTypes.iterator();
@@ -93,6 +97,7 @@ public class PsServiceTypeJsonSimpleImpl implements PsServiceTypeJson {
     }
 
     @Override
+    @Transactional
     public JSONArray toJson(List<PsServiceType> listOfServiceTypes, String detailLevel) {
         JSONArray resultList = new JSONArray();
         Iterator iter = listOfServiceTypes.iterator();
@@ -103,6 +108,7 @@ public class PsServiceTypeJsonSimpleImpl implements PsServiceTypeJson {
         return resultList;
     }
     
+    @Transactional
     public static String int2String(int intValue) {
         Integer integerVariable = new Integer(intValue);
         return integerVariable.toString();

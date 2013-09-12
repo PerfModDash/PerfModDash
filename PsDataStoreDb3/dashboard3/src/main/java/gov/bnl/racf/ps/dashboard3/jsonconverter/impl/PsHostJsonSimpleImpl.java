@@ -81,8 +81,5 @@ public class PsHostJsonSimpleImpl implements PsHostJson {
         Integer integerVariable = new Integer(intValue);
         return integerVariable.toString();
     }
-
-    
-
     
 }

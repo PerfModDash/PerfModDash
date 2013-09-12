@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -23,26 +24,25 @@ import org.json.simple.JSONObject;
 public class PsCloudJsonSimpleImpl implements PsCloudJson {
 
     // === dependency injection ===//
-    
     private PsSiteJson psSiteJson;
 
     public void setPsSiteJson(PsSiteJson psSiteJson) {
         this.psSiteJson = psSiteJson;
     }
-    
     private PsMatrixJson psMatrixJson;
 
     public void setPsMatrixJson(PsMatrixJson psMatrixJson) {
         this.psMatrixJson = psMatrixJson;
     }
-    
-    // === business classes ===//
 
+    // === business classes ===//
+    @Transactional
     @Override
     public JSONObject toJson(PsCloud cloud) {
         return this.toJson(cloud, PsParameters.DETAIL_LEVEL_HIGH);
     }
 
+    @Transactional
     @Override
     public JSONObject toJson(PsCloud cloud, String detailLevel) {
 
@@ -87,6 +87,7 @@ public class PsCloudJsonSimpleImpl implements PsCloudJson {
 
     }
 
+    @Transactional
     @Override
     public JSONArray toJson(List<PsCloud> listOfClouds) {
         JSONArray listOfCloudsJson = new JSONArray();
@@ -99,6 +100,7 @@ public class PsCloudJsonSimpleImpl implements PsCloudJson {
         return listOfCloudsJson;
     }
 
+    @Transactional
     @Override
     public JSONArray toJson(List<PsCloud> listOfClouds, String detailLevel) {
         JSONArray listOfCloudsJson = new JSONArray();

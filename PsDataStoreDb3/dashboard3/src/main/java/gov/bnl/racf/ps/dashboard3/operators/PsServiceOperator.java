@@ -270,6 +270,7 @@ public class PsServiceOperator {
      * @return
      * @throws PsServiceNotFoundException
      */
+    @Transactional
     public PsService updateServiceResult(PsServiceResult serviceResult) throws PsServiceNotFoundException {
 
         int serviceId = serviceResult.getService_id();
@@ -307,12 +308,14 @@ public class PsServiceOperator {
      * @return
      * @throws PsServiceNotFoundException
      */
+    @Transactional
     public PsRecentServiceResult getRecentResultForService(int serviceId) throws PsServiceNotFoundException {
         PsService service = this.getById(serviceId);
         PsRecentServiceResult psRecentServiceResult = service.getResult();
         return psRecentServiceResult;
     }
 
+    @Transactional
     public PsJob buildJob(PsService service) {
         PsJob job = this.psJobOperator.create();
 

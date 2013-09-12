@@ -11,6 +11,7 @@ import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceNotFoundException;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -31,6 +32,7 @@ public class PsServiceDaoHibernateImpl implements PsServiceDao {
      * @param service 
      */
     @Override
+    @Transactional
     public void insert(PsService service) {
         this.hibernateTemplate.save(service);
     }
@@ -42,6 +44,7 @@ public class PsServiceDaoHibernateImpl implements PsServiceDao {
      * @throws PsObjectNotFoundException 
      */
     @Override
+    @Transactional
     public PsService getById(int id) throws PsServiceNotFoundException {
         return this.hibernateTemplate.get(PsService.class, id);
     }
@@ -51,6 +54,7 @@ public class PsServiceDaoHibernateImpl implements PsServiceDao {
      * @return 
      */
     @Override
+    @Transactional
     public List<PsService> getAll() {
         String query = "from PsService";
         return this.hibernateTemplate.find(query);
@@ -61,6 +65,7 @@ public class PsServiceDaoHibernateImpl implements PsServiceDao {
      * @param service 
      */
     @Override
+    @Transactional
     public void update(PsService service) {
         this.hibernateTemplate.update(service);
     }
@@ -70,6 +75,7 @@ public class PsServiceDaoHibernateImpl implements PsServiceDao {
      * @param id 
      */
     @Override
+    @Transactional
     public void delete(int id) {
         String query="delete from PsService where id=?";
         this.hibernateTemplate.bulkUpdate(query, id);
@@ -80,6 +86,7 @@ public class PsServiceDaoHibernateImpl implements PsServiceDao {
      * @param service 
      */
     @Override
+    @Transactional
     public void delete(PsService service) {
         this.hibernateTemplate.delete(service);
     }
@@ -89,6 +96,7 @@ public class PsServiceDaoHibernateImpl implements PsServiceDao {
      * @param servicesToBeDeleted 
      */
     @Override
+    @Transactional
     public void delete(Collection<PsService> servicesToBeDeleted) {
         this.hibernateTemplate.deleteAll(servicesToBeDeleted);
     }

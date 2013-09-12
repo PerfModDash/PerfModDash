@@ -11,7 +11,6 @@ import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceTypeNotFoundException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.ObjectNotFoundException;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,13 +26,13 @@ public class PsServiceTypeDaoHibernateImpl implements PsServiceTypeDao {
         this.hibernateTemplate = hibernateTemplate;
     }
 
-    //@Transactional
+    @Transactional
     @Override
     public PsServiceType create() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    //@Transactional
+    @Transactional
     @Override
     public void insert(PsServiceType serviceType) {
         this.hibernateTemplate.save(serviceType);
@@ -66,6 +65,7 @@ public class PsServiceTypeDaoHibernateImpl implements PsServiceTypeDao {
         }
     }
 
+    @Transactional
     @Override
     public List<PsServiceType> getAll() {
         String query = "from PsServiceType";
@@ -73,11 +73,13 @@ public class PsServiceTypeDaoHibernateImpl implements PsServiceTypeDao {
         return resultList;
     }
 
+    @Transactional
     @Override
     public void update(PsServiceType serviceType) {
         this.hibernateTemplate.update(serviceType);
     }
 
+    @Transactional
     @Override
     public void delete(int id) {
         PsServiceType serviceType;
@@ -90,11 +92,14 @@ public class PsServiceTypeDaoHibernateImpl implements PsServiceTypeDao {
         }
     }
 
+    
+    @Transactional
     @Override
     public void delete(PsServiceType serviceType) {
         this.hibernateTemplate.delete(serviceType);
     }
 
+    @Transactional
     @Override
     public boolean containsServiceType(String serviceTypeId) {
         boolean result=true;

@@ -6,7 +6,7 @@ package gov.bnl.racf.ps.dashboard3.domainobjects.factories;
 
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsServiceType;
 import java.util.List;
-
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Factory of service types, to be used for defining service types
@@ -15,26 +15,33 @@ import java.util.List;
  */
 public interface PsServiceTypeFactory {
 
-    public  PsServiceType createType(String typeName) ;
+    @Transactional
+    public PsServiceType createType(String typeName);
 
-    public  boolean isKnownType(String typeName); 
-   
-    public  boolean isMatrixType(String typeName);
+    @Transactional
+    public boolean isKnownType(String typeName);
 
-    public  boolean isPrimitiveServiceThroughput(String typeName);
+    @Transactional
+    public boolean isMatrixType(String typeName);
 
-    public  boolean isPrimitiveServiceLatency(String typeName);
-    
-    public  boolean isPrimitiveService(String typeName);
-    
+    @Transactional
+    public boolean isPrimitiveServiceThroughput(String typeName);
 
-    public  List<String> listOfServiceTypes();
-    
-    public  List<String> listOfPrimitiveServiceTypes();
-    
-    public  List<String> listOfPrimitiveThroughputServiceTypes();
-    
-    public  List<String> listOfPrimitiveLatencyServiceTypes();
+    @Transactional
+    public boolean isPrimitiveServiceLatency(String typeName);
 
-   
+    @Transactional
+    public boolean isPrimitiveService(String typeName);
+
+    @Transactional
+    public List<String> listOfServiceTypes();
+
+    @Transactional
+    public List<String> listOfPrimitiveServiceTypes();
+
+    @Transactional
+    public List<String> listOfPrimitiveThroughputServiceTypes();
+
+    @Transactional
+    public List<String> listOfPrimitiveLatencyServiceTypes();
 }

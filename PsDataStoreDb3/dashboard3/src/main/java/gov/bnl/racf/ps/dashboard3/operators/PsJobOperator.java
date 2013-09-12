@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Vector;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Placeholder for PsJob operator
@@ -42,43 +42,54 @@ public class PsJobOperator {
     }
 
     //=== simple CRUD methods ===//
+    @Transactional
     public PsJob create() {
         return this.psJobDao.create();
     }
-    
-    public void insert(PsJob psJob){
+
+    @Transactional
+    public void insert(PsJob psJob) {
         this.psJobDao.insert(psJob);
     }
-    
-    public PsJob getById(int id){
+
+    @Transactional
+    public PsJob getById(int id) {
         return this.getById(id);
     }
-    
-    public void delete(PsJob posJob){
+
+    @Transactional
+    public void delete(PsJob posJob) {
         this.psJobDao.delete(posJob);
     }
-    public void delete(int id){
+
+    @Transactional
+    public void delete(int id) {
         this.psJobDao.delete(id);
     }
 
     //=== JSON conversion methods ===//
+    @Transactional
     public JSONObject toJson(PsJob psJob) {
         return this.psJobJson.toJson(psJob);
     }
 
+    @Transactional
     public JSONObject toJson(PsJob psJob, String detailLevel) {
         return this.toJson(psJob);
     }
 
+    @Transactional
     public JSONArray toJson(List<PsJob> listOfJobs) {
         return this.psJobJson.toJson(listOfJobs);
     }
 
+    @Transactional
     public JSONArray toJson(List<PsJob> listOfJobs, String detailLevel) {
         return this.toJson(listOfJobs);
     }
 
     //=== main business methods ===//
+    @Transactional
     public List<PsJob> getJobs(boolean running, boolean setRunning) {
 
         List<PsService> listOfAllServices = this.psServiceOperator.getAll();
@@ -116,6 +127,7 @@ public class PsJobOperator {
         return listOfPsJobs;
     }
 
+    @Transactional
     private List<PsJob> makeJobsFromServices(Vector<PsService> listOfServices, boolean setRunning) {
         // Ok, we have list of selected services. If setRunning=true
         // we have to set them to running
@@ -137,10 +149,12 @@ public class PsJobOperator {
         return listOfJobs;
     }
 
+    @Transactional
     public PsJob getJobById(int id) {
         return this.psJobDao.getById(id);
     }
 
+    @Transactional
     void deletePsJobForService(PsService service) {
         this.psJobDao.deletePsJobForService(service);
     }

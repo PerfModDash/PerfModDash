@@ -14,9 +14,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.hibernate.Query;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -32,6 +32,7 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
     
     
     @Override
+    @Transactional
     public PsServiceResult create() {
         PsServiceResult psServiceResult = new PsServiceResult();
         this.insert(psServiceResult);
@@ -39,11 +40,13 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
     }
 
     @Override
+    @Transactional
     public void insert(PsServiceResult psServiceResult) {
         this.hibernateTemplate.save(psServiceResult);
     }
 
     @Override
+    @Transactional
     public PsServiceResult getById(int id) throws PsServiceResultNotFoundException {
         PsServiceResult result = 
                 (PsServiceResult) this.hibernateTemplate.get(PsServiceResult.class, id);
@@ -55,6 +58,7 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
     }
 
     @Override
+    @Transactional
     public List<PsServiceResult> getAll() {
         String query="from PsServiceResult";
         List<PsServiceResult>results=this.hibernateTemplate.find(query);
@@ -62,6 +66,7 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
     }
 
     @Override
+    @Transactional
     public List<PsServiceResult> getAllForServiceId(int service_id) {
         String query="from PsServiceResult where serviceId=?";
         List<PsServiceResult>listOfResults = 
@@ -70,6 +75,7 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
     }
 
     @Override
+    @Transactional
     public List<PsServiceResult> getAllForServiceId(int service_id, Date timeAfter) {
         String query="from PsServiceResult where serviceId=? and time>?";
         List<PsServiceResult>listOfResults = 
@@ -78,47 +84,54 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
     }
 
     @Override
+    @Transactional
     public void update(PsServiceResult psServiceResult) {
         this.hibernateTemplate.update(psServiceResult);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         try {
             PsServiceResult psServiceResult=this.getById(id);
             this.delete(psServiceResult);
         } catch (PsObjectNotFoundException ex) {
             String message="Failed to delete servcie result id="+id+" ; object not found";
-            Logger.getLogger(PsServiceResultDaoHibernateImpl.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsServiceResultDaoHibernateImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PsServiceResultDaoHibernateImpl.class.getName()).log(Level.WARNING, null, message);
+            Logger.getLogger(PsServiceResultDaoHibernateImpl.class.getName()).log(Level.WARNING, null, ex);
         }
         
     }
 
     @Override
+    @Transactional
     public void delete(PsServiceResult psServiceResult) {
         this.hibernateTemplate.delete(psServiceResult);
     }
 
     @Override
+    @Transactional
     public void deleteAllBefore(Date timeBefore) {
         String query="delete from PsServiceResult where time<?";
         this.hibernateTemplate.bulkUpdate(query, timeBefore);
     }
 
     @Override
+    @Transactional
     public int deleteForServiceId(int service_id) {
         String query="from PsServiceResult where serviceId=?";
         return this.hibernateTemplate.bulkUpdate(query, new Object[]{service_id});
     }
 
     @Override
+    @Transactional
     public int deleteForServiceId(int service_id, Date timeBefore) {
         String query="from PsServiceResult where serviceId=? and time<?";
         return this.hibernateTemplate.bulkUpdate(query, new Object[]{service_id,timeBefore});
     }
 
     @Override
+    @Transactional
     public int getResultsCount(Date tmin, Date tmax) {
         String query = "select count(*) from PsServiceResult where time between ? and ?";
         
@@ -127,6 +140,7 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
     }
 
     @Override
+    @Transactional
     public Date getResultsTimeMin() {
         String query = "select min(time) from PsServiceResult";
         
@@ -139,6 +153,7 @@ public class PsServiceResultDaoHibernateImpl implements PsServiceResultDao{
     }
 
     @Override
+    @Transactional
     public int deleteBetween(Date tmin, Date tmax) {
         String queryString = "delete from PsServiceResult where time between ? and ?";
         int numberOfObjectsDeleted = 

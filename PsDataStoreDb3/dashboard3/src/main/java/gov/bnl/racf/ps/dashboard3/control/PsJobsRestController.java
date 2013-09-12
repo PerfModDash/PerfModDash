@@ -4,6 +4,7 @@
  */
 package gov.bnl.racf.ps.dashboard3.control;
 
+import gov.bnl.racf.ps.dashboard3.dao.sessionimpl.SessionStore;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsJob;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsJobJson;
 import gov.bnl.racf.ps.dashboard3.operators.PsJobOperator;
@@ -13,6 +14,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -31,15 +33,24 @@ public class PsJobsRestController {
     public void setPsJobOperator(PsJobOperator psJobOperator) {
         this.psJobOperator = psJobOperator;
     }
-   
+    @Autowired
+    SessionStore sessionStore;
+
+    public void setSessionStore(SessionStore sessionStore) {
+        this.sessionStore = sessionStore;
+    }
 
     //=== Main methods ===//
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
+    @Transactional
     public String jobsGet(
             //@RequestParam(value = PsParameters.ID, required = false) int id,
             @RequestParam(value = PsParameters.SET_RUNNING, required = false) String setRunningString,
             @RequestParam(value = PsParameters.RUNNING, required = false) String runningString) {
+        
+         sessionStore.start();
+        
         // unpack and validate input parameters
         boolean setRunning = false;
         if ("1".equals(setRunningString)) {
@@ -56,22 +67,30 @@ public class PsJobsRestController {
 
         JSONObject jsonObjectWrapper = new JSONObject();
         jsonObjectWrapper.put("jobs", listOfJobsJson);
+        
+         sessionStore.commit();
 
         return jsonObjectWrapper.toString();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public String jobGetById(@PathVariable int id ) {
-        PsJob psJob = this.psJobOperator.getJobById(id);
+    @Transactional
+    public String jobGetById(@PathVariable int id) {
         
+        sessionStore.start();
+        
+        PsJob psJob = this.psJobOperator.getJobById(id);
+
         JSONObject psJobAsJson = this.psJobOperator.toJson(psJob);
         JSONArray listOfJobsJson = new JSONArray();
         listOfJobsJson.add(psJobAsJson);
-        
+
         JSONObject jsonObjectWrapper = new JSONObject();
         jsonObjectWrapper.put("jobs", listOfJobsJson);
 
+        sessionStore.commit();
+        
         return jsonObjectWrapper.toString();
     }
 }

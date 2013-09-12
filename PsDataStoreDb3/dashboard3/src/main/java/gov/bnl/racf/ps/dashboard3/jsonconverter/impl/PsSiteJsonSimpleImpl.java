@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -33,11 +34,13 @@ public class PsSiteJsonSimpleImpl implements PsSiteJson{
     // === main code ===//
     
     @Override
+    @Transactional
     public JSONObject toJson(PsSite site) {
         return this.toJson(site, PsParameters.DETAIL_LEVEL_LOW);
     }
 
     @Override
+    @Transactional
     public JSONObject toJson(PsSite site, String detailLevel) {
          JSONObject json = new JSONObject();
         if (site != null) {
@@ -73,6 +76,7 @@ public class PsSiteJsonSimpleImpl implements PsSiteJson{
     }
 
     @Override
+    @Transactional
     public JSONArray toJson(List<PsSite> listOfSites) {
         JSONArray listOfResultsJson = new JSONArray();
         for(PsSite site : listOfSites){
@@ -82,6 +86,7 @@ public class PsSiteJsonSimpleImpl implements PsSiteJson{
     }
 
     @Override
+    @Transactional
     public JSONArray toJson(List<PsSite> listOfSites, String detailLevel) {
         JSONArray listOfResultsJson = new JSONArray();
         for(PsSite site : listOfSites){

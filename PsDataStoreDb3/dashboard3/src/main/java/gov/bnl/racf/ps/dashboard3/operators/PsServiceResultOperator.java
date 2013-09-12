@@ -47,30 +47,31 @@ public class PsServiceResultOperator {
     public void setPsServiceOperator(PsServiceOperator psServiceOperator) {
         this.psServiceOperator = psServiceOperator;
     }
-    
     private PsJobOperator psJobOperator;
 
     public void setPsJobOperator(PsJobOperator psJobOperator) {
         this.psJobOperator = psJobOperator;
     }
-    
-    
     // === utility objects ===//
     private JSONParser jsonParser = new JSONParser();
 
     // === simple CRUD methods ===//
+    @Transactional
     public void insert(PsServiceResult serviceResult) {
         this.psServiceResultDao.insert(serviceResult);
     }
 
+    @Transactional
     public PsServiceResult getById(int id) throws PsServiceResultNotFoundException {
         return this.psServiceResultDao.getById(id);
     }
 
+    @Transactional
     public void delete(PsServiceResult serviceResult) {
         this.psServiceResultDao.delete(serviceResult);
     }
 
+    @Transactional
     public void delete(int id) {
         try {
             PsServiceResult serviceResult = this.psServiceResultDao.getById(id);
@@ -137,11 +138,14 @@ public class PsServiceResultOperator {
 
     // === business methods ===//
     /**
-     * get JSONObject containing number of results between times tmin and tmax, represented by strings
+     * get JSONObject containing number of results between times tmin and tmax,
+     * represented by strings
+     *
      * @param tMinString
      * @param tMaxString
-     * @return 
+     * @return
      */
+    @Transactional
     public JSONObject getResultsCount(String tMinString, String tMaxString) {
 
         Date tmin;
@@ -162,11 +166,14 @@ public class PsServiceResultOperator {
     }
 
     /**
-     * get JSONObject containing number of results between times tmin and tmax, represented by Date objects
+     * get JSONObject containing number of results between times tmin and tmax,
+     * represented by Date objects
+     *
      * @param tmin
      * @param tmax
-     * @return 
+     * @return
      */
+    @Transactional
     public JSONObject getResultsCount(Date tmin, Date tmax) {
         if (tmin == null) {
             long secondAfterBeginningOfWorld = 1;
@@ -189,12 +196,15 @@ public class PsServiceResultOperator {
     }
 
     /**
-     * take request content uploaded by client, parse it to Json object, store imn history table and update the corresponding service
+     * take request content uploaded by client, parse it to Json object, store
+     * imn history table and update the corresponding service
+     *
      * @param requestBody
      * @return
      * @throws ParseException
-     * @throws PsServiceNotFoundException 
+     * @throws PsServiceNotFoundException
      */
+    @Transactional
     public PsService uploadResult(String requestBody) throws ParseException, PsServiceNotFoundException {
 
         // parse the json part of the request
@@ -204,28 +214,31 @@ public class PsServiceResultOperator {
         PsServiceResult serviceResult = this.unpackJson(json);
 
         PsService service = this.psServiceOperator.updateServiceResult(serviceResult);
-        
+
         this.deletePsJobCorrespondingToService(service);
 
         return service;
     }
 
     /**
-     * take json object representing service result and convert it to PsServiceResult object
+     * take json object representing service result and convert it to
+     * PsServiceResult object
+     *
      * @param json
-     * @return 
+     * @return
      */
+    @Transactional
     public PsServiceResult unpackJson(JSONObject json) {
-       
+
         PsServiceResult result = new PsServiceResult();
 
 
         if (json.keySet().contains(PsServiceResult.ID)) {
-            result.setId(toInt( (String)json.get(PsServiceResult.ID) ));
+            result.setId(toInt((String) json.get(PsServiceResult.ID)));
         }
 
         if (json.keySet().contains(PsServiceResult.JOB_ID)) {
-            result.setJob_id(toInt( (String)json.get(PsServiceResult.JOB_ID)));
+            result.setJob_id(toInt((String) json.get(PsServiceResult.JOB_ID)));
         }
 
 
@@ -234,7 +247,7 @@ public class PsServiceResultOperator {
         }
 
         if (json.keySet().contains(PsServiceResult.STATUS)) {
-            int status = toInt( (Long) json.get(PsServiceResult.STATUS));
+            int status = toInt((Long) json.get(PsServiceResult.STATUS));
             result.setStatus(status);
         }
 
@@ -262,10 +275,12 @@ public class PsServiceResultOperator {
 
     /**
      * delete all results between tmin and tmax represented by strings
+     *
      * @param tMinString
      * @param tMaxString
-     * @return 
+     * @return
      */
+    @Transactional
     public JSONObject deleteResults(String tMinString, String tMaxString) {
 
         Date tmin = null;
@@ -289,10 +304,12 @@ public class PsServiceResultOperator {
 
     /**
      * delete all results between tmin and tmax represented by Date objects
+     *
      * @param tmin
      * @param tmax
-     * @return 
+     * @return
      */
+    @Transactional
     public JSONObject deleteResults(Date tmin, Date tmax) {
         int numberOfObjectsDeleted = this.psServiceResultDao.deleteBetween(tmin, tmax);
         JSONObject resultObject = new JSONObject();
@@ -301,11 +318,14 @@ public class PsServiceResultOperator {
     }
 
     /**
-     * take service result, find out to which service it corresponds, get recent result for this service, update it.
+     * take service result, find out to which service it corresponds, get recent
+     * result for this service, update it.
+     *
      * @param serviceResult
      * @return
-     * @throws PsServiceNotFoundException 
+     * @throws PsServiceNotFoundException
      */
+    @Transactional
     public PsRecentServiceResult toRecentServiceResult(PsServiceResult serviceResult) throws PsServiceNotFoundException {
 
         int serviceId = serviceResult.getService_id();
@@ -325,36 +345,43 @@ public class PsServiceResultOperator {
 
         return recentResult;
     }
-    
-    private static int toInt(Long inputLong){
+
+    @Transactional
+    private static int toInt(Long inputLong) {
         int result = inputLong.intValue();
         return result;
     }
-    private static int toInt(String inputString){
+
+    @Transactional
+    private static int toInt(String inputString) {
         int inputAsInt = Integer.parseInt(inputString);
         return inputAsInt;
     }
 
     /**
      * delete all results for given service, return number of objects deleted
+     *
      * @param serviceToBeDeleted
-     * @return 
+     * @return
      */
+    @Transactional
     public int deleteResultsForService(PsService service) {
         return deleteResultsForServiceId(service.getId());
     }
 
     /**
      * delete all results for given service id, return number of objects deleted
+     *
      * @param id
-     * @return 
+     * @return
      */
+    @Transactional
     public int deleteResultsForServiceId(int id) {
-       return this.psServiceResultDao.deleteForServiceId(id);
+        return this.psServiceResultDao.deleteForServiceId(id);
     }
 
+    @Transactional
     private void deletePsJobCorrespondingToService(PsService service) {
         this.psJobOperator.deletePsJobForService(service);
     }
-    
 }

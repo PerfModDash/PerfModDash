@@ -2,28 +2,31 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.bnl.racf.ps.dashboard3.dao.impl;
+package gov.bnl.racf.ps.dashboard3.dao.sessionimpl;
 
 import gov.bnl.racf.ps.dashboard3.dao.PsSiteDao;
+import gov.bnl.racf.ps.dashboard3.dao.impl.PsSiteDaoHibernateImpl;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsSite;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsSiteNotFoundException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author tomw
  */
-public class PsSiteDaoHibernateImpl implements PsSiteDao {
+public class PsSiteDaoHibernateSessionImpl implements PsSiteDao {
 
-    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-        this.hibernateTemplate = hibernateTemplate;
+    private SessionStore sessionStore;
+
+    public void setSessionStore(SessionStore sessionStore) {
+        this.sessionStore = sessionStore;
     }
-    private HibernateTemplate hibernateTemplate;
 
+    // === main methods ===//
     @Transactional
     @Override
     public PsSite create() {
@@ -35,13 +38,15 @@ public class PsSiteDaoHibernateImpl implements PsSiteDao {
     @Override
     @Transactional
     public void insert(PsSite site) {
-        this.hibernateTemplate.save(site);
+        Session session = this.sessionStore.getSession();
+        session.save(site);
     }
 
     @Override
     @Transactional
     public PsSite getById(int id) throws PsSiteNotFoundException {
-        PsSite site = (PsSite) this.hibernateTemplate.get(PsSite.class, id);
+        Session session = this.sessionStore.getSession();
+        PsSite site = (PsSite) session.get(PsSite.class, id);
         if (site == null) {
             throw new PsSiteNotFoundException(this.getClass().getName() + " site not dound id=" + id);
         } else {
@@ -52,32 +57,36 @@ public class PsSiteDaoHibernateImpl implements PsSiteDao {
     @Override
     @Transactional
     public List<PsSite> getAll() {
-        String query = "from PsSite";
-        return this.hibernateTemplate.find(query);
+        Session session = this.sessionStore.getSession();
+        String queryString = "from PsSite";
+        return session.createQuery(queryString).list();
     }
 
     @Override
     @Transactional
     public void update(PsSite site) {
-        this.hibernateTemplate.update(site);
+        Session session = this.sessionStore.getSession();
+        session.update(site);
     }
 
     @Override
     @Transactional
     public void delete(int id) {
+        Session session = this.sessionStore.getSession();
         try {
             PsSite site = this.getById(id);
-            this.hibernateTemplate.delete(site);
+            session.delete(site);
         } catch (PsSiteNotFoundException ex) {
             String message = "site with id=" + id + " not found";
-            Logger.getLogger(PsSiteDaoHibernateImpl.class.getName()).log(Level.SEVERE, null, message);
-            Logger.getLogger(PsSiteDaoHibernateImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PsSiteDaoHibernateImpl.class.getName()).log(Level.WARNING, null, message);
+            Logger.getLogger(PsSiteDaoHibernateImpl.class.getName()).log(Level.WARNING, null, ex);
         }
     }
 
     @Override
     @Transactional
     public void delete(PsSite site) {
-        this.hibernateTemplate.delete(site);
+        Session session = this.sessionStore.getSession();
+        session.delete(site);
     }
 }

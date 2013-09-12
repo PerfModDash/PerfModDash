@@ -43,7 +43,6 @@ public class PsHostOperator {
     public void setPsHostJson(PsHostJson psHostJson) {
         this.psHostJson = psHostJson;
     }
-    
     private PsServiceTypeOperator psServiceTypeOperator;
 
     public void setPsServiceTypeOperator(PsServiceTypeOperator psServiceTypeOperator) {
@@ -61,6 +60,7 @@ public class PsHostOperator {
      *
      * @return
      */
+    @Transactional
     public String test() {
         return "Test of PsHostOperator";
     }
@@ -414,7 +414,7 @@ public class PsHostOperator {
         this.update(newHost, jsonInput);
         //third order of business is to save the updated object
         this.psHostDao.update(newHost);
-        
+
         return newHost;
     }
 
@@ -568,7 +568,7 @@ public class PsHostOperator {
         }
 
         if (thisIsUnknownCommand) {
-            throw new PsUnknownCommandException(this.getClass().getName()+" unknown command: "+command);
+            throw new PsUnknownCommandException(this.getClass().getName() + " unknown command: " + command);
         }
 
         return host;
@@ -667,12 +667,14 @@ public class PsHostOperator {
         this.psServiceOperator.delete(servicesToBeDeleted);
     }
 
+    @Transactional
     public void removeServiceFromHost(PsHost host, PsService service) {
         host.removeService(service);
         this.psServiceOperator.delete(service);
         this.psHostDao.update(host);
     }
 
+    @Transactional
     public void removeAllServicesFromHost(PsHost host) {
 
         List<PsService> servicesToBeDeleted = new ArrayList<PsService>();

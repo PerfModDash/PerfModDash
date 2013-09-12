@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -23,6 +24,7 @@ public class PsParameterInfoJsonSimpleImpl implements PsParameterInfoJson {
      * @return 
      */
     @Override
+    @Transactional
     public JSONObject toJson(PsParameterInfo parameterInfo) {
         JSONObject json = new JSONObject();
         json.put(PsParameterInfo.DESCRIPTION, parameterInfo.getDescription());
@@ -38,6 +40,7 @@ public class PsParameterInfoJsonSimpleImpl implements PsParameterInfoJson {
      * @return 
      */
     @Override
+    @Transactional
     public JSONObject toJson(PsParameterInfo parameterInfo, String detailLevel) {
         return this.toJson(parameterInfo);
     }
@@ -48,6 +51,7 @@ public class PsParameterInfoJsonSimpleImpl implements PsParameterInfoJson {
      * @return 
      */
     @Override
+    @Transactional
     public JSONArray toJson(List<PsParameterInfo> listOfParameters) {
         JSONArray parameterListjson = new JSONArray();
         Iterator iter = listOfParameters.iterator();
@@ -64,6 +68,7 @@ public class PsParameterInfoJsonSimpleImpl implements PsParameterInfoJson {
      * @return 
      */
     @Override
+    @Transactional
     public JSONArray toJson(List<PsParameterInfo> listOfParameters, String detailLevel) {
         JSONArray parameterListjson = new JSONArray();
         Iterator iter = listOfParameters.iterator();

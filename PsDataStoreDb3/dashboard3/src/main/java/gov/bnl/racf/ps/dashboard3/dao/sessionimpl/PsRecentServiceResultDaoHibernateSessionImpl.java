@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.bnl.racf.ps.dashboard3.dao.impl;
+package gov.bnl.racf.ps.dashboard3.dao.sessionimpl;
 
 import gov.bnl.racf.ps.dashboard3.dao.PsRecentServiceResultDao;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsRecentServiceResult;
@@ -11,24 +11,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author tomw
  */
-public class PsRecentServiceResultDaoHibernateImpl implements PsRecentServiceResultDao{
+public class PsRecentServiceResultDaoHibernateSessionImpl implements PsRecentServiceResultDao {
 
-    // === dependency injection ===//
-    private HibernateTemplate hibernateTemplate;
+    private SessionStore sessionStore;
 
-    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-        this.hibernateTemplate = hibernateTemplate;
+    public void setSessionStore(SessionStore sessionStore) {
+        this.sessionStore = sessionStore;
     }
-    
+
     //=== CRUD methods ===//
-    
     @Override
     @Transactional
     public PsRecentServiceResult create() {
@@ -40,17 +39,19 @@ public class PsRecentServiceResultDaoHibernateImpl implements PsRecentServiceRes
     @Override
     @Transactional
     public void insert(PsRecentServiceResult psRecentServiceResult) {
-        this.hibernateTemplate.save(psRecentServiceResult);
+        Session session = this.sessionStore.getSession();
+        session.save(psRecentServiceResult);
     }
 
     @Override
     @Transactional
-    public PsRecentServiceResult getbyId(int id) throws PsRecentServiceResultNotFoundException{
-        PsRecentServiceResult psRecentServiceResult = 
-                this.hibernateTemplate.get(PsRecentServiceResult.class, id);
-        if(psRecentServiceResult==null){
-            throw new PsRecentServiceResultNotFoundException("missing recent service result with id="+id);
-        }else{
+    public PsRecentServiceResult getbyId(int id) throws PsRecentServiceResultNotFoundException {
+        Session session = this.sessionStore.getSession();
+        PsRecentServiceResult psRecentServiceResult =
+                (PsRecentServiceResult) session.get(PsRecentServiceResult.class, id);
+        if (psRecentServiceResult == null) {
+            throw new PsRecentServiceResultNotFoundException("missing recent service result with id=" + id);
+        } else {
             return psRecentServiceResult;
         }
     }
@@ -58,19 +59,22 @@ public class PsRecentServiceResultDaoHibernateImpl implements PsRecentServiceRes
     @Override
     @Transactional
     public PsRecentServiceResult getbyServiceId(int serviceId) throws PsRecentServiceResultNotFoundException {
-       
-        String query = "from PsRecentServiceResult where service_id=?";
-        List<PsRecentServiceResult> listOfRecentServiceResults = 
-                this.hibernateTemplate.find(query, new Object[]{serviceId});
-        
+        Session session = this.sessionStore.getSession();
+
+        String queryString = "from PsRecentServiceResult where service_id=:serviceId";
+        Query query = session.createQuery(queryString);
+        query.setParameter("serviceId", serviceId);
+        List<PsRecentServiceResult> listOfRecentServiceResults = query.list();
+
+
         PsRecentServiceResult recentResult = null;
         Iterator iter = listOfRecentServiceResults.iterator();
         while (iter.hasNext()) {
             recentResult = (PsRecentServiceResult) iter.next();
         }
-        if(recentResult==null){
-            throw new PsRecentServiceResultNotFoundException("missing recent service result with service id="+serviceId);
-        }else{
+        if (recentResult == null) {
+            throw new PsRecentServiceResultNotFoundException("missing recent service result with service id=" + serviceId);
+        } else {
             return recentResult;
         }
     }
@@ -78,19 +82,19 @@ public class PsRecentServiceResultDaoHibernateImpl implements PsRecentServiceRes
     @Override
     @Transactional
     public void delete(PsRecentServiceResult psRecentServiceResult) {
-        this.hibernateTemplate.delete(psRecentServiceResult);
+        Session session = this.sessionStore.getSession();
+        session.delete(psRecentServiceResult);
     }
 
     @Override
     @Transactional
     public void delete(int id) {
         try {
-            PsRecentServiceResult psRecentServiceResult=this.getbyId(id);
+            PsRecentServiceResult psRecentServiceResult = this.getbyId(id);
             this.delete(psRecentServiceResult);
         } catch (PsRecentServiceResultNotFoundException ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, "PsRecentServiceResult not found, id="+id);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, "PsRecentServiceResult not found, id=" + id);
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 }

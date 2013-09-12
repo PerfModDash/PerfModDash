@@ -23,6 +23,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Placeholder for PsMatrix operator class
@@ -84,6 +85,7 @@ public class PsMatrixOperator {
      * @return
      * @throws PsMatrixNotFoundException
      */
+    @Transactional
     public PsMatrix getById(int id) throws PsMatrixNotFoundException {
         return this.psMatrixDao.getById(id);
     }
@@ -93,6 +95,7 @@ public class PsMatrixOperator {
      *
      * @return
      */
+    @Transactional
     public List<PsMatrix> getAll() {
         return this.psMatrixDao.getAll();
     }
@@ -102,6 +105,7 @@ public class PsMatrixOperator {
      *
      * @param matrix
      */
+    @Transactional
     public void insert(PsMatrix matrix) {
         this.psMatrixDao.insert(matrix);
     }
@@ -111,6 +115,7 @@ public class PsMatrixOperator {
      *
      * @param matrix
      */
+    @Transactional
     public void update(PsMatrix matrix) {
         this.psMatrixDao.update(matrix);
     }
@@ -120,6 +125,7 @@ public class PsMatrixOperator {
      *
      * @param id
      */
+    @Transactional
     public void delete(int id) {
         try {
             PsMatrix matrix = this.psMatrixDao.getById(id);
@@ -136,6 +142,7 @@ public class PsMatrixOperator {
      *
      * @param matrix
      */
+    @Transactional
     public void delete(PsMatrix matrix) {
         //1. remove all hosts from this matrix, this will also delete
         //   the corresponding services
@@ -156,6 +163,7 @@ public class PsMatrixOperator {
      * @param detailLevel
      * @return
      */
+    @Transactional
     public JSONObject toJson(PsMatrix matrix, String detailLevel) {
         return this.psMatrixJson.toJson(matrix, detailLevel);
     }
@@ -166,6 +174,7 @@ public class PsMatrixOperator {
      * @param matrix
      * @return
      */
+    @Transactional
     public JSONObject toJson(PsMatrix matrix) {
         return this.psMatrixJson.toJson(matrix);
     }
@@ -176,6 +185,7 @@ public class PsMatrixOperator {
      * @param listOfMatrices
      * @return
      */
+    @Transactional
     public JSONArray toJson(List<PsMatrix> listOfMatrices) {
         return this.psMatrixJson.toJson(listOfMatrices);
     }
@@ -187,6 +197,7 @@ public class PsMatrixOperator {
      * @param detailLevel
      * @return
      */
+    @Transactional
     public JSONArray toJson(List<PsMatrix> listOfMatrices, String detailLevel) {
         return this.psMatrixJson.toJson(listOfMatrices, detailLevel);
     }
@@ -202,6 +213,7 @@ public class PsMatrixOperator {
      * @throws PsMissingServiceTypeException
      * @throws PsServiceTypeNotFoundException
      */
+    @Transactional
     public PsMatrix insertNewMatrixFromJson(JSONObject jsonInput)
             throws PsMissingMatrixNameException, PsMissingServiceTypeException,
             PsServiceTypeNotFoundException {
@@ -249,6 +261,7 @@ public class PsMatrixOperator {
      * @return
      * @throws PsMatrixNotFoundException
      */
+    @Transactional
     public PsMatrix updateMarixFromJson(int id, JSONObject jsonInput) throws PsMatrixNotFoundException {
         //1. get matrix from database
         PsMatrix matrix = this.getById(id);
@@ -278,6 +291,7 @@ public class PsMatrixOperator {
      * @throws PsUnknownCommandException
      * @throws ParseException
      */
+    @Transactional
     public PsMatrix executeCommand(int id, String command, String requestBody)
             throws PsMatrixNotFoundException, PsHostNotFoundException, PsUnknownCommandException, ParseException {
         //1. get requested matrix
@@ -359,6 +373,7 @@ public class PsMatrixOperator {
      * @param hostIds
      * @throws PsHostNotFoundException
      */
+    @Transactional
     public void addHostIds(PsMatrix matrix, JSONArray hostIds) throws PsHostNotFoundException {
         Iterator iter = hostIds.iterator();
         while (iter.hasNext()) {
@@ -375,6 +390,7 @@ public class PsMatrixOperator {
      * @param hostId
      * @throws PsHostNotFoundException
      */
+    @Transactional
     public void addHostToMatrix(PsMatrix matrix, int hostId) throws PsHostNotFoundException {
         PsHost host = this.psHostOperator.getById(hostId);
         this.addHostToMatrix(matrix, host);
@@ -386,6 +402,7 @@ public class PsMatrixOperator {
      * @param matrix
      * @param host
      */
+    @Transactional
     public void addHostToMatrix(PsMatrix matrix, PsHost host) {
         if (matrix.isTraceroute()) {
             throw new UnsupportedOperationException("Traceroute matrix not yet implemented");
@@ -467,6 +484,7 @@ public class PsMatrixOperator {
      * @param hostIds
      * @throws PsHostNotFoundException
      */
+    @Transactional
     public void removeHostIds(PsMatrix matrix, JSONArray hostIds) throws PsHostNotFoundException {
         Iterator iter = hostIds.iterator();
         while (iter.hasNext()) {
@@ -483,6 +501,7 @@ public class PsMatrixOperator {
      * @param hostId
      * @throws PsHostNotFoundException
      */
+    @Transactional
     public void removeHostFromMatrix(PsMatrix matrix, int hostId) throws PsHostNotFoundException {
         PsHost host = this.psHostOperator.getById(hostId);
         this.removeHostFromMatrix(matrix, host);
@@ -494,6 +513,7 @@ public class PsMatrixOperator {
      * @param matrix
      * @param host
      */
+    @Transactional
     public void removeHostFromMatrix(PsMatrix matrix, PsHost host) {
         if (matrix.containsHost(host)) {
             List<PsService> servicesToBeDeleted = matrix.removeHost(host);
@@ -508,6 +528,7 @@ public class PsMatrixOperator {
      *
      * @param matrix
      */
+    @Transactional
     public void removeAllHosts(PsMatrix matrix) {
         //1. build a list of hosts to be removed
         List<PsHost> hostsToBeRemoved = new ArrayList<PsHost>();
@@ -532,6 +553,7 @@ public class PsMatrixOperator {
      * @param hostIds
      * @throws PsHostNotFoundException
      */
+    @Transactional
     public void addHostIdsToColumns(PsMatrix matrix, JSONArray hostIds) throws PsHostNotFoundException {
         Iterator iter = hostIds.iterator();
         while (iter.hasNext()) {
@@ -548,6 +570,7 @@ public class PsMatrixOperator {
      * @param hostId
      * @throws PsHostNotFoundException
      */
+    @Transactional
     public void addHostToMatrixColumn(PsMatrix matrix, int hostId) throws PsHostNotFoundException {
         PsHost host = this.psHostOperator.getById(hostId);
         addHostToMatrixColumn(matrix, host);
@@ -559,6 +582,7 @@ public class PsMatrixOperator {
      * @param matrix
      * @param host
      */
+    @Transactional
     public void addHostToMatrixColumn(PsMatrix matrix, PsHost host) {
         if (!matrix.containsHostInColumn(host)) {
             // first of all add host to columns and rows
@@ -603,6 +627,7 @@ public class PsMatrixOperator {
      * @param hostIds
      * @throws PsHostNotFoundException
      */
+    @Transactional
     public void removeHostIdsFromColumns(PsMatrix matrix, JSONArray hostIds) throws PsHostNotFoundException {
         Iterator iter = hostIds.iterator();
         while (iter.hasNext()) {
@@ -619,6 +644,7 @@ public class PsMatrixOperator {
      * @param hostId
      * @throws PsHostNotFoundException
      */
+    @Transactional
     public void removeHostFromMatrixColumn(PsMatrix matrix, int hostId) throws PsHostNotFoundException {
         PsHost host = this.psHostOperator.getById(hostId);
         removeHostFromMatrixColumn(matrix, host);
@@ -630,6 +656,7 @@ public class PsMatrixOperator {
      * @param matrix
      * @param host
      */
+    @Transactional
     public void removeHostFromMatrixColumn(PsMatrix matrix, PsHost host) {
         if (matrix.containsHostInColumn(host)) {
             List<PsService> servicesToBeDeleted = matrix.removeHostFromColumns(host.getId());
@@ -645,6 +672,7 @@ public class PsMatrixOperator {
      * @param hostIds
      * @throws PsHostNotFoundException 
      */
+    @Transactional
     public void addHostIdsToRows(PsMatrix matrix, JSONArray hostIds) throws PsHostNotFoundException {
         Iterator iter = hostIds.iterator();
         while (iter.hasNext()) {
@@ -660,6 +688,7 @@ public class PsMatrixOperator {
      * @param hostId
      * @throws PsHostNotFoundException 
      */
+    @Transactional
     public void addHostToMatrixRows(PsMatrix matrix, int hostId) throws PsHostNotFoundException {
         PsHost host = this.psHostOperator.getById(hostId);
         this.addHostToMatrixRow(matrix, host);
@@ -670,6 +699,7 @@ public class PsMatrixOperator {
      * @param matrix
      * @param host 
      */
+    @Transactional
     public void addHostToMatrixRow(PsMatrix matrix, PsHost host) {
         if (!matrix.containsHostInRow(host)) {
             // first of all add host to rows
@@ -715,6 +745,7 @@ public class PsMatrixOperator {
      * @param hostIds
      * @throws PsHostNotFoundException 
      */
+    @Transactional
     public void removeHostIdsFromRows(PsMatrix matrix, JSONArray hostIds) throws PsHostNotFoundException {
         Iterator iter = hostIds.iterator();
         while (iter.hasNext()) {
@@ -730,6 +761,7 @@ public class PsMatrixOperator {
      * @param hostId
      * @throws PsHostNotFoundException 
      */
+    @Transactional
     public void removeHostFromMatrixRow(PsMatrix matrix, int hostId) throws PsHostNotFoundException {
         PsHost host = this.psHostOperator.getById(hostId);
         this.removeHostFromMatrixRow(matrix, host);
@@ -740,6 +772,7 @@ public class PsMatrixOperator {
      * @param matrix
      * @param host 
      */
+    @Transactional
     public void removeHostFromMatrixRow(PsMatrix matrix, PsHost host) {
         if (matrix.containsHostInRow(host)) {
             List<PsService> servicesToBeDeleted = matrix.removeHostFromRows(host.getId());

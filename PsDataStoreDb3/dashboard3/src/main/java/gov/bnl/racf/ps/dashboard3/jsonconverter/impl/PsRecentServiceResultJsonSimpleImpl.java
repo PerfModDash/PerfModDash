@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Converts PsRecentServiceResult objects to JSON representation
@@ -54,6 +55,7 @@ public class PsRecentServiceResultJsonSimpleImpl implements PsRecentServiceResul
      * @return 
      */
     @Override
+    @Transactional
     public JSONObject toJson(PsRecentServiceResult psRecentServiceResult, String detailLevel) {
         return this.toJson(psRecentServiceResult);
     }
@@ -65,6 +67,7 @@ public class PsRecentServiceResultJsonSimpleImpl implements PsRecentServiceResul
      * @return 
      */
     @Override
+    @Transactional
     public JSONArray toJson(List<PsRecentServiceResult> listOfResults, String detailLevel) {
         return this.toJson(listOfResults);
     }
@@ -75,6 +78,7 @@ public class PsRecentServiceResultJsonSimpleImpl implements PsRecentServiceResul
      * @return 
      */
     @Override
+    @Transactional
     public JSONArray toJson(List<PsRecentServiceResult> listOfResults) {
         JSONArray resultJsonArray = new JSONArray();
         for(PsRecentServiceResult psRecentServiceResult : listOfResults){

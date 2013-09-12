@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -26,6 +27,7 @@ public class PsServiceResultJsonSimpleImpl implements PsServiceResultJson {
      * @param psServiceResult
      * @return JSONObject
      */
+    @Transactional
     public JSONObject toJson(PsServiceResult psServiceResult) {
         return this.toJson(psServiceResult, PsParameters.DETAIL_LEVEL_HIGH);
     }
@@ -37,6 +39,7 @@ public class PsServiceResultJsonSimpleImpl implements PsServiceResultJson {
      * @param detailLevel
      * @return
      */
+    @Transactional
     public JSONObject toJson(PsServiceResult result,
             String detailLevel) {
         JSONObject json = new JSONObject();
@@ -72,6 +75,7 @@ public class PsServiceResultJsonSimpleImpl implements PsServiceResultJson {
      * @param detailLevel
      * @return
      */
+    @Transactional
     public JSONArray toJson(List<PsServiceResult> listOfResults,
             String detailLevel) {
         JSONArray listOfResultsJson = new JSONArray();
@@ -88,6 +92,7 @@ public class PsServiceResultJsonSimpleImpl implements PsServiceResultJson {
      * @param listOfRecentResults
      * @return
      */
+    @Transactional
     public JSONArray toJson(List<PsServiceResult> listOfResults) {
         return this.toJson(listOfResults, PsParameters.DETAIL_LEVEL_HIGH);
     }

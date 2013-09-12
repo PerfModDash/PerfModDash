@@ -14,63 +14,69 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * //TODO implement this class
+ *
  * @author tomw
  */
 public class PsRecentServiceResultOperator {
-    
+
     //=== dependency injection ===//
     private PsRecentServiceResultJson psRecentServiceResultJson;
 
     public void setPsRecentServiceResultJson(PsRecentServiceResultJson psRecentServiceResultJson) {
         this.psRecentServiceResultJson = psRecentServiceResultJson;
     }
-    
-    
+
     //=== main code ===//
-    
     /**
      * convert recent service result to JSON, default (high) detail level
+     *
      * @param psRecentServiceResult
      * @return JSONObject
      */
     @Transactional
-    public JSONObject toJson(PsRecentServiceResult psRecentServiceResult){
+    public JSONObject toJson(PsRecentServiceResult psRecentServiceResult) {
         return this.toJson(psRecentServiceResult, PsParameters.DETAIL_LEVEL_HIGH);
     }
+
     /**
      * convert recent result to JSON at requested detail level
+     *
      * @param psRecentServiceResult
      * @param detailLevel
-     * @return 
+     * @return
      */
     @Transactional
     public JSONObject toJson(PsRecentServiceResult psRecentServiceResult,
-            String detailLevel){
+            String detailLevel) {
         return this.psRecentServiceResultJson.toJson(psRecentServiceResult, detailLevel);
     }
-    
+
     /**
      * convert list of recent results into JSONArray at requested detail level
+     *
      * @param listOfRecentResults
      * @param detailLevel
-     * @return 
+     * @return
      */
     @Transactional
     public JSONArray toJson(List<PsRecentServiceResult> listOfRecentResults,
-            String detailLevel){
+            String detailLevel) {
         JSONArray listOfResultsJson = new JSONArray();
-        for(PsRecentServiceResult recentResult : listOfRecentResults){
+        for (PsRecentServiceResult recentResult : listOfRecentResults) {
             listOfResultsJson.add(this.toJson(listOfRecentResults, detailLevel));
         }
         return listOfResultsJson;
     }
+
     /**
-     * convert list of recent results into JSONArray at default (high) detail level
+     * convert list of recent results into JSONArray at default (high) detail
+     * level
+     *
      * @param listOfRecentResults
-     * @return 
+     * @return
      */
     @Transactional
-    public JSONArray toJson(List<PsRecentServiceResult> listOfRecentResults){
+    public JSONArray toJson(List<PsRecentServiceResult> listOfRecentResults) {
         return this.toJson(listOfRecentResults, PsParameters.DETAIL_LEVEL_HIGH);
     }
 }

@@ -2,70 +2,75 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.bnl.racf.ps.dashboard3.dao.impl;
+package gov.bnl.racf.ps.dashboard3.dao.sessionimpl;
 
 import gov.bnl.racf.ps.dashboard3.dao.PsMatrixDao;
+import gov.bnl.racf.ps.dashboard3.dao.impl.PsMatrixDaoHibernateImpl;
 import gov.bnl.racf.ps.dashboard3.domainobjects.PsMatrix;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsMatrixNotFoundException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author tomw
  */
-public class PsMatrixDaoHibernateImpl implements PsMatrixDao {
+public class PsMatrixDaoHibernateSessionImpl implements PsMatrixDao {
 
-    //=== dependency injection part
-    private HibernateTemplate hibernateTemplate;
+    private SessionStore sessionStore;
 
-    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-        this.hibernateTemplate = hibernateTemplate;
+    public void setSessionStore(SessionStore sessionStore) {
+        this.sessionStore = sessionStore;
     }
+    
 
     //=== main part ===//
     @Override
     @Transactional
     public void insert(PsMatrix matrix) {
-        this.hibernateTemplate.save(matrix);
+        Session session = this.sessionStore.getSession();
+        session.save(matrix);
     }
 
     @Override
     @Transactional
     public PsMatrix getById(int id) throws PsMatrixNotFoundException {
-        PsMatrix matrix = (PsMatrix) this.hibernateTemplate.get(PsMatrix.class, id);
+        Session session = this.sessionStore.getSession();
+        PsMatrix matrix = (PsMatrix) session.get(PsMatrix.class, id);
         if (matrix != null) {
             return matrix;
         } else {
-            throw new PsMatrixNotFoundException(this.getClass().getName()+" matrix not found id="+id);
+            throw new PsMatrixNotFoundException(this.getClass().getName() + " matrix not found id=" + id);
         }
     }
 
     @Override
     @Transactional
     public List<PsMatrix> getAll() {
-        String query = "from PsMatrix";
-        List<PsMatrix> listOfMatrices = this.hibernateTemplate.find(query);
+        Session session = this.sessionStore.getSession();
+        String queryString = "from PsMatrix";
+        List<PsMatrix> listOfMatrices = session.createQuery(queryString).list();
         return listOfMatrices;
     }
 
     @Override
     @Transactional
     public void update(PsMatrix matrix) {
-        this.hibernateTemplate.update(matrix);
+        Session session = this.sessionStore.getSession();
+        session.update(matrix);
     }
 
     @Override
     @Transactional
     public void delete(int id) {
         try {
-            PsMatrix matrix=this.getById(id);
+            PsMatrix matrix = this.getById(id);
             this.delete(matrix);
         } catch (PsMatrixNotFoundException ex) {
-            String message="cannot delete matrix id="+id+" , matrix not found";
+            String message = "cannot delete matrix id=" + id + " , matrix not found";
             Logger.getLogger(PsMatrixDaoHibernateImpl.class.getName()).log(Level.WARNING, null, message);
             Logger.getLogger(PsMatrixDaoHibernateImpl.class.getName()).log(Level.WARNING, null, ex);
         }
@@ -74,8 +79,7 @@ public class PsMatrixDaoHibernateImpl implements PsMatrixDao {
     @Override
     @Transactional
     public void delete(PsMatrix matrix) {
-        this.hibernateTemplate.delete(matrix);
+        Session session = this.sessionStore.getSession();
+        session.delete(matrix);
     }
-
-    
 }
