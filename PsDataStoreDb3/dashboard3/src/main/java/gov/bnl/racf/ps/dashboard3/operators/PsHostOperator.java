@@ -26,7 +26,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * class for manipulating perfSonar hosts //TODO make its methods @Transactional
+ * class for manipulating perfSonar hosts
  *
  * @author tomw
  */
@@ -151,8 +151,12 @@ public class PsHostOperator {
     @Transactional
     public void delete(PsHost host) {
 
-        //TODO expand this, to delete services on this host,
-        //TODO remove it from matrices,sites
+        //TODO remove host from all sites
+        
+        //TODO remove host from all matrices
+        
+        this.removeAllServicesFromHost(host);
+        
         this.psHostDao.delete(host);
     }
 
@@ -400,8 +404,7 @@ public class PsHostOperator {
     /**
      * Get json object describing a host. Based on this create and persost a
      * PsHost object. If succesful, return JSONObject of the new host (it will
-     * include id). //TODO make a custom exception //TODO make this operation
-     * transactional
+     * include id). 
      *
      * @param jsonInput
      * @return

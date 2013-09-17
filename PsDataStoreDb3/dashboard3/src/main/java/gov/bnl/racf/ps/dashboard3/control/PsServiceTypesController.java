@@ -65,7 +65,7 @@ public class PsServiceTypesController {
     @Transactional
     public String serviceTypePost() {
         String message = "we are in serviceTypePost()";
-        //TODO finish the method
+        //TODO finish the serviceTypePost() method
         return message;
     }
 
@@ -74,7 +74,7 @@ public class PsServiceTypesController {
     @Transactional
     public String serviceTypePut() {
         String message = "we are in serviceTypePut()";
-        //TODO finish the method
+        //TODO finish the serviceTypePut() method
         return message;
     }
 
@@ -83,7 +83,7 @@ public class PsServiceTypesController {
     @Transactional
     public String serviceTypeDelete() {
         String message = "we are in serviceTypeDelete()";
-        //TODO finish the method
+        //TODO finish the serviceTypeDelete() method
         return message;
     }
 }

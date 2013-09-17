@@ -11,8 +11,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Implements the Job object as defined in the design document
- * //TODO this class needs some thinking, it is far from ready
- * I still need to discuss details with Andy
  * @author tomw
  */
 @Cacheable

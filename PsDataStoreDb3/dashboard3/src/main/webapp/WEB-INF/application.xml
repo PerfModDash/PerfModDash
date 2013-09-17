@@ -127,6 +127,10 @@
         <property name="sessionStore" ref="sessionStore" />	
     </bean>  
     
+    <bean id="PsServiceResultDao" class="gov.bnl.racf.ps.dashboard3.dao.sessionimpl.PsServiceResultDaoHibernateSessionImpl">
+        <property name="sessionStore" ref="sessionStore" />	
+    </bean>  
+    
     <bean id="psJobDao" class="gov.bnl.racf.ps.dashboard3.dao.sessionimpl.PsJobDaoHibernateSessionImpl">
         <property name="sessionStore" ref="sessionStore" />	
     </bean>  
@@ -198,9 +202,11 @@
     
     <bean id="psServiceOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsServiceOperator">
         <property name="psServiceDao" ref="psServiceDao" />
+        <property name="psServiceTypeDao" ref="psServiceTypeDao" />
         <property name="psServiceFactory" ref="psServiceFactory" />
         <property name="psServiceJson" ref="psServiceJson" />
         <property name="psJobOperator" ref="psJobOperator" />
+        <property name="psServiceResultOperator" ref="psServiceResultOperator" />
 <!--        <property name="psServiceTypeOperator" ref="psServiceTypeOperator" />-->
     </bean> 
     
@@ -212,7 +218,9 @@
     </bean>   
     
     <bean id="psServiceResultOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsServiceResultOperator">
+        <property name="psServiceResultDao" ref="psServiceResultDao" />
         <property name="psServiceResultJson" ref="psServiceResultJson" />
+        <property name="psServiceOperator" ref="psServiceOperator"/>
     </bean>   
     
     <bean id="psRecentServiceResultOperator" class="gov.bnl.racf.ps.dashboard3.operators.PsRecentServiceResultOperator">

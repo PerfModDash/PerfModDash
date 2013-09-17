@@ -59,7 +59,6 @@ public class PsParameters {
     // known service types, in the future I may provide a URL from which you
     // could obtain a valid list, but for the time being this list should be enough
     
-    //TODO this list is repeated in PsServiceTypeFactory, maybe it should be merged
     public static String BWCTL_PORT_4823 = "bwctl_port_4823";
     public static String BWCTL_PORT_8570 = "bwctl_port_8570";
     public static String CHECK_LOOKUP_SERVICE = "CheckLookupService";

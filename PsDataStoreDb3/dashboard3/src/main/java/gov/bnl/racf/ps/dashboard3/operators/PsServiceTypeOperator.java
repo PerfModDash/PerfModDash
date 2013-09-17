@@ -217,5 +217,5 @@ public class PsServiceTypeOperator {
     PsServiceType getServiceType(String serviceTypeId) throws PsServiceTypeNotFoundException {
         return this.psServiceTypeDao.getByServiceTypeId(serviceTypeId);
     }
-    //TODO finish rest of this class
+   
 }

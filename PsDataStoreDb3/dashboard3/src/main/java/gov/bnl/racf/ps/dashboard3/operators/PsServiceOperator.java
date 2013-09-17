@@ -41,7 +41,7 @@ public class PsServiceOperator {
     public void setPsServiceDao(PsServiceDao psServiceDao) {
         this.psServiceDao = psServiceDao;
     }
-    public PsServiceTypeDao psServiceTypeDao;
+    private PsServiceTypeDao psServiceTypeDao;
 
     public void setPsServiceTypeDao(PsServiceTypeDao psServiceTypeDao) {
         this.psServiceTypeDao = psServiceTypeDao;
@@ -167,7 +167,7 @@ public class PsServiceOperator {
     }
 
     /**
-     * //TODO implement this method
+     * //TODO implement the createService method
      *
      * @param type
      * @param source
@@ -180,7 +180,7 @@ public class PsServiceOperator {
     }
 
     /**
-     * //TODO implement this method
+     * //TODO implement createService method
      *
      * @param type
      * @param source
@@ -250,9 +250,9 @@ public class PsServiceOperator {
 
     /**
      * get JSON representation of service, build from it PsService object and
-     * insert it to database. //TODO implement it later, this is lower priority
-     * since normally service creation is handled by high level host and matrix
-     * commands
+     * insert it to database. //TODO add insertNewServiceFromJson(), this is
+     * lower priority since normally service creation is handled by high level
+     * host and matrix commands
      *
      * @param jsonInput
      * @return

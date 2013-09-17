@@ -23,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * Controller for GUI pages for hosts
  *
- * //TODO persost the sorting criteria in session
+ * //TODO persist the sorting criteria in session
  *
  * @author tomw
  */

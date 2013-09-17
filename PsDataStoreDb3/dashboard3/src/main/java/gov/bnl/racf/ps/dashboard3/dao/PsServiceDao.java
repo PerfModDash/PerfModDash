@@ -12,7 +12,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * DAO interface for PsService class //TODO provide implementation of this class
+ * DAO interface for PsService class 
  *
  * @author tomw
  */

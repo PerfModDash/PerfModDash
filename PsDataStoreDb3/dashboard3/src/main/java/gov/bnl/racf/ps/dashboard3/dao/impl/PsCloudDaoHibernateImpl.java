@@ -18,7 +18,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * //TODO finish this class
+ * Hibernate DAO implementation for cloud objects
  *
  * @author tomw
  */

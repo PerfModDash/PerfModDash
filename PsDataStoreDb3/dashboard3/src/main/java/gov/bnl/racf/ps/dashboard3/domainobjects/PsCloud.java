@@ -195,14 +195,7 @@ public class PsCloud {
             matrices.add(matrix);   
         }
     }
-    /**
-     * add to the cloud a matrix defined by matrix id
-     * @param matrixId 
-     */
-    public void addMatrix(int matrixId){
-        //TODO add matrix defined by matrixId
-        throw new UnsupportedOperationException("ERROR: PsCloud.addMatrix(int matrixId) not implemented yet!!!!"  );
-    }
+   
     /**
      * remove matrix from cloud
      * @param matrix

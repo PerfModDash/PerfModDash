@@ -47,7 +47,7 @@ public class PsHostsRestController {
 
     /**
      * test method, for development only. Create by hand a couple of hosts
-     * //TODO delete this method before moving to production
+     * //TODO delete /test method before moving to production
      *
      * @return
      */
