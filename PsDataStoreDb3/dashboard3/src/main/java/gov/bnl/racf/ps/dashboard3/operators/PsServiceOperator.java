@@ -13,6 +13,7 @@ import gov.bnl.racf.ps.dashboard3.exceptions.PsObjectNotFoundException;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceNotFoundException;
 import gov.bnl.racf.ps.dashboard3.exceptions.PsServiceTypeNotFoundException;
 import gov.bnl.racf.ps.dashboard3.jsonconverter.PsServiceJson;
+import gov.bnl.racf.utils.IsoDateConverter;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -22,6 +23,8 @@ import java.util.logging.Logger;
 import javax.management.timer.Timer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -61,6 +64,8 @@ public class PsServiceOperator {
     public void setPsServiceJson(PsServiceJson psServiceJson) {
         this.psServiceJson = psServiceJson;
     }
+    // === utility objects ===//
+    private JSONParser jsonParser = new JSONParser();
 
     // --- class code starts here --- //
     // --- simple CRUD methods go first --- //
@@ -146,6 +151,11 @@ public class PsServiceOperator {
             PsService currentService = (PsService) iter.next();
             this.delete(currentService);
         }
+    }
+
+    @Transactional
+    private void deletePsJobCorrespondingToService(PsService service) {
+        this.psJobOperator.deletePsJobForService(service);
     }
 
     //--- methods for creation of services --//
@@ -289,7 +299,7 @@ public class PsServiceOperator {
             service.setNextCheckTime(nextCheckTime);
 
             PsRecentServiceResult recentResult =
-                    this.psServiceResultOperator.toRecentServiceResult(serviceResult);
+                    this.toRecentServiceResult(serviceResult);
 
             service.setResult(recentResult);
 
@@ -317,7 +327,8 @@ public class PsServiceOperator {
 
     @Transactional
     public PsJob buildJob(PsService service) {
-        PsJob job = this.psJobOperator.create();
+        //PsJob job = this.psJobOperator.create();
+        PsJob job = new PsJob();
 
         job.setService_id(service.getId());
 
@@ -334,5 +345,124 @@ public class PsServiceOperator {
         job.setParameters(service.getParameters());
 
         return job;
+    }
+
+    /**
+     * take request content uploaded by client, parse it to Json object, store
+     * in history table and update the corresponding service
+     *
+     * @param requestBody
+     * @return
+     * @throws ParseException
+     * @throws PsServiceNotFoundException
+     */
+    @Transactional
+    public PsService uploadResult(String requestBody) throws ParseException, PsServiceNotFoundException {
+
+        // parse the json part of the request
+        JSONObject json = (JSONObject) jsonParser.parse(requestBody);
+
+        // convert json to service result
+        PsServiceResult serviceResult = this.unpackJson(json);
+
+        PsService service = this.updateServiceResult(serviceResult);
+
+        this.deletePsJobCorrespondingToService(service);
+
+        return service;
+    }
+
+    /**
+     * take service result, find out to which service it corresponds, get recent
+     * result for this service, update it.
+     *
+     * @param serviceResult
+     * @return
+     * @throws PsServiceNotFoundException
+     */
+    @Transactional
+    public PsRecentServiceResult toRecentServiceResult(PsServiceResult serviceResult) throws PsServiceNotFoundException {
+
+        int serviceId = serviceResult.getService_id();
+        PsRecentServiceResult recentResult =
+                this.getRecentResultForService(serviceId);
+        if (recentResult == null) {
+            recentResult = new PsRecentServiceResult();
+        }
+
+        recentResult.setJob_id(serviceResult.getJob_id());
+        recentResult.setMessage(serviceResult.getMessage());
+        recentResult.setParameters(serviceResult.getParameters());
+        recentResult.setServiceResultId(serviceResult.getId());
+        recentResult.setService_id(serviceResult.getService_id());
+        recentResult.setStatus(serviceResult.getStatus());
+        recentResult.setTime(serviceResult.getTime());
+
+        return recentResult;
+    }
+
+    /**
+     * take json object representing service result and convert it to
+     * PsServiceResult object
+     *
+     * @param json
+     * @return
+     */
+    @Transactional
+    public PsServiceResult unpackJson(JSONObject json) {
+
+        PsServiceResult result = new PsServiceResult();
+
+
+        if (json.keySet().contains(PsServiceResult.ID)) {
+            result.setId(toInt((String) json.get(PsServiceResult.ID)));
+        }
+
+        if (json.keySet().contains(PsServiceResult.JOB_ID)) {
+            result.setJob_id(toInt((String) json.get(PsServiceResult.JOB_ID)));
+        }
+
+
+        if (json.keySet().contains(PsServiceResult.SERVICE_ID)) {
+            result.setService_id(toInt((String) json.get(PsServiceResult.SERVICE_ID)));
+        }
+
+        if (json.keySet().contains(PsServiceResult.STATUS)) {
+            int status = toInt((Long) json.get(PsServiceResult.STATUS));
+            result.setStatus(status);
+        }
+
+        if (json.keySet().contains(PsServiceResult.MESSAGE)) {
+            result.setMessage((String) json.get(PsServiceResult.MESSAGE));
+        }
+
+        if (json.keySet().contains(PsServiceResult.TIME)) {
+            result.setTime(IsoDateConverter.isoDate2Date((String) json.get(PsServiceResult.TIME)));
+        }
+
+        if (json.keySet().contains(PsServiceResult.PARAMETERS)) {
+            JSONObject parametersAsJson =
+                    (JSONObject) json.get(PsServiceResult.PARAMETERS);
+            Iterator iter = parametersAsJson.keySet().iterator();
+            while (iter.hasNext()) {
+                String key = (String) iter.next();
+                Object val = (Object) parametersAsJson.get(key);
+                result.setParameter(key, val);
+            }
+        }
+
+        return result;
+    }
+
+    @Transactional
+    private static int toInt(String inputString) {
+        int inputAsInt = Integer.parseInt(inputString);
+        return inputAsInt;
+    }
+
+    @Transactional
+    private static int toInt(Long inputLong) {
+        int result = inputLong.intValue();
+        return result;
     }
 }

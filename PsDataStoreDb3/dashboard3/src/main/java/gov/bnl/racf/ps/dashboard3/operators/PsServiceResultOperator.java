@@ -42,11 +42,11 @@ public class PsServiceResultOperator {
     public void setPsServiceResultDao(PsServiceResultDao psServiceResultDao) {
         this.psServiceResultDao = psServiceResultDao;
     }
-    private PsServiceOperator psServiceOperator;
-
-    public void setPsServiceOperator(PsServiceOperator psServiceOperator) {
-        this.psServiceOperator = psServiceOperator;
-    }
+//    private PsServiceOperator psServiceOperator;
+//
+//    public void setPsServiceOperator(PsServiceOperator psServiceOperator) {
+//        this.psServiceOperator = psServiceOperator;
+//    }
     private PsJobOperator psJobOperator;
 
     public void setPsJobOperator(PsJobOperator psJobOperator) {
@@ -195,83 +195,83 @@ public class PsServiceResultOperator {
         return resultsObject;
     }
 
-    /**
-     * take request content uploaded by client, parse it to Json object, store
-     * imn history table and update the corresponding service
-     *
-     * @param requestBody
-     * @return
-     * @throws ParseException
-     * @throws PsServiceNotFoundException
-     */
-    @Transactional
-    public PsService uploadResult(String requestBody) throws ParseException, PsServiceNotFoundException {
+//    /**
+//     * take request content uploaded by client, parse it to Json object, store
+//     * in history table and update the corresponding service
+//     *
+//     * @param requestBody
+//     * @return
+//     * @throws ParseException
+//     * @throws PsServiceNotFoundException
+//     */
+//    @Transactional
+//    public PsService uploadResult(String requestBody) throws ParseException, PsServiceNotFoundException {
+//
+//        // parse the json part of the request
+//        JSONObject json = (JSONObject) jsonParser.parse(requestBody);
+//
+//        // convert json to service result
+//        PsServiceResult serviceResult = this.unpackJson(json);
+//
+//        PsService service = this.psServiceOperator.updateServiceResult(serviceResult);
+//
+//        this.deletePsJobCorrespondingToService(service);
+//
+//        return service;
+//    }
 
-        // parse the json part of the request
-        JSONObject json = (JSONObject) jsonParser.parse(requestBody);
-
-        // convert json to service result
-        PsServiceResult serviceResult = this.unpackJson(json);
-
-        PsService service = this.psServiceOperator.updateServiceResult(serviceResult);
-
-        this.deletePsJobCorrespondingToService(service);
-
-        return service;
-    }
-
-    /**
-     * take json object representing service result and convert it to
-     * PsServiceResult object
-     *
-     * @param json
-     * @return
-     */
-    @Transactional
-    public PsServiceResult unpackJson(JSONObject json) {
-
-        PsServiceResult result = new PsServiceResult();
-
-
-        if (json.keySet().contains(PsServiceResult.ID)) {
-            result.setId(toInt((String) json.get(PsServiceResult.ID)));
-        }
-
-        if (json.keySet().contains(PsServiceResult.JOB_ID)) {
-            result.setJob_id(toInt((String) json.get(PsServiceResult.JOB_ID)));
-        }
-
-
-        if (json.keySet().contains(PsServiceResult.SERVICE_ID)) {
-            result.setService_id(toInt((String) json.get(PsServiceResult.SERVICE_ID)));
-        }
-
-        if (json.keySet().contains(PsServiceResult.STATUS)) {
-            int status = toInt((Long) json.get(PsServiceResult.STATUS));
-            result.setStatus(status);
-        }
-
-        if (json.keySet().contains(PsServiceResult.MESSAGE)) {
-            result.setMessage((String) json.get(PsServiceResult.MESSAGE));
-        }
-
-        if (json.keySet().contains(PsServiceResult.TIME)) {
-            result.setTime(IsoDateConverter.isoDate2Date((String) json.get(PsServiceResult.TIME)));
-        }
-
-        if (json.keySet().contains(PsServiceResult.PARAMETERS)) {
-            JSONObject parametersAsJson =
-                    (JSONObject) json.get(PsServiceResult.PARAMETERS);
-            Iterator iter = parametersAsJson.keySet().iterator();
-            while (iter.hasNext()) {
-                String key = (String) iter.next();
-                Object val = (Object) parametersAsJson.get(key);
-                result.setParameter(key, val);
-            }
-        }
-
-        return result;
-    }
+//    /**
+//     * take json object representing service result and convert it to
+//     * PsServiceResult object
+//     *
+//     * @param json
+//     * @return
+//     */
+//    @Transactional
+//    public PsServiceResult unpackJson(JSONObject json) {
+//
+//        PsServiceResult result = new PsServiceResult();
+//
+//
+//        if (json.keySet().contains(PsServiceResult.ID)) {
+//            result.setId(toInt((String) json.get(PsServiceResult.ID)));
+//        }
+//
+//        if (json.keySet().contains(PsServiceResult.JOB_ID)) {
+//            result.setJob_id(toInt((String) json.get(PsServiceResult.JOB_ID)));
+//        }
+//
+//
+//        if (json.keySet().contains(PsServiceResult.SERVICE_ID)) {
+//            result.setService_id(toInt((String) json.get(PsServiceResult.SERVICE_ID)));
+//        }
+//
+//        if (json.keySet().contains(PsServiceResult.STATUS)) {
+//            int status = toInt((Long) json.get(PsServiceResult.STATUS));
+//            result.setStatus(status);
+//        }
+//
+//        if (json.keySet().contains(PsServiceResult.MESSAGE)) {
+//            result.setMessage((String) json.get(PsServiceResult.MESSAGE));
+//        }
+//
+//        if (json.keySet().contains(PsServiceResult.TIME)) {
+//            result.setTime(IsoDateConverter.isoDate2Date((String) json.get(PsServiceResult.TIME)));
+//        }
+//
+//        if (json.keySet().contains(PsServiceResult.PARAMETERS)) {
+//            JSONObject parametersAsJson =
+//                    (JSONObject) json.get(PsServiceResult.PARAMETERS);
+//            Iterator iter = parametersAsJson.keySet().iterator();
+//            while (iter.hasNext()) {
+//                String key = (String) iter.next();
+//                Object val = (Object) parametersAsJson.get(key);
+//                result.setParameter(key, val);
+//            }
+//        }
+//
+//        return result;
+//    }
 
     /**
      * delete all results between tmin and tmax represented by strings
@@ -317,34 +317,34 @@ public class PsServiceResultOperator {
         return resultObject;
     }
 
-    /**
-     * take service result, find out to which service it corresponds, get recent
-     * result for this service, update it.
-     *
-     * @param serviceResult
-     * @return
-     * @throws PsServiceNotFoundException
-     */
-    @Transactional
-    public PsRecentServiceResult toRecentServiceResult(PsServiceResult serviceResult) throws PsServiceNotFoundException {
-
-        int serviceId = serviceResult.getService_id();
-        PsRecentServiceResult recentResult =
-                this.psServiceOperator.getRecentResultForService(serviceId);
-        if (recentResult == null) {
-            recentResult = new PsRecentServiceResult();
-        }
-
-        recentResult.setJob_id(serviceResult.getJob_id());
-        recentResult.setMessage(serviceResult.getMessage());
-        recentResult.setParameters(serviceResult.getParameters());
-        recentResult.setServiceResultId(serviceResult.getId());
-        recentResult.setService_id(serviceResult.getService_id());
-        recentResult.setStatus(serviceResult.getStatus());
-        recentResult.setTime(serviceResult.getTime());
-
-        return recentResult;
-    }
+//    /**
+//     * take service result, find out to which service it corresponds, get recent
+//     * result for this service, update it.
+//     *
+//     * @param serviceResult
+//     * @return
+//     * @throws PsServiceNotFoundException
+//     */
+//    @Transactional
+//    public PsRecentServiceResult toRecentServiceResult(PsServiceResult serviceResult) throws PsServiceNotFoundException {
+//
+//        int serviceId = serviceResult.getService_id();
+//        PsRecentServiceResult recentResult =
+//                this.psServiceOperator.getRecentResultForService(serviceId);
+//        if (recentResult == null) {
+//            recentResult = new PsRecentServiceResult();
+//        }
+//
+//        recentResult.setJob_id(serviceResult.getJob_id());
+//        recentResult.setMessage(serviceResult.getMessage());
+//        recentResult.setParameters(serviceResult.getParameters());
+//        recentResult.setServiceResultId(serviceResult.getId());
+//        recentResult.setService_id(serviceResult.getService_id());
+//        recentResult.setStatus(serviceResult.getStatus());
+//        recentResult.setTime(serviceResult.getTime());
+//
+//        return recentResult;
+//    }
 
     @Transactional
     private static int toInt(Long inputLong) {
@@ -380,8 +380,8 @@ public class PsServiceResultOperator {
         return this.psServiceResultDao.deleteForServiceId(id);
     }
 
-    @Transactional
-    private void deletePsJobCorrespondingToService(PsService service) {
-        this.psJobOperator.deletePsJobForService(service);
-    }
+//    @Transactional
+//    private void deletePsJobCorrespondingToService(PsService service) {
+//        this.psJobOperator.deletePsJobForService(service);
+//    }
 }

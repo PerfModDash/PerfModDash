@@ -48,9 +48,9 @@ public class PsJobsRestController {
             //@RequestParam(value = PsParameters.ID, required = false) int id,
             @RequestParam(value = PsParameters.SET_RUNNING, required = false) String setRunningString,
             @RequestParam(value = PsParameters.RUNNING, required = false) String runningString) {
-        
-         sessionStore.start();
-        
+
+        sessionStore.start();
+
         // unpack and validate input parameters
         boolean setRunning = false;
         if ("1".equals(setRunningString)) {
@@ -60,6 +60,11 @@ public class PsJobsRestController {
         if ("0".equals(runningString)) {
             running = false;
         }
+        // if user requests setRunning=1 then it means "get the not running jobs, set them to running and give me their list"
+        // so the context requires that running myst be false
+        if(setRunning){
+            running = false;
+        }
 
         List<PsJob> listOfJobs = this.psJobOperator.getJobs(running, setRunning);
 
@@ -67,8 +72,8 @@ public class PsJobsRestController {
 
         JSONObject jsonObjectWrapper = new JSONObject();
         jsonObjectWrapper.put("jobs", listOfJobsJson);
-        
-         sessionStore.commit();
+
+        sessionStore.commit();
 
         return jsonObjectWrapper.toString();
     }
@@ -77,9 +82,9 @@ public class PsJobsRestController {
     @ResponseBody
     @Transactional
     public String jobGetById(@PathVariable int id) {
-        
+
         sessionStore.start();
-        
+
         PsJob psJob = this.psJobOperator.getJobById(id);
 
         JSONObject psJobAsJson = this.psJobOperator.toJson(psJob);
@@ -90,7 +95,7 @@ public class PsJobsRestController {
         jsonObjectWrapper.put("jobs", listOfJobsJson);
 
         sessionStore.commit();
-        
+
         return jsonObjectWrapper.toString();
     }
 }

@@ -41,6 +41,8 @@ public class PsServiceResultRestController {
     public void setSessionStore(SessionStore sessionStore) {
         this.sessionStore = sessionStore;
     }
+    
+    @Autowired
     private PsServiceOperator psServiceOperator;
 
     public void setPsServiceOperator(PsServiceOperator psServiceOperator) {
@@ -73,7 +75,7 @@ public class PsServiceResultRestController {
             sessionStore.start();
 
             // first upload the result and get the corresponding service
-            PsService service = this.psServiceResultOperator.uploadResult(requestBody);
+            PsService service = this.psServiceOperator.uploadResult(requestBody);
 
             // second convert the service to json
             JSONObject serviceJson =

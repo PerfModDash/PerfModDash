@@ -92,39 +92,49 @@ public class PsJobOperator {
     @Transactional
     public List<PsJob> getJobs(boolean running, boolean setRunning) {
 
-        List<PsService> listOfAllServices = this.psServiceOperator.getAll();
+        if (running) {
+            // user requested only currently running jobs
+            List<PsJob> listOfPsJobs = this.psJobDao.getAll();
+            // alternatively we should be able to get services with running flag set to true,
+            // then get jobs which corrrespind to those services, but that would be harder
+            return listOfPsJobs;
+        } else {
+            // user asks for list of jobs which are not yet running
+            List<PsService> listOfAllServices = this.psServiceOperator.getAll();
 
-        Vector<PsService> listOfServices = new Vector<PsService>();
+            Vector<PsService> listOfServices = new Vector<PsService>();
 
-        Iterator<PsService> iter = listOfAllServices.iterator();
-        while (iter.hasNext()) {
-            PsService service = (PsService) iter.next();
+            Iterator<PsService> iter = listOfAllServices.iterator();
+            while (iter.hasNext()) {
+                PsService service = (PsService) iter.next();
 
-            boolean selectThisService = true;
+                boolean selectThisService = true;
 
-            if (!service.isDue()) {
-                selectThisService = false;
-            }
-
-            if (running) {
-                if (service.isRunning()) {
-                    selectThisService = true;
+                if (!service.isDue()) {
+                    selectThisService = false;
                 }
-            } else {
-                if (!service.isRunning()) {
-                    selectThisService = true;
+
+                if (running) {
+                    if (service.isRunning()) {
+                        selectThisService = true;
+                    }
+                } else {
+                    if (!service.isRunning()) {
+                        selectThisService = true;
+                    }
+                }
+
+                if (selectThisService) {
+                    listOfServices.add(service);
                 }
             }
 
-            if (selectThisService) {
-                listOfServices.add(service);
-            }
+            // convert list of services to PsJobs
+            List<PsJob> listOfPsJobs = this.makeJobsFromServices(listOfServices, setRunning);
+            return listOfPsJobs;
         }
 
-        // convert list of services to PsJobs
-        List<PsJob> listOfPsJobs = this.makeJobsFromServices(listOfServices, setRunning);
 
-        return listOfPsJobs;
     }
 
     @Transactional

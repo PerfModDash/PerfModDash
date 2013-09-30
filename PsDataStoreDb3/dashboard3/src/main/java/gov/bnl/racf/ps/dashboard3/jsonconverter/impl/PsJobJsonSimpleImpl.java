@@ -29,6 +29,8 @@ public class PsJobJsonSimpleImpl implements PsJobJson {
 
         JSONObject parameters = serviceParametersAsJson(psJob);
         json.put(PsJob.PARAMETERS, parameters);
+        
+        json.put(PsJob.RUNNING,psJob.isRunning());
 
         return json;
     }
